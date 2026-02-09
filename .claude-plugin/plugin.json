@@ -1,6 +1,6 @@
 {
   "name": "consulting-toolkit",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "コンサルティングプロジェクトの提案書作成からインタビュー、報告書作成までのワークフローを管理するスキル・コマンド・エージェント群",
   "author": { "name": "masaki" },
   "repository": "https://github.com/masaki69/consulting-toolkit",
