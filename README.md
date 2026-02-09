@@ -32,6 +32,7 @@
 | スキル | 説明 | トリガー |
 |--------|------|----------|
 | [desk-research](skills/desk-research/SKILL.md) | 論点・仮説に基づくデスクトップリサーチを実行し、調査レポートを出力 | 「デスクリサーチを実行して」「初期調査をして」 |
+| [agent-team-playbook](skills/agent-team-playbook/SKILL.md) | Claude Code の Agent Team 機能で複数スキルを並列実行するためのテンプレート集 | 「Agent Teamで〜」「並行処理で〜」 |
 | [meeting-minutes-creator](skills/meeting-minutes-creator/SKILL.md) | 会議メモから議事録を作成 | 「議事録を作成して」「会議メモから議事録を作って」 |
 | [docx-to-markdown-with-references](skills/docx-to-markdown-with-references/SKILL.md) | Word文書をMarkdownに変換し、参考文献を整理 | 「Wordをマークダウンに変換して」 |
 | [800-branded-pptx](skills/800-branded-pptx/SKILL.md) | エイトハンドレッド社のブランドデザインでPowerPointを作成 | 「800風のスライドを作成」 |
