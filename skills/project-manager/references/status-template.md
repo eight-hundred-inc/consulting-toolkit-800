@@ -1,6 +1,6 @@
-# workflow_status.md テンプレート
+# workflow.md テンプレート
 
-プロジェクト初期化時に、以下のテンプレートを使用して `workflow_status.md` を作成する。
+プロジェクト初期化時に、以下のテンプレートを使用して `workflow.md` を作成する。
 
 ---
 
@@ -147,13 +147,13 @@
 
 ## CLAUDE.md との役割分担
 
-`workflow_status.md` はワークフローの進捗管理に特化する。プロジェクト文脈（論点・仮説・アプローチ・基本情報）は `CLAUDE.md` が担うため、このファイルには持たない。
+`workflow.md` はワークフローの進捗管理に特化する。プロジェクト文脈（論点・仮説・アプローチ・基本情報）は `CLAUDE.md` が担うため、このファイルには持たない。
 
 | 情報 | 管理先 |
 |------|-------|
 | クライアント名・納期・スコープ | CLAUDE.md |
 | 論点・仮説・アプローチ | CLAUDE.md（サマリ）、Output/提案書.md（正本） |
 | 重要な意思決定 | CLAUDE.md |
-| 現在のステップ・チェックリスト | workflow_status.md |
-| 成果物リンク | workflow_status.md |
-| 履歴ログ | workflow_status.md |
+| 現在のステップ・チェックリスト | workflow.md |
+| 成果物リンク | workflow.md |
+| 履歴ログ | workflow.md |

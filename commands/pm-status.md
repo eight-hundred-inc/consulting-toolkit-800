@@ -1,7 +1,7 @@
 project-manager スキル（skills/project-manager/SKILL.md）を読み込み、「進捗確認」の処理を実行してください。
 
 以下の手順で進めてください:
-1. workflow_status.md を読み込む
+1. workflow.md を読み込む
 2. 対応するワークフロースキルを読み込む（ステップ情報取得）
 3. 現在のフェーズ・ステップを報告
 4. 完了済みステップと残りステップを一覧表示
