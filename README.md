@@ -142,7 +142,8 @@ Phase 2: 分析・とりまとめ
 ```
 consulting/
 ├── .claude-plugin/
-│   └── plugin.json
+│   ├── plugin.json
+│   └── marketplace.json
 ├── README.md
 ├── skills/
 │   ├── project-manager/
@@ -174,43 +175,37 @@ consulting/
 
 ## インストール
 
-このリポジトリは Claude Code Plugin として構成されている。`.claude-plugin/plugin.json` がプラグインマニフェスト。マーケットプレイスカタログは `~/.claude/marketplaces/consulting-toolkit/` に分離して配置する（plugin.json と marketplace.json を同一ディレクトリに同居させるとマーケットプレイスとして解釈されるため）。
+このリポジトリは Claude Code Plugin として構成されている。GitHubリポジトリから直接インストールできる。
 
-### 初回セットアップ
+### プラグインとしてインストール
 
 ```bash
-# マーケットプレイスディレクトリを作成
-mkdir -p ~/.claude/marketplaces/consulting-toolkit/.claude-plugin
+# マーケットプレイスを追加
+/plugin marketplace add masaki69/consulting-toolkit
 
-# marketplace.json を作成
-cat > ~/.claude/marketplaces/consulting-toolkit/.claude-plugin/marketplace.json << 'EOF'
-{
-  "name": "consulting-toolkit",
-  "owner": { "name": "masaki" },
-  "metadata": {
-    "description": "コンサルティングプロジェクト用のスキル・コマンド・エージェント群"
-  },
-  "plugins": [
-    {
-      "name": "consulting-toolkit",
-      "source": "./consulting-toolkit",
-      "description": "提案書作成からインタビュー、報告書作成までのワークフロー管理"
-    }
-  ]
-}
-EOF
-
-# ワークスペースへのシンボリックリンクを作成
-ln -s /Users/masaki/Workspace/consulting ~/.claude/marketplaces/consulting-toolkit/consulting-toolkit
-
-# Claude Code CLI またはチャットで marketplace を追加・インストール
-/plugin marketplace add ~/.claude/marketplaces/consulting-toolkit
+# プラグインをインストール
 /plugin install consulting-toolkit@consulting-toolkit
 ```
 
-### 更新
+または `~/.claude/settings.json` に直接追加する。
 
-ワークスペースで編集した後、以下で cache を更新する。
+```json
+{
+  "extraKnownMarketplaces": {
+    "consulting-toolkit": {
+      "source": {
+        "source": "github",
+        "repo": "masaki69/consulting-toolkit"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "consulting-toolkit@consulting-toolkit": true
+  }
+}
+```
+
+### 更新
 
 ```bash
 claude plugin update consulting-toolkit@consulting-toolkit
@@ -223,7 +218,7 @@ claude plugin update consulting-toolkit@consulting-toolkit
 claude plugin list
 
 # プラグインのバリデーション
-claude plugin validate /Users/masaki/Workspace/consulting
+claude plugin validate
 ```
 
 ### ファイル構成
@@ -231,7 +226,7 @@ claude plugin validate /Users/masaki/Workspace/consulting
 | 種類 | パス |
 |------|------|
 | プラグインマニフェスト | `.claude-plugin/plugin.json` |
-| マーケットプレイスカタログ | `~/.claude/marketplaces/consulting-toolkit/.claude-plugin/marketplace.json` |
+| マーケットプレイスカタログ | `.claude-plugin/marketplace.json` |
 | Skills | `skills/` |
 | Commands | `commands/` |
 | Agents | `agents/` |
