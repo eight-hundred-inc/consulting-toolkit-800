@@ -4,11 +4,5 @@
   "description": "コンサルティングプロジェクトの提案書作成からインタビュー、報告書作成までのワークフローを管理するスキル・コマンド・エージェント群",
   "author": { "name": "masaki" },
   "repository": "https://github.com/masaki69/consulting-toolkit",
-  "license": "UNLICENSED",
-  "skills": ["./skills/", "./commands/"],
-  "agents": [
-    "./agents/desk-researcher.md",
-    "./agents/quality-reviewer.md",
-    "./agents/skill-creator.md"
-  ]
+  "license": "UNLICENSED"
 }
