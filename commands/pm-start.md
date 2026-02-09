@@ -1,4 +1,4 @@
-project-manager スキル（~/.cursor/skills/consulting/project-manager/SKILL.md）を読み込み、「プロジェクト初期化」の処理を実行してください。
+project-manager スキル（skills/project-manager/SKILL.md）を読み込み、「プロジェクト初期化」の処理を実行してください。
 
 以下の手順で進めてください:
 1. AskQuestionツールでプロジェクト種類を確認

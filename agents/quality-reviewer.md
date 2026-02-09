@@ -1,6 +1,8 @@
 ---
 name: quality-reviewer
 description: 成果物の品質レビュー専門。AIタスク完了後の成果物を品質基準と照合し、レビュー結果を返却する。ステップ完了時にPROACTIVELYに使用。独立した検証として、成果物を客観的に評価する。
+tools: Read, Grep, Glob
+model: opus
 ---
 
 # 品質レビュー専門エージェント

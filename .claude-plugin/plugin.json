@@ -1,0 +1,13 @@
+{
+  "name": "consulting-toolkit",
+  "version": "1.0.0",
+  "description": "コンサルティングプロジェクトの提案書作成からインタビュー、報告書作成までのワークフローを管理するスキル・コマンド・エージェント群",
+  "author": { "name": "masaki" },
+  "license": "UNLICENSED",
+  "skills": ["./skills/", "./commands/"],
+  "agents": [
+    "./agents/desk-researcher.md",
+    "./agents/quality-reviewer.md",
+    "./agents/skill-creator.md"
+  ]
+}

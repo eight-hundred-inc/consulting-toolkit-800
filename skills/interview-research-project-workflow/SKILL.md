@@ -160,7 +160,7 @@ Phase 2: 分析・とりまとめ
 
 **Step 1, 3（提案書作成・更新）**:
 ```
-1. ~/.cursor/skills/consulting/project-type/Interview-research-project/interview-research-proposal/SKILL.md を読み込む
+1. skills/interview-research-proposal/SKILL.md を読み込む
 2. references/quality_playbook.md も読み込む（品質基準）
 3. スキルの指示に従って提案書を作成/更新
 ```
@@ -168,7 +168,7 @@ Phase 2: 分析・とりまとめ
 **Step 2（初期デスクトップ調査）** ※ SubAgent経由:
 ```
 1. ユーザーに提案書のパスと出力先フォルダを確認
-2. desk-researcher SubAgent（~/.cursor/agents/desk-researcher.md）を起動
+2. desk-researcher SubAgent（agents/desk-researcher.md）を起動
    - 提案書パス、出力先フォルダ、モード: initial を指定
 3. SubAgentの返却結果（ファイルパス、発見事項、仮説検証要約）を受け取る
 4. レビューゲートへ進む
@@ -178,7 +178,7 @@ Phase 2: 分析・とりまとめ
 ```
 1. 提案書、インタビューまとめ、既存調査結果のパスを確認
 2. ユーザーに出力先フォルダを確認
-3. desk-researcher SubAgent（~/.cursor/agents/desk-researcher.md）を起動
+3. desk-researcher SubAgent（agents/desk-researcher.md）を起動
    - 提案書パス、インタビューまとめパス、既存調査パス、出力先フォルダ、モード: detailed を指定
 4. SubAgentの返却結果（ファイルパス、発見事項、仮説検証要約）を受け取る
 5. レビューゲートへ進む
@@ -186,7 +186,7 @@ Phase 2: 分析・とりまとめ
 
 **Step 4（インタビューガイド作成）**:
 ```
-1. ~/.cursor/skills/Interview-research-project/interview-guide-creator/SKILL.md を読み込む
+1. skills/interview-guide-creator/SKILL.md を読み込む
 2. Output/提案書.md から論点・仮説を確認
 3. Input/初期調査結果.md から未検証事項を把握
 4. スキルの指示に従ってインタビューガイドを作成
@@ -194,7 +194,7 @@ Phase 2: 分析・とりまとめ
 
 **Step 5（報告書骨子作成）**:
 ```
-1. ~/.cursor/skills/report-outline-creator/SKILL.md を読み込む
+1. skills/report-outline-creator/SKILL.md を読み込む
 2. Output/提案書.md から論点・仮説・納品物定義を確認
 3. Output/インタビューガイド.md から検証事項を確認
 4. Input/初期調査結果.md から調査で得た情報を把握
@@ -204,7 +204,7 @@ Phase 2: 分析・とりまとめ
 
 **Step 6（インタビュー対象者選定）**:
 ```
-1. ~/.cursor/skills/Interview-research-project/interview-candidate-selector/SKILL.md を読み込む
+1. skills/interview-candidate-selector/SKILL.md を読み込む
 2. Output/インタビューガイド.md から対象者タイプ定義を抽出
 3. Interview/ 内の候補者リストを読み込む（xlsxスキルを活用）
 4. スキルの指示に従って対象者を選定・評価
@@ -212,7 +212,7 @@ Phase 2: 分析・とりまとめ
 
 **Step 7（インタビュー議事録作成）**:
 ```
-1. ~/.cursor/skills/Interview-research-project/interview-minutes-creator/SKILL.md を読み込む
+1. skills/interview-minutes-creator/SKILL.md を読み込む
 2. Input/インタビュー/ 内の文字起こしファイルを確認
 3. Output/インタビューガイド.md の質問リストを参照
 4. スキルの指示に従って議事録を作成

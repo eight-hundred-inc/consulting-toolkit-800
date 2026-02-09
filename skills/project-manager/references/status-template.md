@@ -64,7 +64,7 @@
 
 | ワークフロー | 対応するプロジェクト種類 | スキルパス |
 |--------------|--------------------------|------------|
-| `research-project-workflow` | 調査プロジェクト（下記参照） | `~/.cursor/skills/research-project-workflow/` |
+| `research-project-workflow` | 調査プロジェクト（下記参照） | `skills/interview-research-project-workflow/` |
 | `content-creation-workflow` | コンテンツ作成（将来追加） | - |
 | `business-planning-workflow` | 事業計画・戦略策定（将来追加） | - |
 | `software-development-workflow` | ソフトウェア開発（将来追加） | - |

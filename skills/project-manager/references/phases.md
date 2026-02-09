@@ -15,7 +15,7 @@
 - `Output/提案書.md`
 
 **実行手順**:
-1. `~/.cursor/skills/interview-research-proposal/SKILL.md` を読み込む
+1. `skills/interview-research-proposal/SKILL.md` を読み込む
 2. スキルの指示に従って提案書を作成
 3. 出力先: `Output/提案書.md`
 
@@ -63,14 +63,14 @@
 
 ユーザーがdocxファイルを提供した場合、`docx-to-markdown-with-references` スキルを使用:
 
-1. `~/.cursor/skills/docx-to-markdown-with-references/SKILL.md` を読み込む
+1. `skills/docx-to-markdown-with-references/SKILL.md` を読み込む
 2. pandocでdocx → Markdown変換:
    ```bash
    pandoc -f docx -t markdown --wrap=none -o temp.md input.docx
    ```
 3. 参考文献を整理:
    ```bash
-   python ~/.cursor/skills/docx-to-markdown-with-references/scripts/consolidate_references.py temp.md Input/初期調査結果.md
+   python3 ${CLAUDE_PLUGIN_ROOT}/skills/docx-to-markdown-with-references/scripts/consolidate_references.py temp.md Input/初期調査結果.md
    ```
 4. 変換結果を確認し、必要に応じて整形
 
@@ -168,7 +168,7 @@
 - `Output/インタビューガイド.md`
 
 **実行手順**:
-1. `~/.cursor/skills/interview-guide-creator/SKILL.md` を読み込む
+1. `skills/interview-guide-creator/SKILL.md` を読み込む
 2. 提案書から論点（大論点・小論点）と初期仮説を抽出
 3. 初期調査結果から検証済み事項と未検証事項を整理
 4. スキルの指示に従ってインタビューガイドを作成
@@ -292,7 +292,7 @@
 - `Output/議事録/[対象者名]_議事録.md`
 
 **実行手順**:
-1. `~/.cursor/skills/interview-minutes-creator/SKILL.md` を読み込む
+1. `skills/interview-minutes-creator/SKILL.md` を読み込む
 2. スキルの指示に従って議事録を作成
 3. 複数の文字起こしがある場合は順次処理
 

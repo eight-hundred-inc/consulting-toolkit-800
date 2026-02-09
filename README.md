@@ -20,22 +20,22 @@
 
 | スキル | 説明 | トリガー |
 |--------|------|----------|
-| [interview-research-proposal](skills/project-type/Interview-research-project/interview-research-proposal/SKILL.md) | 与件情報と打ち合わせメモから調査提案書を作成 | 「提案書を作成して」「プロポーザルを作って」 |
-| [interview-guide-creator](skills/project-type/Interview-research-project/interview-guide-creator/SKILL.md) | 提案書の論点に対応したインタビューガイドを作成 | 「インタビューガイドを作成して」「質問リストを作って」 |
-| [interview-candidate-selector](skills/project-type/Interview-research-project/interview-candidate-selector/SKILL.md) | 候補者リストから最適なインタビュー対象者を選定・評価 | 「インタビュー対象者を選定して」「候補者を評価して」 |
-| [interview-minutes-creator](skills/project-type/Interview-research-project/interview-minutes-creator/SKILL.md) | 文字起こしと質問リストから詳細な議事録を作成 | 「議事録を作成して」「インタビューメモから議事録を作って」 |
-| [report-outline-creator](skills/utilities/report-outline-creator/SKILL.md) | 提案書・調査結果から最終報告書の骨子を設計 | 「報告書骨子を作成して」「章立てを設計して」 |
-| [interview-research-project-workflow](skills/project-type/Interview-research-project/interview-research-project-workflow/SKILL.md) | 3フェーズ・11ステップのワークフロー定義 | project-managerから自動呼び出し |
+| [interview-research-proposal](skills/interview-research-proposal/SKILL.md) | 与件情報と打ち合わせメモから調査提案書を作成 | 「提案書を作成して」「プロポーザルを作って」 |
+| [interview-guide-creator](skills/interview-guide-creator/SKILL.md) | 提案書の論点に対応したインタビューガイドを作成 | 「インタビューガイドを作成して」「質問リストを作って」 |
+| [interview-candidate-selector](skills/interview-candidate-selector/SKILL.md) | 候補者リストから最適なインタビュー対象者を選定・評価 | 「インタビュー対象者を選定して」「候補者を評価して」 |
+| [interview-minutes-creator](skills/interview-minutes-creator/SKILL.md) | 文字起こしと質問リストから詳細な議事録を作成 | 「議事録を作成して」「インタビューメモから議事録を作って」 |
+| [report-outline-creator](skills/report-outline-creator/SKILL.md) | 提案書・調査結果から最終報告書の骨子を設計 | 「報告書骨子を作成して」「章立てを設計して」 |
+| [interview-research-project-workflow](skills/interview-research-project-workflow/SKILL.md) | 3フェーズ・11ステップのワークフロー定義 | project-managerから自動呼び出し |
 
 ### ユーティリティ
 
 | スキル | 説明 | トリガー |
 |--------|------|----------|
-| [desk-research](skills/utilities/desk-research/SKILL.md) | 論点・仮説に基づくデスクトップリサーチを実行し、調査レポートを出力 | 「デスクリサーチを実行して」「初期調査をして」 |
-| [meeting-minutes-creator](skills/utilities/meeting-minutes-creator/SKILL.md) | 会議メモから議事録を作成 | 「議事録を作成して」「会議メモから議事録を作って」 |
-| [docx-to-markdown-with-references](skills/utilities/docx-to-markdown-with-references/SKILL.md) | Word文書をMarkdownに変換し、参考文献を整理 | 「Wordをマークダウンに変換して」 |
-| [800-branded-pptx](skills/utilities/800-branded-pptx/SKILL.md) | エイトハンドレッド社のブランドデザインでPowerPointを作成 | 「800風のスライドを作成」 |
-| [creating-skill](skills/utilities/creating-skill/SKILL.md) | スキル作成の手順・スクリプト・リファレンスを提供する知識パッケージ | skill-creatorサブエージェント経由で使用 |
+| [desk-research](skills/desk-research/SKILL.md) | 論点・仮説に基づくデスクトップリサーチを実行し、調査レポートを出力 | 「デスクリサーチを実行して」「初期調査をして」 |
+| [meeting-minutes-creator](skills/meeting-minutes-creator/SKILL.md) | 会議メモから議事録を作成 | 「議事録を作成して」「会議メモから議事録を作って」 |
+| [docx-to-markdown-with-references](skills/docx-to-markdown-with-references/SKILL.md) | Word文書をMarkdownに変換し、参考文献を整理 | 「Wordをマークダウンに変換して」 |
+| [800-branded-pptx](skills/800-branded-pptx/SKILL.md) | エイトハンドレッド社のブランドデザインでPowerPointを作成 | 「800風のスライドを作成」 |
+| [creating-skill](skills/creating-skill/SKILL.md) | スキル作成の手順・スクリプト・リファレンスを提供する知識パッケージ | skill-creatorサブエージェント経由で使用 |
 
 ---
 
@@ -141,25 +141,24 @@ Phase 2: 分析・とりまとめ
 
 ```
 consulting/
+├── .claude-plugin/
+│   └── plugin.json
 ├── README.md
 ├── skills/
 │   ├── project-manager/
-│   │   ├── SKILL.md
-│   │   └── references/
-│   ├── project-type/
-│   │   └── Interview-research-project/
-│   │       ├── interview-research-proposal/
-│   │       ├── interview-guide-creator/
-│   │       ├── interview-candidate-selector/
-│   │       ├── interview-minutes-creator/
-│   │       └── interview-research-project-workflow/
-│   └── utilities/
-│       ├── 800-branded-pptx/
-│       ├── creating-skill/
-│       ├── desk-research/
-│       ├── docx-to-markdown-with-references/
-│       ├── meeting-minutes-creator/
-│       └── report-outline-creator/
+│   ├── interview-research-proposal/
+│   ├── interview-guide-creator/
+│   ├── interview-candidate-selector/
+│   ├── interview-minutes-creator/
+│   ├── interview-research-project-workflow/
+│   ├── 800-branded-pptx/
+│   ├── agent-team-playbook/
+│   ├── creating-skill/
+│   ├── desk-research/
+│   ├── docx-to-markdown-with-references/
+│   ├── meeting-minutes-creator/
+│   ├── pptx/
+│   └── report-outline-creator/
 ├── commands/
 │   ├── pm-start.md
 │   ├── pm-status.md
@@ -173,14 +172,66 @@ consulting/
 
 ---
 
-## Cursorでの実体パス
+## インストール
 
-Cursorはスキル・コマンド・エージェントを以下のパスから自動検出する。このフォルダはそれらの統合コピーであり、Cursorが実際に参照するファイルは下記に配置されている。
+このリポジトリは Claude Code Plugin として構成されている。`.claude-plugin/plugin.json` がプラグインマニフェスト。マーケットプレイスカタログは `~/.claude/marketplaces/consulting-toolkit/` に分離して配置する（plugin.json と marketplace.json を同一ディレクトリに同居させるとマーケットプレイスとして解釈されるため）。
 
-| 種類 | Cursorが参照するパス |
-|------|---------------------|
-| Skills | `~/.cursor/skills/consulting/` |
-| Commands | `~/.cursor/commands/pm-*.md` |
-| Agents | `~/.cursor/agents/desk-researcher.md`, `quality-reviewer.md`, `skill-creator.md` |
+### 初回セットアップ
 
-編集する場合は上記の実体パスを直接更新する。
+```bash
+# マーケットプレイスディレクトリを作成
+mkdir -p ~/.claude/marketplaces/consulting-toolkit/.claude-plugin
+
+# marketplace.json を作成
+cat > ~/.claude/marketplaces/consulting-toolkit/.claude-plugin/marketplace.json << 'EOF'
+{
+  "name": "consulting-toolkit",
+  "owner": { "name": "masaki" },
+  "metadata": {
+    "description": "コンサルティングプロジェクト用のスキル・コマンド・エージェント群"
+  },
+  "plugins": [
+    {
+      "name": "consulting-toolkit",
+      "source": "./consulting-toolkit",
+      "description": "提案書作成からインタビュー、報告書作成までのワークフロー管理"
+    }
+  ]
+}
+EOF
+
+# ワークスペースへのシンボリックリンクを作成
+ln -s /Users/masaki/Workspace/consulting ~/.claude/marketplaces/consulting-toolkit/consulting-toolkit
+
+# Claude Code CLI またはチャットで marketplace を追加・インストール
+/plugin marketplace add ~/.claude/marketplaces/consulting-toolkit
+/plugin install consulting-toolkit@consulting-toolkit
+```
+
+### 更新
+
+ワークスペースで編集した後、以下で cache を更新する。
+
+```bash
+claude plugin update consulting-toolkit@consulting-toolkit
+```
+
+### 動作確認
+
+```bash
+# インストール済みプラグインの一覧
+claude plugin list
+
+# プラグインのバリデーション
+claude plugin validate /Users/masaki/Workspace/consulting
+```
+
+### ファイル構成
+
+| 種類 | パス |
+|------|------|
+| プラグインマニフェスト | `.claude-plugin/plugin.json` |
+| マーケットプレイスカタログ | `~/.claude/marketplaces/consulting-toolkit/.claude-plugin/marketplace.json` |
+| Skills | `skills/` |
+| Commands | `commands/` |
+| Agents | `agents/` |
