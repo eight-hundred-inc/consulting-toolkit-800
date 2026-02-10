@@ -204,4 +204,4 @@ Phase 1: {フェーズ名}
    - `SKILL.md`（概要・ステップ一覧・連携スキル）
    - `references/phases.md`（ステップ詳細）
 3. `project-manager/SKILL.md` の対応ワークフロー表に追加
-4. `references/status-template.md` のワークフロースキル対応表に追加
+4. `references/workflow-template.md` のワークフロースキル対応表に追加
