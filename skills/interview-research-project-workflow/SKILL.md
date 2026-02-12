@@ -1,32 +1,34 @@
 ---
 name: interview-research-project-workflow
-description: 調査プロジェクトのワークフロー定義。3フェーズ・11ステップで構成。提案書作成から報告書作成まで、デスクリサーチとインタビューを組み合わせた調査プロジェクトを管理する。project-managerから呼び出される。
+description: 調査プロジェクトのワークフロー定義。3フェーズ・13ステップで構成。提案書作成から報告書作成・スライド構成設計まで、デスクリサーチとインタビューを組み合わせた調査プロジェクトを管理する。project-managerから呼び出される。
 ---
 
 # 調査プロジェクト ワークフロー
 
-調査プロジェクト（技術動向調査、市場調査、インタビュー中心、デューデリジェンス）のための3フェーズ・11ステップのワークフロー定義。
+調査プロジェクト（技術動向調査、市場調査、インタビュー中心、デューデリジェンス）のための3フェーズ・13ステップのワークフロー定義。
 
 ## ワークフロー概要
 
 ```
 Phase 0: 提案
   1. 提案書作成 [AI] → interview-research-proposal
-  2. 初期デスクトップ調査 [AI → SubAgent] → desk-researcher → desk-research (initialモード)
-  3. 提案書更新 [AI] → interview-research-proposal
-  4. インタビューガイド作成 [AI] → interview-guide-creator
-  5. 最終報告書骨子案作成 [AI] → report-outline-creator
+  2. 提案用スライド構成設計 [AI] → slide-structure-designer
+  3. 初期デスクトップ調査 [AI → SubAgent] → desk-researcher → desk-research (initialモード)
+  4. 提案書更新 [AI] → interview-research-proposal
+  5. インタビューガイド作成 [AI] → interview-guide-creator
+  6. 最終報告書骨子案作成 [AI] → report-outline-creator
 
 Phase 1: 調査
-  6. インタビュー対象者選定 [AI] → interview-candidate-selector
+  7. インタビュー対象者選定 [AI] → interview-candidate-selector
   (インタビュー実施) [人間]
-  7. インタビュー議事メモ作成 [AI] → interview-minutes-creator
-  8. インタビューまとめ [AI]
-  9. デスクリサーチ [AI → SubAgent] → desk-researcher → desk-research (detailedモード)
+  8. インタビュー議事メモ作成 [AI] → interview-minutes-creator
+  9. インタビューまとめ [AI]
+  10. デスクリサーチ [AI → SubAgent] → desk-researcher → desk-research (detailedモード)
 
 Phase 2: 分析・とりまとめ
-  10. 統合・分析 [AI]
-  11. 報告書作成 [AI]
+  11. 統合・分析 [AI]
+  12. 報告書作成 [AI]
+  13. 報告用スライド構成設計 [AI] → slide-structure-designer
 
 ※ 全AIステップ完了後、quality-reviewer SubAgentによる品質チェック + ユーザーレビューゲートを経て次へ進む
 ```
@@ -53,7 +55,13 @@ Phase 2: 分析・とりまとめ
 3. `Output/提案書.md`に出力
 4. 提案書から論点・仮説を抽出し、`Output/プロジェクトサマリ.md` に書き込む（スケルトンは初期化時に作成済み）
 
-### Step 2: 初期デスクトップ調査 [AI → SubAgent]
+### Step 2: 提案用スライド構成設計 [AI]
+
+1. `slide-structure-designer` スキルを読み込む
+2. `Output/提案書.md`をソースにスライドのページ構成を設計
+3. `Output/スライド構成_提案.md`に出力
+
+### Step 3: 初期デスクトップ調査 [AI → SubAgent]
 
 `desk-researcher` SubAgentに委譲して実行する。中間出力（検索結果・Webページ等）のコンテキスト分離が目的。
 
@@ -66,7 +74,7 @@ Phase 2: 分析・とりまとめ
 3. SubAgentが返却した結果（ファイルパス、主要な発見事項、仮説検証の要約）を受け取る
 4. レビューゲートへ進む
 
-### Step 3: 提案書更新 [AI]
+### Step 4: 提案書更新 [AI]
 
 初期調査結果に基づき提案書を更新:
 
@@ -76,14 +84,14 @@ Phase 2: 分析・とりまとめ
 4. **クライアントへの確認事項を出力**
 5. `Output/提案書.md`を更新（確認事項セクションを含む）
 
-### Step 4: インタビューガイド作成 [AI]
+### Step 5: インタビューガイド作成 [AI]
 
 1. `interview-guide-creator` スキルを読み込む
 2. 提案書（論点・仮説）と初期調査結果を入力
 3. インタビューで検証・補強すべき事項を整理
 4. `Output/インタビューガイド.md`に出力
 
-### Step 5: 最終報告書骨子案作成 [AI]
+### Step 6: 最終報告書骨子案作成 [AI]
 
 1. `report-outline-creator` スキルを読み込む
 2. 提案書（論点・仮説）、インタビューガイド（検証事項）、初期調査結果を入力
@@ -91,7 +99,7 @@ Phase 2: 分析・とりまとめ
 4. 論点を章にマッピングし、スライド構成・想定アウトプットを設計
 5. `Output/報告書骨子.md`に出力
 
-### Step 6: インタビュー対象者選定 [AI]
+### Step 7: インタビュー対象者選定 [AI]
 
 1. `interview-candidate-selector` スキルを読み込む
 2. `Output/インタビューガイド.md` から対象者タイプ定義を確認
@@ -104,19 +112,19 @@ Phase 2: 分析・とりまとめ
 - ユーザーがインタビューを実施
 - 音声/動画の文字起こしを`Input/インタビュー/`に格納してもらう
 
-### Step 7: インタビュー議事メモ作成 [AI]
+### Step 8: インタビュー議事メモ作成 [AI]
 
 1. `interview-minutes-creator` スキルを読み込む
 2. 文字起こしから議事録を作成
 3. `Output/議事録/`フォルダに出力
 
-### Step 8: インタビューまとめ [AI]
+### Step 9: インタビューまとめ [AI]
 
 1. 全インタビュー議事録を読み込み
 2. 論点ごとに示唆を抽出
 3. `Output/インタビューまとめ.md`に出力
 
-### Step 9: デスクリサーチ [AI → SubAgent]
+### Step 10: デスクリサーチ [AI → SubAgent]
 
 `desk-researcher` SubAgentに委譲して実行する。中間出力のコンテキスト分離が目的。
 
@@ -131,42 +139,57 @@ Phase 2: 分析・とりまとめ
 3. SubAgentが返却した結果（ファイルパス、主要な発見事項、仮説検証の要約）を受け取る
 4. レビューゲートへ進む
 
-### Step 10: 統合・分析 [AI]
+### Step 11: 統合・分析 [AI]
 
 1. デスクリサーチ結果を読み込み
 2. インタビュー結果と統合
 3. 論点ごとに分析・示唆を整理
 4. `Output/分析結果.md`に出力
 
-### Step 11: 報告書作成 [AI]
+### Step 12: 報告書作成 [AI]
 
 1. 報告書骨子と分析結果を統合
 2. 最終報告書を作成
 3. `Output/最終報告書.md`に出力
 
+### Step 13: 報告用スライド構成設計 [AI]
+
+1. `slide-structure-designer` スキルを読み込む
+2. `Output/最終報告書.md`をソースにスライドのページ構成を設計（必要に応じて`Output/報告書骨子.md`・`Output/分析結果.md`も参照）
+3. `Output/スライド構成.md`に出力
+
 ## 連携スキル・SubAgent
 
 | ステップ | スキル / SubAgent | 用途 |
 |----------|-------------------|------|
-| Step 1, 3 | `interview-research-proposal` (Skill) | 提案書作成・更新 |
-| Step 2, 9 | `desk-researcher` (SubAgent) → `desk-research` (Skill) | デスクリサーチ実行（コンテキスト分離） |
-| Step 4 | `interview-guide-creator` (Skill) | インタビューガイド作成 |
-| Step 5 | `report-outline-creator` (Skill) | 報告書骨子作成 |
-| Step 6 | `interview-candidate-selector` (Skill) | インタビュー対象者選定・評価 |
-| Step 7 | `interview-minutes-creator` (Skill) | インタビュー議事録作成 |
-| Step 2 | `docx-to-markdown-with-references` (Skill) | docx変換（必要時） |
+| Step 1, 4 | `interview-research-proposal` (Skill) | 提案書作成・更新 |
+| Step 2, 13 | `slide-structure-designer` (Skill) | スライド構成設計（提案用・報告用） |
+| Step 3, 10 | `desk-researcher` (SubAgent) → `desk-research` (Skill) | デスクリサーチ実行（コンテキスト分離） |
+| Step 5 | `interview-guide-creator` (Skill) | インタビューガイド作成 |
+| Step 6 | `report-outline-creator` (Skill) | 報告書骨子作成 |
+| Step 7 | `interview-candidate-selector` (Skill) | インタビュー対象者選定・評価 |
+| Step 8 | `interview-minutes-creator` (Skill) | インタビュー議事録作成 |
+| Step 3 | `docx-to-markdown-with-references` (Skill) | docx変換（必要時） |
 | 全ステップ | `quality-reviewer` (SubAgent) | レビューゲートでの品質チェック |
 
 ### スキル呼び出し手順
 
-**Step 1, 3（提案書作成・更新）**:
+**Step 1, 4（提案書作成・更新）**:
 ```
 1. skills/interview-research-proposal/SKILL.md を読み込む
 2. references/quality_playbook.md も読み込む（品質基準）
 3. スキルの指示に従って提案書を作成/更新
 ```
 
-**Step 2（初期デスクトップ調査）** ※ SubAgent経由:
+**Step 2（提案用スライド構成設計）**:
+```
+1. skills/slide-structure-designer/SKILL.md を読み込む
+2. Output/提案書.md をソースとして渡す
+3. スキルの指示に従って提案用スライド構成を設計
+4. Output/スライド構成_提案.md に出力
+```
+
+**Step 3（初期デスクトップ調査）** ※ SubAgent経由:
 ```
 1. ユーザーに提案書のパスと出力先フォルダを確認
 2. desk-researcher SubAgent（agents/desk-researcher.md）を起動
@@ -175,7 +198,7 @@ Phase 2: 分析・とりまとめ
 4. レビューゲートへ進む
 ```
 
-**Step 9（詳細デスクリサーチ）** ※ SubAgent経由:
+**Step 10（詳細デスクリサーチ）** ※ SubAgent経由:
 ```
 1. 提案書、インタビューまとめ、既存調査結果のパスを確認
 2. ユーザーに出力先フォルダを確認
@@ -185,7 +208,7 @@ Phase 2: 分析・とりまとめ
 5. レビューゲートへ進む
 ```
 
-**Step 4（インタビューガイド作成）**:
+**Step 5（インタビューガイド作成）**:
 ```
 1. skills/interview-guide-creator/SKILL.md を読み込む
 2. Output/提案書.md から論点・仮説を確認
@@ -193,7 +216,7 @@ Phase 2: 分析・とりまとめ
 4. スキルの指示に従ってインタビューガイドを作成
 ```
 
-**Step 5（報告書骨子作成）**:
+**Step 6（報告書骨子作成）**:
 ```
 1. skills/report-outline-creator/SKILL.md を読み込む
 2. Output/提案書.md から論点・仮説・納品物定義を確認
@@ -203,7 +226,7 @@ Phase 2: 分析・とりまとめ
 6. スキルの指示に従って報告書骨子を作成
 ```
 
-**Step 6（インタビュー対象者選定）**:
+**Step 7（インタビュー対象者選定）**:
 ```
 1. skills/interview-candidate-selector/SKILL.md を読み込む
 2. Output/インタビューガイド.md から対象者タイプ定義を抽出
@@ -211,7 +234,7 @@ Phase 2: 分析・とりまとめ
 4. スキルの指示に従って対象者を選定・評価
 ```
 
-**Step 7（インタビュー議事録作成）**:
+**Step 8（インタビュー議事録作成）**:
 ```
 1. skills/interview-minutes-creator/SKILL.md を読み込む
 2. Input/インタビュー/ 内の文字起こしファイルを確認
@@ -219,18 +242,28 @@ Phase 2: 分析・とりまとめ
 4. スキルの指示に従って議事録を作成
 ```
 
+**Step 13（報告用スライド構成設計）**:
+```
+1. skills/slide-structure-designer/SKILL.md を読み込む
+2. Output/最終報告書.md をソースとして渡す（必要に応じて Output/報告書骨子.md・Output/分析結果.md も参照）
+3. スキルの指示に従って報告用スライド構成を設計
+4. Output/スライド構成.md に出力
+```
+
 ## 成果物一覧
 
 | ステップ | 成果物 | 格納先 |
 |----------|--------|--------|
 | 初期化, Step 1〜 | プロジェクトサマリ | `Output/プロジェクトサマリ.md` |
-| Step 1, 3 | 提案書 | `Output/提案書.md` |
-| Step 2 | 初期調査結果 | ユーザー指定の出力先フォルダ |
-| Step 4 | インタビューガイド | `Output/インタビューガイド.md` |
-| Step 5 | 報告書骨子 | `Output/報告書骨子.md` |
-| Step 6 | インタビュー対象者 | `Output/インタビュー対象者.md` |
-| Step 7 | 議事録 | `Output/議事録/` |
-| Step 8 | インタビューまとめ | `Output/インタビューまとめ.md` |
-| Step 9 | デスクリサーチ結果 | ユーザー指定の出力先フォルダ |
-| Step 10 | 分析結果 | `Output/分析結果.md` |
-| Step 11 | 最終報告書 | `Output/最終報告書.md` |
+| Step 1, 4 | 提案書 | `Output/提案書.md` |
+| Step 2 | スライド構成（提案） | `Output/スライド構成_提案.md` |
+| Step 3 | 初期調査結果 | ユーザー指定の出力先フォルダ |
+| Step 5 | インタビューガイド | `Output/インタビューガイド.md` |
+| Step 6 | 報告書骨子 | `Output/報告書骨子.md` |
+| Step 7 | インタビュー対象者 | `Output/インタビュー対象者.md` |
+| Step 8 | 議事録 | `Output/議事録/` |
+| Step 9 | インタビューまとめ | `Output/インタビューまとめ.md` |
+| Step 10 | デスクリサーチ結果 | ユーザー指定の出力先フォルダ |
+| Step 11 | 分析結果 | `Output/分析結果.md` |
+| Step 12 | 最終報告書 | `Output/最終報告書.md` |
+| Step 13 | スライド構成（報告） | `Output/スライド構成.md` |
