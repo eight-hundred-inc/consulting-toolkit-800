@@ -33,7 +33,7 @@
 | スキル | 説明 | トリガー |
 |--------|------|----------|
 | [desk-research](skills/desk-research/SKILL.md) | 論点・仮説に基づくデスクトップリサーチを実行し、調査レポートを出力 | 「デスクリサーチを実行して」「初期調査をして」 |
-| [agent-team-playbook](skills/agent-team-playbook/SKILL.md) | Claude Code の Agent Team 機能で複数スキルを並列実行するためのテンプレート集 | 「Agent Teamで〜」「並行処理で〜」 |
+| [agent-team-playbook](skills/agent-team-playbook/SKILL.md) | Agent Teamの適否を判断し、適切なら要件書MDを生成する | 「Agent Teamで〜」「並行処理で〜」 |
 | [meeting-minutes-creator](skills/meeting-minutes-creator/SKILL.md) | 会議メモから議事録を作成 | 「会議メモから議事録を作って」「打ち合わせの議事録を作成して」 |
 | [docx-to-markdown-with-references](skills/docx-to-markdown-with-references/SKILL.md) | Word文書をMarkdownに変換し、参考文献を整理 | 「Wordをマークダウンに変換して」 |
 | [800-branded-pptx](skills/800-branded-pptx/SKILL.md) | エイトハンドレッド社のブランドデザインでPowerPointを作成 | 「800風のスライドを作成」「800のpptxを作成」 |
@@ -47,9 +47,9 @@
 
 | エージェント | 説明 | 呼び出しタイミング |
 |-------------|------|-------------------|
-| [quality-reviewer](agents/quality-reviewer.md) | 成果物の品質レビュー専門。品質チェック項目に照らして客観的に評価し、合格/条件付き合格/要修正を判定する | AIタスク完了後のレビューゲート |
+| [quality-reviewer](agents/quality-reviewer.md) | 成果物の品質レビュー専門。指定された品質チェック項目＋デフォルト5軸評価（論理構造・具体性・読み手視点・整合性・網羅性）の2層で評価し、合格/条件付き合格/要修正を判定する | AIタスク完了後のレビューゲート（review_level=fullのみ） |
 | [desk-researcher](agents/desk-researcher.md) | デスクトップリサーチ実行専門。WebSearch/WebFetch/Browser Useで情報を収集し、調査レポートと仮説検証シートを出力する | Step 3（初期調査）、Step 10（詳細調査） |
-| [skill-creator](agents/skill-creator.md) | 会話のやり取りから得られたワークフローや知識をスキルとして定型化する。creating-skillスキルを読み込み、初期化・作成・バリデーションを実行する | 「これをスキル化して」「スキルを作成して」 |
+| [skill-creator](agents/skill-creator.md) | 会話のやり取りから得られたワークフローや知識をSkillまたはSubAgentとして定型化する。内容に応じてSkill・Agent・両方のいずれを作成すべきかを判断し、適切な方を設計・生成する | 「これをスキル化して」「エージェントを作成して」 |
 
 ---
 
