@@ -178,7 +178,7 @@ Phase 1: {フェーズ名}
 
 ```markdown
 ## 概要
-- ベース: interview-research-project-workflow をベースに修正
+- ベース: research-project-workflow をベースに修正
 - 設計根拠: インタビューが不要なため、Phase 1のインタビュー関連ステップを省略
 
 ## 変更点

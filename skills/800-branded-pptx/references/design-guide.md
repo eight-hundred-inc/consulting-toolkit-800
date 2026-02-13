@@ -60,7 +60,7 @@
 |------|--------|----------|
 | タイトルスライドのメインタイトル | 36-40pt | Bold |
 | コンテンツスライドのタイトル | 20-22pt | Bold |
-| カードタイトル / 見出し | 14-16pt | Bold |
+| 見出し | 14-16pt | Bold |
 | 本文 | 11-13pt | Regular |
 | キャプション / 注釈 | 10-11pt | Regular / Italic |
 | フッター | 8pt | Regular |
@@ -80,20 +80,9 @@
 
 ---
 
-## コンポーネント仕様
+## スライド骨格仕様
 
-### 1. カード（左アクセントバー付き）
-
-シャドウは使わない。ボーダー＋左アクセントバーで視覚的に区切る。
-
-| 要素 | 仕様 |
-|------|------|
-| 背景 | `C.cardBg` |
-| ボーダー | `C.lightGray`, 0.5pt |
-| 左アクセントバー | w=0.06, `C.accent` または `SUB.*` |
-| → ヘルパー | `addCard(slide, x, y, w, h, accentColor?)` |
-
-### 2. セクション区切りスライド
+### セクション区切りスライド
 
 | 要素 | 位置・仕様 |
 |------|-----------|
@@ -106,7 +95,7 @@
 | ボトムストライプ | y=5.425, h=0.2, `C.navyLight` |
 | → ヘルパー | `addSectionSlide(sectionNum, title, subtitle?)` |
 
-### 3. コンテンツスライド
+### コンテンツスライド
 
 | 要素 | 位置・仕様 |
 |------|-----------|
@@ -118,7 +107,7 @@
 | フッター | y=5.2, `© Eight Hundred Inc.`, 8pt, `C.muted` |
 | → ヘルパー | `addContentSlide(title)` |
 
-### 4. タイトルスライド
+### タイトルスライド
 
 | 要素 | 位置・仕様 |
 |------|-----------|
@@ -132,33 +121,9 @@
 | ボトムストライプ | y=5.425, h=0.2, `C.navyLight` |
 | → ヘルパー | `addTitleSlide(mainTitle, subtitle?, extraInfo?)` |
 
-### 5. クロージングスライド
+### クロージングスライド
 
 タイトルスライドと同構造。→ `addClosingSlide(heading?, message?)`
-
-### 6. アイコンバッジ
-
-円形背景＋アイコン画像。→ `addIconBadge(slide, icon, x, y, size, bgColor, iconColor)`
-
-| 場面 | アイコン色 | 背景色 |
-|------|----------|--------|
-| ダークバッジ上 | `C.white` | `C.navy` |
-| アクセントバッジ上 | `C.navy` | `C.accent` |
-| 白背景上（単体） | `C.accent` | なし |
-| サブカラーバッジ上 | `C.white` | `SUB.*` |
-
-### 7. Qカード（ディスカッション用）
-
-カード左端にアイコン、右に質問テキスト。→ `addQuestionCard(slide, icon, x, y, w, h, question)`
-
-### 8. テーブル
-
-| 要素 | 仕様 |
-|------|------|
-| ヘッダー行 | 背景 `C.tableHead`、白文字、bold、中央揃え |
-| 奇数行 | 背景 `C.white` |
-| 偶数行 | 背景 `C.tableBg` |
-| ボーダー | `C.lightGray`, 0.5pt |
 
 ---
 
@@ -167,16 +132,3 @@
 react-icons（Fa系）→ React SSR → SVG → sharp → PNG base64。
 
 ヘルパー: `iconToBase64Png(IconComponent, color, size?)`、`renderIconSvg(IconComponent, color, size?)` — いずれも boilerplate.js に定義済み。
-
----
-
-## 避けるべきパターン
-
-| NG | 理由 |
-|----|------|
-| `shadow` プロパティの使用 | フラットデザイン。ボーダー＋左アクセントバーで代替 |
-| テキストのセンター揃え（本文） | 本文は常に左揃え。タイトルのみ中央可 |
-| 同一レイアウトの連続 | 2スライド連続で同じレイアウトにしない |
-| `SUB.tertiary` をテキスト色に使う | コントラスト不足。装飾要素のみに使う |
-| ロゴに「≠」を付ける | 「800」のみ |
-| アクセントラインをタイトル下に配置 | AI生成感が出る。セパレーターは lightGray の極細線のみ |
