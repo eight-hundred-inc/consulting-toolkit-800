@@ -31,7 +31,6 @@ const C = {
   muted:     "A6A6A6",   // サブテキスト、フッター
   white:     "FFFFFF",
   lightGray: "E0E0E0",   // ボーダー、セパレーター
-  cardBg:    "FFFFFF",   // カード背景
   tableBg:   "F0F8F4",   // テーブル交互行（薄ミント）
   tableHead: "1B3928",   // テーブルヘッダー
 };
