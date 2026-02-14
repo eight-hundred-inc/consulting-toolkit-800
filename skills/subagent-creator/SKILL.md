@@ -1,11 +1,50 @@
 ---
-name: creating-subagent
-description: SubAgent（エージェント定義ファイル）を対話形式で作成するためのガイド。SubAgentの設計・description設計・システムプロンプト作成・ファイル生成までの手順を提供する。
+name: subagent-creator
+description: SubAgent（エージェント定義ファイル）を対話形式で作成するためのガイド。SubAgentの設計・description設計・システムプロンプト作成・ファイル生成までの手順を提供する。Skillの方が適切な場合は判断して適切に誘導する。
 ---
 
-# Creating SubAgent
+# SubAgent Creator
 
 Cursor環境でSubAgent（エージェント定義ファイル）を対話形式で作成するスキル。
+
+## Step 0: Skill vs SubAgent の判断
+
+SubAgentを作成する前に、SkillとSubAgentのどちらが適切かを判断する。
+
+### Skillを選ぶケース
+
+- 専門知識をコンテキストに残して参照しながら作業したい
+- 処理過程も記録したい
+- 決定論的な処理が必要（スクリプト実行）
+- 繰り返し使うワークフローや手順を定義したい
+- 例: 「〇〇の書き方で」「△△フレームワークで」
+
+### SubAgentを選ぶケース
+
+- タスクを委譲して結果だけ受け取りたい
+- 探索結果の要約だけあれば十分
+- 複数方向を同時に並列調査したい
+- 処理過程を記録する必要がない
+- 例: 「調べて」「探して」「比較して」「レビューして」
+
+### 判断フロー
+
+```
+要件を分析
+    ↓
+処理過程を記録する必要がある？ or 専門知識をコンテキストに残したい？
+    → Yes → Skill
+    → No ↓
+タスクを委譲して結果だけ受け取りたい？
+    → Yes → SubAgent
+    → No → Skill
+```
+
+もしSkillの方が適切な場合は、`skill-creator` スキルに処理を移譲する。`skills/skill-creator/SKILL.md` を読み込んでその指示に従う。
+
+SubAgentが適切な場合は、以下の手順を続行する。
+
+---
 
 ## SubAgentとSkillの分離（推奨パターン）
 

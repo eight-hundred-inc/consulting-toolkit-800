@@ -37,7 +37,8 @@
 | [meeting-minutes-creator](skills/meeting-minutes-creator/SKILL.md) | 会議メモから議事録を作成 | 「会議メモから議事録を作って」「打ち合わせの議事録を作成して」 |
 | [docx-to-markdown-with-references](skills/docx-to-markdown-with-references/SKILL.md) | Word文書をMarkdownに変換し、参考文献を整理 | 「Wordをマークダウンに変換して」 |
 | [800-branded-pptx](skills/800-branded-pptx/SKILL.md) | エイトハンドレッド社のブランドデザインでPowerPointを作成 | 「800風のスライドを作成」「800のpptxを作成」 |
-| [creating-skill](skills/creating-skill/SKILL.md) | スキル作成の手順・スクリプト・リファレンスを提供する知識パッケージ | skill-creatorサブエージェント経由で使用 |
+| [skill-creator](skills/skill-creator/SKILL.md) | スキル作成の手順・スクリプト・リファレンスを提供する知識パッケージ。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「スキルを作成して」「これをスキル化して」 |
+| [subagent-creator](skills/subagent-creator/SKILL.md) | SubAgent（エージェント定義）を作成するガイド。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「エージェントを作成して」「SubAgentを作って」 |
 
 ---
 
@@ -49,7 +50,6 @@
 |-------------|------|-------------------|
 | [quality-reviewer](agents/quality-reviewer.md) | 成果物の品質レビュー専門。指定された品質チェック項目＋デフォルト5軸評価（論理構造・具体性・読み手視点・整合性・網羅性）の2層で評価し、合格/条件付き合格/要修正を判定する | AIタスク完了後のレビューゲート（review_level=fullのみ） |
 | [desk-researcher](agents/desk-researcher.md) | デスクトップリサーチ実行専門。WebSearch/WebFetch/Browser Useで情報を収集し、調査レポートと仮説検証シートを出力する | Step 3（初期調査）、Step 10（詳細調査） |
-| [skill-creator](agents/skill-creator.md) | 会話のやり取りから得られたワークフローや知識をSkillまたはSubAgentとして定型化する。内容に応じてSkill・Agent・両方のいずれを作成すべきかを判断し、適切な方を設計・生成する | 「これをスキル化して」「エージェントを作成して」 |
 
 ---
 
@@ -229,18 +229,17 @@ consulting/
 │   │   # 新しいワークフロータイプを追加する場合、同じ構造でディレクトリを作成
 │   ├── 800-branded-pptx/
 │   ├── agent-team-playbook/
-│   ├── creating-skill/
-│   ├── creating-subagent/
 │   ├── desk-research/
 │   ├── docx-to-markdown-with-references/
 │   ├── meeting-minutes-creator/
 │   ├── pptx/
 │   ├── report-outline-creator/
-│   └── slide-structure-designer/
+│   ├── skill-creator/
+│   ├── slide-structure-designer/
+│   └── subagent-creator/
 └── agents/
     ├── quality-reviewer.md
-    ├── desk-researcher.md
-    └── skill-creator.md
+    └── desk-researcher.md
 ```
 
 ---

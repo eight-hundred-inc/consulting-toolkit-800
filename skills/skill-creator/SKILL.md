@@ -1,10 +1,53 @@
 ---
-name: creating-skill
-description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.
+name: skill-creator
+description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations. Can also determine if a SubAgent is more appropriate and redirect accordingly.
 license: Complete terms in LICENSE.txt
 ---
 
-# Creating Skill
+# Skill Creator
+
+This skill provides guidance for creating effective skills and can determine if a SubAgent is more appropriate instead.
+
+## Step 0: Skill vs SubAgent Decision
+
+Before creating a skill, analyze the requirements to determine if a Skill or SubAgent is more appropriate.
+
+### Choose Skill When
+
+- Specialized knowledge should remain in context for reference during work
+- Process and steps should be recorded
+- Deterministic processing is needed (script execution)
+- Defining reusable workflows or procedures
+- Examples: "Write using XX format", "Use YY framework"
+
+### Choose SubAgent When
+
+- Task delegation where only results matter
+- Summary of exploration results is sufficient
+- Multiple directions need parallel investigation
+- Process recording is unnecessary
+- Examples: "Research this", "Find that", "Compare these", "Review this"
+
+### Decision Flow
+
+```
+Analyze the requirements
+    ↓
+Need to record process? OR Keep specialized knowledge in context?
+    → Yes → Skill
+    → No ↓
+Want to delegate task and receive only results?
+    → Yes → SubAgent
+    → No → Skill
+```
+
+If SubAgent is more appropriate, redirect to the `subagent-creator` skill by reading `skills/subagent-creator/SKILL.md` and following its instructions.
+
+If Skill is appropriate, continue with the instructions below.
+
+---
+
+## About Skills
 
 This skill provides guidance for creating effective skills.
 
@@ -264,7 +307,7 @@ When creating a new skill from scratch, always run the `init_skill.py` script. T
 Usage:
 
 ```bash
-scripts/init_skill.py <skill-name> --path <output-directory>
+skills/skill-creator/scripts/init_skill.py <skill-name> --path <output-directory>
 ```
 
 The script:
@@ -322,13 +365,13 @@ Write instructions for using the skill and its bundled resources.
 Once development of the skill is complete, it must be packaged into a distributable .skill file that gets shared with the user. The packaging process automatically validates the skill first to ensure it meets all requirements:
 
 ```bash
-scripts/package_skill.py <path/to/skill-folder>
+skills/skill-creator/scripts/package_skill.py <path/to/skill-folder>
 ```
 
 Optional output directory specification:
 
 ```bash
-scripts/package_skill.py <path/to/skill-folder> ./dist
+skills/skill-creator/scripts/package_skill.py <path/to/skill-folder> ./dist
 ```
 
 The packaging script will:
