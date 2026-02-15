@@ -1,7 +1,6 @@
 ---
 name: skill-creator
 description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations. Can also determine if a SubAgent is more appropriate and redirect accordingly.
-license: Complete terms in LICENSE.txt
 ---
 
 # Skill Creator

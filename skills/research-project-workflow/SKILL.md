@@ -61,6 +61,7 @@ Phase 2: 分析・とりまとめ
 | Step 7 | `interview-candidate-selector` (Skill) | インタビュー対象者選定・評価 |
 | Step 8 | `interview-minutes-creator` (Skill) | インタビュー議事録作成 |
 | Step 3 | `docx-to-markdown-with-references` (Skill) | docx変換（必要時） |
+| 任意のステップ | `image-creator` (SubAgent) → `image-generator-guide` (Skill) | 図解・画像生成（成果物のビジュアル化が必要な場合） |
 | 全ステップ | `quality-reviewer` (SubAgent) | レビューゲートでの品質チェック |
 
 ### スキル呼び出し手順
