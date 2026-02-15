@@ -84,8 +84,8 @@ Phase 2: 分析・とりまとめ
 **Step 3（初期デスクトップ調査）** ※ SubAgent経由:
 ```
 1. ユーザーに提案書のパスと出力先フォルダを確認
-2. desk-researcher SubAgent（agents/desk-researcher.md）を起動
-   - 提案書パス、出力先フォルダ、モード: initial を指定
+2. Task ツールで desk-researcher SubAgent を起動（agents/desk-researcher.md 参照）
+   - 提案書パス（絶対パス）、出力先フォルダ（絶対パス）、モード: initial を指定
 3. SubAgentの返却結果（ファイルパス、発見事項、仮説検証要約）を受け取る
 4. レビューゲートへ進む
 ```
@@ -94,8 +94,8 @@ Phase 2: 分析・とりまとめ
 ```
 1. 提案書、インタビューまとめ、既存調査結果のパスを確認
 2. ユーザーに出力先フォルダを確認
-3. desk-researcher SubAgent（agents/desk-researcher.md）を起動
-   - 提案書パス、インタビューまとめパス、既存調査パス、出力先フォルダ、モード: detailed を指定
+3. Task ツールで desk-researcher SubAgent を起動（agents/desk-researcher.md 参照）
+   - 提案書パス（絶対パス）、インタビューまとめパス（絶対パス）、既存調査パス（絶対パス）、出力先フォルダ（絶対パス）、モード: detailed を指定
 4. SubAgentの返却結果（ファイルパス、発見事項、仮説検証要約）を受け取る
 5. レビューゲートへ進む
 ```

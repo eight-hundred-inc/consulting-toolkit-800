@@ -69,14 +69,14 @@
    - 提案書のファイルパス
    - 出力先フォルダのパス
    - Browser Use で参照したいサイト（ある場合）
-2. `desk-researcher` SubAgentを起動し、以下を渡す:
-   - 提案書のファイルパス
-   - 出力先フォルダのパス
+2. Task ツールで `desk-researcher` SubAgent を起動する（`subagent_type="desk-researcher"`）。prompt には以下を含める:
+   - 提案書の絶対パス
+   - 出力先フォルダの絶対パス
    - モード: `initial`
    - docxファイルがある場合はそのパス
    - 参照すべきサイト（ある場合）
-3. SubAgentが内部で desk-research Skill を読み込み、調査を実行する
-4. SubAgentが返却した結果を受け取る:
+3. SubAgent が内部で desk-research Skill を読み込み、調査を実行する（親エージェントは Skill を直接実行しない）
+4. SubAgent が返却した結果を受け取る:
    - 調査レポートのファイルパス
    - 主要な発見事項
    - 仮説検証の要約
@@ -374,16 +374,16 @@
    - 提案書、インタビューまとめ、既存調査結果のファイルパス
    - 出力先フォルダのパス
    - Browser Use で参照したいサイト（ある場合）
-2. `desk-researcher` SubAgentを起動し、以下を渡す:
-   - 提案書のファイルパス
-   - インタビューまとめのファイルパス
-   - 既存調査結果のファイルパス
-   - 出力先フォルダのパス
+2. Task ツールで `desk-researcher` SubAgent を起動する（`subagent_type="desk-researcher"`）。prompt には以下を含める:
+   - 提案書の絶対パス
+   - インタビューまとめの絶対パス
+   - 既存調査結果の絶対パス
+   - 出力先フォルダの絶対パス
    - モード: `detailed`
    - 追加指示: インタビューで判明したギャップを埋める深掘り調査
    - 参照すべきサイト（ある場合）
-3. SubAgentが内部で desk-research Skill を読み込み、調査を実行する
-4. SubAgentが返却した結果を受け取る:
+3. SubAgent が内部で desk-research Skill を読み込み、調査を実行する（親エージェントは Skill を直接実行しない）
+4. SubAgent が返却した結果を受け取る:
    - 調査レポートのファイルパス
    - 主要な発見事項
    - 仮説検証の要約
