@@ -54,8 +54,7 @@ AIが判断しきれない意思決定はステップの前後に人間レビュ
 | `desk-research` | デスクトップリサーチ実行 | 論点・仮説 | 調査レポート、仮説検証シート |
 | `meeting-minutes-creator` | 会議メモから議事録作成 | 会議メモ | 議事録（アジェンダ・ToDo・合意事項） |
 | `docx-to-markdown-with-references` | Word → Markdown変換 | .docxファイル | 参考文献整理済みMarkdown |
-| `800-branded-pptx` | ブランドデザインのスライド作成 | Markdown骨子 | .pptxファイル |
-| `pptx` | 汎用スライド操作 | .pptxファイルまたは指示 | .pptxファイル |
+| `pptx` | PowerPointファイルの作成・編集 | .pptxファイルまたはMarkdown骨子 | .pptxファイル |
 
 ### SubAgent
 
