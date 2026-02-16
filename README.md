@@ -39,7 +39,7 @@
 | [pptx](skills/pptx/SKILL.md) | PowerPoint（.pptx）ファイルの作成・読み込み・編集を包括的にサポート。テンプレート編集、新規作成、テキスト抽出、スライド結合・分割に対応 | 「スライドを作成して」「プレゼンを作って」「.pptxファイルを編集して」 |
 | [skill-creator](skills/skill-creator/SKILL.md) | スキル作成の手順・スクリプト・リファレンスを提供する知識パッケージ。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「スキルを作成して」「これをスキル化して」 |
 | [subagent-creator](skills/subagent-creator/SKILL.md) | SubAgent（エージェント定義）を作成するガイド。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「エージェントを作成して」「SubAgentを作って」 |
-| [image-generator-guide](skills/image-generator-guide/SKILL.md) | HTML+CSSによる構造化図解とGenerateImageの使い分けガイド。image-creatorサブエージェントから読み込まれる | image-creatorサブエージェント経由 |
+| [image-generator-guide](skills/image-generator-guide/SKILL.md) | HTML+CSS／SVGによる構造化図解とGenerateImageの使い分けガイド。SVGではタイムライン・ロードマップ型の図解に対応。image-creatorサブエージェントから読み込まれる | image-creatorサブエージェント経由 |
 
 ---
 
@@ -51,7 +51,7 @@
 |-------------|------|-------------------|
 | [quality-reviewer](agents/quality-reviewer.md) | 成果物の品質レビュー専門。指定された品質チェック項目＋デフォルト5軸評価（論理構造・具体性・読み手視点・整合性・網羅性）の2層で評価し、合格/条件付き合格/要修正を判定する | AIタスク完了後のレビューゲート（review_level=fullのみ） |
 | [desk-researcher](agents/desk-researcher.md) | デスクトップリサーチ実行専門。WebSearch/WebFetch/Browser Useで情報を収集し、調査レポートと仮説検証シートを出力する | Step 3（初期調査）、Step 10（詳細調査） |
-| [image-creator](agents/image-creator.md) | 画像・図解の生成。HTML+CSSで構造化図解をPNG化、またはGenerateImageでイメージ画像を生成する | 「画像にして」「図にして」「図解して」「ビジュアル化して」 |
+| [image-creator](agents/image-creator.md) | 画像・図解の生成。HTML+CSSで構造化図解をPNG化、SVGでタイムライン・ロードマップを生成、またはGenerateImageでイメージ画像を生成する | 「画像にして」「図にして」「図解して」「ビジュアル化して」 |
 
 ---
 
@@ -241,6 +241,9 @@ consulting/
 │   ├── slide-structure-designer/
 │   ├── subagent-creator/
 │   └── image-generator-guide/
+│       ├── SKILL.md
+│       ├── references/design-patterns.md  # レイアウトパターン集（HTML+CSS / SVG）
+│       └── scripts/screenshot.py          # HTML→PNG変換スクリプト
 └── agents/
     ├── quality-reviewer.md
     ├── desk-researcher.md
