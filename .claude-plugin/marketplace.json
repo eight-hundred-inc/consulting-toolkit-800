@@ -1,0 +1,16 @@
+{
+  "name": "consulting-toolkit-800",
+  "owner": { "name": "eight-hundred-inc" },
+  "metadata": {
+    "description": "エイトハンドレッド（800）社向けコンサルティングプロジェクト用のスキル・コマンド・エージェント群"
+  },
+  "plugins": [
+    {
+      "name": "consulting-toolkit-800",
+      "source": "./",
+      "description": "提案書作成からインタビュー、報告書作成までのワークフロー管理",
+      "repository": "https://github.com/eight-hundred-inc/consulting-toolkit-800",
+      "category": "workflow"
+    }
+  ]
+}
