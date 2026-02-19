@@ -243,8 +243,8 @@ consulting-toolkit-800/
 │   ├── subagent-creator/
 │   ├── image-generator-guide/
 │   │   ├── SKILL.md
-│   │   ├── references/design-patterns.md
-│   │   └── scripts/screenshot.py
+│   │   ├── references/design-patterns.md  # レイアウトパターン集（HTML+CSS / SVG）
+│   │   └── scripts/screenshot.py          # HTML→PNG変換スクリプト
 │   └── 800-branded-pptx/          # 800社ブランドPPTX作成
 └── agents/
     ├── quality-reviewer.md
