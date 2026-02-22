@@ -51,13 +51,12 @@ SubAgentが適切な場合は、以下の手順を続行する。
 SubAgentとSkillは分離して作成することを推奨する。
 
 ```
-.cursor/
-├── skills/
-│   └── my-task/
-│       └── SKILL.md        ← ドメイン知識・手順・チェックリスト
-│
-└── agents/
-    └── my-task.md          ← 実行方法・コンテキスト分離の設定
+skills/
+└── my-task/
+    └── SKILL.md        ← ドメイン知識・手順・チェックリスト
+
+agents/
+└── my-task.md          ← 実行方法・コンテキスト分離の設定
 ```
 
 分離のメリット:
@@ -75,7 +74,7 @@ description: コードレビューを行う専門エージェント
 あなたはコードレビューの専門エージェントです。
 
 ## 実行手順
-1. **Skillの読み込み**: `.cursor/skills/code-review/SKILL.md` を読み込む
+1. **Skillの読み込み**: `skills/code-review/SKILL.md` を読み込む
 2. Skillで定義された観点・チェックリストに従ってレビューを実行
 3. 結果を出力
 ```

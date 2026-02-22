@@ -214,11 +214,12 @@ AIが [agent-team-playbook](skills/agent-team-playbook/SKILL.md) を参照し、
 ## ディレクトリ構成
 
 ```
-consulting/
+consulting-toolkit/
 ├── .claude-plugin/
 │   ├── plugin.json
 │   └── marketplace.json
 ├── README.md
+├── LICENSE.md
 ├── commands/
 │   └── pm.md                                  # Cursorコマンド（project-manager起動）
 ├── skills/
@@ -234,16 +235,13 @@ consulting/
 │   ├── agent-team-playbook/
 │   ├── desk-research/
 │   ├── docx-to-markdown-with-references/
+│   ├── image-generator-guide/
 │   ├── meeting-minutes-creator/
 │   ├── pptx/
 │   ├── report-outline-creator/
 │   ├── skill-creator/
 │   ├── slide-structure-designer/
-│   ├── subagent-creator/
-│   └── image-generator-guide/
-│       ├── SKILL.md
-│       ├── references/design-patterns.md  # レイアウトパターン集（HTML+CSS / SVG）
-│       └── scripts/screenshot.py          # HTML→PNG変換スクリプト
+│   └── subagent-creator/
 └── agents/
     ├── quality-reviewer.md
     ├── desk-researcher.md

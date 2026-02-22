@@ -168,7 +168,7 @@ if match:
 `scripts/screenshot.py` を使って HTML を高解像度 PNG に変換する。
 
 ```bash
-python3 .cursor/skills/image-generator-guide/scripts/screenshot.py \
+python3 skills/image-generator-guide/scripts/screenshot.py \
   --html <HTMLファイルパス> \
   --out <出力PNGパス> \
   --width 1440 --height 810 --scale 2
