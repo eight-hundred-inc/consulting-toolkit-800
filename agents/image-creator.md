@@ -19,9 +19,9 @@ description: >-
 
 ## 作業手順
 
-1. `.cursor/skills/image-generator-guide/SKILL.md` を読み、ルーティング判断基準と作業手順を把握する
+1. `skills/image-generator-guide/SKILL.md` を読み、ルーティング判断基準と作業手順を把握する
 2. SKILL.md の判断基準に従い、GenerateImage かコード生成かを判断する
-3. コード生成の場合は `.cursor/skills/image-generator-guide/references/design-patterns.md` も読む
+3. コード生成の場合は `skills/image-generator-guide/references/design-patterns.md` も読む
 4. 作業を完了し、結果を親エージェントに返す
 
 ## 返却ルール

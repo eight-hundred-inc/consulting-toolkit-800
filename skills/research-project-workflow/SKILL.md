@@ -60,7 +60,7 @@ Phase 2: 分析・とりまとめ
 | Step 6 | `report-outline-creator` (Skill) | 報告書骨子作成 |
 | Step 7 | `interview-candidate-selector` (Skill) | インタビュー対象者選定・評価 |
 | Step 8 | `interview-minutes-creator` (Skill) | インタビュー議事録作成 |
-| Step 3 | `docx-to-markdown-with-references` (Skill) | docx変換（必要時） |
+| 任意のステップ | `docx-to-markdown-with-references` (Skill) | docx変換（入力にdocxファイルがある場合） |
 | 任意のステップ | `image-creator` (SubAgent) → `image-generator-guide` (Skill) | 図解・画像生成（成果物のビジュアル化が必要な場合） |
 | 全ステップ | `quality-reviewer` (SubAgent) | レビューゲートでの品質チェック |
 
@@ -69,7 +69,7 @@ Phase 2: 分析・とりまとめ
 **Step 1, 4（提案書作成・更新）**:
 ```
 1. skills/interview-research-proposal/SKILL.md を読み込む
-2. references/quality_playbook.md も読み込む（品質基準）
+2. skills/interview-research-proposal/references/quality-playbook.md も読み込む（品質基準）
 3. スキルの指示に従って提案書を作成/更新
 ```
 
@@ -114,7 +114,7 @@ Phase 2: 分析・とりまとめ
 2. Output/提案書.md から論点・仮説・納品物定義を確認
 3. Output/インタビューガイド.md から検証事項を確認
 4. Input/初期調査結果.md から調査で得た情報を把握
-5. プロジェクト種類を判定し、references/structure_templates.md を参照
+5. プロジェクト種類を判定し、skills/report-outline-creator/references/structure-templates.md を参照
 6. スキルの指示に従って報告書骨子を作成
 ```
 

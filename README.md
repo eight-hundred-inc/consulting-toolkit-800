@@ -220,6 +220,7 @@ consulting-toolkit-800/
 │   ├── plugin.json
 │   └── marketplace.json
 ├── README.md
+├── LICENSE.md
 ├── commands/
 │   └── pm.md                                  # Cursorコマンド（project-manager起動）
 ├── skills/
@@ -235,6 +236,7 @@ consulting-toolkit-800/
 │   ├── agent-team-playbook/
 │   ├── desk-research/
 │   ├── docx-to-markdown-with-references/
+│   ├── image-generator-guide/
 │   ├── meeting-minutes-creator/
 │   ├── pptx/
 │   ├── report-outline-creator/
