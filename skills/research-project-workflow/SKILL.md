@@ -25,7 +25,7 @@ Phase 1: 調査
   9. デスクリサーチ [AI → SubAgent] → desk-research (gap-filling)   review_level: light
 
 Phase 2: 分析・とりまとめ
-  10. 統合・分析 [AI]                                              review_level: full
+  10. 統合・分析 [AI] → integrated-analysis-creator                review_level: full
   11. 報告書作成 [AI]                                              review_level: full
   12. 報告用スライド構成設計 [AI] → slide-structure-designer         review_level: light
 
@@ -60,6 +60,7 @@ Phase 2: 分析・とりまとめ
 | Step 6 | `interview-candidate-selector` (Skill) | インタビュー対象者選定・評価 |
 | Step 7 | `interview-minutes-creator` (Skill) | インタビュー議事録作成 |
 | Step 9 | `desk-researcher` (SubAgent) → `desk-research` (Skill) | ギャップ補完のデスクリサーチ |
+| Step 10 | `integrated-analysis-creator` (Skill) | 統合分析結果の作成 |
 | 任意のステップ | `docx-to-markdown-with-references` (Skill) | docx変換（入力にdocxファイルがある場合） |
 | 任意のステップ | `image-creator` (SubAgent) → `image-generator-guide` (Skill) | 図解・画像生成（成果物のビジュアル化が必要な場合） |
 | 全ステップ | `quality-reviewer` (SubAgent) | レビューゲートでの品質チェック |
@@ -127,6 +128,16 @@ Step 1 は PM が内部で段階的に実行する複合ステップ。詳細は
    - コンテキストファイル（提案書、インタビューまとめ、既存調査）の絶対パス、出力先フォルダ（絶対パス）、モード: gap-filling を指定
 4. SubAgentの返却結果（ファイルパス、発見事項、仮説検証要約）を受け取る
 5. レビューゲートへ進む
+```
+
+**Step 10（統合・分析）**:
+```
+1. skills/integrated-analysis-creator/SKILL.md を読み込む
+2. skills/integrated-analysis-creator/references/writing-guide.md も読み込む
+3. Output/提案書.md から論点・小論点構造を抽出
+4. Output/インタビューまとめ.md、デスクリサーチ結果を入力として渡す
+5. スキルの指示に従って Output/分析結果.md を作成
+6. Output/プロジェクトサマリ.md を最終更新
 ```
 
 **Step 12（報告用スライド構成設計）**:
