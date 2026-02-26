@@ -219,8 +219,11 @@ consulting-toolkit/
 ├── .claude-plugin/
 │   ├── plugin.json
 │   └── marketplace.json
+├── .cursor-plugin/
+│   └── plugin.json
 ├── README.md
 ├── LICENSE.md
+├── install.sh
 ├── commands/
 │   └── pm.md                                  # Cursorコマンド（project-manager起動）
 ├── skills/
@@ -254,9 +257,9 @@ consulting-toolkit/
 
 ## インストール
 
-このリポジトリは Claude Code Plugin として構成されている。GitHubリポジトリから直接インストールできる。
+このリポジトリは Claude Code Plugin / Cursor Plugin の両方に対応している。
 
-### プラグインとしてインストール
+### Claude Code
 
 ```bash
 # マーケットプレイスを追加
@@ -284,28 +287,65 @@ consulting-toolkit/
 }
 ```
 
-### 更新
+更新:
 
 ```bash
 claude plugin update consulting-toolkit@consulting-toolkit
 ```
 
+### Cursor（インストールスクリプト）
+
+Claude Code がない環境向け。リポジトリをクローンし、Cursor のグローバルディレクトリにシンボリックリンクを作成する。
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/masaki69/consulting-toolkit/main/install.sh | bash
+```
+
+または手動で:
+
+```bash
+git clone https://github.com/masaki69/consulting-toolkit.git ~/.local/share/consulting-toolkit
+bash ~/.local/share/consulting-toolkit/install.sh
+```
+
+スクリプトは以下のディレクトリにシンボリックリンクを作成する:
+
+| ソース | リンク先 |
+|--------|----------|
+| `skills/*/` | `~/.cursor/skills/` |
+| `agents/*.md` | `~/.cursor/agents/` |
+| `commands/*.md` | `~/.cursor/commands/` |
+
+更新・アンインストール:
+
+```bash
+bash ~/.local/share/consulting-toolkit/install.sh --update
+bash ~/.local/share/consulting-toolkit/install.sh --uninstall
+```
+
+> **Note**: Claude Code がインストール済みの環境では、Claude Code Plugin としてインストールすれば Cursor からも自動的に認識される（`~/.claude/plugins/cache/` 経由）。インストールスクリプトは Claude Code なしの環境向け。
+
 ### 動作確認
 
 ```bash
-# インストール済みプラグインの一覧
+# Claude Code の場合
 claude plugin list
-
-# プラグインのバリデーション
 claude plugin validate
 ```
+
+Cursor の場合は、Cursor Settings を開き、以下の画面で各要素が表示されていることを確認する:
+
+- **Rules & Skills** → Skills タブに各スキルが表示されている
+- **Rules & Skills** → Subagents タブに quality-reviewer / desk-researcher / image-creator が表示されている
 
 ### ファイル構成
 
 | 種類 | パス |
 |------|------|
-| プラグインマニフェスト | `.claude-plugin/plugin.json` |
+| Claude Code マニフェスト | `.claude-plugin/plugin.json` |
+| Cursor マニフェスト | `.cursor-plugin/plugin.json` |
 | マーケットプレイスカタログ | `.claude-plugin/marketplace.json` |
+| インストールスクリプト | `install.sh` |
 | Skills | `skills/` |
 | Commands | `commands/` |
 | Agents | `agents/` |
