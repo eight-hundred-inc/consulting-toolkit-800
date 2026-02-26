@@ -339,10 +339,7 @@ claude plugin list
 claude plugin validate
 ```
 
-Cursor の場合は、Cursor Settings を開き、以下の画面で各要素が表示されていることを確認する:
-
-- **Rules & Skills** → Skills タブに各スキルが表示されている
-- **Rules & Skills** → Subagents タブに quality-reviewer / desk-researcher / image-creator が表示されている
+Cursor の場合は、Cursor Settings を開き、Rules, Skills, Subagentsのタブで各要素が表示されていることを確認する:
 
 ### ファイル構成
 
