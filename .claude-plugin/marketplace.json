@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "consulting-toolkit",
-      "source": "./",
+      "source": "./plugins/consulting-toolkit",
       "description": "提案書作成からインタビュー、報告書作成までのワークフロー管理",
       "repository": "https://github.com/masaki69/consulting-toolkit",
       "category": "workflow"
