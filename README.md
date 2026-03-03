@@ -257,7 +257,9 @@ consulting-toolkit/
 
 ### Claude Code
 
-```bash
+Claude Code を開き、チャットに以下を入力する。
+
+```
 # マーケットプレイスを追加
 /plugin marketplace add masaki69/consulting-toolkit
 
@@ -283,10 +285,10 @@ consulting-toolkit/
 }
 ```
 
-更新:
+更新（Claude Code のチャットで実行）:
 
-```bash
-claude plugin update consulting-toolkit@consulting-toolkit
+```
+/plugin update consulting-toolkit@consulting-toolkit
 ```
 
 ### Cursor（インストールスクリプト）
@@ -323,13 +325,14 @@ bash ~/.local/share/consulting-toolkit/install.sh --uninstall
 
 ### 動作確認
 
-```bash
-# Claude Code の場合
-claude plugin list
-claude plugin validate
+Claude Code を開き、チャットに以下を入力する。
+
+```
+/plugin list
+/plugin validate
 ```
 
-Cursor の場合は、Cursor Settings を開き、Rules, Skills, Subagentsのタブで各要素が表示されていることを確認する
+Cursor の場合は、Cursor Settings を開き、Rules, Skills, Subagents のタブで各要素が表示されていることを確認する。
 
 ### ファイル構成
 
