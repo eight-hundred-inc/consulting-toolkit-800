@@ -3,6 +3,7 @@ set -euo pipefail
 
 REPO_URL="https://github.com/masaki69/consulting-toolkit.git"
 INSTALL_DIR="${HOME}/.local/share/consulting-toolkit"
+PLUGIN_DIR="${INSTALL_DIR}/plugins/consulting-toolkit"
 
 usage() {
   cat <<EOF
@@ -16,9 +17,9 @@ Options:
   -h, --help  このヘルプを表示する
 
 Skills / Agents / Commands を Cursor のグローバルディレクトリにシンボリックリンクで配置する。
-  ~/.cursor/skills/   ← skills/*
-  ~/.cursor/agents/   ← agents/*.md
-  ~/.cursor/commands/ ← commands/*.md
+  ~/.cursor/skills/   ← plugins/consulting-toolkit/skills/*
+  ~/.cursor/agents/   ← plugins/consulting-toolkit/agents/*.md
+  ~/.cursor/commands/ ← plugins/consulting-toolkit/commands/*.md
 EOF
   exit 0
 }
@@ -29,7 +30,7 @@ err() { printf '\033[0;31m%s\033[0m\n' "$*" >&2; exit 1; }
 
 link_skills() {
   mkdir -p "${HOME}/.cursor/skills"
-  for skill_dir in "${INSTALL_DIR}/skills"/*/; do
+  for skill_dir in "${PLUGIN_DIR}/skills"/*/; do
     [ -d "$skill_dir" ] || continue
     local name
     name=$(basename "$skill_dir")
@@ -47,7 +48,7 @@ link_skills() {
 
 link_agents() {
   mkdir -p "${HOME}/.cursor/agents"
-  for agent_file in "${INSTALL_DIR}/agents"/*.md; do
+  for agent_file in "${PLUGIN_DIR}/agents"/*.md; do
     [ -f "$agent_file" ] || continue
     local name
     name=$(basename "$agent_file")
@@ -65,7 +66,7 @@ link_agents() {
 
 link_commands() {
   mkdir -p "${HOME}/.cursor/commands"
-  for cmd_file in "${INSTALL_DIR}/commands"/*.md; do
+  for cmd_file in "${PLUGIN_DIR}/commands"/*.md; do
     [ -f "$cmd_file" ] || continue
     local name
     name=$(basename "$cmd_file")

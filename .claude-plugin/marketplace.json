@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "consulting-toolkit-800",
-      "source": "./",
+      "source": "./plugins/consulting-toolkit",
       "description": "提案書作成からインタビュー、報告書作成までのワークフロー管理",
       "repository": "https://github.com/eight-hundred-inc/consulting-toolkit-800",
       "category": "workflow"
