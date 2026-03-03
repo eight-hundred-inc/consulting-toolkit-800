@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_URL="https://github.com/masaki69/consulting-toolkit.git"
-INSTALL_DIR="${HOME}/.local/share/consulting-toolkit"
+REPO_URL="https://github.com/eight-hundred-inc/consulting-toolkit-800.git"
+INSTALL_DIR="${HOME}/.local/share/consulting-toolkit-800"
 PLUGIN_DIR="${INSTALL_DIR}/plugins/consulting-toolkit"
 
 usage() {

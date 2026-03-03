@@ -284,14 +284,14 @@ claude plugin update consulting-toolkit-800@consulting-toolkit-800
 Claude Code がない環境向け。リポジトリをクローンし、Cursor のグローバルディレクトリにシンボリックリンクを作成する。
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/masaki69/consulting-toolkit/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/eight-hundred-inc/consulting-toolkit-800/main/install.sh | bash
 ```
 
 または手動で:
 
 ```bash
-git clone https://github.com/masaki69/consulting-toolkit.git ~/.local/share/consulting-toolkit
-bash ~/.local/share/consulting-toolkit/install.sh
+git clone https://github.com/eight-hundred-inc/consulting-toolkit-800.git ~/.local/share/consulting-toolkit-800
+bash ~/.local/share/consulting-toolkit-800/install.sh
 ```
 
 スクリプトは以下のディレクトリにシンボリックリンクを作成する:
@@ -305,8 +305,8 @@ bash ~/.local/share/consulting-toolkit/install.sh
 更新・アンインストール:
 
 ```bash
-bash ~/.local/share/consulting-toolkit/install.sh --update
-bash ~/.local/share/consulting-toolkit/install.sh --uninstall
+bash ~/.local/share/consulting-toolkit-800/install.sh --update
+bash ~/.local/share/consulting-toolkit-800/install.sh --uninstall
 ```
 
 > **Note**: Claude Code がインストール済みの環境では、Claude Code Plugin としてインストールすれば Cursor からも自動的に認識される（`~/.claude/plugins/cache/` 経由）。インストールスクリプトは Claude Code なしの環境向け。
