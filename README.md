@@ -38,7 +38,6 @@
 | [meeting-minutes-creator](plugins/consulting-toolkit/skills/meeting-minutes-creator/SKILL.md) | 会議メモから議事録を作成 | 「会議メモから議事録を作って」「打ち合わせの議事録を作成して」 |
 | [docx-to-markdown-with-references](plugins/consulting-toolkit/skills/docx-to-markdown-with-references/SKILL.md) | Word文書をMarkdownに変換し、参考文献を整理 | 「Wordをマークダウンに変換して」 |
 | [pptx](plugins/consulting-toolkit/skills/pptx/SKILL.md) | PowerPoint（.pptx）ファイルの作成・読み込み・編集を包括的にサポート。テンプレート編集、新規作成、テキスト抽出、スライド結合・分割に対応 | 「スライドを作成して」「プレゼンを作って」「.pptxファイルを編集して」 |
-| [skill-creator](plugins/consulting-toolkit/skills/skill-creator/SKILL.md) | スキル作成の手順・スクリプト・リファレンスを提供する知識パッケージ。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「スキルを作成して」「これをスキル化して」 |
 | [subagent-creator](plugins/consulting-toolkit/skills/subagent-creator/SKILL.md) | SubAgent（エージェント定義）を作成するガイド。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「エージェントを作成して」「SubAgentを作って」 |
 | [image-generator-guide](plugins/consulting-toolkit/skills/image-generator-guide/SKILL.md) | HTML+CSS／SVGによる構造化図解とGenerateImageの使い分けガイド。SVGではタイムライン・ロードマップ型の図解に対応。image-creatorサブエージェントから読み込まれる | image-creatorサブエージェント経由 |
 
@@ -240,7 +239,6 @@ consulting-toolkit/
         │   ├── meeting-minutes-creator/
         │   ├── pptx/
         │   ├── report-outline-creator/
-        │   ├── skill-creator/
         │   ├── slide-structure-designer/
         │   └── subagent-creator/
         └── agents/
@@ -248,6 +246,32 @@ consulting-toolkit/
             ├── desk-researcher.md
             └── image-creator.md
 ```
+
+---
+
+## 併用推奨: Anthropic 公式スキルプラグイン
+
+本プラグインはコンサルティングワークフローに特化しているため、ドキュメント操作（PPTX・Excel・PDF・Word）やスキル作成といった汎用機能は [anthropics/skills](https://github.com/anthropics/skills) の公式プラグインとの併用を推奨する。
+
+| プラグイン | 主なスキル | 用途 |
+|-----------|-----------|------|
+| `document-skills` | pptx, xlsx, pdf, docx, skill-creator 等 | ドキュメントの作成・編集・変換、スキルの新規作成・評価 |
+| `example-skills` | algorithmic-art, frontend-design, brand-guidelines 等 | クリエイティブ・デザイン・開発系の参考実装 |
+
+### インストール方法（Claude Code）
+
+```
+# マーケットプレイスを追加
+/plugin marketplace add anthropics/skills
+
+# ドキュメント系スキルをインストール（推奨）
+/plugin install document-skills@anthropic-agent-skills
+
+# 例示・開発系スキルをインストール（任意）
+/plugin install example-skills@anthropic-agent-skills
+```
+
+> 本プラグインに含まれる pptx スキルは Anthropic 公式版をベースにカスタマイズしたものだが、公式版と併用しても問題ない。skill-creator は v1.3.3 で本プラグインから削除し、公式版への移行を推奨している。
 
 ---
 
