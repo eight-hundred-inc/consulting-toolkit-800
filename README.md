@@ -6,6 +6,197 @@
 
 ---
 
+## インストール
+
+このプラグインは **Claude Code** と **Cursor** の両方に対応しています。お使いの環境に合わせてインストールしてください。
+
+### どの方法を選ぶか
+
+```
+Claude Code を持っている？
+  ├─ はい → 方法1（Claude Code Plugin）を使う
+  │         ※ Cursor にも自動で反映されるので、これだけでOK
+  │
+  └─ いいえ（Cursor だけ使う）
+       ├─ Mac / Linux → 方法2a（シェルスクリプト）
+       └─ Windows     → 方法2b（PowerShell スクリプト）
+```
+
+---
+
+### 方法1: Claude Code Plugin としてインストール（推奨）
+
+Claude Code を持っている場合はこの方法が最も簡単です。OS を問わず動作し、Git のインストールも不要です。
+
+**手順**
+
+1. Claude Code を開く
+2. チャット欄に以下を1行ずつ入力する
+
+```
+/plugin marketplace add eight-hundred-inc/consulting-toolkit-800
+```
+
+```
+/plugin install consulting-toolkit@consulting-toolkit-800
+```
+
+3. インストール完了。Skills / Agents / Commands が使えるようになる
+
+**更新するとき**
+
+```
+/plugin update consulting-toolkit@consulting-toolkit-800
+```
+
+**Cursor でも使える？**
+
+はい。Claude Code でインストールしたプラグインは `~/.claude/plugins/cache/` に保存され、Cursor からも自動的に認識されます。追加の設定は不要です。
+
+> 上級者向け: `~/.claude/settings.json` に直接追加することもできます。
+>
+> ```json
+> {
+>   "extraKnownMarketplaces": {
+>     "consulting-toolkit-800": {
+>       "source": {
+>         "source": "github",
+>         "repo": "eight-hundred-inc/consulting-toolkit-800"
+>       }
+>     }
+>   },
+>   "enabledPlugins": {
+>     "consulting-toolkit@consulting-toolkit-800": true
+>   }
+> }
+> ```
+
+---
+
+### 方法2a: Cursor のみ（Mac / Linux）
+
+Claude Code を持っていない場合のインストール方法です。Git が必要です。
+
+**事前準備: Git の確認**
+
+ターミナルを開いて以下を実行してください。バージョン番号が表示されれば Git はインストール済みです。
+
+```bash
+git --version
+```
+
+表示されない場合は Git をインストールしてください。
+
+- **Mac**: ターミナルで `xcode-select --install` を実行
+- **Linux（Ubuntu/Debian）**: `sudo apt install git`
+- **Linux（その他）**: お使いのパッケージマネージャで `git` をインストール
+
+**インストール手順**
+
+ターミナルで以下を実行します（コピー&ペーストで OK）。
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/eight-hundred-inc/consulting-toolkit-800/main/install.sh | bash
+```
+
+これだけで完了です。内部では以下が行われます。
+
+1. リポジトリを `~/.local/share/consulting-toolkit-800` にクローン
+2. Skills / Agents / Commands を `~/.cursor/` 配下にシンボリックリンクで配置
+
+| コピー元 | 配置先 |
+|----------|--------|
+| `plugins/consulting-toolkit/skills/*/` | `~/.cursor/skills/` |
+| `plugins/consulting-toolkit/agents/*.md` | `~/.cursor/agents/` |
+| `plugins/consulting-toolkit/commands/*.md` | `~/.cursor/commands/` |
+
+**更新するとき**
+
+```bash
+bash ~/.local/share/consulting-toolkit-800/install.sh --update
+```
+
+**アンインストール**
+
+```bash
+bash ~/.local/share/consulting-toolkit-800/install.sh --uninstall
+```
+
+---
+
+### 方法2b: Cursor のみ（Windows）
+
+Claude Code を持っていない Windows ユーザー向けです。Git for Windows が必要です。
+
+**事前準備: Git for Windows のインストール**
+
+1. https://git-scm.com/downloads/win にアクセス
+2. 「Click here to download」からインストーラをダウンロード
+3. インストーラを実行（設定はすべてデフォルトのままで OK）
+4. インストール後、PowerShell を開いて確認:
+
+```powershell
+git --version
+```
+
+バージョン番号が表示されれば準備完了です。
+
+**インストール手順**
+
+PowerShell を開いて、以下を実行します（コピー&ペーストで OK）。
+
+```powershell
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eight-hundred-inc/consulting-toolkit-800/main/install.ps1" -OutFile "$env:TEMP\install.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\install.ps1"
+```
+
+これだけで完了です。内部では以下が行われます。
+
+1. リポジトリを `%USERPROFILE%\.local\share\consulting-toolkit-800` にクローン
+2. Skills / Agents / Commands を `%USERPROFILE%\.cursor\` 配下にコピー
+
+| コピー元 | 配置先 |
+|----------|--------|
+| `plugins\consulting-toolkit\skills\*\` | `%USERPROFILE%\.cursor\skills\` |
+| `plugins\consulting-toolkit\agents\*.md` | `%USERPROFILE%\.cursor\agents\` |
+| `plugins\consulting-toolkit\commands\*.md` | `%USERPROFILE%\.cursor\commands\` |
+
+**更新するとき**
+
+```powershell
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\.local\share\consulting-toolkit-800\install.ps1" -Update
+```
+
+**アンインストール**
+
+```powershell
+powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\.local\share\consulting-toolkit-800\install.ps1" -Uninstall
+```
+
+---
+
+### 動作確認
+
+インストール後、正しく認識されているか確認します。
+
+**Claude Code の場合**
+
+チャット欄で以下を実行:
+
+```
+/plugin list
+/plugin validate
+```
+
+`consulting-toolkit` が表示されていれば OK です。
+
+**Cursor の場合**
+
+1. Cursor を再起動する（インストール後の初回のみ）
+2. Cursor Settings を開く
+3. 「Rules」「Skills」「Subagents」の各タブに consulting-toolkit の要素が表示されていることを確認
+
+---
+
 ## Skills
 
 ### プロジェクト管理
@@ -210,6 +401,40 @@ AIが [agent-team-playbook](plugins/consulting-toolkit/skills/agent-team-playboo
 
 ---
 
+## 併用推奨: Anthropic 公式スキルプラグイン
+
+本プラグインはコンサルティングワークフローに特化しているため、ドキュメント操作（PPTX・Excel・PDF・Word）やスキル作成といった汎用機能は [anthropics/skills](https://github.com/anthropics/skills) の公式プラグインとの併用を推奨します。
+
+| プラグイン | 主なスキル | 用途 |
+|-----------|-----------|------|
+| `document-skills` | pptx, xlsx, pdf, docx, skill-creator 等 | ドキュメントの作成・編集・変換、スキルの新規作成・評価 |
+| `example-skills` | algorithmic-art, frontend-design, brand-guidelines 等 | クリエイティブ・デザイン・開発系の参考実装 |
+
+Claude Code で以下を実行するとインストールできます。
+
+```
+/plugin marketplace add anthropics/skills
+/plugin install document-skills@anthropic-agent-skills
+```
+
+> 本プラグインに含まれる pptx スキルは Anthropic 公式版をベースにカスタマイズしたものですが、公式版と併用しても問題ありません。
+
+---
+
+## ファイル構成
+
+| 種類 | パス |
+|------|------|
+| マーケットプレイスカタログ | `.claude-plugin/marketplace.json` |
+| プラグインマニフェスト | `plugins/consulting-toolkit/.claude-plugin/plugin.json` |
+| インストールスクリプト（Mac/Linux） | `install.sh` |
+| インストールスクリプト（Windows） | `install.ps1` |
+| Skills | `plugins/consulting-toolkit/skills/` |
+| Commands | `plugins/consulting-toolkit/commands/` |
+| Agents | `plugins/consulting-toolkit/agents/` |
+
+---
+
 ## ディレクトリ構成
 
 ```
@@ -218,7 +443,8 @@ consulting-toolkit-800/
 │   └── marketplace.json              # マーケットプレイスカタログ
 ├── README.md
 ├── LICENSE.md
-├── install.sh
+├── install.sh                        # Mac/Linux 用インストーラ
+├── install.ps1                       # Windows 用インストーラ
 ├── plugins/
 │   └── consulting-toolkit/           # プラグイン本体
 │       ├── .claude-plugin/
@@ -249,127 +475,3 @@ consulting-toolkit-800/
 └── skills/
     └── 800-branded-pptx/             # 800社ブランドPPTX（800 固有）
 ```
-
----
-
-## 併用推奨: Anthropic 公式スキルプラグイン
-
-本プラグインはコンサルティングワークフローに特化しているため、ドキュメント操作（PPTX・Excel・PDF・Word）やスキル作成といった汎用機能は [anthropics/skills](https://github.com/anthropics/skills) の公式プラグインとの併用を推奨する。
-
-| プラグイン | 主なスキル | 用途 |
-|-----------|-----------|------|
-| `document-skills` | pptx, xlsx, pdf, docx, skill-creator 等 | ドキュメントの作成・編集・変換、スキルの新規作成・評価 |
-| `example-skills` | algorithmic-art, frontend-design, brand-guidelines 等 | クリエイティブ・デザイン・開発系の参考実装 |
-
-### インストール方法（Claude Code）
-
-```
-# マーケットプレイスを追加
-/plugin marketplace add anthropics/skills
-
-# ドキュメント系スキルをインストール（推奨）
-/plugin install document-skills@anthropic-agent-skills
-
-# 例示・開発系スキルをインストール（任意）
-/plugin install example-skills@anthropic-agent-skills
-```
-
-> 本プラグインに含まれる pptx スキルは Anthropic 公式版をベースにカスタマイズしたものだが、公式版と併用しても問題ない。skill-creator は v1.3.3 で本プラグインから削除し、公式版への移行を推奨している。
-
----
-
-## インストール
-
-このリポジトリは Claude Code Plugin / Cursor Plugin の両方に対応している。
-
-### Claude Code
-
-Claude Code を開き、チャットに以下を入力する。
-
-```
-# マーケットプレイスを追加
-/plugin marketplace add eight-hundred-inc/consulting-toolkit-800
-
-# プラグインをインストール
-/plugin install consulting-toolkit-800@consulting-toolkit-800
-```
-
-または `~/.claude/settings.json` に直接追加する。
-
-```json
-{
-  "extraKnownMarketplaces": {
-    "consulting-toolkit-800": {
-      "source": {
-        "source": "github",
-        "repo": "eight-hundred-inc/consulting-toolkit-800"
-      }
-    }
-  },
-  "enabledPlugins": {
-    "consulting-toolkit-800@consulting-toolkit-800": true
-  }
-}
-```
-
-更新（Claude Code のチャットで実行）:
-
-
-```
-/plugin update consulting-toolkit@consulting-toolkit-800
-```
-
-
-### Cursor（インストールスクリプト）
-
-Claude Code がない環境向け。リポジトリをクローンし、Cursor のグローバルディレクトリにシンボリックリンクを作成する。
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/eight-hundred-inc/consulting-toolkit-800/main/install.sh | bash
-```
-
-または手動で:
-
-```bash
-git clone https://github.com/eight-hundred-inc/consulting-toolkit-800.git ~/.local/share/consulting-toolkit-800
-bash ~/.local/share/consulting-toolkit-800/install.sh
-```
-
-スクリプトは以下のディレクトリにシンボリックリンクを作成する:
-
-| ソース | リンク先 |
-|--------|----------|
-| `plugins/consulting-toolkit/skills/*/` | `~/.cursor/skills/` |
-| `plugins/consulting-toolkit/agents/*.md` | `~/.cursor/agents/` |
-| `plugins/consulting-toolkit/commands/*.md` | `~/.cursor/commands/` |
-
-更新・アンインストール:
-
-```bash
-bash ~/.local/share/consulting-toolkit-800/install.sh --update
-bash ~/.local/share/consulting-toolkit-800/install.sh --uninstall
-```
-
-> **Note**: Claude Code がインストール済みの環境では、Claude Code Plugin としてインストールすれば Cursor からも自動的に認識される（`~/.claude/plugins/cache/` 経由）。インストールスクリプトは Claude Code なしの環境向け。
-
-### 動作確認
-
-Claude Code を開き、チャットに以下を入力する。
-
-```
-/plugin list
-/plugin validate
-```
-
-Cursor の場合は、Cursor Settings を開き、Rules, Skills, Subagents のタブで各要素が表示されていることを確認する。
-
-### ファイル構成
-
-| 種類 | パス |
-|------|------|
-| マーケットプレイスカタログ | `.claude-plugin/marketplace.json` |
-| プラグインマニフェスト | `plugins/consulting-toolkit/.claude-plugin/plugin.json` |
-| インストールスクリプト | `install.sh` |
-| Skills | `plugins/consulting-toolkit/skills/` |
-| Commands | `plugins/consulting-toolkit/commands/` |
-| Agents | `plugins/consulting-toolkit/agents/` |
