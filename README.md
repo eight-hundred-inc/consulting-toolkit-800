@@ -143,10 +143,13 @@ git --version
 
 **インストール手順**
 
-PowerShell を開いて、以下を実行します（コピー&ペーストで OK）。
+PowerShell を開いて、以下をまとめてコピー&ペーストして実行します。
 
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/eight-hundred-inc/consulting-toolkit-800/main/install.ps1" -OutFile "$env:TEMP\install.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\install.ps1"
+$url = "https://raw.githubusercontent.com/eight-hundred-inc/consulting-toolkit-800/main/install.ps1"
+$f = "$env:TEMP\ct-install.ps1"
+(New-Object Net.WebClient).DownloadFile($url, $f)
+powershell -ExecutionPolicy Bypass -File $f
 ```
 
 これだけで完了です。内部では以下が行われます。
@@ -170,6 +173,27 @@ powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\.local\share\consulti
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\.local\share\consulting-toolkit-800\install.ps1" -Uninstall
+```
+
+---
+
+### トラブルシューティング
+
+**Windows: PowerShell で `ParserError` / `UnexpectedToken` が出る**
+
+スクリプト内の日本語が文字化けし、構文エラーになっています。原因は Windows PowerShell 5.1 のエンコーディング処理です。
+
+上記のインストールコマンド（`(New-Object Net.WebClient).DownloadFile(...)` を使う方法）で解決します。もし `Invoke-WebRequest -OutFile` を使っていた場合は、上記のコマンドに差し替えてください。
+
+それでも解決しない場合は、ダウンロード後にエンコーディングを変換してから実行してください。
+
+```powershell
+$url = "https://raw.githubusercontent.com/eight-hundred-inc/consulting-toolkit-800/main/install.ps1"
+$f = "$env:TEMP\ct-install.ps1"
+(New-Object Net.WebClient).DownloadFile($url, $f)
+$c = [IO.File]::ReadAllText($f, [Text.Encoding]::UTF8)
+[IO.File]::WriteAllText($f, $c, [Text.UTF8Encoding]::new($true))
+powershell -ExecutionPolicy Bypass -File $f
 ```
 
 ---
