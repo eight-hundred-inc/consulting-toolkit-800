@@ -93,8 +93,9 @@
    - カスタム（パスB/C）: プロジェクトルートの `workflow.md` を読み込む
 2. フェーズ・ステップ構造を抽出する
 3. 各ステップの担当（`[AI]` / `[人間]` / `[AI → SubAgent]`）を反映する
-4. 成果物一覧からリンクセクションを生成する
-5. Step 1 に `← 現在` マーカーを付与する
+4. ワークフロー概要から各ステップの連携スキル/SubAgent名を抽出し、チェックリスト行に `→ {スキル名}` を付与する（連携スキルがないステップには付与しない）
+5. 成果物一覧からリンクセクションを生成する
+6. Step 1 に `← 現在` マーカーを付与する
 
 **生成例（調査プロジェクトの場合）**:
 ```markdown
@@ -102,21 +103,21 @@
 
 ### Phase 0: 提案
 - [ ] Step 1: 論点・仮説の設計 ← 現在 [AI]
-- [ ] Step 2: 提案書作成 [AI]
-- [ ] Step 3: 提案用スライド構成設計 [AI]
-- [ ] Step 4: インタビューガイド作成 [AI]
-- [ ] Step 5: 最終報告書骨子案作成 [AI]
+- [ ] Step 2: 提案書作成 [AI] → interview-research-proposal
+- [ ] Step 3: 提案用スライド構成設計 [AI] → slide-structure-designer
+- [ ] Step 4: インタビューガイド作成 [AI] → interview-guide-creator
+- [ ] Step 5: 最終報告書骨子案作成 [AI] → report-outline-creator
 
 ### Phase 1: 調査
-- [ ] Step 6: インタビュー対象者選定 [AI]
+- [ ] Step 6: インタビュー対象者選定 [AI] → interview-candidate-selector
 - [ ] (インタビュー実施) [人間]
-- [ ] Step 7: インタビュー議事メモ作成 [AI]
+- [ ] Step 7: インタビュー議事メモ作成 [AI] → interview-minutes-creator
 - [ ] Step 8: インタビューまとめ [AI]
-- [ ] Step 9: デスクリサーチ [AI → SubAgent]
+- [ ] Step 9: デスクリサーチ [AI → SubAgent] → desk-researcher
 
 ### Phase 2: 分析・とりまとめ
-- [ ] Step 10: 最終報告書作成 [AI]
-- [ ] Step 11: 報告用スライド構成設計 [AI]
+- [ ] Step 10: 最終報告書作成 [AI] → integrated-analysis-creator
+- [ ] Step 11: 報告用スライド構成設計 [AI] → slide-structure-designer
 
 ## 成果物リンク
 - 与件: [Input/与件.md](Input/与件.md)
@@ -161,9 +162,9 @@
 
 ### Phase 0: 提案
 - [x] Step 1: 論点・仮説の設計 [AI] ✓ 2026-01-28
-- [x] Step 2: 提案書作成 [AI] ✓ 2026-01-28
-- [x] Step 3: 提案用スライド構成設計 [AI] ✓ 2026-01-29
-- [ ] Step 4: インタビューガイド作成 ← 現在 [AI]
+- [x] Step 2: 提案書作成 [AI] → interview-research-proposal ✓ 2026-01-28
+- [x] Step 3: 提案用スライド構成設計 [AI] → slide-structure-designer ✓ 2026-01-29
+- [ ] Step 4: インタビューガイド作成 ← 現在 [AI] → interview-guide-creator
 ...
 
 ## 成果物リンク
