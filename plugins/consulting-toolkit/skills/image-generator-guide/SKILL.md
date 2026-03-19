@@ -6,9 +6,14 @@ description: >-
   ワークフローを提供する。image-creator サブエージェントから読み込まれる。
 ---
 
-# Image Generator Guide
+# 画像生成ガイド
 
 image-creator サブエージェント向けの作業手順書。
+
+## 入出力
+
+- **入力**: ソースドキュメント（図解対象の情報を含む文書）、リクエスト内容
+- **出力**: PNG画像（HTML+CSS経由）、SVGファイル、またはGenerateImage用プロンプト
 
 ## ルーティング判断
 

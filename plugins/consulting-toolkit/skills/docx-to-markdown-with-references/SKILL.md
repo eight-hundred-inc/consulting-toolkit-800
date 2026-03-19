@@ -3,11 +3,16 @@ name: docx-to-markdown-with-references
 description: Word文書（.docx）をMarkdownに変換し、参考文献を整理するスキル。「Wordをマークダウンに変換して」「docxをmdに変換して参考文献を整理して」「Word文書の参考文献を統合して」「レポートをMarkdownに変換して」などのリクエスト時に使用。pandoc（またはpython-docxフォールバック）による変換と、重複URL統合・番号再割当て・参考文献リスト生成・文書構造整形を行う。
 ---
 
-# Word to Markdown with Reference Consolidation
+# Word→Markdown変換スキル
 
 Word文書をMarkdownに変換し、参考文献を整理するスキル。
 
-## 処理フロー
+## 入出力
+
+- **入力**: Word文書（.docx）
+- **出力**: 参考文献整理済みMarkdown
+
+## ワークフロー
 
 ```
 処理フロー

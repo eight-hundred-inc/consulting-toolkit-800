@@ -3,9 +3,14 @@ name: agent-team-playbook
 description: Claude Code の Agent Team が有効かを判断し、適切なら要件書 MD を生成してユーザーに提示する。「Agent Teamで〜」「並行処理で〜」「チームで〜」といった指示時に参照する。
 ---
 
-# Agent Team Playbook
+# Agent Team プレイブック
 
 ユーザーが Agent Team での並行処理を希望したとき、適否を判断し、適切なら Claude Code に渡す要件書を生成する。
+
+## 入出力
+
+- **入力**: プロジェクト状態（Input/ Output/ の中身、workflow.md の進捗）、ユーザーの並行処理リクエスト
+- **出力**: `Output/agent-team-requirements.md`（Agent Team 要件書）
 
 ## ワークフロー
 

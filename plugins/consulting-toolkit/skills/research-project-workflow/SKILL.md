@@ -11,7 +11,7 @@ description: 調査プロジェクトのワークフロー定義。3フェーズ
 
 ```
 Phase 0: 提案
-  1. 論点・仮説の設計 [AI]                                        review_level: full
+  1. 論点・仮説の設計 [AI → SubAgent] → desk-researcher            review_level: full
   2. 提案書作成 [AI] → interview-research-proposal                review_level: full
   3. 提案用スライド構成設計 [AI] → slide-structure-designer        review_level: light
   4. インタビューガイド作成 [AI] → interview-guide-creator          review_level: full
@@ -22,7 +22,7 @@ Phase 1: 調査
   (インタビュー実施) [人間]
   7. インタビュー議事メモ作成 [AI] → interview-minutes-creator      review_level: full
   8. インタビューまとめ [AI]                                        review_level: light
-  9. デスクリサーチ [AI → SubAgent] → desk-research (gap-filling)   review_level: light
+  9. デスクリサーチ [AI → SubAgent] → desk-researcher (gap-filling)   review_level: light
 
 Phase 2: 分析・とりまとめ
   10. 最終報告書作成 [AI] → integrated-analysis-creator              review_level: full
@@ -66,87 +66,7 @@ Phase 2: 分析・とりまとめ
 
 ### スキル呼び出し手順
 
-**Step 1（論点・仮説の設計）**:
-Step 1 は PM が内部で段階的に実行する複合ステップ。詳細は [references/phases.md](references/phases.md) の Step 1 を参照。
-
-**Step 2（提案書作成）**:
-```
-1. skills/interview-research-proposal/SKILL.md を読み込む
-2. skills/interview-research-proposal/references/quality-playbook.md も読み込む（品質基準）
-3. Output/論点・仮説.md と調査レポートを入力として渡す
-4. スキルの指示に従って提案書を作成
-```
-
-**Step 3（提案用スライド構成設計）**:
-```
-1. skills/slide-structure-designer/SKILL.md を読み込む
-2. Output/提案書.md をソースとして渡す
-3. スキルの指示に従って提案用スライド構成を設計
-4. Output/スライド構成_提案.md に出力
-```
-
-**Step 4（インタビューガイド作成）**:
-```
-1. skills/interview-guide-creator/SKILL.md を読み込む
-2. Output/提案書.md から論点・仮説を確認
-3. 調査レポートから未検証事項を把握
-4. スキルの指示に従ってインタビューガイドを作成
-```
-
-**Step 5（報告書骨子作成）**:
-```
-1. skills/report-outline-creator/SKILL.md を読み込む
-2. Output/提案書.md から論点・仮説・納品物定義を確認
-3. Output/インタビューガイド.md から検証事項を確認
-4. 調査レポートから調査で得た情報を把握
-5. プロジェクト種類を判定し、skills/report-outline-creator/references/structure-templates.md を参照
-6. スキルの指示に従って報告書骨子を作成
-```
-
-**Step 6（インタビュー対象者選定）**:
-```
-1. skills/interview-candidate-selector/SKILL.md を読み込む
-2. Output/インタビューガイド.md から対象者タイプ定義を抽出
-3. Interview/ 内の候補者リストを読み込む（xlsxスキルを活用）
-4. スキルの指示に従って対象者を選定・評価
-```
-
-**Step 7（インタビュー議事録作成）**:
-```
-1. skills/interview-minutes-creator/SKILL.md を読み込む
-2. Input/インタビュー/ 内の文字起こしファイルを確認
-3. Output/インタビューガイド.md の質問リストを参照
-4. スキルの指示に従って議事録を作成
-```
-
-**Step 9（デスクリサーチ）** ※ SubAgent経由:
-```
-1. 提案書、インタビューまとめ、既存調査結果のパスを確認
-2. ユーザーに出力先フォルダを確認
-3. Task ツールで desk-researcher SubAgent を起動（agents/desk-researcher.md 参照）
-   - コンテキストファイル（提案書、インタビューまとめ、既存調査）の絶対パス、出力先フォルダ（絶対パス）、モード: gap-filling を指定
-4. SubAgentの返却結果（ファイルパス、発見事項、仮説検証要約）を受け取る
-5. レビューゲートへ進む
-```
-
-**Step 10（最終報告書作成）**:
-```
-1. skills/integrated-analysis-creator/SKILL.md を読み込む
-2. skills/integrated-analysis-creator/references/writing-guide.md も読み込む
-3. Output/提案書.md から論点・小論点構造を抽出
-4. Output/報告書骨子.md から章立て・構成定義を確認
-5. Output/インタビューまとめ.md、デスクリサーチ結果を入力として渡す
-6. スキルの指示に従って Output/最終報告書.md を作成
-7. Output/プロジェクトサマリ.md を最終更新
-```
-
-**Step 11（報告用スライド構成設計）**:
-```
-1. skills/slide-structure-designer/SKILL.md を読み込む
-2. Output/最終報告書.md をソースとして渡す（必要に応じて Output/報告書骨子.md も参照）
-3. スキルの指示に従って報告用スライド構成を設計
-4. Output/スライド構成.md に出力
-```
+各ステップのスキル呼び出し手順の詳細は [references/phases.md](references/phases.md) を参照。
 
 ## 成果物一覧
 
