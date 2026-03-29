@@ -1,6 +1,6 @@
 {
   "name": "consulting-toolkit",
-  "version": "1.3.12",
+  "version": "1.3.13",
   "description": "エイトハンドレッド（800）社向けコンサルティングプロジェクトの提案書作成からインタビュー、報告書作成までのワークフローを管理するスキル・コマンド・エージェント群",
   "author": { "name": "eight-hundred-inc" },
   "repository": "https://github.com/eight-hundred-inc/consulting-toolkit-800",
