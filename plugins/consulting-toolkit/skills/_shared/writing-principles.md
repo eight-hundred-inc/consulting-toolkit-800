@@ -1,3 +1,9 @@
+> **保守用リファレンス**: このファイルの内容は各スキルのSKILL.mdに
+> インラインで埋め込み済み。原則を変更する場合は以下も連動して更新すること:
+> - slide-structure-designer/SKILL.md
+> - integrated-analysis-creator/SKILL.md
+> - interview-research-proposal/SKILL.md
+
 # 共通ライティング原則
 
 クライアント向け文書（提案書、最終報告書等）に共通して適用する品質原則。各スキルの固有ルールはスキル側に定義する。
