@@ -81,8 +81,8 @@ image-creator サブエージェント向けの作業手順書。
 以下の CSS 設計ルールに従って HTML ファイルを作成する。
 
 **キャンバス**
-- 16:9 比率を基本とする。標準は 1440x810px
-- `.slide` クラスのルート要素で囲む
+- `body` 要素に `width` を px 固定で指定する（例: 1200px）。高さは指定しない（コンテンツに合わせて自動）
+- screenshot.py が `body` をセレクタとしてキャプチャするため、コンテンツぴったりにクロップされる
 - `overflow: hidden` で枠外の描画を防ぐ
 
 **フォント**
@@ -183,17 +183,35 @@ if match:
 
 #### HTML → PNG の場合
 
-`scripts/screenshot.py` を使って HTML を高解像度 PNG に変換する。
+`scripts/screenshot.py` を使って HTML を高解像度 PNG に変換する。headless で実行され、ブラウザは表示されない。デフォルトで `body` 要素をキャプチャするため、コンテンツに合わせて自動クロップされ余白が発生しない。
+
+**単体変換:**
 
 ```bash
 python3 skills/image-generator-guide/scripts/screenshot.py \
   --html <HTMLファイルパス> \
   --out <出力PNGパス> \
-  --width 1440 --height 810 --scale 2
+  --width 1200 --scale 2
 ```
 
-- `--selector .slide` で特定要素のみキャプチャ可能（デフォルト: `.slide`）
-- `--scale 2` で 2x 解像度（2880x1620px 実寸）を生成する
+**バッチ変換（複数ファイルを1回のブラウザ起動で変換）:**
+
+```bash
+python3 skills/image-generator-guide/scripts/screenshot.py \
+  --batch manifest.json
+```
+
+manifest.json の形式:
+```json
+[
+  {"html": "file1.html", "png": "file1.png", "width": 1200},
+  {"html": "file2.html", "png": "file2.png", "width": 960}
+]
+```
+
+- `--selector body` がデフォルト。`--selector .slide` で特定要素のみキャプチャも可能
+- `--scale 2` で 2x 解像度を生成する（デフォルト）
+- `--height` の指定は不要。body セレクタでコンテンツ高さに自動フィットする
 
 #### SVG の場合
 
@@ -215,8 +233,7 @@ SVG はそのままファイル出力する。screenshot.py は不要。
 
 ### Step 5: ファイル整理
 
-- 最終 PNG / SVG は元ドキュメントの近くに `assets/` フォルダを作成して格納する
-- HTML ソースは作業フォルダ配下の `_src/` サブフォルダに移動する
+- 最終 PNG / SVG と HTML ソースを `assets/` フォルダにまとめて格納する（元ドキュメントの近くに作成）
 - SVG の場合、中間 HTML ファイルがあれば削除する
 
 ## プロンプト返却パス
