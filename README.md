@@ -239,7 +239,7 @@ powershell -ExecutionPolicy Bypass -File $f
 
 | スキル | 説明 | トリガー |
 |--------|------|----------|
-| [interview-research-proposal](plugins/consulting-toolkit/skills/interview-research-proposal/SKILL.md) | 与件情報と打ち合わせメモから調査提案書を作成 | 「提案書を作成して」「プロポーザルを作って」 |
+| [interview-research-proposal](plugins/consulting-toolkit/skills/interview-research-proposal/SKILL.md) | 与件情報と打ち合わせメモから調査プロジェクト提案書を作成 | 「調査提案書を作成して」「リサーチ提案書を作って」 |
 | [interview-guide-creator](plugins/consulting-toolkit/skills/interview-guide-creator/SKILL.md) | 提案書の論点に対応したインタビューガイドを作成 | 「インタビューガイドを作成して」「質問リストを作って」 |
 | [interview-candidate-selector](plugins/consulting-toolkit/skills/interview-candidate-selector/SKILL.md) | 候補者リストから最適なインタビュー対象者を選定・評価 | 「インタビュー対象者を選定して」「候補者を評価して」 |
 | [interview-minutes-creator](plugins/consulting-toolkit/skills/interview-minutes-creator/SKILL.md) | 文字起こしと質問リストから詳細なインタビュー議事録を作成 | 「インタビュー議事録を作成して」「ヒアリング内容を整理して」 |
@@ -247,6 +247,14 @@ powershell -ExecutionPolicy Bypass -File $f
 | [slide-structure-designer](plugins/consulting-toolkit/skills/slide-structure-designer/SKILL.md) | ソースドキュメントからスライドのページ構成をMDで設計 | 「スライド構成を設計して」「ページ構成を考えて」 |
 | [integrated-analysis-creator](plugins/consulting-toolkit/skills/integrated-analysis-creator/SKILL.md) | 調査結果を論点構造に沿って統合分析し、3層ピラミッド構造の分析結果文書を作成 | 「分析結果を作成して」「統合分析して」 |
 | [research-project-workflow](plugins/consulting-toolkit/skills/research-project-workflow/SKILL.md) | 3フェーズ・13ステップのワークフロー定義 | project-managerから自動呼び出し |
+
+### 汎用プロジェクト
+
+調査以外のプロジェクト（戦略策定、コンテンツ制作、システム実装、事業計画等）に対応する。
+
+| スキル | 説明 | トリガー |
+|--------|------|----------|
+| [project-proposal](plugins/consulting-toolkit/skills/project-proposal/SKILL.md) | 与件情報から汎用プロジェクト提案書を作成（戦略・実装・コンテンツ等） | 「プロジェクト提案書を作成して」「提案書を作って」 |
 
 ### ユーティリティ
 
@@ -356,7 +364,8 @@ Phase 2: 分析・とりまとめ
 トリガーワードをチャットに入力する。
 
 ```
-「提案書を作成して」         → interview-research-proposal が起動
+「調査提案書を作成して」       → interview-research-proposal が起動
+「提案書を作成して」           → project-proposal が起動（調査以外の文脈）
 「会議メモから議事録を作って」 → meeting-minutes-creator が起動
 「インタビュー議事録を作成して」→ interview-minutes-creator が起動
 「デスクリサーチを実行して」   → desk-research が起動
@@ -482,6 +491,7 @@ consulting-toolkit-800/
 │       ├── skills/
 │       │   ├── project-manager/
 │       │   ├── interview-research-proposal/
+│       │   ├── project-proposal/
 │       │   ├── interview-guide-creator/
 │       │   ├── interview-candidate-selector/
 │       │   ├── interview-minutes-creator/
