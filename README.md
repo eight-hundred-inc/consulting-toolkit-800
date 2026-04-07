@@ -504,11 +504,10 @@ consulting-toolkit-800/
 │       │   ├── pptx/
 │       │   ├── report-outline-creator/
 │       │   ├── slide-structure-designer/
-│       │   └── subagent-creator/
+│       │   ├── subagent-creator/
+│       │   └── 800-branded-pptx/     # 800社ブランドPPTX（800 固有）
 │       └── agents/
 │           ├── quality-reviewer.md
 │           ├── desk-researcher.md
 │           └── image-creator.md
-└── skills/
-    └── 800-branded-pptx/             # 800社ブランドPPTX（800 固有）
 ```
