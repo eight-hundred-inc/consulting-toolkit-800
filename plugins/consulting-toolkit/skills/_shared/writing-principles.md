@@ -3,6 +3,7 @@
 > - slide-structure-designer/SKILL.md
 > - integrated-analysis-creator/SKILL.md
 > - interview-research-proposal/SKILL.md
+> - project-proposal/SKILL.md
 
 # 共通ライティング原則
 
