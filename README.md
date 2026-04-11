@@ -267,7 +267,7 @@ powershell -ExecutionPolicy Bypass -File $f
 | [800-branded-pptx](skills/800-branded-pptx/SKILL.md) | 800社のブランドデザイン（ダークグリーン・Meiryo UI）に沿ったPowerPointを作成。pptxスキルをラップし、デザイントークンとボイラープレートを提供する | 「800風のスライドを作成」「800のpptxを作成」 |
 | [subagent-creator](plugins/consulting-toolkit/skills/subagent-creator/SKILL.md) | SubAgent（エージェント定義）を作成するガイド。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「エージェントを作成して」「SubAgentを作って」 |
 | [chart-generator-guide](plugins/consulting-toolkit/skills/chart-generator-guide/SKILL.md) | matplotlibによるデータチャート生成ガイド。ブランドパレット対応、PNG+SVG二重出力。棒・レーダー・積み上げ等7パターンのテンプレート付き | image-creatorサブエージェント経由 |
-| [image-generator-guide](plugins/consulting-toolkit/skills/image-generator-guide/SKILL.md) | HTML+CSS／SVGによる構造化図解の設計ガイド。イラスト・アート系は画像生成プロンプトを返却。image-creatorサブエージェントから読み込まれる | image-creatorサブエージェント経由 |
+| [image-generator-guide](plugins/consulting-toolkit/skills/image-generator-guide/SKILL.md) | HTML+CSSによる構造化図解の設計ガイド。イラスト・アート系は画像生成プロンプトを返却。image-creatorサブエージェントから読み込まれる | image-creatorサブエージェント経由 |
 
 ---
 
