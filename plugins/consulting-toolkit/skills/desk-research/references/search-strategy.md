@@ -130,6 +130,20 @@
 - **推移・トレンド**: 「推移」「変化」「トレンド」「年次比較」を付与
 - **予測**: 「予測」「見通し」「forecast」を付与
 
+#### D. ツール特性別のクエリ
+
+WebSearch（キーワードベース）と Exa（セマンティック）では、最適なクエリの形が異なる。詳細は [tool-selection.md](tool-selection.md) を参照。
+
+| ツール | クエリの形 | 例 |
+|---|---|---|
+| WebSearch | 短いキーワード列 + 検索演算子 | `"ERP PM 年収" site:doda.jp 2025` |
+| Exa | 自然文・意図を表す文 | `salary trends for ERP project managers in Japan in 2025` |
+
+**使い分けの原則**:
+- 日本語の最新動向・公的統計・転職メディア → WebSearch（site:演算子で絞り込み）
+- 英語の研究・技術文献・類似事例探索・本文取得 → Exa（自然文クエリ）
+- 同じ調査項目でも、両方を並列で実行して相互補完する
+
 ### 2.3 クエリテンプレート
 
 調査項目1つに対して、以下のテンプレートで5本以上のクエリを生成する:
@@ -146,28 +160,33 @@
 **具体例（調査項目: ERP PM/PLの決定年収レンジ）**:
 
 ```
+WebSearch（日本語・国内ソース中心）
 1. "ERP PM 年収 転職 2025 2026"
 2. "SAP導入 プロジェクトマネージャー 給与 転職実績"
 3. "ITコンサルタント PM 年収相場 比較"
-4. "ERP implementation project manager salary Japan 2025"
-5. "ERP PM 年収 下落 低下 減少"（反証方向）
-6. "ERP コンサルタント 年収" site:jac-recruitment.jp
-7. "プロジェクトマネージャー 年収" filetype:pdf
+4. "ERP PM 年収 下落 低下 減少"（反証方向）
+5. "ERP コンサルタント 年収" site:jac-recruitment.jp
+6. "プロジェクトマネージャー 年収" filetype:pdf
+
+Exa（英語・自然文・類似探索）
+7. salary trends for ERP project managers in Japan in 2025
+8. compensation benchmarks for SAP implementation project managers
+9. how Japan's IT consulting market sets ERP project manager pay levels
 ```
 
 ### 2.4 検索実行のルール
 
-- **並列実行**: 独立した調査項目のクエリは可能な限り並列にWebSearchを実行
-- **深掘り判断**: WebSearchの結果から有望なURLが見つかったら、WebFetchで全文取得
+- **並列実行**: 独立した調査項目のクエリは可能な限り並列に呼び出す。WebSearch と Exa は異なるツールなので、両方を同時に並列実行できる
+- **深掘り判断**: 検索結果から有望なURLが見つかったら、WebFetch（または Exa の `web_fetch_exa`）で全文取得
 - **反復**: 1回の検索で十分な情報が得られない場合、クエリを修正して再検索
-- **ソースの多様性**: 1つの調査項目につき最低3つの異なるソースから情報を取得
+- **ソースの多様性**: 1つの調査項目につき最低3つの異なるソースから情報を取得。WebSearch のみ・Exa のみに偏ると、ソースの言語・性質も偏るため、両方を併用する
 - **情報の鮮度**: 可能な限り直近1-2年のデータを優先。古いデータしかない場合はその旨を明記
 
 ### 2.5 検索が不十分な場合の判断基準
 
 以下のいずれかに該当する場合、Layer 2（Browser Use）またはLayer 3（Deep Research）への移行を検討:
 
-- 3回以上クエリを変えても有用な情報が得られない
+- WebSearch と Exa の両方で 3回以上クエリを変えても有用な情報が得られない
 - ログインが必要なサイトにしか情報がない
 - 動的ページの操作（フィルタ、ソート等）が必要
 - 非公開情報や有料レポートの内容が必要
