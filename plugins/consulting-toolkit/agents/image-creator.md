@@ -6,9 +6,11 @@ description: >-
   「画像にして」「図にして」「図解して」「ビジュアル化して」「イメージを作って」
   「グラフを作って」「チャートを作成して」「データを可視化して」
   等のリクエスト時に使用。Use proactively when image generation is needed.
+skills:
+  - image-generator-guide
 ---
 
-画像生成リクエストを受けたら、以下の手順で作業する。
+画像生成リクエストを受けたら、以下の手順で作業する。`image-generator-guide` skill は起動時に自動でプリロードされる。
 
 ## 入力の確認
 
@@ -20,7 +22,7 @@ description: >-
 
 ## 作業手順
 
-1. `skills/image-generator-guide/SKILL.md` を読み、ルーティング判断基準を把握する
+1. プリロード済みの image-generator-guide のルーティング判断基準に従う
 2. データチャート（数値軸のある棒・折れ線・レーダー・散布図等）の場合は `skills/chart-generator-guide/SKILL.md` を読み、そちらの手順に従う
 3. データチャート以外の場合は、image-generator-guide の判断基準に従いコード生成かプロンプト返却かを判断する
 4. コード生成（HTML+CSS/SVG）の場合は `skills/image-generator-guide/references/design-patterns.md` も読む
