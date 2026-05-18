@@ -2,4 +2,6 @@
 memo.md
 output/
 .cursor/
+.claude/
+.codex/
 plans/
