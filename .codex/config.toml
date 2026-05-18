@@ -1,3 +1,0 @@
-[mcp_servers.freee]
-args = ["freee-mcp"]
-command = "npx"
