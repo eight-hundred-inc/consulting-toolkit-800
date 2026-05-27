@@ -1,9 +1,20 @@
-> **保守用リファレンス**: このファイルの内容は各スキルのSKILL.mdに
-> インラインで埋め込み済み。原則を変更する場合は以下も連動して更新すること:
-> - slide-structure-designer/SKILL.md
-> - integrated-analysis-creator/SKILL.md
-> - interview-research-proposal/SKILL.md
-> - project-proposal/SKILL.md
+> **保守用リファレンス**: このファイルは各スキルの SKILL.md にインライン埋め込みされた
+> 共通ライティング原則の原典。実際に適用されるのはインライン側であり、原則を変更する場合は
+> 下表で「✓」が付いたスキルの SKILL.md を**連動して更新すること**。
+>
+> | 原則 | slide-structure-designer | integrated-analysis-creator | interview-research-proposal | project-proposal |
+> |---|:---:|:---:|:---:|:---:|
+> | 原則1 読み手はクライアント | ✓ | ✓ | ✓ | ✓ |
+> | 原則2 具体性と定量化 | ✓ | ✓ | ✓ | ✓ |
+> | 原則3 So What? | ✓ | ✓ | ✓ | ✓ |
+> | 原則4 ファクトの正確性（出典URL必須） | ✓ | ✓ | — | — |
+> | 原則5 前提知識に依存しない | ✓ | ✓ | ✓ | ✓ |
+> | 原則6 意思決定に必要なものだけ | ✓ | ✓ | ✓ | ✓ |
+>
+> **原則4 の「出典URL必須」要件は最終成果物（最終報告書・報告スライド）にのみ適用する。**
+> 提案書スキル（interview-research-proposal / project-proposal）は調査前段階で
+> ハードファクトが少ないため、出典URL必須要件はインライン埋め込みの対象外とする
+> （原則4 のうち「捏造禁止・不明は不明と明記」部分は提案書にも適用される）。
 
 # 共通ライティング原則
 

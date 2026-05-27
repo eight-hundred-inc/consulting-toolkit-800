@@ -8,7 +8,7 @@
     {
       "name": "consulting-toolkit",
       "source": "./plugins/consulting-toolkit",
-      "description": "提案書作成からインタビュー、報告書作成までのワークフロー管理",
+      "description": "コンサルティングプロジェクトの提案書作成からインタビュー、報告書作成までのワークフローを管理するスキル・コマンド・エージェント群",
       "repository": "https://github.com/masaki69/consulting-toolkit",
       "category": "workflow"
     }

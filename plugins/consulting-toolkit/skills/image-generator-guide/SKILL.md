@@ -125,7 +125,7 @@ image-creator サブエージェント向けの作業手順書。
 **単体変換:**
 
 ```bash
-python3 skills/image-generator-guide/scripts/screenshot.py \
+python3 scripts/screenshot.py \
   --html <HTMLファイルパス> \
   --out <出力PNGパス> \
   --width 1200 --scale 2
@@ -134,7 +134,7 @@ python3 skills/image-generator-guide/scripts/screenshot.py \
 **バッチ変換（複数ファイルを1回のブラウザ起動で変換）:**
 
 ```bash
-python3 skills/image-generator-guide/scripts/screenshot.py \
+python3 scripts/screenshot.py \
   --batch manifest.json
 ```
 
