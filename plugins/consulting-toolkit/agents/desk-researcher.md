@@ -1,7 +1,6 @@
 ---
 name: desk-researcher
 description: デスクトップリサーチ実行専門。任意のコンテキストに基づきExa（セマンティック検索）/ WebSearch / WebFetch / Browserで情報収集し、調査レポートを出力する。「デスクリサーチを実行」「初期調査」「追加調査」「深掘り調査」「市場調査」「競合調査」「業界動向調査」「技術動向調査」時にPROACTIVELYに使用。大量の中間出力（検索結果・Webページ・Exa のフルコンテンツ・ブラウザDOM）をコンテキスト分離し、最終レポートだけを親エージェントに返却する。
-tools: Read, Grep, Glob, Bash, WebSearch, WebFetch, mcp__claude_ai_Exa__web_search_exa, mcp__claude_ai_Exa__web_fetch_exa
 skills:
   - desk-research
 ---
@@ -38,4 +37,5 @@ skills:
 - 調査レポートは必ずファイルとして出力し、ファイルパスを返却する
 - ソースの信頼性評価表には**取得経路（Exa / WebSearch / Browser / Deep Research / 既存資料）**を必ず記載する
 - docxファイルが入力に含まれる場合は、`docx-to-markdown-with-references` スキルを使用してMarkdownに変換してから処理する
+- **ツール継承について**: このエージェントは `tools:` 制限を設けず、親エージェントの全ツールを継承する。Exa MCP のサーバー名は環境（コネクタ登録）ごとに異なる（`mcp__claude_ai_Exa__*` のような固定名ではない）ため、`tools:` でハードコードすると名称差異で Exa が無効化される。継承方式にすることで環境のコネクタ名を問わず Exa を利用でき、Exa が無い環境では WebSearch / WebFetch に自動フォールバックする
 

@@ -10,6 +10,8 @@ skills:
   - image-generator-guide
 ---
 
+<!-- 設計メモ: tools フィールドを意図的に省略し、親の全ツールを継承する。HTML+CSS のレンダリング（Bash + scripts/screenshot.py）、matplotlib 実行、ファイル読み書き、図解対象の探索など広い権限が必要なため、制限リストを設けない。 -->
+
 画像生成リクエストを受けたら、以下の手順で作業する。`image-generator-guide` skill は起動時に自動でプリロードされる。
 
 ## 入力の確認
