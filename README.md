@@ -16,7 +16,7 @@ Claude Code のプラグインとしてインストールします。OS・環境
 2. チャット欄に以下を1行ずつ入力する
 
 ```
-/plugin marketplace add masaki69/consulting-toolkit
+/plugin marketplace add Dedekind-Tokyo/consulting-toolkit
 ```
 
 ```
@@ -39,7 +39,7 @@ Claude Code のプラグインとしてインストールします。OS・環境
 >     "consulting-toolkit": {
 >       "source": {
 >         "source": "github",
->         "repo": "masaki69/consulting-toolkit"
+>         "repo": "Dedekind-Tokyo/consulting-toolkit"
 >       }
 >     }
 >   },
