@@ -248,7 +248,7 @@ html, body{
 
 ## 作り込み図版（crafted figures / fig-canvas）
 
-8 図解で表現しきれない構造的メッセージのスライドでは、`.fig-NN` 名前空間の per-figure CSS で図版を 1 枚だけ作り込む。**設計・作図文法・配色・ガードレールの本体は [crafted-figures.md](crafted-figures.md) を参照**。ここではシェル側の仕組みだけ示す。
+8 図解で表現しきれない構造的メッセージのスライドでは、`.fig-NN` 名前空間の per-figure CSS で図版を 1 枚だけ作り込む。**設計・作図文法・配色・ガードレール・レイアウトパターン（スイムレーン/マトリクス/カード/ステップ/タイムライン）の本体は [diagram-components.md](diagram-components.md)（図解の統合リファレンス）を参照**。ここではシェル側の仕組みだけ示す。
 
 ### fig-canvas / scale の仕組み
 

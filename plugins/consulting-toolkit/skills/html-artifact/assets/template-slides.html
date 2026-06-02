@@ -178,17 +178,32 @@ html,body{
 .slide.cover{padding:96px 80px 80px}
 
 /* ============================================================
-   CRAFTED FIGURE CANVAS（作り込み図版 / Slide Deck 限定）
+   CRAFTED FIGURE CANVAS（作り込み図版・レイアウトパターン / Slide Deck 限定）
    大きいネイティブサイズで図版を組み、transform: scale で本文領域
-   （padding 内 = 1152px 幅）に収める。詳細・作図文法・配色は
-   references/crafted-figures.md を参照。
+   （padding 内 = 1152px 幅）に収める。詳細・作図文法・配色・5レイアウト
+   パターンは references/diagram-components.md（図解の統合リファレンス）を参照。
    ============================================================ */
 .fig-wrap{display:flex;justify-content:center;align-items:flex-start;overflow:hidden;margin:6px 0}
 .fig-canvas{flex-shrink:0;transform-origin:top center}
 /* 各図版は <style> に  .fig-NN{ width:<native>px; transform:scale(<1152/native>); }  を追記する。
    scale = 1152 / ネイティブ幅（視覚幅が本文幅 1152px に一致）。
    ネイティブ高 × scale が図版領域高（title-bar + message の下、概ね 440px）に収まること。
-   per-figure の独自 CSS は .fig-NN 名前空間に閉じ、配色は --fig-accent 由来 + --good/--warn のみ使う。 */
+   per-figure の独自 CSS は .fig-NN 名前空間に閉じ、配色は --fig-accent 由来 + --good/--warn のみ使う。
+   ★ position:absolute で組む図版（ハブ&スポーク等）は height を明示し、
+     margin-bottom:-(native高 − scaled高) で後続を視覚下端へ引き上げる。
+     例: .fig-NN{ width:1600px;height:600px;transform:scale(0.72);transform-origin:top center;margin-bottom:-168px } */
+
+/* ---- 図解スキャフォルド（diagram-components.md「レイアウトパターン/作り込み図版」用） ----
+   配色は --fig-accent の濃淡 + 意味色 --good/--warn のみ。複数アクセント色は使わない。 */
+.fig-edges{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:5}
+.dgram-card{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.dgram-badge{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:#fff;background:var(--fig-accent);border-radius:4px;padding:2px 9px;letter-spacing:.02em;white-space:nowrap}
+.dgram-ghost{background:var(--bg-alt);border:1.5px dashed var(--rule);opacity:.78;box-shadow:none}
+.dgram-ghost .name{color:var(--ink-mute);text-decoration:line-through;text-decoration-thickness:2px}
+.fig-cat-1{background:color-mix(in srgb,var(--fig-accent) 8%,#fff)}
+.fig-cat-2{background:color-mix(in srgb,var(--fig-accent) 18%,#fff)}
+.fig-cat-3{background:color-mix(in srgb,var(--fig-accent) 30%,#fff)}
+.fig-bar{background:var(--fig-accent);color:#fff}
 
 /* ============================================================
    COVER COMPONENT
