@@ -37,7 +37,7 @@
      既定で --accent を継承し、テーマ切替に追従する。
      ブランド色を図版にだけ効かせたいデッキでは、このデッキ単位で
      --fig-accent: #0052FF; のように上書きする（既定では使わない）。
-     詳細は references/crafted-figures.md。 */
+     詳細は references/diagram-components.md（作り込み図版）。 */
   --fig-accent: var(--accent);
 
   /* セマンティック（最小限） */
