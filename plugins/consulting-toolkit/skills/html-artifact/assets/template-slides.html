@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  16:9 SLIDE DECK TEMPLATE (html-artifact / Slide Deck format)
+  ============================================================
+  使い方:
+  1. このファイルを出力先ディレクトリにコピーしてから編集する
+     （デフォルトは入力 MD と同一ディレクトリ）
+  2. {{プレースホルダー}} を実際のコンテンツに置換する
+  3. スライド (<section class="slide" id="sN">) を増減する
+     - id は s1, s2, s3, ... の連番（URL ハッシュで深リンクするため）
+     - 最後に <div class="slide-foot"> のページ番号と doc-id を更新
+  4. <英語snake_case>_slides.html として保存する
+  5. ブラウザで開いて目視確認（プレゼンモード、サムネイル開閉、印刷プレビュー）
+
+  キー操作:
+  - 次へ: → / ↓ / Enter / Space / PageDown
+  - 前へ: ← / ↑ / Shift+Space / PageUp / Backspace
+  - 先頭/末尾: Home / End
+  - サムネイル: T / Esc（閉じる）
+  - フルスクリーン: F
+
+  カスタマイズ:
+  - 配色テーマは :root の --accent / --accent-soft / --accent-bg の 3 変数のみ
+    5 テーマ（Terracotta（既定） / Navy / Forest / Charcoal / Mono）は references/design-system.md を参照
+  - キャンバスは 1280×720 px 固定（旧 pitch-mode の 1600×900 は廃止）
+  - スライド内の本文コンポーネント追加は references/components.md
+  - シェル仕様の詳細は references/slide-deck.md
+  - 外部 stylesheet は Google Fonts のみ許可（Noto Sans JP / JetBrains Mono）
+  - 旧 Pitch Mode 相当は Mono テーマ + 拡張コンポーネント 22〜25 で再現する
+  ============================================================
+-->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{DOC_TITLE}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS — テーマ切替は --accent / --accent-soft / --accent-bg のみ
+   既定: Terracotta（warm consulting）
+   キャンバスは 1280×720 px 固定（テーマ・内容によらず変えない）
+   旧 body.pitch-mode（1600×900 + Meiryo UI）は廃止し、Mono テーマと
+   拡張コンポーネント 22〜25 で同等の見え方を実現する
+   ============================================================ */
+:root{
+  --bg:#fafaf6;
+  --bg-alt:#f1ede3;
+  --panel:#ffffff;
+  --ink:#1a1c20;
+  --ink-soft:#3d4148;
+  --ink-mute:#6b6f76;
+  --rule:#d8d2c2;
+  --rule-soft:#e8e3d6;
+  --accent:#9d3617;
+  --accent-soft:#c45a2c;
+  --accent-bg:#f5e8de;
+  --good:#2e5a3f;
+  --good-bg:#e4ebd9;
+  --warn:#7a4a1a;
+  --warn-bg:#f0e3cd;
+  --slide-w:1280px;
+  --slide-h:720px;
+  --slide-scale:1;
+  --slide-shift-x:0px;
+  --slide-top:50%;
+  --slide-left:50%;
+  --slide-transform:translate(-50%,-50%) scale(1);
+}
+
+/* ============================================================
+   EYEBROW BAR (Component #22) — Pitch mode meta label
+   ============================================================ */
+.eyebrow-bar{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;text-transform:uppercase}
+.eyebrow-bar .eb-num{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:0.18em;color:var(--ink)}
+.eyebrow-bar .eb-sep{font-size:11px;color:var(--ink-mute);font-weight:400}
+.eyebrow-bar .eb-label{font-size:11px;font-weight:600;letter-spacing:0.18em;color:var(--ink-mute)}
+
+/* ============================================================
+   HERO NUMBER (Component #23) — Pitch mode KPI showcase
+   ============================================================ */
+.hero-number{display:flex;flex-direction:column;align-items:flex-start;margin:8px 0 16px;padding:18px 22px;background:var(--panel);border:1px solid var(--rule)}
+.hero-number .hn-value{font-family:"Noto Sans JP",sans-serif;font-size:96px;font-weight:700;line-height:1;color:var(--ink);letter-spacing:-0.02em}
+.hero-number .hn-value .hn-unit{font-size:32px;font-weight:500;color:var(--ink-soft);margin-left:6px;letter-spacing:0}
+.hero-number .hn-label{font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute);margin-top:10px}
+.hero-number .hn-note{font-size:12px;color:var(--ink-soft);margin-top:4px;line-height:1.55}
+.hero-number.compact .hn-value{font-size:68px}
+.hero-number.compact .hn-value .hn-unit{font-size:22px}
+.hero-number.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+.hero-number.dark .hn-value{color:#fff}
+.hero-number.dark .hn-value .hn-unit{color:rgba(255,255,255,0.7)}
+.hero-number.dark .hn-label{color:rgba(255,255,255,0.6)}
+.hero-number.dark .hn-note{color:rgba(255,255,255,0.75)}
+
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:8px 0 14px}
+
+/* ============================================================
+   TAKEAWAY STRIP (Component #24) — Bottom conclusion bar
+   ============================================================ */
+.takeaway-strip{display:flex;align-items:center;gap:18px;padding:14px 22px;background:var(--ink);color:#fff;margin:14px 0 8px}
+.takeaway-strip .ts-label{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:0.22em;color:rgba(255,255,255,0.6);flex-shrink:0;padding-right:18px;border-right:1px solid rgba(255,255,255,0.25)}
+.takeaway-strip .ts-body{font-size:15px;font-weight:600;letter-spacing:0.01em;color:#fff;line-height:1.5}
+.takeaway-strip .ts-body strong{background:#fff;color:var(--ink);padding:2px 8px;margin:0 2px}
+
+/* ============================================================
+   ANNOTATION POINTER (Component #25) — Diagram callout
+   ============================================================ */
+.annotation-pointer{position:absolute;display:flex;align-items:flex-start;gap:8px;pointer-events:none;z-index:5}
+.annotation-pointer .ap-line{width:28px;height:1px;background:var(--ink);margin-top:8px;flex-shrink:0}
+.annotation-pointer .ap-text{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:var(--ink);line-height:1.4;text-transform:uppercase;background:rgba(255,255,255,0.92);padding:3px 6px}
+.annotation-pointer .ap-text small{display:block;font-size:9.5px;font-weight:500;color:var(--ink-mute);text-transform:none;letter-spacing:0.04em;margin-top:1px}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+html,body{
+  height:100vh;
+  width:100vw;
+  overflow:hidden;
+  background:#2a2c30;
+  color:var(--ink);
+  font-family:"Noto Sans JP",sans-serif;
+  font-feature-settings:"palt";
+  letter-spacing:0.01em;
+}
+
+/* ============================================================
+   SLIDE DECK SHELL — single-slide presentation mode
+   ============================================================ */
+.deck{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+  padding:0;
+  margin:0;
+  display:block;
+}
+
+.slide{
+  position:absolute;
+  top:var(--slide-top,50%);
+  left:var(--slide-left,50%);
+  width:var(--slide-w,1280px);
+  height:var(--slide-h,720px);
+  background:var(--bg);
+  overflow:hidden;
+  box-shadow:0 6px 36px rgba(0,0,0,0.45);
+  display:none;
+  /* 位置は JS で縮小後サイズから直接計算し、描画だけ scale する。
+     CSS zoom は Chrome の text caret hit-testing がずれるため使わない。
+     transform-origin:top left でスケール時の基準を左上に固定。 */
+  transform-origin:top left;
+  transform:var(--slide-transform,translate(-50%,-50%) scale(var(--slide-scale,1)));
+  transition:opacity 0.18s ease;
+  opacity:0;
+  padding:60px 64px 56px;
+  -webkit-user-select:text;
+  -moz-user-select:text;
+  user-select:text;
+  cursor:auto;
+}
+/* presentation mode 表示保護：cover/divider などのレイアウト系クラスが
+   display を再指定したとしても、現在表示中でないスライドを必ず非表示にする */
+.deck > .slide:not(.current){
+  display:none !important;
+  pointer-events:none !important;
+}
+.deck > .slide.current{ pointer-events:auto; }
+.slide.current{
+  display:block;
+  opacity:1;
+}
+
+.slide.cover{padding:96px 80px 80px}
+
+/* ============================================================
+   CRAFTED FIGURE CANVAS（作り込み図版 / Slide Deck 限定）
+   大きいネイティブサイズで図版を組み、transform: scale で本文領域
+   （padding 内 = 1152px 幅）に収める。詳細・作図文法・配色は
+   references/crafted-figures.md を参照。
+   ============================================================ */
+.fig-wrap{display:flex;justify-content:center;align-items:flex-start;overflow:hidden;margin:6px 0}
+.fig-canvas{flex-shrink:0;transform-origin:top center}
+/* 各図版は <style> に  .fig-NN{ width:<native>px; transform:scale(<1152/native>); }  を追記する。
+   scale = 1152 / ネイティブ幅（視覚幅が本文幅 1152px に一致）。
+   ネイティブ高 × scale が図版領域高（title-bar + message の下、概ね 440px）に収まること。
+   per-figure の独自 CSS は .fig-NN 名前空間に閉じ、配色は --fig-accent 由来 + --good/--warn のみ使う。 */
+
+/* ============================================================
+   COVER COMPONENT
+   ============================================================ */
+.cover-tag{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  letter-spacing:0.2em;
+  color:var(--accent);
+  margin-bottom:28px;
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.cover-tag::before{content:"";width:32px;height:1px;background:var(--accent)}
+
+h1.cover-title{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:700;
+  font-size:44px;
+  line-height:1.4;
+  letter-spacing:0.01em;
+  color:var(--ink);
+  margin-bottom:18px;
+}
+
+.cover-sub{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:400;
+  font-size:18px;
+  color:var(--ink-soft);
+  line-height:1.7;
+  margin-bottom:48px;
+}
+
+.cover-meta{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border-top:2px solid var(--ink);
+  border-bottom:1px solid var(--rule);
+}
+.cover-meta > div{padding:18px 22px 18px 0;border-right:1px solid var(--rule)}
+.cover-meta > div:last-child{border-right:none}
+.cover-meta dt{
+  font-size:10px;
+  font-family:"JetBrains Mono",monospace;
+  letter-spacing:0.15em;
+  color:var(--ink-mute);
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.cover-meta dd{
+  font-family:"Noto Sans JP",sans-serif;
+  font-size:14px;
+  color:var(--ink);
+  font-weight:500;
+}
+
+/* ============================================================
+   TITLE BAR (Content スライド見出し)
+   ============================================================ */
+.title-bar{
+  display:flex;
+  align-items:baseline;
+  gap:18px;
+  padding-bottom:14px;
+  margin-bottom:22px;
+  border-bottom:2px solid var(--ink);
+}
+.title-bar .sec-num{
+  font-family:"JetBrains Mono",monospace;
+  font-size:13px;
+  letter-spacing:0.08em;
+  color:var(--accent);
+  font-weight:500;
+}
+.title-bar h2{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:24px;
+  line-height:1.4;
+  color:var(--ink);
+  letter-spacing:0.01em;
+}
+
+/* ============================================================
+   MESSAGE (1 スライド 1 メッセージの主文)
+   ============================================================ */
+.message{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:500;
+  font-size:17px;
+  line-height:1.7;
+  color:var(--ink);
+  margin:12px 0 18px;
+  max-width:none;
+}
+
+/* ============================================================
+   BODY LIST
+   ============================================================ */
+.body-list{
+  list-style:none;
+  margin:14px 0 18px;
+  font-size:14.5px;
+  line-height:1.85;
+}
+.body-list li{
+  padding:4px 0 4px 22px;
+  position:relative;
+  color:var(--ink-soft);
+}
+.body-list li::before{
+  content:"■";
+  position:absolute;
+  left:0;
+  top:4px;
+  color:var(--accent);
+  font-size:8px;
+}
+
+/* ============================================================
+   INSIGHT CALLOUT
+   ============================================================ */
+.insight{
+  margin:20px 0;
+  padding:18px 22px;
+  background:var(--accent-bg);
+  border-left:4px solid var(--accent);
+}
+.insight .txt{
+  font-family:"Noto Sans JP",sans-serif;
+  font-size:15.5px;
+  line-height:1.7;
+  color:var(--ink);
+  font-weight:500;
+}
+
+/* ============================================================
+   SCOPE PANEL
+   ============================================================ */
+.scope{
+  background:var(--bg-alt);
+  border:1px solid var(--rule);
+  padding:22px 26px;
+  margin:20px 0;
+}
+.scope .scope-sub{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:15px;
+  color:var(--ink);
+  margin-bottom:12px;
+}
+.scope ul{
+  list-style:none;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:6px 32px;
+  font-size:14.5px;
+  line-height:1.75;
+}
+.scope ul li{
+  padding-left:18px;
+  position:relative;
+  color:var(--ink-soft);
+}
+.scope ul li::before{
+  content:"●";
+  position:absolute;
+  left:0;
+  top:0;
+  color:var(--accent);
+  font-size:8px;
+  line-height:2.0;
+}
+
+/* ============================================================
+   FACT LIST (補足ファクト / 出典付き箇条書き)
+   ============================================================ */
+.fact-list{
+  list-style:none;
+  margin:14px 0;
+  font-size:13.5px;
+  line-height:1.7;
+}
+.fact-list li{
+  padding:6px 0 6px 18px;
+  position:relative;
+  color:var(--ink-soft);
+  border-bottom:1px dotted var(--rule);
+}
+.fact-list li:last-child{border-bottom:none}
+.fact-list li::before{
+  content:"–";
+  position:absolute;
+  left:0;
+  top:6px;
+  color:var(--ink-mute);
+}
+.fact-list .src{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  color:var(--ink-mute);
+  margin-left:6px;
+  letter-spacing:0.05em;
+}
+
+/* ============================================================
+   SECTION DIVIDER (章扉スライド)
+   ============================================================ */
+.divider{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  height:100%;
+  padding:40px 20px;
+}
+.divider .div-num{
+  font-family:"JetBrains Mono",monospace;
+  font-size:13px;
+  letter-spacing:0.18em;
+  color:var(--accent);
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+.divider .div-title{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:700;
+  font-size:38px;
+  line-height:1.4;
+  color:var(--ink);
+  margin-bottom:18px;
+  letter-spacing:0.01em;
+}
+.divider .lede{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:400;
+  font-size:17px;
+  line-height:1.85;
+  color:var(--ink-soft);
+  padding:18px 22px;
+  background:var(--bg-alt);
+  border-left:3px solid var(--accent);
+  max-width:880px;
+}
+
+/* ============================================================
+   TOC (スライドデッキ向け：1〜2 列の章一覧)
+   ============================================================ */
+.toc-grid{
+  list-style:none;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px 56px;
+  margin-top:14px;
+}
+.toc-grid li{
+  display:flex;
+  align-items:baseline;
+  gap:16px;
+  padding:12px 0;
+  border-bottom:1px dotted var(--rule);
+  font-size:14.5px;
+}
+.toc-grid .toc-num{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:var(--accent);
+  min-width:30px;
+  font-weight:500;
+  letter-spacing:0.05em;
+}
+.toc-grid .toc-name{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:500;
+  color:var(--ink);
+}
+
+/* ============================================================
+   DIAGRAM COMPONENTS (構造化図解 — diagram-components.md 参照)
+   template.html と同期。1スライド 1 図解を厳守
+   ============================================================ */
+.diagram{margin:18px 0;padding:22px 24px 18px;background:var(--bg-alt);border:1px solid var(--rule);page-break-inside:avoid;break-inside:avoid}
+.diagram figcaption{margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-mute);text-align:center;letter-spacing:0.12em;text-transform:uppercase}
+
+.diagram-flow-h{display:flex;align-items:stretch;gap:0}
+.diagram-flow-h .dflow-node{flex:1}
+.diagram-flow-v{display:flex;flex-direction:column;max-width:520px;margin:0 auto}
+.dflow-node{padding:14px 16px;background:var(--panel);border:1px solid var(--rule);min-height:78px;display:flex;flex-direction:column;justify-content:center}
+.dflow-node.accent{border-color:var(--accent);border-width:2px;padding:13px 15px;background:var(--accent-bg)}
+.dfn-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;color:var(--ink);margin-bottom:4px;letter-spacing:0.01em}
+.dflow-node.accent .dfn-label{color:var(--accent)}
+.dfn-desc{font-size:11.5px;color:var(--ink-soft);line-height:1.65}
+.dflow-arrow{width:28px;flex-shrink:0;position:relative;align-self:stretch}
+.dflow-arrow::after{content:"";position:absolute;top:50%;left:0;right:0;height:1px;background:var(--ink-mute);transform:translateY(-50%)}
+.dflow-arrow::before{content:"";position:absolute;top:50%;right:6px;width:0;height:0;border-left:6px solid var(--ink-mute);border-top:4px solid transparent;border-bottom:4px solid transparent;transform:translateY(-50%)}
+.dflow-arrow-v{height:20px;position:relative}
+.dflow-arrow-v::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--ink-mute);transform:translateX(-50%)}
+.dflow-arrow-v::before{content:"";position:absolute;bottom:4px;left:50%;width:0;height:0;border-top:6px solid var(--ink-mute);border-left:4px solid transparent;border-right:4px solid transparent;transform:translateX(-50%)}
+
+.diagram-quadrant{position:relative;padding-left:52px;padding-right:8px}
+.dq-axis-y{position:absolute;left:14px;top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:center;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-mute);letter-spacing:0.1em;white-space:nowrap}
+.dq-axis-x{margin-top:12px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-mute);letter-spacing:0.1em}
+.dq-axis-x span,.dq-axis-y span{color:var(--ink);font-weight:600;margin:0 6px}
+.dq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.dq-cell{padding:18px 18px;background:var(--panel);min-height:108px}
+.dq-cell.accent{background:var(--accent-bg);border-left:3px solid var(--accent);padding-left:15px}
+.dq-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:15px;color:var(--ink);margin-bottom:6px}
+.dq-cell.accent .dq-label{color:var(--accent)}
+.dq-cell p{font-size:12.5px;color:var(--ink-soft);line-height:1.7;margin:0}
+
+.diagram-pyramid{display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0}
+.dp-layer{padding:12px 18px;background:var(--panel);border:1px solid var(--rule);text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:54px}
+.dp-l1{width:38%}
+.dp-l2{width:54%}
+.dp-l3{width:70%}
+.dp-l4{width:86%}
+.dp-l5{width:100%}
+.dp-layer.accent{border-color:var(--accent);border-width:2px;background:var(--accent-bg);padding:11px 17px}
+.dp-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;color:var(--ink);letter-spacing:0.01em}
+.dp-layer.accent .dp-label{color:var(--accent)}
+.dp-desc{font-size:11.5px;color:var(--ink-soft);margin-top:3px;line-height:1.55}
+
+.diagram-funnel{display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0}
+.df-stage{padding:12px 20px;background:var(--panel);border:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px}
+.df-s1{width:100%}
+.df-s2{width:84%}
+.df-s3{width:68%}
+.df-s4{width:52%}
+.df-s5{width:38%}
+.df-stage.accent{border-color:var(--accent);border-width:2px;background:var(--accent-bg);padding:11px 19px}
+.df-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:13.5px;color:var(--ink);letter-spacing:0.01em}
+.df-stage.accent .df-label{color:var(--accent)}
+.df-num{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:20px;color:var(--ink);line-height:1.2;margin:2px 0}
+.df-stage.accent .df-num{color:var(--accent)}
+.df-desc{font-size:11px;color:var(--ink-soft);line-height:1.55}
+
+.diagram-cycle{display:flex;flex-direction:column;align-items:center;gap:0}
+.dc-track{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;justify-content:center;width:100%}
+.dc-node{flex:1;min-width:124px;max-width:200px;padding:14px;background:var(--panel);border:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.dc-node.accent{border-color:var(--accent);border-width:2px;background:var(--accent-bg);padding:13px}
+.dc-marker{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-weight:500;font-size:12.5px}
+.dc-node.accent .dc-marker{background:var(--accent)}
+.dc-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;color:var(--ink);margin-top:4px}
+.dc-node.accent .dc-label{color:var(--accent)}
+.dc-desc{font-size:11.5px;color:var(--ink-soft);line-height:1.55}
+.dc-arrow{width:18px;flex-shrink:0;align-self:center;position:relative;height:24px}
+.dc-arrow::after{content:"";position:absolute;top:50%;left:0;right:0;height:1px;background:var(--ink-mute);transform:translateY(-50%)}
+.dc-arrow::before{content:"";position:absolute;top:50%;right:2px;width:0;height:0;border-left:5px solid var(--ink-mute);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent;transform:translateY(-50%)}
+.dc-loop{margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--accent);letter-spacing:0.18em;text-transform:uppercase}
+
+.diagram-venn{display:flex;flex-direction:column;align-items:center;gap:14px}
+.dv-svg{max-width:360px;width:100%;height:auto}
+.dv-circle{fill:var(--ink);fill-opacity:0.06;stroke:var(--ink);stroke-width:1.5}
+.dv-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;fill:var(--ink);text-anchor:middle}
+.dv-label-center{font-size:11px;fill:var(--accent);font-weight:600;letter-spacing:0.05em}
+.dv-legend{display:flex;flex-direction:column;gap:6px;max-width:480px;width:100%}
+.dv-leg-item{display:flex;align-items:baseline;gap:12px;font-size:12.5px;color:var(--ink-soft);line-height:1.55}
+.dv-leg-item.accent{color:var(--ink);font-weight:500}
+.dv-leg-tag{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-mute);min-width:56px;letter-spacing:0.05em;flex-shrink:0}
+.dv-leg-item.accent .dv-leg-tag{color:var(--accent)}
+
+.diagram-org{display:flex;flex-direction:column;align-items:center;gap:0}
+.dorg-level{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;width:100%}
+.dorg-node{padding:12px 20px;background:var(--panel);border:1px solid var(--rule);min-width:130px;text-align:center}
+.dorg-node.accent{border-color:var(--accent);border-width:2px;background:var(--accent-bg);padding:11px 19px}
+.dorg-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;color:var(--ink)}
+.dorg-node.accent .dorg-label{color:var(--accent)}
+.dorg-desc{font-size:11.5px;color:var(--ink-soft);margin-top:3px;line-height:1.55}
+.dorg-connector{width:1px;height:20px;background:var(--rule);margin:0 auto}
+
+.diagram-layers{display:flex;flex-direction:column;gap:2px}
+.dl-layer{display:flex;align-items:center;gap:16px;padding:12px 20px;background:var(--panel);border:1px solid var(--rule)}
+.dl-layer.accent{border-color:var(--accent);border-width:2px;background:var(--accent-bg);padding:11px 19px}
+.dl-tag{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:11px;color:var(--ink-mute);letter-spacing:0.12em;min-width:32px;flex-shrink:0}
+.dl-layer.accent .dl-tag{color:var(--accent)}
+.dl-body{flex:1;min-width:0}
+.dl-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;color:var(--ink);letter-spacing:0.01em}
+.dl-layer.accent .dl-label{color:var(--accent)}
+.dl-desc{font-size:11.5px;color:var(--ink-soft);margin-top:3px;line-height:1.55}
+
+/* ============================================================
+   SUMMARY (最終スライド)
+   ============================================================ */
+.summary{
+  margin-top:18px;
+  padding:24px 28px;
+  background:var(--bg-alt);
+  border:1px solid var(--rule);
+  border-top:3px solid var(--accent);
+}
+.summary ul{list-style:none}
+.summary ul li{
+  padding:10px 0 10px 22px;
+  position:relative;
+  font-family:"Noto Sans JP",sans-serif;
+  font-size:17px;
+  line-height:1.7;
+  color:var(--ink);
+  border-bottom:1px dotted var(--rule);
+}
+.summary ul li:last-child{border-bottom:none}
+.summary ul li::before{
+  content:"■";
+  position:absolute;
+  left:0;
+  top:18px;
+  color:var(--accent);
+  font-size:9px;
+}
+
+/* ============================================================
+   SLIDE FOOT (ページ番号・doc-id)
+   ============================================================ */
+.slide-foot{
+  position:absolute;
+  bottom:20px;
+  left:64px;
+  right:64px;
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  padding-top:10px;
+  border-top:1px solid var(--rule-soft);
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  color:var(--ink-mute);
+  letter-spacing:0.1em;
+  /* スライド本体テキストの選択を阻害しないよう、装飾ヘッダ/フッタはクリックを通過させる */
+  pointer-events:none;
+}
+.slide-head{ pointer-events:none; }
+.slide-foot .doc-id{color:var(--accent)}
+.slide-foot .pg b{color:var(--ink);font-weight:600}
+
+/* ============================================================
+   PRESENTATION CHROME — counter / hint / thumbnail panel / toggle
+   ============================================================ */
+.deck-counter{
+  position:fixed;
+  bottom:14px;
+  right:20px;
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:rgba(255,255,255,0.55);
+  letter-spacing:0.12em;
+  z-index:1000;
+  pointer-events:none;
+  user-select:none;
+}
+.deck-counter b{color:rgba(255,255,255,0.85);font-weight:500}
+
+.deck-hint{
+  position:fixed;
+  bottom:14px;
+  left:20px;
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:rgba(255,255,255,0.4);
+  letter-spacing:0.08em;
+  z-index:1000;
+  pointer-events:none;
+  user-select:none;
+  transition:opacity 0.6s ease, left 0.25s ease;
+}
+.deck-hint.fade{opacity:0}
+body.panel-open .deck-hint{left:228px}
+
+.thumb-toggle{
+  position:fixed;
+  top:12px;
+  left:12px;
+  width:34px;
+  height:34px;
+  background:rgba(20,22,26,0.88);
+  color:rgba(255,255,255,0.85);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:6px;
+  font-size:16px;
+  line-height:1;
+  cursor:pointer;
+  z-index:1200;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background 0.15s ease, left 0.25s ease, color 0.15s ease;
+  user-select:none;
+  font-family:"Noto Sans JP",sans-serif;
+}
+.thumb-toggle:hover{background:rgba(40,42,46,0.95);color:#fff}
+.thumb-toggle::before{content:"\2630"}
+body.panel-open .thumb-toggle{left:222px}
+body.panel-open .thumb-toggle::before{content:"\2715"}
+
+.thumb-panel{
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  width:210px;
+  background:rgba(18,20,24,0.97);
+  border-right:1px solid rgba(255,255,255,0.08);
+  overflow-y:auto;
+  overflow-x:hidden;
+  z-index:1100;
+  transform:translateX(-100%);
+  transition:transform 0.25s ease;
+  padding:56px 0 16px;
+}
+body.panel-open .thumb-panel{transform:translateX(0)}
+.thumb-panel::-webkit-scrollbar{width:6px}
+.thumb-panel::-webkit-scrollbar-track{background:transparent}
+.thumb-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:3px}
+.thumb-panel::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.25)}
+
+.thumb-panel-head{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.14em;
+  color:rgba(255,255,255,0.4);
+  padding:0 16px 10px;
+  text-transform:uppercase;
+}
+.thumb-list{display:flex;flex-direction:column;gap:2px}
+
+.thumb-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px 6px 8px;
+  cursor:pointer;
+  transition:background 0.12s ease;
+  border-left:2px solid transparent;
+}
+.thumb-item:hover{background:rgba(255,255,255,0.04)}
+.thumb-item.current{
+  background:rgba(160,80,40,0.18);
+  border-left-color:var(--accent-soft);
+}
+
+.thumb-num{
+  width:20px;
+  text-align:right;
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  color:rgba(255,255,255,0.45);
+  flex-shrink:0;
+}
+.thumb-item.current .thumb-num{color:rgba(255,210,180,0.95);font-weight:600}
+
+.thumb-frame{
+  width:160px;
+  height:90px;
+  overflow:hidden;
+  background:var(--bg);
+  border:1px solid rgba(255,255,255,0.1);
+  position:relative;
+  flex-shrink:0;
+  border-radius:2px;
+}
+.thumb-item.current .thumb-frame{
+  border-color:var(--accent-soft);
+  box-shadow:0 0 0 1px rgba(196,90,44,0.4);
+}
+
+.thumb-frame .slide{
+  position:absolute !important;
+  top:0 !important;
+  left:0 !important;
+  width:1280px !important;
+  height:720px !important;
+  transform:scale(0.125) !important;
+  transform-origin:top left !important;
+  display:block !important;
+  opacity:1 !important;
+  margin:0 !important;
+  box-shadow:none !important;
+  transition:none !important;
+  pointer-events:none;
+}
+
+/* ============================================================
+   PRINT — 全スライドを 1 ページ 1 スライドで展開
+   ============================================================ */
+@media print{
+  html,body{
+    background:white;
+    overflow:visible;
+    height:auto;
+    width:auto;
+  }
+  .deck{
+    position:static;
+    padding:0;
+    gap:0;
+    width:auto;
+    height:auto;
+    overflow:visible;
+    display:block;
+  }
+  .slide{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    transform:none !important;
+    opacity:1 !important;
+    display:block !important;
+    box-shadow:none;
+    page-break-after:always;
+    break-after:page;
+    margin:0 !important;
+  }
+  .deck-counter,.deck-hint,.thumb-panel,.thumb-toggle{display:none !important}
+  @page{size:1280px 720px;margin:0}
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ============================================================
+       SLIDE 01 / Cover
+       ============================================================ -->
+  <section class="slide cover" id="s1">
+    <div class="cover-tag">{{COVER_TAG}}</div>
+    <h1 class="cover-title">{{DOC_TITLE}}</h1>
+    <p class="cover-sub">{{DOC_SUBTITLE}}</p>
+    <dl class="cover-meta">
+      <div><dt>Client</dt><dd>{{CLIENT}}</dd></div>
+      <div><dt>Document</dt><dd>{{DOC_TYPE}}</dd></div>
+      <div><dt>Date</dt><dd>{{ISSUED_DATE}}</dd></div>
+      <div><dt>Doc ID</dt><dd>{{DOC_ID}}</dd></div>
+    </dl>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 02 / Table of Contents
+       ============================================================ -->
+  <section class="slide" id="s2">
+    <div class="title-bar"><h2>目次</h2></div>
+    <ol class="toc-grid">
+      <li><span class="toc-num">01</span><span class="toc-name">章名 1</span></li>
+      <li><span class="toc-num">02</span><span class="toc-name">章名 2</span></li>
+      <li><span class="toc-num">03</span><span class="toc-name">章名 3</span></li>
+      <li><span class="toc-num">04</span><span class="toc-name">章名 4</span></li>
+    </ol>
+    <div class="slide-foot">
+      <span class="doc-id">{{DOC_ID}}</span>
+      <span class="pg"><b>2</b> / {{TOTAL_SLIDES}}</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 03 / Section Divider
+       ============================================================ -->
+  <section class="slide" id="s3">
+    <div class="divider">
+      <div class="div-num">Section 01</div>
+      <h2 class="div-title">章タイトル</h2>
+      <p class="lede">この章で扱う論点を 2〜3 行で端的に提示する。何を、なぜ、どのように扱うかを冒頭で示し、続く Content スライド群の読み手の理解を整える。</p>
+    </div>
+    <div class="slide-foot">
+      <span class="doc-id">{{DOC_ID}}</span>
+      <span class="pg"><b>3</b> / {{TOTAL_SLIDES}}</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 04 / Content（1 スライド 1 メッセージ）
+       本文系コンポーネントは 1〜2 個まで。詰めすぎない。
+       ============================================================ -->
+  <section class="slide" id="s4">
+    <div class="title-bar">
+      <span class="sec-num">1.1</span>
+      <h2>スライドタイトル</h2>
+    </div>
+
+    <p class="message">このスライドで伝える唯一のメッセージを 1〜2 行で書く。読み手が 3 秒で意味を取れる長さに収める。</p>
+
+    <ul class="body-list">
+      <li>論拠 1：メッセージを支える事実・データ・観察</li>
+      <li>論拠 2：別角度からの裏付け</li>
+      <li>論拠 3：含意・限界条件</li>
+    </ul>
+
+    <div class="insight">
+      <div class="txt">この章での重要な示唆を 1 文で。読み手が持ち帰るべき結論。</div>
+    </div>
+
+    <div class="slide-foot">
+      <span class="doc-id">{{DOC_ID}}</span>
+      <span class="pg"><b>4</b> / {{TOTAL_SLIDES}}</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 05 / Summary（最終スライド）
+       ============================================================ -->
+  <section class="slide" id="s5">
+    <div class="title-bar"><h2>まとめ</h2></div>
+    <div class="summary">
+      <ul>
+        <li>主要結論 1 — このプレゼン全体で最も持ち帰ってほしい論点</li>
+        <li>主要結論 2 — 補完的だが重要な論点</li>
+        <li>主要結論 3 — 次のアクションに直結する論点</li>
+      </ul>
+    </div>
+    <div class="slide-foot">
+      <span class="doc-id">{{DOC_ID}}</span>
+      <span class="pg"><b>5</b> / {{TOTAL_SLIDES}} · ご討議に感謝いたします</span>
+    </div>
+  </section>
+
+  {{SLIDE_BLOCKS}}
+
+</div><!-- /.deck -->
+
+<button class="thumb-toggle" id="thumbToggle" type="button" aria-label="サムネイル一覧の表示切替" title="サムネイル一覧（T）"></button>
+<aside class="thumb-panel" id="thumbPanel" aria-label="スライド一覧">
+  <div class="thumb-panel-head">Slides</div>
+  <div class="thumb-list" id="thumbList"></div>
+</aside>
+
+<div class="deck-counter" id="deckCounter"><b>1</b> / {{TOTAL_SLIDES}}</div>
+<div class="deck-hint" id="deckHint">← → / Enter / Space で移動　・　T でサムネイル　・　F で全画面</div>
+
+<script>
+(function(){
+  var slides = Array.from(document.querySelectorAll('.slide'));
+  var counter = document.getElementById('deckCounter');
+  var hint = document.getElementById('deckHint');
+  var toggleBtn = document.getElementById('thumbToggle');
+  var thumbList = document.getElementById('thumbList');
+  var PANEL_W = 210;
+  /* Canvas is fixed at 1280x720; the CSS variables are kept for backwards-compat */
+  function readPxVar(name, fallback){
+    var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    var m = v.match(/^(\d+(?:\.\d+)?)px$/);
+    return m ? parseFloat(m[1]) : fallback;
+  }
+  var SLIDE_W = readPxVar('--slide-w', 1280);
+  var SLIDE_H = readPxVar('--slide-h', 720);
+  var current = 0;
+  var thumbItems = [];
+
+  function buildThumbnails(){
+    slides.forEach(function(slide, i){
+      var item = document.createElement('div');
+      item.className = 'thumb-item';
+      item.setAttribute('data-idx', i);
+
+      var num = document.createElement('span');
+      num.className = 'thumb-num';
+      num.textContent = String(i + 1).padStart(2, '0');
+
+      var frame = document.createElement('div');
+      frame.className = 'thumb-frame';
+
+      var clone = slide.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.classList.remove('current');
+      clone.querySelectorAll('[id]').forEach(function(el){ el.removeAttribute('id'); });
+      frame.appendChild(clone);
+
+      item.appendChild(num);
+      item.appendChild(frame);
+      item.addEventListener('click', function(e){
+        e.stopPropagation();
+        go(i);
+      });
+      thumbList.appendChild(item);
+      thumbItems.push(item);
+    });
+  }
+
+  function fit(){
+    var panelOpen = document.body.classList.contains('panel-open');
+    var panelW = panelOpen ? PANEL_W : 0;
+    var availW = window.innerWidth - panelW;
+    var availH = window.innerHeight;
+    var scale = Math.min(availW / SLIDE_W, availH / SLIDE_H);
+    var scaledW = SLIDE_W * scale;
+    var scaledH = SLIDE_H * scale;
+    var left = panelW + Math.max((availW - scaledW) / 2, 0);
+    var top = Math.max((availH - scaledH) / 2, 0);
+    document.documentElement.style.setProperty('--slide-scale', scale);
+    document.documentElement.style.setProperty('--slide-left', left + 'px');
+    document.documentElement.style.setProperty('--slide-top', top + 'px');
+    document.documentElement.style.setProperty('--slide-transform', 'scale(' + scale + ')');
+  }
+
+  function update(){
+    slides.forEach(function(s, i){ s.classList.toggle('current', i === current); });
+    thumbItems.forEach(function(t, i){ t.classList.toggle('current', i === current); });
+    if (counter){
+      counter.innerHTML = '<b>' + (current + 1) + '</b> / ' + slides.length;
+    }
+    if (document.body.classList.contains('panel-open') && thumbItems[current]){
+      var rect = thumbItems[current].getBoundingClientRect();
+      if (rect.top < 60 || rect.bottom > window.innerHeight - 16){
+        thumbItems[current].scrollIntoView({block: 'center', behavior: 'smooth'});
+      }
+    }
+    try { window.history.replaceState(null, '', '#s' + (current + 1)); } catch(_){}
+  }
+
+  function go(idx){
+    if (idx < 0) idx = 0;
+    if (idx >= slides.length) idx = slides.length - 1;
+    if (idx === current) return;
+    current = idx;
+    update();
+  }
+
+  function togglePanel(){
+    document.body.classList.toggle('panel-open');
+    try {
+      localStorage.setItem('slide-deck-panel-open',
+        document.body.classList.contains('panel-open') ? '1' : '0');
+    } catch(_){}
+    fit();
+    setTimeout(update, 60);
+  }
+
+  function initFromHash(){
+    var m = (window.location.hash || '').match(/^#s(\d+)$/);
+    if (m){
+      var n = parseInt(m[1], 10);
+      if (n >= 1 && n <= slides.length) current = n - 1;
+    }
+  }
+
+  function initPanelState(){
+    var saved = null;
+    try { saved = localStorage.getItem('slide-deck-panel-open'); } catch(_){}
+    var open = (saved === null) ? true : (saved === '1');
+    if (open) document.body.classList.add('panel-open');
+  }
+
+  function isTyping(target){
+    if (!target) return false;
+    var tag = (target.tagName || '').toLowerCase();
+    return tag === 'input' || tag === 'textarea' || tag === 'select' || target.isContentEditable;
+  }
+
+  document.addEventListener('keydown', function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (isTyping(e.target)) return;
+    // Shift + 矢印キー等はテキスト選択拡張のためにブラウザ既定動作を残す
+    if (e.shiftKey && e.key !== ' ') return;
+
+    var next = ['Enter','ArrowRight','ArrowDown','PageDown'];
+    var prev = ['Backspace','ArrowLeft','ArrowUp','PageUp'];
+
+    if (next.indexOf(e.key) !== -1 || (e.key === ' ' && !e.shiftKey)){
+      e.preventDefault(); go(current + 1);
+    } else if (prev.indexOf(e.key) !== -1 || (e.key === ' ' && e.shiftKey)){
+      e.preventDefault(); go(current - 1);
+    } else if (e.key === 'Home'){
+      e.preventDefault(); go(0);
+    } else if (e.key === 'End'){
+      e.preventDefault(); go(slides.length - 1);
+    } else if (e.key === 't' || e.key === 'T'){
+      e.preventDefault(); togglePanel();
+    } else if (e.key === 'f' || e.key === 'F'){
+      e.preventDefault();
+      if (document.fullscreenElement) document.exitFullscreen();
+      else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    } else if (e.key === 'Escape' && document.body.classList.contains('panel-open')){
+      e.preventDefault(); togglePanel();
+    }
+  });
+
+  if (toggleBtn){
+    toggleBtn.addEventListener('click', function(e){
+      e.stopPropagation(); togglePanel();
+    });
+  }
+
+  window.addEventListener('hashchange', function(){
+    var m = (window.location.hash || '').match(/^#s(\d+)$/);
+    if (m){
+      var n = parseInt(m[1], 10);
+      if (n >= 1 && n <= slides.length && (n - 1) !== current){
+        current = n - 1; update();
+      }
+    }
+  });
+
+  window.addEventListener('resize', fit);
+
+  initPanelState();
+  buildThumbnails();
+  initFromHash();
+  fit();
+  update();
+  setTimeout(function(){ if (hint) hint.classList.add('fade'); }, 4500);
+})();
+</script>
+
+</body>
+</html>

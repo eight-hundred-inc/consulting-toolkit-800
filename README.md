@@ -105,6 +105,7 @@ Claude Code のプラグインとしてインストールします。OS・環境
 | [subagent-creator](plugins/consulting-toolkit/skills/subagent-creator/SKILL.md) | SubAgent（エージェント定義）を作成するガイド。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「エージェントを作成して」「SubAgentを作って」 |
 | [chart-generator-guide](plugins/consulting-toolkit/skills/chart-generator-guide/SKILL.md) | matplotlibによるデータチャート生成ガイド。ブランドパレット対応、PNG+SVG二重出力。棒・レーダー・積み上げ等7パターンのテンプレート付き | image-creatorサブエージェント経由 |
 | [image-generator-guide](plugins/consulting-toolkit/skills/image-generator-guide/SKILL.md) | HTML+CSSによる構造化図解の設計ガイド。イラスト・アート系は画像生成プロンプトを返却。image-creatorサブエージェントから読み込まれる | image-creatorサブエージェント経由 |
+| [html-artifact](plugins/consulting-toolkit/skills/html-artifact/SKILL.md) | Markdown を業務文書スタイルの自己完結 HTML（縦長文書 / 16:9 スライドデッキ）に変換。25 コンポーネント＋8 図解＋作り込み図版。生成のみ（公開は html-publish、PPTX 化はブランド pptx へ） | 「HTML にして」「16:9 スライドにして」「ブラウザでめくれるプレゼンを作って」 |
 | [circleback-meeting-minutes](plugins/consulting-toolkit/skills/circleback-meeting-minutes/SKILL.md) | Circleback MCP から過去1週間の会議を取得し、プロジェクト関連を自動分類して議事録 MD を一括生成。複数件は並列処理 | 「Circlebackから議事録を作って」「先週の会議の議事録を作成して」 |
 
 ---
@@ -179,6 +180,21 @@ Phase 2: 分析・とりまとめ
 ```
 
 各AIステップ完了後、レビューゲートを経て次へ進む。ステップごとに `review_level` が設定されており、`full` は quality-reviewer SubAgent + ユーザー確認、`light` はユーザー確認のみで進む。
+
+#### スライド化フロー（Step 3 / Step 11 の下流）
+
+提案用（Step 3）・報告用（Step 11）のスライド構成 MD は、必要に応じて HTML スライド → PPTX へと実体化する（11 ステップの外側・任意工程）。
+
+```
+① スライド構成 MD            ② HTML スライド                 ③ PPTX（納品形式）
+  slide-structure-designer ──▶  html-artifact          ──▶  ブランド pptx
+  （タイトル/メッセージ/ボディ）   （Slide Deck・作り込み図版）    （②のデザイン・レイアウトを
+                                                              ネイティブ再構築・ブランド置換）
+```
+
+- **②** `html-artifact`：構成 MD を 16:9 HTML デッキに変換。構造的メッセージは作り込み図版で図解化し、ブラウザ投影・デザイン確認に使う
+- **③** ブランド pptx スキル（`pptx` をラップしたブランド版ラッパー。「html-artifact 参照モード」を持つもの）：②の HTML デッキをデザイン見本として、レイアウト・配色・図版を再現したネイティブ（編集可能）PPTX を作成。配色はブランドトークンに置換
+- ②を挟まず構成 MD から直接 ③ に渡してもよい
 
 ---
 
