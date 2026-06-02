@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>旅行業界向けAI駆動開発 PoC企画案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafaf6;
+  --bg-alt:#f1ede3;
+  --panel:#ffffff;
+  --ink:#1a1c20;
+  --ink-soft:#3d4148;
+  --ink-mute:#6b6f76;
+  --rule:#d8d2c2;
+  --rule-soft:#e8e3d6;
+  --accent:#9d3617;
+  --accent-soft:#c45a2c;
+  --accent-bg:#f5e8de;
+  --good:#2e5a3f;
+  --good-bg:#e4ebd9;
+  --warn:#7a4a1a;
+  --warn-bg:#f0e3cd;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Noto Sans JP",sans-serif;
+  font-size:14px;
+  line-height:1.85;
+  font-feature-settings:"palt";
+  letter-spacing:0.01em;
+}
+
+.serif{font-family:"Noto Sans JP",sans-serif} /* legacy hook: kept as alias of body font */
+.mono{font-family:"JetBrains Mono",monospace}
+
+/* ============ PAGE WRAPPER ============ */
+.page{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 56px;
+}
+
+/* ============ DOC HEADER (sticky thin bar) ============ */
+.doc-header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(250,250,246,0.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.doc-header-inner{
+  max-width:1180px;
+  margin:0 auto;
+  padding:14px 56px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:11px;
+  letter-spacing:0.08em;
+  color:var(--ink-mute);
+}
+.doc-header .doc-id{
+  font-family:"JetBrains Mono",monospace;
+  color:var(--accent);
+}
+.doc-header nav{display:flex;gap:24px}
+.doc-header nav a{
+  color:var(--ink-mute);
+  text-decoration:none;
+  transition:color 0.2s;
+}
+.doc-header nav a:hover{color:var(--accent)}
+
+/* ============ COVER ============ */
+.cover{
+  padding:120px 0 100px;
+  border-bottom:1px solid var(--rule);
+}
+.cover-tag{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  letter-spacing:0.2em;
+  color:var(--accent);
+  margin-bottom:32px;
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.cover-tag::before{
+  content:"";
+  width:32px;height:1px;
+  background:var(--accent);
+}
+h1.cover-title{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:700;
+  font-size:46px;
+  line-height:1.4;
+  letter-spacing:0.01em;
+  color:var(--ink);
+  margin-bottom:20px;
+}
+.cover-sub{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:400;
+  font-size:20px;
+  color:var(--ink-soft);
+  line-height:1.7;
+  margin-bottom:64px;
+}
+.cover-meta{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border-top:2px solid var(--ink);
+  border-bottom:1px solid var(--rule);
+}
+.cover-meta > div{
+  padding:20px 24px 20px 0;
+  border-right:1px solid var(--rule);
+}
+.cover-meta > div:last-child{border-right:none}
+.cover-meta dt{
+  font-size:10px;
+  font-family:"JetBrains Mono",monospace;
+  letter-spacing:0.15em;
+  color:var(--ink-mute);
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.cover-meta dd{
+  font-family:"Noto Sans JP",sans-serif;
+  font-size:15px;
+  color:var(--ink);
+  font-weight:500;
+}
+
+/* ============ TOC ============ */
+.toc{
+  padding:80px 0 60px;
+  border-bottom:1px solid var(--rule);
+}
+.toc-header{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  margin-bottom:36px;
+}
+.toc-title{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:24px;
+  color:var(--ink);
+}
+.toc-label{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  letter-spacing:0.15em;
+  color:var(--ink-mute);
+}
+.toc-list{
+  list-style:none;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0 80px;
+}
+.toc-list li{
+  display:flex;
+  align-items:baseline;
+  padding:14px 0;
+  border-bottom:1px dotted var(--rule);
+  font-size:13px;
+}
+.toc-list li a{
+  color:var(--ink);
+  text-decoration:none;
+  display:flex;
+  align-items:baseline;
+  width:100%;
+  gap:16px;
+  transition:color 0.15s;
+}
+.toc-list li a:hover{color:var(--accent)}
+.toc-list .toc-num{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:var(--accent);
+  min-width:32px;
+  font-weight:500;
+}
+.toc-list .toc-text{flex:1}
+.toc-list .toc-page{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:var(--ink-mute);
+}
+
+/* ============ SECTION ============ */
+section.report-section{
+  padding:80px 0 60px;
+  border-bottom:1px solid var(--rule);
+}
+.sec-head{
+  display:grid;
+  grid-template-columns:80px 1fr;
+  gap:24px;
+  margin-bottom:36px;
+  padding-bottom:20px;
+  border-bottom:2px solid var(--ink);
+}
+.sec-head .sec-num{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:300;
+  font-size:42px;
+  line-height:1;
+  color:var(--accent);
+}
+.sec-head .sec-text .sec-eyebrow{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.18em;
+  color:var(--ink-mute);
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.sec-head .sec-text h2{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:28px;
+  line-height:1.45;
+  color:var(--ink);
+  letter-spacing:0.01em;
+}
+
+/* Subsection h3 */
+h3.sub-head{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:18px;
+  color:var(--ink);
+  margin:40px 0 16px;
+  padding:0 0 10px 0;
+  border-bottom:1px solid var(--rule);
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+}
+h3.sub-head .num{
+  font-family:"JetBrains Mono",monospace;
+  font-size:12px;
+  color:var(--accent);
+  font-weight:500;
+  letter-spacing:0.05em;
+}
+h3.sub-head:first-child{margin-top:0}
+
+h4.minor-head{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:700;
+  font-size:14px;
+  color:var(--ink);
+  margin:24px 0 10px;
+  padding-left:12px;
+  border-left:3px solid var(--accent);
+}
+
+/* Body text */
+.report-section p{
+  font-size:14px;
+  line-height:1.95;
+  color:var(--ink-soft);
+  margin-bottom:14px;
+  max-width:880px;
+}
+.report-section p.lede{
+  font-size:15px;
+  color:var(--ink);
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:400;
+  line-height:1.9;
+  margin-bottom:24px;
+  padding:20px 24px;
+  background:var(--bg-alt);
+  border-left:3px solid var(--accent);
+  max-width:none;
+}
+.report-section ul.body{
+  list-style:none;
+  margin:14px 0 24px;
+  font-size:14px;
+  line-height:1.85;
+}
+.report-section ul.body li{
+  padding:4px 0 4px 22px;
+  position:relative;
+  color:var(--ink-soft);
+}
+.report-section ul.body li::before{
+  content:"■";
+  position:absolute;
+  left:0;top:4px;
+  color:var(--accent);
+  font-size:8px;
+}
+.report-section ol.body{
+  list-style:none;
+  counter-reset:ol;
+  margin:14px 0 24px;
+}
+.report-section ol.body li{
+  counter-increment:ol;
+  padding:8px 0 8px 36px;
+  position:relative;
+  font-size:14px;
+  line-height:1.85;
+  color:var(--ink-soft);
+  border-bottom:1px dotted var(--rule);
+}
+.report-section ol.body li::before{
+  content:"("counter(ol)")";
+  position:absolute;
+  left:0;top:8px;
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:var(--accent);
+  font-weight:500;
+}
+
+/* ============ KPI BAR (for cover summary) ============ */
+.kpi-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--rule);
+  margin:32px 0;
+  background:var(--panel);
+}
+.kpi-cell{
+  padding:24px 28px;
+  border-right:1px solid var(--rule);
+}
+.kpi-cell:last-child{border-right:none}
+.kpi-cell .kpi-label{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+  margin-bottom:8px;
+}
+.kpi-cell .kpi-value{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:28px;
+  color:var(--ink);
+  line-height:1.1;
+  letter-spacing:-0.01em;
+}
+.kpi-cell .kpi-value .unit{
+  font-size:14px;
+  color:var(--ink-mute);
+  font-weight:400;
+  margin-left:4px;
+}
+.kpi-cell .kpi-note{
+  font-size:12px;
+  color:var(--ink-mute);
+  margin-top:6px;
+}
+
+/* ============ TABLES ============ */
+table.report-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:16px 0 28px;
+  font-size:13px;
+  background:var(--panel);
+  border:1px solid var(--rule);
+}
+table.report-table thead{
+  background:var(--ink);
+  color:var(--bg);
+}
+table.report-table th{
+  text-align:left;
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:0.08em;
+  padding:12px 16px;
+  border-right:1px solid rgba(255,255,255,0.15);
+}
+table.report-table th:last-child{border-right:none}
+table.report-table th.num-col{text-align:center;width:50px}
+table.report-table td{
+  padding:12px 16px;
+  border-bottom:1px solid var(--rule-soft);
+  border-right:1px solid var(--rule-soft);
+  vertical-align:top;
+  color:var(--ink-soft);
+  line-height:1.7;
+}
+table.report-table td:last-child{border-right:none}
+table.report-table tbody tr:last-child td{border-bottom:none}
+table.report-table td.num{
+  text-align:center;
+  font-family:"JetBrains Mono",monospace;
+  color:var(--accent);
+  font-weight:500;
+}
+table.report-table td.name{
+  font-weight:600;
+  color:var(--ink);
+}
+table.report-table td.center{text-align:center}
+
+/* Eval dots / rating */
+.rating{display:inline-flex;gap:3px}
+.rating .d{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--rule);
+}
+.rating .d.on{background:var(--accent)}
+
+/* ============ TWO-COLUMN STATE COMPARISON ============ */
+.state-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin:20px 0 28px;
+}
+.state-box{
+  padding:20px 22px;
+  background:var(--panel);
+  border:1px solid var(--rule);
+}
+.state-box.target{
+  background:var(--ink);
+  color:var(--bg);
+  border-color:var(--ink);
+}
+.state-box .state-label{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.18em;
+  color:var(--ink-mute);
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.state-box.target .state-label{color:var(--accent-soft)}
+.state-box .state-title{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:15px;
+  margin-bottom:14px;
+}
+.state-box ul{
+  list-style:none;
+  font-size:12.5px;
+  line-height:1.85;
+}
+.state-box ul li{
+  padding-left:14px;
+  position:relative;
+  margin-bottom:4px;
+  color:var(--ink-soft);
+}
+.state-box.target ul li{color:rgba(250,250,246,0.85)}
+.state-box ul li::before{
+  content:"–";
+  position:absolute;
+  left:0;
+  color:var(--ink-mute);
+}
+.state-box.target ul li::before{color:var(--accent-soft)}
+
+/* ============ SCOPE BOX ============ */
+.scope-panel{
+  background:var(--bg-alt);
+  border:1px solid var(--rule);
+  padding:24px 28px;
+  margin:24px 0;
+}
+.scope-panel .scope-head{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  letter-spacing:0.18em;
+  color:var(--accent);
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.scope-panel .scope-sub{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:16px;
+  color:var(--ink);
+  margin-bottom:14px;
+}
+.scope-panel ul{
+  list-style:none;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:6px 32px;
+  font-size:13px;
+}
+.scope-panel ul li{
+  padding-left:18px;
+  position:relative;
+  color:var(--ink-soft);
+  line-height:1.7;
+}
+.scope-panel ul li::before{
+  content:"●";
+  position:absolute;
+  left:0;top:0;
+  color:var(--accent);
+  font-size:8px;
+  line-height:2.0;
+}
+
+/* ============ INSIGHT CALLOUT ============ */
+.insight{
+  margin:28px 0;
+  padding:20px 24px 20px 24px;
+  background:var(--accent-bg);
+  border-left:4px solid var(--accent);
+  position:relative;
+}
+.insight .insight-label{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:8px;
+  font-weight:600;
+}
+.insight .insight-body{
+  font-family:"Noto Sans JP",sans-serif;
+  font-size:15px;
+  line-height:1.85;
+  color:var(--ink);
+  font-weight:500;
+}
+
+/* ============ ROADMAP HORIZONTAL ============ */
+.roadmap-wrap{margin:32px 0}
+.roadmap-bar{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--rule);
+  border:1px solid var(--rule);
+  margin-bottom:24px;
+}
+.roadmap-bar .phase-mini{
+  background:var(--panel);
+  padding:16px 18px;
+}
+.roadmap-bar .phase-mini.active{
+  background:var(--accent);
+  color:var(--bg);
+}
+.roadmap-bar .ph-num{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.15em;
+  color:var(--ink-mute);
+  margin-bottom:4px;
+}
+.roadmap-bar .phase-mini.active .ph-num{color:rgba(255,255,255,0.7)}
+.roadmap-bar .ph-name{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:14px;
+  line-height:1.4;
+  color:var(--ink);
+  margin-bottom:4px;
+}
+.roadmap-bar .phase-mini.active .ph-name{color:var(--bg)}
+.roadmap-bar .ph-period{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  color:var(--ink-mute);
+}
+.roadmap-bar .phase-mini.active .ph-period{color:rgba(255,255,255,0.85)}
+
+.roadmap-detail{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+.roadmap-detail .pd-card{
+  padding:16px 18px;
+  border:1px solid var(--rule);
+  background:var(--bg);
+}
+.roadmap-detail .pd-card.active{border-color:var(--accent);border-width:2px;padding:15px 17px}
+.roadmap-detail .pd-card h5{
+  font-family:"Noto Sans JP",sans-serif;
+  font-size:11px;
+  color:var(--ink);
+  margin-bottom:8px;
+  letter-spacing:0.05em;
+  font-weight:700;
+}
+.roadmap-detail .pd-card p{
+  font-size:12px;
+  line-height:1.7;
+  color:var(--ink-soft);
+  margin-bottom:8px;
+}
+.roadmap-detail .pd-card ul{
+  list-style:none;
+  font-size:11.5px;
+  line-height:1.7;
+}
+.roadmap-detail .pd-card ul li{
+  padding:3px 0 3px 12px;
+  position:relative;
+  color:var(--ink-soft);
+  border-bottom:1px dotted var(--rule-soft);
+}
+.roadmap-detail .pd-card ul li::before{
+  content:"·";
+  position:absolute;
+  left:4px;top:3px;
+  color:var(--accent);
+  font-weight:700;
+}
+
+/* ============ BUDGET SPLIT ============ */
+.budget-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin:24px 0;
+}
+.budget-card{
+  border:1px solid var(--rule);
+  background:var(--panel);
+}
+.budget-card.premium{
+  background:var(--ink);
+  color:var(--bg);
+  border-color:var(--ink);
+}
+.budget-card .bc-head{
+  padding:20px 24px 16px;
+  border-bottom:1px solid var(--rule);
+}
+.budget-card.premium .bc-head{border-color:rgba(255,255,255,0.15)}
+.budget-card .bc-tag{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+  margin-bottom:8px;
+}
+.budget-card.premium .bc-tag{color:var(--accent-soft)}
+.budget-card .bc-amount{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:24px;
+  color:var(--ink);
+  letter-spacing:-0.01em;
+}
+.budget-card.premium .bc-amount{color:var(--bg)}
+.budget-card .bc-amount .u{
+  font-size:13px;
+  color:var(--ink-mute);
+  font-weight:400;
+  margin-left:4px;
+}
+.budget-card.premium .bc-amount .u{color:rgba(255,255,255,0.6)}
+.budget-card .bc-body{padding:18px 24px 24px}
+.budget-card .bc-body h6{
+  font-family:"Noto Sans JP",sans-serif;
+  font-size:12px;
+  font-weight:700;
+  margin:14px 0 8px;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--rule);
+  color:var(--ink);
+}
+.budget-card.premium .bc-body h6{
+  color:var(--bg);
+  border-color:rgba(255,255,255,0.15);
+}
+.budget-card .bc-body h6.bad{color:var(--accent)}
+.budget-card .bc-body h6:first-child{margin-top:0}
+.budget-card .bc-body ul{
+  list-style:none;
+  font-size:12.5px;
+  line-height:1.85;
+}
+.budget-card .bc-body ul li{
+  padding-left:16px;
+  position:relative;
+  color:var(--ink-soft);
+}
+.budget-card.premium .bc-body ul li{color:rgba(250,250,246,0.85)}
+.budget-card .bc-body ul.ok li::before{
+  content:"✓";
+  position:absolute;
+  left:0;top:0;
+  color:var(--good);
+  font-weight:700;
+  font-size:11px;
+}
+.budget-card .bc-body ul.ng li::before{
+  content:"×";
+  position:absolute;
+  left:0;top:0;
+  color:var(--accent);
+  font-weight:700;
+}
+.budget-card.premium .bc-body ul.ok li::before{color:var(--accent-soft)}
+
+/* ============ Q&A LIST (商談確認事項) ============ */
+.qa-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin:24px 0;
+}
+.qa-card{
+  background:var(--panel);
+  border:1px solid var(--rule);
+  border-top:3px solid var(--accent);
+  padding:20px 22px;
+}
+.qa-card .qa-tag{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.15em;
+  color:var(--accent);
+  margin-bottom:4px;
+}
+.qa-card h5{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:16px;
+  color:var(--ink);
+  margin-bottom:14px;
+}
+.qa-card ol{
+  list-style:none;
+  counter-reset:qa;
+  font-size:12.5px;
+  line-height:1.7;
+}
+.qa-card ol li{
+  counter-increment:qa;
+  padding:8px 0 8px 26px;
+  position:relative;
+  color:var(--ink-soft);
+  border-bottom:1px dotted var(--rule);
+}
+.qa-card ol li:last-child{border-bottom:none}
+.qa-card ol li::before{
+  content:"Q"counter(qa);
+  position:absolute;
+  left:0;top:8px;
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  color:var(--accent);
+  font-weight:600;
+}
+
+/* ============ PRIORITY BLOCK ============ */
+.prio-list{margin:24px 0}
+.prio-item{
+  display:grid;
+  grid-template-columns:60px 1fr;
+  gap:24px;
+  padding:24px 0;
+  border-bottom:1px solid var(--rule);
+  align-items:start;
+}
+.prio-item:first-child{border-top:2px solid var(--ink)}
+.prio-rank{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:36px;
+  line-height:1;
+  color:var(--accent);
+  letter-spacing:-0.02em;
+}
+.prio-body .prio-tag{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.15em;
+  color:var(--ink-mute);
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+.prio-body h5{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:18px;
+  color:var(--ink);
+  margin-bottom:8px;
+}
+.prio-body p{
+  font-size:13.5px;
+  line-height:1.85;
+  color:var(--ink-soft);
+  max-width:760px;
+}
+.prio-body p strong{color:var(--accent);font-weight:600}
+
+/* ============ PROPOSAL PACKAGE ============ */
+.proposal-card{
+  background:var(--panel);
+  border:1px solid var(--rule);
+  margin:24px 0;
+  overflow:hidden;
+}
+.proposal-head{
+  background:var(--ink);
+  color:var(--bg);
+  padding:24px 32px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.proposal-head .ph-l .ph-tag{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.2em;
+  color:var(--accent-soft);
+  margin-bottom:4px;
+}
+.proposal-head .ph-l h4{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:20px;
+}
+.proposal-head .ph-r{
+  text-align:right;
+}
+.proposal-head .ph-r .price{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:22px;
+}
+.proposal-head .ph-r .period{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:rgba(255,255,255,0.6);
+  margin-top:2px;
+}
+.proposal-body{
+  padding:24px 32px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:32px;
+}
+.proposal-body h6{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:700;
+  font-size:12px;
+  color:var(--ink);
+  margin-bottom:10px;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--rule);
+}
+.proposal-body ul{
+  list-style:none;
+  font-size:13px;
+  line-height:1.85;
+}
+.proposal-body ul li{
+  padding-left:16px;
+  position:relative;
+  color:var(--ink-soft);
+}
+.proposal-body ul li::before{
+  content:"◆";
+  position:absolute;
+  left:0;top:0;
+  color:var(--accent);
+  font-size:9px;
+  line-height:2.0;
+}
+
+/* ============ SUMMARY ============ */
+.summary{
+  background:var(--bg);
+  color:var(--ink);
+  padding:72px 56px 80px;
+  border-top:2px solid var(--ink);
+}
+.summary .sum-tag{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  letter-spacing:0.2em;
+  color:var(--accent);
+  margin-bottom:24px;
+  text-transform:uppercase;
+}
+.summary h2{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:32px;
+  line-height:1.5;
+  margin-bottom:32px;
+  color:var(--ink);
+  letter-spacing:0.01em;
+}
+.summary .sum-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-top:40px;
+}
+.summary .sum-card{
+  padding:24px;
+  border:1px solid var(--rule);
+  background:#ffffff;
+}
+.summary .sum-card .num{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:32px;
+  color:var(--accent);
+  line-height:1;
+  margin-bottom:12px;
+}
+.summary .sum-card h6{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:600;
+  font-size:16px;
+  margin-bottom:12px;
+  color:var(--ink);
+}
+.summary .sum-card p{
+  font-size:13px;
+  line-height:1.85;
+  color:var(--ink-soft);
+}
+
+/* ============ FOOTER ============ */
+.footer{
+  padding:32px 56px;
+  border-top:1px solid var(--rule);
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  font-family:"JetBrains Mono",monospace;
+  color:var(--ink-mute);
+  letter-spacing:0.1em;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:920px){
+  .page{padding:0 24px}
+  .doc-header-inner{padding:12px 24px}
+  .toc-list{grid-template-columns:1fr}
+  .cover-meta{grid-template-columns:1fr 1fr}
+  .kpi-row{grid-template-columns:1fr}
+  .kpi-cell{border-right:none;border-bottom:1px solid var(--rule)}
+  .state-grid{grid-template-columns:1fr}
+  .scope-panel ul{grid-template-columns:1fr}
+  .roadmap-bar,.roadmap-detail{grid-template-columns:1fr}
+  .budget-grid{grid-template-columns:1fr}
+  .qa-grid{grid-template-columns:1fr}
+  .proposal-body{grid-template-columns:1fr;gap:20px}
+  .summary{padding:48px 24px}
+  .summary .sum-grid{grid-template-columns:1fr}
+  table.report-table{font-size:12px}
+  table.report-table th,table.report-table td{padding:8px 10px}
+  h1.cover-title{font-size:30px}
+  .doc-header nav{display:none}
+}
+
+@media print{
+  body{background:white}
+  .doc-header{position:static}
+  section{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ DOC HEADER ============ -->
+<header class="doc-header">
+  <div class="doc-header-inner">
+    <div><span class="doc-id">DOC-2026-001</span> &nbsp;·&nbsp; 旅行業界向けAI駆動開発 PoC企画案</div>
+    <nav>
+      <a href="#sec-1">1. 背景</a>
+      <a href="#sec-3">3. テーマ</a>
+      <a href="#sec-7">7. 優先順位</a>
+      <a href="#sec-10">10. ロードマップ</a>
+      <a href="#summary">まとめ</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="cover-tag">Proposal / Planning Document</div>
+  <h1 class="cover-title">旅行業界向け<br>AI駆動開発 PoC企画案</h1>
+  <p class="cover-sub">
+    商品造成・予約体験・出張手配における<br>
+    AI活用可能性の検証と、初期PoCのスコープ整理
+  </p>
+
+  <dl class="cover-meta">
+    <div>
+      <dt>Document Type</dt>
+      <dd>企画案 / 提案メモ</dd>
+    </div>
+    <div>
+      <dt>Themes</dt>
+      <dd>3領域</dd>
+    </div>
+    <div>
+      <dt>Initial Budget</dt>
+      <dd>20〜30万円 / 月</dd>
+    </div>
+    <div>
+      <dt>Issued</dt>
+      <dd>2026.05</dd>
+    </div>
+  </dl>
+</section>
+
+<!-- ============ TOC ============ -->
+<section class="toc">
+  <div class="toc-header">
+    <div class="toc-title">目次</div>
+    <div class="toc-label">TABLE OF CONTENTS</div>
+  </div>
+  <ul class="toc-list">
+    <li><a href="#sec-1"><span class="toc-num">1.</span><span class="toc-text">企画背景</span><span class="toc-page">P.01</span></a></li>
+    <li><a href="#sec-2"><span class="toc-num">2.</span><span class="toc-text">全体方針</span><span class="toc-page">P.02</span></a></li>
+    <li><a href="#sec-3"><span class="toc-num">3.</span><span class="toc-text">PoCテーマ一覧</span><span class="toc-page">P.03</span></a></li>
+    <li><a href="#sec-4"><span class="toc-num">4.</span><span class="toc-text">テーマ①：ツアー造成システム</span><span class="toc-page">P.04</span></a></li>
+    <li><a href="#sec-5"><span class="toc-num">5.</span><span class="toc-text">テーマ②：パッケージツアー予約体験</span><span class="toc-page">P.06</span></a></li>
+    <li><a href="#sec-6"><span class="toc-num">6.</span><span class="toc-text">テーマ③：出張手配代行（BTM）</span><span class="toc-page">P.08</span></a></li>
+    <li><a href="#sec-7"><span class="toc-num">7.</span><span class="toc-text">優先順位案</span><span class="toc-page">P.10</span></a></li>
+    <li><a href="#sec-8"><span class="toc-num">8.</span><span class="toc-text">推奨する初回提案パッケージ</span><span class="toc-page">P.11</span></a></li>
+    <li><a href="#sec-9"><span class="toc-num">9.</span><span class="toc-text">商談時の推奨メッセージ</span><span class="toc-page">P.12</span></a></li>
+    <li><a href="#sec-10"><span class="toc-num">10.</span><span class="toc-text">推奨ロードマップ</span><span class="toc-page">P.13</span></a></li>
+    <li><a href="#summary"><span class="toc-num">11.</span><span class="toc-text">まとめ</span><span class="toc-page">P.14</span></a></li>
+  </ul>
+</section>
+
+<!-- ============ 1. 企画背景 ============ -->
+<section class="report-section" id="sec-1">
+  <div class="sec-head">
+    <div class="sec-num">01</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 01 / Background</div>
+      <h2>企画背景</h2>
+    </div>
+  </div>
+
+  <p class="lede">
+    旅行業界では、商品造成・予約手配・出張手配などの業務において、依然として人手による確認・入力・調整が多く残っている。料金表や条件表はPDF、Excel、FAX、メール添付など多様な形式で流通しており、現場担当者が内容を読み解き、システムへ転記・加工する運用が一般的である。
+  </p>
+
+  <p>
+    一方で、近年の生成AI・マルチモーダルAI・AIエージェントの進化により、従来は人間が読み解いていた非構造データをAIが解釈し、業務システムやオペレーションに接続できる可能性が高まっている。本企画では、旅行業界における以下3領域を対象に、AI駆動開発によるPoCテーマを整理する。
+  </p>
+
+  <ol class="body">
+    <li>ツアー造成システムの設計・進め方のアップデート</li>
+    <li>パッケージツアー予約体験のアップデート</li>
+    <li>出張手配代行（BTM）のアップデート</li>
+  </ol>
+
+  <div class="kpi-row">
+    <div class="kpi-cell">
+      <div class="kpi-label">対象業務領域</div>
+      <div class="kpi-value">3<span class="unit">領域</span></div>
+      <div class="kpi-note">商品造成・予約体験・出張手配</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-label">月額予算想定</div>
+      <div class="kpi-value">20-30<span class="unit">万円</span></div>
+      <div class="kpi-note">初期PoCは「検証フェーズ」として位置づけ</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-label">初期検証期間</div>
+      <div class="kpi-value">2-4<span class="unit">週間</span></div>
+      <div class="kpi-note">業務整理・実現性検証・簡易デモ</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. 全体方針 ============ -->
+<section class="report-section" id="sec-2">
+  <div class="sec-head">
+    <div class="sec-num">02</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 02 / Approach</div>
+      <h2>全体方針</h2>
+    </div>
+  </div>
+
+  <p>
+    本企画の基本方針は、「既存業務を単純にAIへ置き換える」のではなく、<strong>AIを前提に業務プロセス・入力データ・人間のレビュー体験を再設計する</strong>ことである。旅行業界には以下の構造的特徴があり、初期PoCの設計は慎重を要する。
+  </p>
+
+  <h3 class="sub-head"><span class="num">2.1</span>旅行業界の構造的特徴</h3>
+  <ul class="body">
+    <li>商品条件・料金条件が複雑で、例外処理が多い</li>
+    <li>航空会社、ホテル、現地事業者ごとにフォーマットや表現が異なる</li>
+    <li>業務知識が暗黙知化しており、現場担当者の判断に依存している</li>
+    <li>システム投資余力が限られ、段階的な導入が求められる</li>
+    <li>トップライン向上領域とコスト削減領域で、予算化の難易度が異なる</li>
+  </ul>
+
+  <h3 class="sub-head"><span class="num">2.2</span>初期PoCの検証ポイント</h3>
+  <p>初期PoCでは「実運用に耐える完成システム」を目指すのではなく、以下4点を検証する。</p>
+  <ol class="body">
+    <li>AIがどこまで旅行商品の非構造データを読み取れるか</li>
+    <li>人間のレビュー・修正を前提にすれば、業務に使える水準まで近づけられるか</li>
+    <li>業務プロセスのどこをAI化すれば、費用対効果が出やすいか</li>
+    <li>将来的に横展開可能な共通基盤・テンプレート化が可能か</li>
+  </ol>
+
+  <div class="insight">
+    <div class="insight-label">Key Insight</div>
+    <div class="insight-body">
+      月20〜30万円の予算で「実運用システム」を作るのは現実的ではない。初期投資で買うべきは完成品ではなく、「どこまでできるかを見極める解像度」である。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. PoCテーマ一覧 ============ -->
+<section class="report-section" id="sec-3">
+  <div class="sec-head">
+    <div class="sec-num">03</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 03 / Themes Overview</div>
+      <h2>PoCテーマ一覧</h2>
+    </div>
+  </div>
+
+  <p>3テーマを「主な価値」「予算化のしやすさ」「実装難易度」「初期PoC適性」の4観点で比較する。</p>
+
+  <table class="report-table">
+    <thead>
+      <tr>
+        <th class="num-col">No.</th>
+        <th>テーマ</th>
+        <th>領域</th>
+        <th>主な価値</th>
+        <th class="center">予算化</th>
+        <th class="center">実装難易度</th>
+        <th class="center">PoC適性</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="num">①</td>
+        <td class="name">ツアー造成システム</td>
+        <td>業務効率化 / 商品造成</td>
+        <td>入力・転記・確認工数削減</td>
+        <td class="center"><span class="rating"><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span><span class="d"></span></span></td>
+        <td class="center"><span class="rating"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></td>
+        <td class="center"><span class="rating"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span></span></td>
+      </tr>
+      <tr>
+        <td class="num">②</td>
+        <td class="name">パッケージツアー予約体験</td>
+        <td>toC / 売上向上</td>
+        <td>顧客体験向上・CVR向上・話題化</td>
+        <td class="center"><span class="rating"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span></td>
+        <td class="center"><span class="rating"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></td>
+        <td class="center"><span class="rating"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span></td>
+      </tr>
+      <tr>
+        <td class="num">③</td>
+        <td class="name">出張手配代行（BTM）</td>
+        <td>toB / 業務効率化</td>
+        <td>手配業務の省人化・案件対応力向上</td>
+        <td class="center"><span class="rating"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span></span></td>
+        <td class="center"><span class="rating"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span></span></td>
+        <td class="center"><span class="rating"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span></span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:12px;color:var(--ink-mute);margin-top:-12px">※評価は5段階。●が多いほど該当度が高い。</p>
+</section>
+
+<!-- ============ 4. テーマ① ============ -->
+<section class="report-section" id="sec-4">
+  <div class="sec-head">
+    <div class="sec-num">04</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 04 / Theme One</div>
+      <h2>テーマ①：ツアー造成システムの設計・進め方のアップデート</h2>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="num">4.1</span>現状の課題</h3>
+  <p>現在の旅行商品造成では、航空券、ホテル、現地手配、オプションなどの情報を、担当者が料金表や条件表を見ながら手作業で読み取り、必要な情報をシステムへ入力している。</p>
+
+  <div class="state-grid">
+    <div class="state-box">
+      <div class="state-label">As-Is / 現行業務</div>
+      <div class="state-title">人が読み、人が打ち、人が確かめる</div>
+      <ul>
+        <li>航空券・ホテルなどの料金表を人間が確認</li>
+        <li>PDF / Excel / FAX / メール添付などから必要情報を抽出</li>
+        <li>商品造成システムへ手入力</li>
+        <li>不明点や例外条件を現場担当者が判断</li>
+        <li>商品公開前に人間が確認・修正</li>
+      </ul>
+    </div>
+    <div class="state-box target">
+      <div class="state-label">To-Be / 目指す姿</div>
+      <div class="state-title">AIが読み、人が整え、システムが繋ぐ</div>
+      <ul>
+        <li>PDF / ExcelをAIが読み取り</li>
+        <li>必要項目を構造化データとして抽出</li>
+        <li>人間がレビュー・修正</li>
+        <li>修正済みデータをツアー造成に活用</li>
+        <li>将来的には商品造成・販売システムと接続</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="num">4.2</span>PoCで検証したいこと</h3>
+  <ol class="body">
+    <li>旅行商品の料金表・条件表をAIが正しく読み取れるか</li>
+    <li>読み取った情報を、ツアー造成に必要な項目へマッピングできるか</li>
+    <li>人間がレビュー・修正しやすい形で提示できるか</li>
+    <li>限定されたエリア・商品タイプであれば、実務に近い造成フローを再現できるか</li>
+    <li>本格開発に向けて、DB設計・レビューUI・運用設計上の論点を洗い出せるか</li>
+  </ol>
+
+  <h3 class="sub-head"><span class="num">4.3</span>初期PoCの推奨スコープ</h3>
+  <p>月額20〜30万円程度の予算感では、実運用可能な造成システムの開発まで含めるのは難しい。対象を強く限定した「技術検証＋簡易プロトタイプ」に絞ることが望ましい。</p>
+
+  <div class="scope-panel">
+    <div class="scope-head">Recommended Scope</div>
+    <div class="scope-sub">限定スコープでの技術検証＋簡易プロトタイプ</div>
+    <ul>
+      <li>対象エリアを1エリアに限定</li>
+      <li>対象商品タイプを1〜2種類に限定</li>
+      <li>対象資料をPDF / Excelの代表的な数パターンに限定</li>
+      <li>抽出項目を最小限に限定（出発日・期間・航空会社・ホテル名・部屋タイプ・料金・適用条件・除外日・注意事項）</li>
+      <li>人間がレビューする前提で、抽出結果を一覧表示</li>
+      <li>修正済みデータをCSV / JSONなどで出力</li>
+    </ul>
+  </div>
+
+  <h3 class="sub-head"><span class="num">4.4</span>成果物イメージ</h3>
+  <h4 class="minor-head">最小成果物</h4>
+  <ul class="body">
+    <li>対象業務フロー整理、対象資料の分類、AIによる読み取り検証、抽出項目定義</li>
+    <li>簡易デモ（PDF / Excelアップロード → AIによる項目抽出 → 一覧表示 → 人間による確認・修正 → CSV / JSON出力）</li>
+    <li>精度・限界・運用上の注意点整理、次フェーズに向けた開発スコープ案</li>
+  </ul>
+  <h4 class="minor-head">本格開発時に追加検討すべきもの</h4>
+  <ul class="body">
+    <li>商品造成DB設計／旅行商品ごとの条件分岐管理／航空券・ホテル・現地手配のマスタ管理</li>
+    <li>例外条件の管理／承認ワークフロー／既存販売システムとの連携／ログ・監査・差分管理／GDS・API連携</li>
+  </ul>
+
+  <h3 class="sub-head"><span class="num">4.5</span>想定リスクと対応方針</h3>
+  <table class="report-table">
+    <thead>
+      <tr><th style="width:24%">リスク</th><th style="width:36%">内容</th><th>対応方針</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">読み取り精度が安定しない</td><td>PDFやExcelの形式が多様で、AIが誤読する可能性がある</td><td>対象フォーマットを限定し、人間レビューを前提にする</td></tr>
+      <tr><td class="name">業界知識が必要</td><td>料金条件や旅行業特有の例外解釈が必要</td><td>旅行手配経験者・業務担当者と連携する</td></tr>
+      <tr><td class="name">DB設計が重い</td><td>造成システム化には商品構造の設計が必要</td><td>初期PoCではDB設計を深掘りしすぎない</td></tr>
+      <tr><td class="name">予算が小さい</td><td>月20〜30万円では実運用システム開発は困難</td><td>技術検証・簡易デモ・次フェーズ設計に限定する</td></tr>
+      <tr><td class="name">トップライン非直結</td><td>業務効率化テーマのため、投資判断が厳しくなりやすい</td><td>コスト削減だけでなく、商品造成スピード向上を訴求する</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub-head"><span class="num">4.6</span>評価</h3>
+  <p>テーマ①は、旅行業界の構造的課題に直結しており、横展開可能性も高い。一方で、業務知識・データ構造・例外処理が重く、初期PoCのスコープを誤ると費用対効果が悪化しやすい。月20〜30万円の予算では<strong style="color:var(--accent)">「作る」よりも「できる範囲を見極める」位置づけ</strong>で進めるべきである。</p>
+</section>
+
+<!-- ============ 5. テーマ② ============ -->
+<section class="report-section" id="sec-5">
+  <div class="sec-head">
+    <div class="sec-num">05</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 05 / Theme Two</div>
+      <h2>テーマ②：パッケージツアー予約体験のアップデート</h2>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="num">5.1</span>現状の課題</h3>
+  <p>従来のパッケージツアー販売では、旅行会社が事前に造成したツアーの中から、ユーザーが条件に合う商品を検索・比較・予約する流れが一般的である。しかし、ユーザーの旅行ニーズは本来多様であり、既存商品から探す体験では以下の課題がある。</p>
+  <ul class="body">
+    <li>希望条件に合う商品を探しにくい</li>
+    <li>ユーザーが旅行条件を言語化できない</li>
+    <li>商品数が多いほど比較負荷が高い</li>
+    <li>既存ツアーにない柔軟な提案が難しい</li>
+    <li>相談型の販売体験をオンラインで再現しにくい</li>
+  </ul>
+
+  <h3 class="sub-head"><span class="num">5.2</span>目指す姿</h3>
+  <p>ユーザーがAIと対話しながら、希望条件・予算・目的・同行者・制約条件を伝えることで、AIがリアルタイムにツアー案を生成・提案する体験を目指す。</p>
+
+  <div class="state-grid">
+    <div class="state-box">
+      <div class="state-label">As-Is / 現行体験</div>
+      <div class="state-title">商品から検索する</div>
+      <ul>
+        <li>事前造成済みツアーからユーザーが検索</li>
+        <li>条件に合いそうな商品を比較</li>
+        <li>不明点は問い合わせ</li>
+        <li>人間が追加提案・調整</li>
+      </ul>
+    </div>
+    <div class="state-box target">
+      <div class="state-label">To-Be / 目指す体験</div>
+      <div class="state-title">条件から提案される</div>
+      <ul>
+        <li>ユーザーがAIに希望を相談</li>
+        <li>AIが条件を整理</li>
+        <li>候補プランを複数生成</li>
+        <li>在庫・商品・料金条件を踏まえて提案</li>
+        <li>必要に応じて担当者が確認・修正</li>
+        <li>最終的に予約導線へ接続</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="num">5.3</span>PoCで検証したいこと</h3>
+  <ol class="body">
+    <li>ユーザーの曖昧な旅行相談をAIが整理できるか</li>
+    <li>条件に応じた旅行プラン案を生成できるか</li>
+    <li>既存商品・料金表・在庫情報を踏まえた提案が可能か</li>
+    <li>担当者がレビューできる形で提案内容を出力できるか</li>
+    <li>CVR向上・問い合わせ増加・商談化など、トップライン寄与の仮説を検証できるか</li>
+  </ol>
+
+  <h3 class="sub-head"><span class="num">5.4</span>初期PoCの推奨スコープ</h3>
+  <p>テーマ②はトップライン向上に直結しやすく、役員・部長層への訴求力が高い。一方で、予約完了までAIが自動化するには、在庫、料金、約款、責任範囲、オペレーションの整備が必要である。初期PoCでは予約完了までの完全自動化ではなく、<strong style="color:var(--accent)">「AI接客・旅行プラン提案・造成案生成」に絞る</strong>ことが望ましい。</p>
+
+  <div class="scope-panel">
+    <div class="scope-head">Recommended Scope</div>
+    <div class="scope-sub">AI接客＋プラン提案＋造成補助</div>
+    <ul>
+      <li>対象ユーザー：家族旅行/ハネムーン/シニア旅行/法人/特定方面海外旅行等から選定</li>
+      <li>対象エリアを限定</li>
+      <li>AIチャットによる希望条件ヒアリング</li>
+      <li>旅行プラン案の生成</li>
+      <li>担当者向け造成メモの生成</li>
+      <li>予約確定は人間が対応</li>
+      <li>既存商品・料金データとの接続は限定的に実施</li>
+    </ul>
+  </div>
+
+  <h3 class="sub-head"><span class="num">5.5</span>成果物イメージ</h3>
+  <ul class="body">
+    <li>AI旅行相談チャットの簡易デモ／ヒアリング項目設計／ユーザー条件整理ロジック</li>
+    <li>旅行プラン生成テンプレート／担当者向け造成メモ出力／想定UIワイヤー</li>
+    <li>トップライン効果仮説（問い合わせ率向上・CVR向上・高単価商品の提案率向上・オプション販売率向上）</li>
+    <li>本格開発に向けた機能ロードマップ</li>
+  </ul>
+
+  <h3 class="sub-head"><span class="num">5.6</span>想定リスクと対応方針</h3>
+  <table class="report-table">
+    <thead>
+      <tr><th style="width:24%">リスク</th><th style="width:36%">内容</th><th>対応方針</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">現場反発</td><td>造成・対話業務に価値を感じる現場が抵抗する可能性</td><td>AIを代替ではなく補助として位置づける</td></tr>
+      <tr><td class="name">誤提案リスク</td><td>AIが存在しない商品や不正確な料金を提案する可能性</td><td>初期は担当者レビューを必須にする</td></tr>
+      <tr><td class="name">予約責任の所在</td><td>AI提案に基づく予約時の責任範囲が曖昧</td><td>予約確定は人間対応に限定する</td></tr>
+      <tr><td class="name">データ接続が重い</td><td>商品・在庫・料金との連携が必要</td><td>初期はダミーデータまたは限定データで検証する</td></tr>
+      <tr><td class="name">意思決定の難しさ</td><td>新しい販売体験のため社内合意形成が必要</td><td>役員・部長層向けにトップライン効果を訴求する</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub-head"><span class="num">5.7</span>評価</h3>
+  <p>テーマ②は、売上向上・顧客体験向上・話題性の観点で最も大きな可能性がある。単なる業務効率化ではなく、新しい旅行販売体験の提案として位置づけられるため、予算化の余地も比較的大きい。一方で、現場オペレーションや責任範囲の整理が必要なため、初期PoCでは予約完了までを自動化せず、AIによる相談・提案・造成補助に留めるのが現実的である。</p>
+</section>
+
+<!-- ============ 6. テーマ③ ============ -->
+<section class="report-section" id="sec-6">
+  <div class="sec-head">
+    <div class="sec-num">06</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 06 / Theme Three</div>
+      <h2>テーマ③：出張手配代行（BTM）のアップデート</h2>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="num">6.1</span>現状の課題</h3>
+  <p>法人向け出張手配では、チャットやメールで出張条件の相談を受け、人間が航空券・ホテル・移動手段などを調査・提案・手配する運用が一般的である。大型案件を受注した場合、相談件数が急増し、既存の人員では対応が逼迫する可能性がある。</p>
+
+  <h3 class="sub-head"><span class="num">6.2</span>目指す姿</h3>
+  <p>出張相談が来た際に、AIがリアルタイムで条件を整理し、候補案を作成し、担当者に提示する。将来的には、手配依頼や確認連絡の一部まで自動化する。</p>
+
+  <div class="state-grid">
+    <div class="state-box">
+      <div class="state-label">As-Is / 現行業務</div>
+      <div class="state-title">人が解読し、人が手配する</div>
+      <ul>
+        <li>法人顧客からチャットやメールで相談</li>
+        <li>担当者が条件を整理</li>
+        <li>航空券・ホテルなどを調査</li>
+        <li>候補案を作成</li>
+        <li>顧客へ提案、承認後に手配</li>
+      </ul>
+    </div>
+    <div class="state-box target">
+      <div class="state-label">To-Be / 目指す業務</div>
+      <div class="state-title">AIが整理し、人が判断する</div>
+      <ul>
+        <li>相談内容をAIが自動要約</li>
+        <li>必要条件をAIが抽出</li>
+        <li>不足情報をAIが質問</li>
+        <li>候補案をAIが生成</li>
+        <li>担当者が確認・修正</li>
+        <li>顧客返信文や手配依頼文をAIが作成</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="num">6.3</span>PoCで検証したいこと</h3>
+  <ol class="body">
+    <li>チャット・メールの相談内容から、出張条件を抽出できるか</li>
+    <li>不足情報をAIが特定できるか</li>
+    <li>担当者向けに候補案・確認事項を整理できるか</li>
+    <li>顧客返信文・手配依頼文を生成できるか</li>
+    <li>大型案件受注時のオペレーション増加に耐える支援ツールになり得るか</li>
+  </ol>
+
+  <h3 class="sub-head"><span class="num">6.4</span>初期PoCの推奨スコープ</h3>
+  <p>テーマ③は、3テーマの中で最も小さく始めやすい。既存業務の相談内容をAIが整理し、担当者を支援する形であれば、実装範囲を比較的限定できる。</p>
+
+  <div class="scope-panel">
+    <div class="scope-head">Recommended Scope</div>
+    <div class="scope-sub">相談内容の構造化＋担当者支援</div>
+    <ul>
+      <li>対象はチャットまたはメール相談</li>
+      <li>AIが相談内容を要約</li>
+      <li>出張条件を構造化（出発地・目的地・日程・人数・予算・希望時間帯・宿泊条件・移動制約・承認条件）</li>
+      <li>不足情報の洗い出し</li>
+      <li>顧客への確認文生成</li>
+      <li>担当者向け候補案作成</li>
+      <li>実予約・決済は人間が対応</li>
+    </ul>
+  </div>
+
+  <h3 class="sub-head"><span class="num">6.5</span>成果物イメージ</h3>
+  <ul class="body">
+    <li>出張相談AIアシスタントの簡易デモ</li>
+    <li>相談文からの条件抽出テンプレート／不足情報チェックリスト</li>
+    <li>顧客返信文生成／担当者向け手配メモ生成</li>
+    <li>業務削減効果の試算／大型案件受注時の導入ロードマップ</li>
+  </ul>
+
+  <h3 class="sub-head"><span class="num">6.6</span>想定リスクと対応方針</h3>
+  <table class="report-table">
+    <thead>
+      <tr><th style="width:24%">リスク</th><th style="width:36%">内容</th><th>対応方針</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">大型案件の受注依存</td><td>ニーズが案件受注可否に左右される</td><td>受注前はライトな検証に留める</td></tr>
+      <tr><td class="name">コスト削減領域の予算化難</td><td>予算化が難しい可能性がある</td><td>大型案件対応力・機会損失防止を訴求する</td></tr>
+      <tr><td class="name">自動手配のリスク</td><td>誤予約・誤手配の責任が重い</td><td>初期は人間承認を必須にする</td></tr>
+      <tr><td class="name">既存ツール連携</td><td>チャット、メール、予約システムとの接続が必要</td><td>初期は手動投入・簡易UIで検証する</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub-head"><span class="num">6.7</span>評価</h3>
+  <p>テーマ③は、実装範囲を限定しやすく、PoCとして最も現実的である。大型案件受注時のオペレーション逼迫という明確な課題があるため、導入理由も説明しやすい。一方で、受注前の段階では予算化が難しい可能性があるため、<strong style="color:var(--accent)">「大型案件受注時に即PoCへ移行できる準備テーマ」</strong>として位置づけるのがよい。</p>
+</section>
+
+<!-- ============ 7. 優先順位 ============ -->
+<section class="report-section" id="sec-7">
+  <div class="sec-head">
+    <div class="sec-num">07</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 07 / Priority</div>
+      <h2>優先順位案</h2>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="num">7.1</span>推奨優先順位</h3>
+
+  <div class="prio-list">
+    <div class="prio-item">
+      <div class="prio-rank">1</div>
+      <div class="prio-body">
+        <div class="prio-tag">First Priority</div>
+        <h5>テーマ② パッケージツアー予約体験</h5>
+        <p><strong>トップライン向上に直結しやすく、役員・部長層への訴求力が高い。</strong>単なる業務効率化ではなく、新しい旅行販売体験の提案として位置づけられるため、別予算化の余地も大きい。話題化・事例化のポテンシャルも最も高い。</p>
+      </div>
+    </div>
+    <div class="prio-item">
+      <div class="prio-rank">2</div>
+      <div class="prio-body">
+        <div class="prio-tag">Second Priority</div>
+        <h5>テーマ③ 出張手配代行（BTM）</h5>
+        <p><strong>小さく始めやすく、大型案件受注時のニーズが明確。</strong>PoC設計の難度も最も低い。ただし受注前段階での予算化はやや難しいため、「受注時に即PoCへ移行できる準備テーマ」として位置づけるのが現実的。</p>
+      </div>
+    </div>
+    <div class="prio-item">
+      <div class="prio-rank">3</div>
+      <div class="prio-body">
+        <div class="prio-tag">Third Priority</div>
+        <h5>テーマ① ツアー造成システム</h5>
+        <p><strong>業界課題としては最大、ただしスコープ管理が最難。</strong>横展開可能性は高いが、20〜30万円ではスコープ管理が難しい。中長期的には最大のリターンが期待できる領域。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="num">7.2</span>予算別の進め方</h3>
+
+  <div class="budget-grid">
+    <div class="budget-card">
+      <div class="bc-head">
+        <div class="bc-tag">Starter Tier</div>
+        <div class="bc-amount">月 20〜30<span class="u">万円</span></div>
+      </div>
+      <div class="bc-body">
+        <h6 style="color:var(--good)">適した進め方</h6>
+        <ul class="ok">
+          <li>技術検証</li>
+          <li>業務整理</li>
+          <li>簡易デモ</li>
+          <li>プロトタイプ</li>
+          <li>次フェーズ設計</li>
+        </ul>
+        <h6 class="bad">避けるべき進め方</h6>
+        <ul class="ng">
+          <li>実運用可能な管理画面開発</li>
+          <li>既存システム連携</li>
+          <li>複雑なDB設計</li>
+          <li>予約・決済・手配の自動化</li>
+          <li>高精度保証</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="budget-card premium">
+      <div class="bc-head">
+        <div class="bc-tag">Professional Tier</div>
+        <div class="bc-amount">月 100<span class="u">万円以上</span></div>
+      </div>
+      <div class="bc-body">
+        <h6>検討可能な範囲</h6>
+        <ul class="ok">
+          <li>実運用前提のPoC</li>
+          <li>レビューUI開発</li>
+          <li>限定業務での現場トライアル</li>
+          <li>既存データとの接続</li>
+          <li>業務効果測定</li>
+          <li>MVP開発</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. 推奨初回提案 ============ -->
+<section class="report-section" id="sec-8">
+  <div class="sec-head">
+    <div class="sec-num">08</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 08 / Proposal Package</div>
+      <h2>推奨する初回提案パッケージ</h2>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="num">8.1</span>提案名</h3>
+  <p class="lede" style="font-family:'Noto Sans JP',sans-serif;font-size:18px;font-weight:600;color:var(--ink)">
+    旅行業界向けAI業務変革PoC<br>
+    <span style="font-size:14px;font-weight:400;color:var(--ink-soft)">— 商品造成・予約体験・出張手配のAI活用可能性検証 —</span>
+  </p>
+
+  <h3 class="sub-head"><span class="num">8.2</span>初期提案の位置づけ</h3>
+  <p>初回提案では、いきなり開発を請けるのではなく、3テーマのうちどれを優先すべきかを整理し、PoCスコープと費用対効果を明確化する<strong style="color:var(--accent)">「検討フェーズ」</strong>として提案する。</p>
+
+  <h3 class="sub-head"><span class="num">8.3</span>初回フェーズの内容</h3>
+
+  <div class="proposal-card">
+    <div class="proposal-head">
+      <div class="ph-l">
+        <div class="ph-tag">Phase 0</div>
+        <h4>PoC設計・実現性検証</h4>
+      </div>
+      <div class="ph-r">
+        <div class="price">20〜30万円から</div>
+        <div class="period">期間：2〜4週間</div>
+      </div>
+    </div>
+    <div class="proposal-body">
+      <div>
+        <h6>実施内容</h6>
+        <ul>
+          <li>現行業務ヒアリング</li>
+          <li>対象業務の分解</li>
+          <li>AI適用可能性の整理</li>
+          <li>対象データの確認</li>
+          <li>サンプルPDF / Excel / チャットログでの読み取り検証</li>
+          <li>PoCテーマの優先順位付け</li>
+          <li>簡易デモまたはモック作成</li>
+          <li>本格PoCの見積もり・ロードマップ作成</li>
+        </ul>
+      </div>
+      <div>
+        <h6>成果物</h6>
+        <ul>
+          <li>業務課題整理</li>
+          <li>AI適用ユースケース一覧</li>
+          <li>実現可能性評価</li>
+          <li>簡易検証結果</li>
+          <li>推奨PoCテーマ</li>
+          <li>次フェーズ提案書</li>
+          <li>概算見積もり</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. 商談メッセージ ============ -->
+<section class="report-section" id="sec-9">
+  <div class="sec-head">
+    <div class="sec-num">09</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 09 / Sales Talk Points</div>
+      <h2>商談時の推奨メッセージ</h2>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="num">9.1</span>基本スタンス</h3>
+  <ul class="body">
+    <li>3テーマともAI活用テーマとしては魅力がある</li>
+    <li>ただし、20〜30万円で実運用システムを作るのは現実的ではない</li>
+    <li>初期は「何ができるか」を見極める検証フェーズにするべき</li>
+    <li>トップライン向上につながる②は別予算化を狙う価値が高い</li>
+    <li>③は大型案件受注時の即応策として小さく始めやすい</li>
+    <li>①は横展開可能性があるが、スコープ管理が重要</li>
+  </ul>
+
+  <h3 class="sub-head"><span class="num">9.2</span>商談で確認すべき事項</h3>
+
+  <h4 class="minor-head">全テーマ共通</h4>
+  <ul class="body">
+    <li>最も解決したい経営課題は何か／コスト削減と売上向上のどちらを優先するか</li>
+    <li>予算を持っている部署・意思決定者は誰か／事例化・共同発信は可能か</li>
+    <li>横展開前提の共同開発に関心があるか</li>
+  </ul>
+
+  <div class="qa-grid">
+    <div class="qa-card">
+      <div class="qa-tag">Theme ①</div>
+      <h5>ツアー造成</h5>
+      <ol>
+        <li>対象エリアをどこまで限定できるか</li>
+        <li>対象商品タイプをどこまで絞れるか</li>
+        <li>サンプルのPDF / Excelを提供できるか</li>
+        <li>正解データや過去の造成実績があるか</li>
+        <li>DB設計を担当するエンジニアとの役割分担はどうするか</li>
+        <li>AIが間違えた場合、誰がレビューするか</li>
+      </ol>
+    </div>
+    <div class="qa-card">
+      <div class="qa-tag">Theme ②</div>
+      <h5>予約体験</h5>
+      <ol>
+        <li>役員・部長層が評価したポイントは何か</li>
+        <li>どの顧客セグメントで試すのがよいか</li>
+        <li>予約完了まで自動化したいのか、提案補助でよいのか</li>
+        <li>既存商品・料金・在庫データに接続できるか</li>
+        <li>現場担当者の関与をどう設計するか</li>
+      </ol>
+    </div>
+    <div class="qa-card">
+      <div class="qa-tag">Theme ③</div>
+      <h5>出張手配</h5>
+      <ol>
+        <li>大型案件の受注確度はどの程度か</li>
+        <li>想定される相談件数・手配件数はどれくらいか</li>
+        <li>現在の出張手配フローはどうなっているか</li>
+        <li>チャット・メールなど、どのチャネルで相談が来るか</li>
+        <li>どこまでAIに任せ、どこから人間が判断するか</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. ロードマップ ============ -->
+<section class="report-section" id="sec-10">
+  <div class="sec-head">
+    <div class="sec-num">10</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 10 / Roadmap</div>
+      <h2>推奨ロードマップ</h2>
+    </div>
+  </div>
+
+  <p>初期検証から本格導入・横展開まで、4フェーズで段階的に進める。</p>
+
+  <div class="roadmap-wrap">
+    <div class="roadmap-bar">
+      <div class="phase-mini active">
+        <div class="ph-num">PHASE 0</div>
+        <div class="ph-name">PoCテーマ選定・実現性検証</div>
+        <div class="ph-period">2〜4週間</div>
+      </div>
+      <div class="phase-mini">
+        <div class="ph-num">PHASE 1</div>
+        <div class="ph-name">限定PoC</div>
+        <div class="ph-period">1〜3ヶ月</div>
+      </div>
+      <div class="phase-mini">
+        <div class="ph-num">PHASE 2</div>
+        <div class="ph-name">MVP開発</div>
+        <div class="ph-period">3ヶ月程度</div>
+      </div>
+      <div class="phase-mini">
+        <div class="ph-num">PHASE 3</div>
+        <div class="ph-name">本格導入・横展開</div>
+        <div class="ph-period">3ヶ月〜</div>
+      </div>
+    </div>
+
+    <div class="roadmap-detail">
+      <div class="pd-card active">
+        <h5>目的</h5>
+        <p>3テーマの中から優先度を決め、PoCスコープを明確化する</p>
+        <h5 style="margin-top:14px">主な内容</h5>
+        <ul>
+          <li>業務ヒアリング</li>
+          <li>データ確認</li>
+          <li>AI適用可能性評価</li>
+          <li>簡易デモ</li>
+          <li>次フェーズ見積もり</li>
+        </ul>
+      </div>
+      <div class="pd-card">
+        <h5>目的</h5>
+        <p>限定業務・限定データでAI活用の効果を検証する</p>
+        <h5 style="margin-top:14px">候補</h5>
+        <ul>
+          <li>①限定エリアの料金表読み取り</li>
+          <li>②AI旅行相談チャット</li>
+          <li>③出張相談の条件抽出・返信文生成</li>
+        </ul>
+      </div>
+      <div class="pd-card">
+        <h5>目的</h5>
+        <p>実業務で一部利用できる最小プロダクトを開発する</p>
+        <h5 style="margin-top:14px">主な内容</h5>
+        <ul>
+          <li>レビューUI</li>
+          <li>業務フロー連携</li>
+          <li>データ管理</li>
+          <li>担当者向け操作画面</li>
+          <li>効果測定</li>
+        </ul>
+      </div>
+      <div class="pd-card">
+        <h5>目的</h5>
+        <p>他エリア・他商品・他企業への展開を見据えた拡張</p>
+        <h5 style="margin-top:14px">主な内容</h5>
+        <ul>
+          <li>対象商品拡大</li>
+          <li>外部システム連携</li>
+          <li>運用設計・権限管理</li>
+          <li>ログ管理</li>
+          <li>横展開テンプレ化・事例化</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- /.page -->
+
+<!-- ============ SUMMARY ============ -->
+<section class="summary" id="summary">
+  <div class="page" style="padding:0 56px">
+    <div class="sum-tag">11 / Summary</div>
+    <h2>まとめ：初期は「作る」より、<br>「できる範囲を見極める」に投資する。</h2>
+    <p style="color:var(--ink-soft);font-size:14px;line-height:1.95;max-width:880px">
+      今回の3テーマは、いずれも旅行業界の構造的課題に対してAIを活用する企画として可能性がある。ただし、月20〜30万円の予算で実運用可能なシステム開発まで担うのは難しいため、初期は「技術検証・業務整理・簡易デモ・次フェーズ設計」に絞るべきである。初回商談では開発を請けるのではなく、まず「AI適用可能性検証フェーズ」として提案し、次フェーズで本格PoC・MVP開発へ進める形が望ましい。
+    </p>
+
+    <div class="sum-grid">
+      <div class="sum-card">
+        <div class="num">01</div>
+        <h6>テーマ② パッケージツアー予約体験</h6>
+        <p>トップライン向上に直結しやすく、予算化・経営層提案に向いている。話題性・事例化のポテンシャルも高い。</p>
+      </div>
+      <div class="sum-card">
+        <div class="num">02</div>
+        <h6>テーマ③ 出張手配代行（BTM）</h6>
+        <p>小さく始めやすく、大型案件受注時の業務逼迫対策として現実的。受注時の即応テーマとして位置づける。</p>
+      </div>
+      <div class="sum-card">
+        <div class="num">03</div>
+        <h6>テーマ① ツアー造成システム</h6>
+        <p>業界課題としては大きいが、業務知識・DB設計・例外処理が重く、スコープ管理が重要。中長期で取り組むべき領域。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div>DOC-2026-001 &nbsp;·&nbsp; 旅行業界向けAI駆動開発 PoC企画案</div>
+  <div>Page 14 of 14</div>
+</footer>
+
+</body>
+</html>

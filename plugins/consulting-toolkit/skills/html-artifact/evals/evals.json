@@ -1,0 +1,26 @@
+{
+  "skill_name": "html-artifact",
+  "evals": [
+    {
+      "id": 1,
+      "name": "generate-only-from-existing-md",
+      "prompt": "secretary/daily-logs/2026-05-08.md を、折りたたみセクション付きの読みやすい HTML にして、ローカルで確認できるようにして。",
+      "expected_output": "self-contained HTML（インライン CSS、外部依存は Google Fonts のみ）+ 元 MD 保持。出力に open コマンドの案内が含まれる。公開（URL 発行）は行わない（必要なら html-publish へ引き渡すと案内）。",
+      "files": ["secretary/daily-logs/2026-05-08.md"]
+    },
+    {
+      "id": 2,
+      "name": "generate-report-from-brief",
+      "prompt": "クライアントへの Q1 進捗レポートを作りたい。A 社の DX 戦略について、現状・課題・推奨アクション 3 つを HTML で作って。",
+      "expected_output": "対話ブリーフから MD と HTML の両方を生成し、Recipe B（調査レポート）の章構成を採用して business-document スタイル（紙質クリーム背景・Noto Sans JP 統一フォント・テラコッタアクセント）で生成する。共有 URL の発行は行わない（生成のみ）。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "generate-slide-deck-mono",
+      "prompt": "この提案内容を 16:9 のブラウザで投影できるスライドにして。コンサル提案書らしい見た目で。",
+      "expected_output": "Slide Deck format × Mono テーマで 1280×720 の自己完結 HTML スライドデッキを生成。1 スライド 1 メッセージ、構造的メッセージは図解化。プレゼンチャーム（キーボード送り・サムネイル一覧・URL ハッシュ・印刷 1 ページ 1 スライド）が動作する。",
+      "files": []
+    }
+  ]
+}
