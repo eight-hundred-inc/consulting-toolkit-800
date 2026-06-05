@@ -51,7 +51,9 @@
 ### 使い方の原則
 
 - **アクセントカラーは1色（`--accent`）のみ**。「区別したいから青も追加」はしない。区別は罫線・配置・ラベルで行う
-- **`--accent-soft` はダーク背景パネル上でのみ使う**（`budget-card.premium` のような部分的ダークパネル）。Summary セクションはクリーム背景に変更したため `--accent-soft` ではなく通常の `--accent` を使う
+- **帯系コンポーネントはテーマ追従**：`report-table thead`・`state-box.target`・`budget-card.premium`・`proposal-head`・`dc-marker`・`hero-number.dark`・`takeaway-strip` の帯背景は `var(--accent)` を使う（`var(--ink)` 固定にしない）。Navy なら紺帯、Forest なら深緑帯になり、テーマを選んだのに帯だけ黒く浮く「モノトーン見え」を防ぐ。Mono テーマは accent≈ink のため従来どおり黒帯になる
+- **accent 帯上の小ラベル・箇条書きマーカーは `rgba(255,255,255,0.78)`**（`--accent-soft` は同系色のため帯上ではコントラスト不足）。本文は `#fff`
+- **`--accent-soft` はダーク背景上でのみ使う**（サムネイルパネル等）。クリーム背景上では `--accent-soft` ではなく通常の `--accent` を使う
 - **`--good` / `--warn` は意味のある対比のみで使う**（例：「適した進め方 vs 避けるべき進め方」）。装飾目的では使わない
 - **CSS変数は必ず `:root` で定義し、ハードコードしない**
 
