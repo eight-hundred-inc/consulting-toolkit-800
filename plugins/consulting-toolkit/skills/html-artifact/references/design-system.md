@@ -115,7 +115,7 @@
 --accent-bg: #1a1a1a;     /* 黒帯反転用（白文字on黒地） */
 ```
 
-**向いている文書**：投資家ピッチ、コンサル提案書、McKinsey/BCG的なフォーマル提案、ハイステークス資料。旧 "Pitch Mode" の見え方を吸収したテーマ。黒帯反転・巨大数字・大きい余白で構造を見せるスタイル。**他テーマと違い `--accent-bg` は黒**（Eyebrow Bar・Hero Number等の黒帯反転で使う）。
+**向いている文書**：投資家ピッチ、コンサル提案書、McKinsey/BCG的なフォーマル提案、ハイステークス資料。黒帯反転・巨大数字・大きい余白で構造を見せるスタイル。**他テーマと違い `--accent-bg` は黒**（Eyebrow Bar・Hero Number等の黒帯反転で使う）。
 
 **Mono テーマの追加ルール**：
 - `--accent-bg` が黒（`#1a1a1a`）であるため、Insight Callout など「アクセント背景にテキスト」のコンポーネントは Mono テーマでは反転表示（白文字on黒地）になる。読みづらい場合は `.insight.flat` 等の代替バリアントで `background: var(--bg-alt)` を使う
@@ -141,7 +141,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
-**重要**: 外部 stylesheet は原則禁止だが、**Google Fonts に限り例外で許可**する。これは公開スキル `html-publish` の検証ロジック（`publish.sh` / `publish-flow.md`）と同期している（fonts.googleapis.com を含む URL のみ素通し）。生成側（design-system.md / SKILL.md）と公開側（html-publish）で同じ例外規約を維持する。
+**重要**: 外部 stylesheet は原則禁止だが、**Google Fonts に限り例外で許可**する。**この例外規約の正本は本ファイル**（SKILL.md の Guardrails には要約のみ置く）。例外は公開スキル `html-publish` の検証ロジック（`publish.sh` / `publish-flow.md`）と同期している（fonts.googleapis.com を含む URL のみ素通し）。文言を変更する場合は html-publish 側と必ず同期する。
 
 ### 役割分担
 
