@@ -120,6 +120,7 @@ Claude Code のプラグインとしてインストールします。OS・環境
 | [desk-researcher](plugins/consulting-toolkit/agents/desk-researcher.md) | デスクトップリサーチ実行専門。Exa（セマンティック検索）/ WebSearch / WebFetch / Browser Use で情報を収集し、調査レポートと仮説検証シートを出力する | Step 3（初期調査）、Step 10（詳細調査） |
 | [image-creator](plugins/consulting-toolkit/agents/image-creator.md) | 画像・図解・データチャートの生成。HTML+CSSで構造化図解をPNG化、matplotlibでデータチャートを生成。イラスト・アート系は画像生成プロンプトを返却 | 「画像にして」「図にして」「図解して」「グラフを作って」「データを可視化して」 |
 | [circleback-minutes-worker](plugins/consulting-toolkit/agents/circleback-minutes-worker.md) | Circleback MCP から単一会議のトランスクリプトを取得し、meeting-minutes-creator / interview-minutes-creator に従って議事録 MD を生成する専門ワーカー | circleback-meeting-minutes スキルから並列起動 |
+| [slide-figure-creator](plugins/consulting-toolkit/agents/slide-figure-creator.md) | html-artifact の HTML スライドデッキで、リッチ判定に該当する作り込み図版を 1 図 1 エージェントで生成する専門ワーカー。設計→レンダ→クロップ検証→修正を反復し、デッキに埋め込む HTML フラグメントを返す | html-artifact スキルから並列起動（Step 9.5・1 図ごと） |
 
 ---
 
@@ -315,22 +316,27 @@ consulting-toolkit/
         ├── skills/
         │   ├── project-manager/
         │   ├── interview-research-proposal/
-        │   ├── project-proposal/
         │   ├── interview-guide-creator/
         │   ├── interview-candidate-selector/
         │   ├── interview-minutes-creator/
-        │   ├── research-project-workflow/
-        │   ├── desk-research/
-        │   ├── docx-to-markdown-with-references/
-        │   ├── integrated-analysis-creator/
-        │   ├── image-generator-guide/
-        │   ├── meeting-minutes-creator/
-        │   ├── pptx/
         │   ├── report-outline-creator/
         │   ├── slide-structure-designer/
-        │   └── subagent-creator/
+        │   ├── integrated-analysis-creator/
+        │   ├── research-project-workflow/
+        │   ├── project-proposal/
+        │   ├── desk-research/
+        │   ├── meeting-minutes-creator/
+        │   ├── docx-to-markdown-with-references/
+        │   ├── subagent-creator/
+        │   ├── chart-generator-guide/
+        │   ├── image-generator-guide/
+        │   ├── html-artifact/
+        │   ├── circleback-meeting-minutes/
+        │   └── _shared/                  # スキル共通のライティング原則
         └── agents/
             ├── quality-reviewer.md
             ├── desk-researcher.md
-            └── image-creator.md
+            ├── image-creator.md
+            ├── circleback-minutes-worker.md
+            └── slide-figure-creator.md
 ```
