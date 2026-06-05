@@ -651,6 +651,14 @@ body.panel-open .thumb-panel{ transform: translateX(0) }
     break-after: page;
     margin: 0 !important;
   }
+  /* シェルの .deck > .slide:not(.current){display:none !important} は
+     .slide 単体（0-1-0）より詳細度が高く（0-3-0）、上の display:block !important に
+     勝ってしまう（印刷時に現在のスライド 1 枚しか出ないバグ）。
+     同詳細度のセレクタで上書きして全スライドを展開する */
+  .deck > .slide:not(.current){
+    display: block !important;
+    pointer-events: auto !important;
+  }
   .deck-counter, .deck-hint, .thumb-panel, .thumb-toggle{
     display: none !important;
   }
@@ -661,6 +669,7 @@ body.panel-open .thumb-panel{ transform: translateX(0) }
 - 印刷ダイアログから「PDF として保存」で配布資料用 PDF が出る
 - プレゼンチャーム（カウンタ・ヒント・サムネイル・トグル）は印刷時に必ず非表示
 - すべてのスライドが順に展開され、1 ページ 1 スライドで出力される
+- **`.deck > .slide:not(.current)` の print 上書きを忘れない**：presentation mode の表示保護（`display:none !important`）は `.slide` 単体の print 宣言より詳細度が高いため、これがないと印刷で 1 枚しか出力されない
 
 ## 配色
 
@@ -688,6 +697,7 @@ body.panel-open .thumb-panel{ transform: translateX(0) }
 - **サムネイルにスライド内の要素 ID が二重登録される**：`buildThumbnails()` で `cloneNode(true)` した直後に `clone.querySelectorAll('[id]').forEach(...)` で全 ID を剥がすことを徹底
 - **`fit()` が呼ばれずスライドが小さい / はみ出す**：初期化時の `fit()` と `window.addEventListener('resize', fit)` の両方が必要
 - **印刷で 1 ページに複数スライドが入ってしまう**：`@page size: 1280px 720px` と `.slide { page-break-after: always }` の両方が必要
+- **印刷（PDF 保存）で現在表示中の 1 枚しか出ない**：`@media print` 内に `.deck > .slide:not(.current){ display:block !important }` の上書きが必要（presentation mode の表示保護が `.slide` 単体の print 宣言より詳細度で勝つため。「印刷モード（必須）」参照）
 - **`#sN` で開いても先頭になる**：`initFromHash()` が `update()` の前に呼ばれているか確認
 - **サムネイルパネルを閉じてもスライドが右寄せのまま**：`togglePanel()` から `fit()` を必ず呼ぶ
 - **スライドが詰まりすぎて読めない**：1 スライド 1 メッセージに分割。本文系コンポーネントは 1〜2 個まで
