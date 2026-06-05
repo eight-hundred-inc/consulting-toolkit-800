@@ -830,6 +830,13 @@ body.panel-open .thumb-panel{transform:translateX(0)}
     break-after:page;
     margin:0 !important;
   }
+  /* シェルの .deck > .slide:not(.current){display:none !important} は
+     .slide 単体より詳細度が高く、上の display:block !important に勝ってしまう
+     （印刷時に現在のスライド 1 枚しか出ないバグ）。同詳細度で上書きして全スライドを展開する */
+  .deck > .slide:not(.current){
+    display:block !important;
+    pointer-events:auto !important;
+  }
   .deck-counter,.deck-hint,.thumb-panel,.thumb-toggle{display:none !important}
   @page{size:1280px 720px;margin:0}
 }
