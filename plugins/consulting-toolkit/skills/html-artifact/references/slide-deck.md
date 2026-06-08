@@ -277,6 +277,18 @@ per-figure 寸法はデッキの `<style>` に追記：
 - ネイティブ幅は 1300〜1500px、ネイティブ高 × scale ≦ ≈440px に収める。
 - 配色は `--fig-accent`（既定 `--accent`）由来の `color-mix` ランプ + `--good`/`--warn` のみ（テーマ追従）。ブランド色はデッキの `:root` で `--fig-accent` を上書き。
 
+### 図版スライドは `fig-slide` で縦領域を使い切る（必須）
+
+作り込み図版を載せる Content スライドの `<section class="slide">` には **`fig-slide` クラスを付ける**。template-slides.html がスライドを縦 flex 化し、`.fig-wrap` に `flex:1`＋上下中央を与えるため、図版が縦領域（≈440〜460px）の上 1/3 に縮こまって下半分が空白になる事故を防げる。
+
+```html
+<section class="slide fig-slide" id="sN"> ... </section>
+```
+
+- **flow 図版**：表示サイズ（1152px 幅）で直組みし、領域に対して小さければ**ノードの `min-height`・`padding`・`gap` を増やして自然高を ≈440〜460px まで伸ばす**。残差は `fig-slide` の縦中央寄せが吸収する（小さい図を上に張り付けない）。
+- **絶対配置図版**：ネイティブ高 × scale を**図版領域高（≈440px）に近づける**よう設計する（小さく作らない）。
+- 「図版領域を使い切る」は diagram-components.md の作図文法 step 6・検証チェックリストの必須項目。`fig-slide` はそれをシェル側で担保する受け皿。
+
 ### 印刷・サムネイルでのクリップ注意
 
 `transform: scale` は見た目を縮めるがレイアウト箱は縮まないため、`.fig-wrap{overflow:hidden}` が「視覚的には収まる」図版をクリップしうる。`.fig-canvas` の scale は `.slide` のビューポート scale、さらにサムネイルの `scale(0.125)` と三重に入れ子になる。**ライブ・印刷（PDF）・サムネイルの 3 経路で確認**し、`@media print` が `.slide` の transform だけを解除して子孫 `.fig-canvas` の scale を消さないことを確かめる。

@@ -178,6 +178,17 @@ html,body{
 
 .slide.cover{padding:96px 80px 80px}
 
+/* ── 図版を主役にする Content スライド（作り込み図版/レイアウトパターンを載せるスライドに付与）──
+   スライドを縦 flex 化し、title-bar・message・slide-foot を除いた残りの縦領域を .fig-wrap に
+   flex:1 で与えて、図を縦中央＋高さ充填にする。図が上 1/3 に縮こまり下半分が空白になる事故を防ぐ
+   （diagram-components.md「図版領域を使い切る」と対。作り込み図版スライドには原則 fig-slide を付ける）。 */
+.slide.fig-slide,
+.slide.fig-slide.current{display:flex;flex-direction:column}
+.slide.fig-slide .title-bar,
+.slide.fig-slide .message,
+.slide.fig-slide .slide-foot{flex:0 0 auto}
+.slide.fig-slide .fig-wrap{flex:1 1 auto;align-items:center;justify-content:center;min-height:0;margin:4px 0}
+
 /* ============================================================
    CRAFTED FIGURE CANVAS（作り込み図版・レイアウトパターン / Slide Deck 限定）
    大きいネイティブサイズで図版を組み、transform: scale で本文領域
@@ -837,6 +848,9 @@ body.panel-open .thumb-panel{transform:translateX(0)}
     display:block !important;
     pointer-events:auto !important;
   }
+  /* fig-slide は印刷でも縦 flex を維持（図の縦中央・高さ充填を保つ）。
+     詳細度を .deck > .slide.fig-slide.fig-slide（0,4,0）にして上の :not(.current)（0,3,0）に勝たせる */
+  .deck > .slide.fig-slide.fig-slide{display:flex !important;flex-direction:column}
   .deck-counter,.deck-hint,.thumb-panel,.thumb-toggle{display:none !important}
   @page{size:1280px 720px;margin:0}
 }
