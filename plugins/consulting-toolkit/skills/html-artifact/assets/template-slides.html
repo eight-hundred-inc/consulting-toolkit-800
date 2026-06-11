@@ -810,6 +810,19 @@ body.panel-open .thumb-panel{transform:translateX(0)}
   pointer-events:none;
 }
 
+/* スマホ等の狭い画面：サムネイルパネルを小さく左に置く。
+   開いてもスライドは右側に縮小表示され、ビューが隠れない（JS fit が実測幅を差し引く）。 */
+@media (max-width:899px){
+  .thumb-panel{width:104px;padding:46px 0 12px}
+  .thumb-panel-head{display:none}
+  .thumb-item{padding:5px 6px;gap:0;justify-content:center}
+  .thumb-num{display:none}
+  .thumb-frame{width:86px;height:48px}
+  .thumb-frame .slide{transform:scale(0.0672) !important}
+  body.panel-open .thumb-toggle{left:114px}
+  .deck-hint{display:none}
+}
+
 /* ============================================================
    PRINT — 全スライドを 1 ページ 1 スライドで展開
    ============================================================ */
@@ -1017,7 +1030,10 @@ body.panel-open .thumb-panel{transform:translateX(0)}
 
   function fit(){
     var panelOpen = document.body.classList.contains('panel-open');
-    var panelW = panelOpen ? PANEL_W : 0;
+    // パネルを開いている間はスライド表示領域からパネル幅を差し引く（ビューを隠さない）。
+    // 幅は CSS の実測値を使うため、デスクトップ(210px)/スマホ(小さいパネル)が自動で整合する。
+    var panelEl = document.querySelector('.thumb-panel');
+    var panelW = (panelOpen && panelEl) ? panelEl.offsetWidth : 0;
     var availW = window.innerWidth - panelW;
     var availH = window.innerHeight;
     var scale = Math.min(availW / SLIDE_W, availH / SLIDE_H);
@@ -1075,7 +1091,8 @@ body.panel-open .thumb-panel{transform:translateX(0)}
   function initPanelState(){
     var saved = null;
     try { saved = localStorage.getItem('slide-deck-panel-open'); } catch(_){}
-    var open = (saved === null) ? true : (saved === '1');
+    // 既定はデスクトップのみ開く。スマホ等の狭い画面では閉じた状態で開始する。
+    var open = (saved === null) ? (window.innerWidth >= 900) : (saved === '1');
     if (open) document.body.classList.add('panel-open');
   }
 
@@ -1118,6 +1135,25 @@ body.panel-open .thumb-panel{transform:translateX(0)}
       e.stopPropagation(); togglePanel();
     });
   }
+
+  // --- スワイプでページ送り（タッチ端末） ---
+  var tStartX = null, tStartY = null;
+  document.addEventListener('touchstart', function(e){
+    if (e.touches.length !== 1){ tStartX = null; return; }
+    // サムネイルパネル内のスワイプ（縦スクロール）はページ送りに使わない
+    if (e.target.closest && e.target.closest('.thumb-panel')){ tStartX = null; return; }
+    tStartX = e.touches[0].clientX;
+    tStartY = e.touches[0].clientY;
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (tStartX === null) return;
+    var dx = e.changedTouches[0].clientX - tStartX;
+    var dy = e.changedTouches[0].clientY - tStartY;
+    tStartX = null;
+    // 横移動が十分大きく、かつ縦移動より主であるときだけページ送り
+    if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.3) return;
+    if (dx < 0) go(current + 1); else go(current - 1);
+  }, {passive:true});
 
   window.addEventListener('hashchange', function(){
     var m = (window.location.hash || '').match(/^#s(\d+)$/);
