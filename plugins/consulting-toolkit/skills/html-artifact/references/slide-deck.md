@@ -6,7 +6,7 @@
 
 - スライドは **1280×720 px の固定キャンバス**（HD 16:9）。テーマ・内容によらず変えない。ビューポートに合わせてビジュアルだけを自動スケーリングする
 - 1 スライド = 1 メッセージ。詰め込みすぎない
-- プレゼン中はキーボードと（少しの）マウスクリックだけで全操作完結
+- プレゼン中はキーボード・マウスクリック・タッチ（スワイプ）で操作完結。スマホでも閲覧しやすい（サムネイルパネルは小さく左に表示し、ビューを隠さない）
 - URL ハッシュ `#sN` で深リンク可能。ブラウザの戻る/進むも同期
 - 印刷で 1 スライド = 1 ページの PDF が出る（配布資料として渡せる）
 - 自己完結（Google Fonts のみ外部依存。それ以外の CSS/JS リソース読み込みなし）
@@ -439,6 +439,19 @@ body.panel-open .thumb-panel{ transform: translateX(0) }
   transition: none !important;
   pointer-events: none;
 }
+
+/* スマホ等の狭い画面：サムネイルパネルを小さく左に置く。
+   開いてもスライドは右側に縮小表示され、ビューが隠れない（JS fit が実測幅を差し引く）。 */
+@media (max-width:899px){
+  .thumb-panel{ width: 104px; padding: 46px 0 12px }
+  .thumb-panel-head{ display: none }
+  .thumb-item{ padding: 5px 6px; gap: 0; justify-content: center }
+  .thumb-num{ display: none }
+  .thumb-frame{ width: 86px; height: 48px }
+  .thumb-frame .slide{ transform: scale(0.0672) !important }
+  body.panel-open .thumb-toggle{ left: 114px }
+  .deck-hint{ display: none }
+}
 ```
 
 ## プレゼンチャーム（JavaScript 完成形）
@@ -494,7 +507,10 @@ body.panel-open .thumb-panel{ transform: translateX(0) }
   // Fit current slide into viewport, preserving 16:9
   function fit(){
     var panelOpen = document.body.classList.contains('panel-open');
-    var panelW = panelOpen ? PANEL_W : 0;
+    // パネルを開いている間はスライド表示領域からパネル幅を差し引く（ビューを隠さない）。
+    // 幅は CSS 実測値を使うため、デスクトップ(210px)/スマホ(小さいパネル)が自動で整合する。
+    var panelEl = document.querySelector('.thumb-panel');
+    var panelW = (panelOpen && panelEl) ? panelEl.offsetWidth : 0;
     var availW = window.innerWidth - panelW;
     var availH = window.innerHeight;
     var scale = Math.min(availW / SLIDE_W, availH / SLIDE_H);
@@ -550,7 +566,8 @@ body.panel-open .thumb-panel{ transform: translateX(0) }
   function initPanelState(){
     var saved = null;
     try { saved = localStorage.getItem('slide-deck-panel-open'); } catch(_){}
-    var open = (saved === null) ? true : (saved === '1');
+    // 既定はデスクトップのみ開く。スマホ等の狭い画面では閉じた状態で開始する。
+    var open = (saved === null) ? (window.innerWidth >= 900) : (saved === '1');
     if (open) document.body.classList.add('panel-open');
   }
 
@@ -591,6 +608,25 @@ body.panel-open .thumb-panel{ transform: translateX(0) }
       e.stopPropagation(); togglePanel();
     });
   }
+
+  // --- スワイプでページ送り（タッチ端末） ---
+  var tStartX = null, tStartY = null;
+  document.addEventListener('touchstart', function(e){
+    if (e.touches.length !== 1){ tStartX = null; return; }
+    // サムネイルパネル内のスワイプ（縦スクロール）はページ送りに使わない
+    if (e.target.closest && e.target.closest('.thumb-panel')){ tStartX = null; return; }
+    tStartX = e.touches[0].clientX;
+    tStartY = e.touches[0].clientY;
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (tStartX === null) return;
+    var dx = e.changedTouches[0].clientX - tStartX;
+    var dy = e.changedTouches[0].clientY - tStartY;
+    tStartX = null;
+    // 横移動が十分大きく、かつ縦移動より主であるときだけページ送り
+    if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.3) return;
+    if (dx < 0) go(current + 1); else go(current - 1);
+  }, {passive:true});
 
   window.addEventListener('hashchange', function(){
     var m = (window.location.hash || '').match(/^#s(\d+)$/);
@@ -633,7 +669,18 @@ body.panel-open .thumb-panel{ transform: translateX(0) }
 | サムネイル項目をクリック | そのスライドへジャンプ |
 | トグルボタン（左上 ☰ / ✕）をクリック | サムネイルパネル開閉 |
 
-スライド本体のクリックではページ送りを行わない（プレゼン中の誤クリックによる不意の遷移を避けるため、キーボード操作・サムネイル経由のみで遷移する）。
+スライド本体のクリックではページ送りを行わない（プレゼン中の誤クリックによる不意の遷移を避けるため、キーボード・サムネイル・スワイプで遷移する）。
+
+### タッチ操作（スマホ・タブレット）
+
+| 操作 | 動作 |
+|---|---|
+| 左スワイプ | 次のスライド |
+| 右スワイプ | 前のスライド |
+| トグルボタン（左上 ☰）をタップ | サムネイルパネル開閉 |
+
+- 横移動が 45px 未満、または縦移動が主のスワイプはページ送りにしない（縦スクロール・誤操作と干渉しない）。サムネイルパネル内のスワイプはページ送りに使わない。
+- 狭い画面（`max-width:899px`）ではサムネイルパネルは既定で閉じ、開いてもパネルを小さく左に表示してスライドを右側に残す（ビューを隠さない）。
 
 ## 印刷モード（必須）
 
