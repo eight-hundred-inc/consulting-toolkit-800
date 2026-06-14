@@ -54,7 +54,6 @@ AIが判断しきれない意思決定はステップの前後に人間レビュ
 | `report-outline-creator` | 報告書骨子の設計 | 提案書、調査結果 | 章立て・スライド構成 |
 | `desk-research` | デスクトップリサーチ実行 | 論点・仮説 | 調査レポート、仮説検証シート |
 | `meeting-minutes-creator` | 会議メモから議事録作成 | 会議メモ | 議事録（アジェンダ・ToDo・合意事項） |
-| `docx-to-markdown-with-references` | Word → Markdown変換 | .docxファイル | 参考文献整理済みMarkdown |
 | `slide-structure-designer` | スライド構成設計（提案用・報告用） | ソースドキュメント | スライド構成MD（タイトル・メッセージ・ボディの3層構造） |
 | `integrated-analysis-creator` | 調査結果の統合分析・最終報告書作成 | 提案書、報告書骨子、調査レポート、議事録 | 最終報告書MD |
 | `image-generator-guide` | 図解・画像生成（HTML+CSS/SVG or GenerateImage） | ソースドキュメント | PNG/SVG画像 |

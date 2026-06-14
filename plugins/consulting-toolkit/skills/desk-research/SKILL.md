@@ -133,8 +133,7 @@ Layer 1-2 でも情報が不足する場合の補完手段。Perplexity / ChatGP
 1. 不足している調査項目を特定し、ユーザーに報告
 2. [references/deep-research-prompt.md](references/deep-research-prompt.md) のテンプレートを使ってプロンプトを生成
 3. プロンプトをユーザーに提示し、外部ツールでの実行を依頼
-4. 結果がdocx形式の場合は `docx-to-markdown-with-references` スキルで変換
-5. 結果を既存の調査結果と統合（取得経路として「Deep Research」を記録）
+4. 結果を既存の調査結果と統合（取得経路として「Deep Research」を記録）
 
 ### Step 4: 情報の統合・分析
 

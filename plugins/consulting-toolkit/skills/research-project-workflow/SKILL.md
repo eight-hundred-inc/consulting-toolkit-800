@@ -72,7 +72,6 @@ Step 3（提案用）・Step 11（報告用）が出力するスライド構成 
 | Step 7 | `interview-minutes-creator` (Skill) | インタビュー議事録作成 |
 | Step 9 | `desk-researcher` (SubAgent) → `desk-research` (Skill) | ギャップ補完のデスクリサーチ |
 | Step 10 | `integrated-analysis-creator` (Skill) | 統合分析・最終報告書作成 |
-| 任意のステップ | `docx-to-markdown-with-references` (Skill) | docx変換（入力にdocxファイルがある場合） |
 | 任意のステップ | `image-creator` (SubAgent) → `image-generator-guide` (Skill) | 図解・画像生成（成果物のビジュアル化が必要な場合） |
 | 全ステップ | `quality-reviewer` (SubAgent) | レビューゲートでの品質チェック |
 

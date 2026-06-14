@@ -101,7 +101,6 @@ Claude Code のプラグインとしてインストールします。OS・環境
 |--------|------|----------|
 | [desk-research](plugins/consulting-toolkit/skills/desk-research/SKILL.md) | Exa（セマンティック検索）/ WebSearch / WebFetch / Browser Use / Deep Research プロンプトの3層で情報収集し、調査レポートを出力 | 「デスクリサーチを実行して」「初期調査をして」「市場規模を調べて」「競合調査して」 |
 | [meeting-minutes-creator](plugins/consulting-toolkit/skills/meeting-minutes-creator/SKILL.md) | 会議メモから議事録を作成 | 「会議メモから議事録を作って」「打ち合わせの議事録を作成して」 |
-| [docx-to-markdown-with-references](plugins/consulting-toolkit/skills/docx-to-markdown-with-references/SKILL.md) | Word文書をMarkdownに変換し、参考文献を整理 | 「Wordをマークダウンに変換して」 |
 | [subagent-creator](plugins/consulting-toolkit/skills/subagent-creator/SKILL.md) | SubAgent（エージェント定義）を作成するガイド。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「エージェントを作成して」「SubAgentを作って」 |
 | [chart-generator-guide](plugins/consulting-toolkit/skills/chart-generator-guide/SKILL.md) | matplotlibによるデータチャート生成ガイド。ブランドパレット対応、PNG+SVG二重出力。棒・レーダー・積み上げ等7パターンのテンプレート付き | image-creatorサブエージェント経由 |
 | [image-generator-guide](plugins/consulting-toolkit/skills/image-generator-guide/SKILL.md) | HTML+CSSによる構造化図解の設計ガイド。イラスト・アート系は画像生成プロンプトを返却。image-creatorサブエージェントから読み込まれる | image-creatorサブエージェント経由 |
@@ -326,7 +325,6 @@ consulting-toolkit/
         │   ├── project-proposal/
         │   ├── desk-research/
         │   ├── meeting-minutes-creator/
-        │   ├── docx-to-markdown-with-references/
         │   ├── subagent-creator/
         │   ├── chart-generator-guide/
         │   ├── image-generator-guide/
