@@ -1,8 +1,12 @@
 # Components Catalog
 
-このスキルで使う **21 種**のコンポーネントの仕様と HTML スニペット。**新規コンポーネントは追加せず、既存の組み合わせで対応する**。
+このスキルで使う **30 種**のコンポーネント（基本 21 + 拡張 4 + Slide Deck 参照デザイン 5）の仕様と HTML スニペット。**新規コンポーネントは追加せず、既存の組み合わせで対応する**。
 
-> **例外（Slide Deck format の作り込み図版のみ）**：スライドのメッセージが構造的で、本カタログ 21 種・拡張 4 種・8 図解のいずれでも表現しきれない場合に限り、`.fig-NN` 名前空間での per-figure scoped CSS による「作り込み図版／レイアウトパターン」を許可する。条件と作図文法は `references/diagram-components.md`（図解の統合リファレンス後半）を参照（配色は `--fig-accent` 由来 + `--good`/`--warn` に限定、design-system の禁止パターン遵守、1 スライド 1 図版）。Vertical Document には適用しない。
+> **例外（Slide Deck format の作り込み図版のみ）**：スライドのメッセージが構造的で、本カタログ 30 種・8 図解のいずれでも表現しきれない場合に限り、`.fig-NN` 名前空間での per-figure scoped CSS による「作り込み図版／レイアウトパターン」を許可する。条件と作図文法は `references/diagram-components.md`（図解の統合リファレンス後半）を参照（配色は `--fig-accent` 由来 + `--good`/`--warn` に限定、design-system の禁止パターン遵守、1 スライド 1 図版）。Vertical Document には適用しない。
+
+**コンポーネントの範囲**：
+- 基本 21 種（#1〜#21）＋拡張 4 種（#22〜#25）は **Vertical Document / Slide Deck 両方**で使う
+- 参照デザイン 5 種（#26〜#30）は **Slide Deck 専用の統一シャシ・全 5 テーマ共通**（`.slide` スコープ内で使用。Vertical Document には適用しない。テーマ切替で accent 色に自動追従する）
 
 ## 目次
 
@@ -30,6 +34,17 @@
    - [Roadmap](#19-roadmap)
    - [Proposal Card](#20-proposal-card)
    - [Flow with Margin](#21-flow-with-margin)
+4. [拡張コンポーネント（22〜25）](#拡張コンポーネント2225)
+   - [Eyebrow Bar](#22-eyebrow-bar)
+   - [Hero Number](#23-hero-number)
+   - [Takeaway Strip](#24-takeaway-strip)
+   - [Annotation Pointer](#25-annotation-pointer)
+5. [Slide Deck × Mono 参照デザイン（26〜30）](#slide-deck--mono-参照デザイン2630)
+   - [Filled-Header Card](#26-filled-header-card)
+   - [Value Bar](#27-value-bar)
+   - [Icon Chip](#28-icon-chip)
+   - [Pill Tag](#29-pill-tag)
+   - [Expansion Pills](#30-expansion-pills)
 
 ---
 
@@ -670,6 +685,174 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
 
 ---
 
+## Slide Deck 統一シャシ 参照デザイン（26〜30）
+
+参照デザイン（`AI Biz Ops Partner/assets` および `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures`）を踏襲する 5 種の追加コンポーネント。**Slide Deck 全 5 テーマで使える統一シャシ**（`.slide` スコープで定義。CSS は `assets/template-slides.html` に組み込み済み）。すべて `var(--accent)` 系トークンで色を取るため、テーマを Terracotta / Navy / Forest / Charcoal / Mono のどれに切り替えても、帯色・ピル色・アイコン色が自動追従する。
+
+**Vertical Document には適用しない**（Vertical Document は別の視覚言語系を持つ）。
+
+### 26. Filled-Header Card
+
+黒帯ヘッダー＋淡グレーボディの主役カード。Phase / Track / セグメント / セクションごとの独立ブロックとして 3〜4 枚を横並びに配置し、Growth Model・3 本柱・Phase 概観などを構造化して見せる。内部に `.section`（`.icon-chip` 付きミニカード）や `.tag-list`（Pill Tag）を積む。
+
+**重要：フルスライドレイアウトとして使う**。標準の `.title-bar` + `.message` の下にコンポーネントとして落とし込むのではなく、**この 3〜4 枚のカード群自体がスライド本体**として構成する。参照デザイン（`fig03-acquire-expand-scale.png`）が範例。
+
+```html
+<section class="slide" id="sN">
+  <!-- 図自身のタイトル・サブタイトル（.title-bar は使わない） -->
+  <div class="phase-title">
+    <h2>AI Biz Ops Partner — Growth Model</h2>
+    <p class="phase-subtitle-top">Acquire → Expand → Scale : 3-Phase Client Development Strategy</p>
+  </div>
+
+  <!-- 3 カード横並び -->
+  <div class="phase-flow">
+
+    <div class="phase-card">
+      <div class="phase-header">
+        <span class="phase-number">PHASE 1</span>
+        <span class="phase-name">Acquire</span>
+      </div>
+      <div class="phase-subtitle">1本目の案件で入り、Expandへの接続を優先</div>
+      <div class="phase-body">
+
+        <div class="section">
+          <div class="section-title"><span class="icon-chip">G</span> 目的</div>
+          <ul>
+            <li>クライアントのデータ状態を理解</li>
+            <li>業務プロセス・課題構造を把握</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title"><span class="icon-chip">T</span> 入口テーマ例</div>
+          <div class="tag-list">
+            <span class="tag primary">リサーチ</span>
+            <span class="tag">データ分析</span>
+            <span class="tag">CRM分析</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="phase-arrow"><!-- SVG 矢印 --></div>
+
+    <div class="phase-card"> ... </div>
+
+  </div>
+
+  <!-- スライド最下部の Value Bar（オプション。#27 参照） -->
+  <div class="value-bar"> ... </div>
+</section>
+```
+
+**ルール**：
+- **`.title-bar` + `.message` は使わない**。図自身が `.phase-title` を持つ（参照デザイン fig03 が範例。20px 太字＋12px サブタイトル、中央寄せ）
+- 1 スライドに 2〜4 枚並べる（`.phase-flow` が横並び flex を担う）
+- `.phase-header` は黒 `var(--accent)` 塗り＋白文字。`.phase-number` は 11px 白 55%、`.phase-name` は 19px 白 100%
+- `.phase-body` は `var(--panel-soft)` 淡グレー背景。内部の `.section` は白背景＋`--card-shadow` の軽い影で「浮くカード」感を出す
+- 隣接カード間の矢印は `.phase-arrow` の SVG（`stroke: var(--accent)`）
+- 4 枚を超えるなら 2 段組より **別スライドに分割**する（1 スライド 1 メッセージの原則）
+- 縦領域配分の目安：`.phase-title` ≈60px、カード群 ≈480〜520px、`.value-bar`（あれば）≈70px。合計は Slide の内容領域（padding 込み 720px 全域）に収める
+- **`.section` の中身は 3〜5 行に絞る**（参照デザインは 2〜4 行）。詰め込むとカードが 480px を超えて value-bar が押し出される
+
+### 27. Value Bar
+
+スライド最下部の全幅黒帯。3〜4 アイテム＋縦罫でスライドの持ち帰りを凝縮する。Takeaway Strip（#24）が「1 行結論」なのに対し、Value Bar は「複数ステップの要約行列」。参照デザインの `.value-bar`（AI Biz Ops fig03）が規範。
+
+```html
+<div class="value-bar">
+  <div class="value-bar-item">
+    <div class="vb-icon">1</div>
+    <div class="vb-text">案件で入り<br>課題を理解</div>
+  </div>
+  <div class="vb-divider"></div>
+  <div class="value-bar-item">
+    <div class="vb-icon">2</div>
+    <div class="vb-text">月額関係を構築<br>AI運用を拡大</div>
+  </div>
+  <div class="vb-divider"></div>
+  <div class="value-bar-item">
+    <div class="vb-icon">3</div>
+    <div class="vb-text">インフラ化し<br>他部門へ横展開</div>
+  </div>
+  <div class="vb-divider"></div>
+  <div class="value-bar-item">
+    <div class="vb-icon">↑</div>
+    <div class="vb-text">LTV最大化<br>構造的ロックイン</div>
+  </div>
+</div>
+```
+
+**ルール**：
+- 1 スライドに 1 つ。`.phase-flow`（Filled-Header Card 群）または独立コンテンツの**直下**・`.slide-foot` の上に配置
+- 使い方は 2 通り：**(A) Filled-Header Card #26 と組み合わせて 1 枚のフルスライドを構成する**（参照デザイン fig03 の型。推奨）。**(B) 標準 Content スライド（`.title-bar` + `.message` + 本文）の締めとして最下部に追加する**（Takeaway Strip #24 の代替。3〜4 アイテムに情報を凝縮したいとき）
+- アイテムは 3〜4 個まで。それ以上は情報過多
+- `.vb-icon` は 32×32 の円形（`rgba(255,255,255,0.12)` 塗り）に数字 or 記号 1 文字
+- `.vb-text` は 2 行に折り返す（`<br>` で明示改行）
+- Takeaway Strip（#24）とは併用しない（下部の重み付けが重複するため）
+
+### 28. Icon Chip
+
+Filled-Header Card 内 `.section-title` の先頭に置く 18×18 の黒塗り四角＋白文字 1 字ラベル。「G=Goal」「K=Key」「S=Scale 定着」「X=Reject」「T=Theme」等のセマンティックコードで、章内の役割を最小面積で示す。
+
+```html
+<div class="section-title">
+  <span class="icon-chip">G</span> 目的
+</div>
+```
+
+**ルール**：
+- 1 字のみ（英字 1 文字か記号 1 字）。2 字以上は不可
+- 意味を持たせる（`G` = 目的、`K` = 概要、`S` = 定着、`X` = 却下基準、`T` = テーマ、`R` = 結果、`I` = インサイト 等）。**装飾目的では使わない**
+- 色の派生（`.icon-chip.muted` で `#888` 塗り）は Reject / Warn 用のみ許可
+- Filled-Header Card #26 の中でのみ使う想定（単独で `.section-title` の外に置かない）
+
+### 29. Pill Tag
+
+Filled-Header Card 内で入口テーマ・カテゴリ・分類を列挙するピル型タグ。参照デザイン `.tag` / `.tag.primary`（黒塗り優先タグ）が規範。
+
+```html
+<div class="tag-list">
+  <span class="tag primary">リサーチ（最強）</span>
+  <span class="tag">データ分析自動化</span>
+  <span class="tag">CRM分析</span>
+  <span class="tag">戦略コンサルティング</span>
+</div>
+```
+
+**ルール**：
+- 3〜6 個を目安。1 個や 2 個ならタグにせず文中で書く
+- `.tag.primary`（黒塗り＋白文字）は「最重要」「推奨」「主軸」など **1 つだけ**強調。複数を primary にしない
+- 通常タグは `#e8e8e8` 塗り＋黒文字
+- タグ 1 個は 8〜16 文字以内。長い説明はタグにしない
+- Filled-Header Card #26 の中でのみ使う（`.body-list` の代替として使わない）
+
+### 30. Expansion Pills
+
+「→ 経営企画」「→ 営業」「→ R&D」のような、横展開・派生方向を示すピル群。Pill Tag（#29）が「並列列挙」なのに対し、Expansion Pills は「起点 → 展開先」の一方向を示す黒塗りピル。参照デザイン `.expansion-item`（AI Biz Ops fig03 の Scale フェーズ）が規範。
+
+```html
+<div class="expansion-area">
+  <div class="expansion-title">横展開・発展</div>
+  <div class="expansion-arrows">
+    <span class="expansion-item"><span class="arr">&rarr;</span> 経営企画</span>
+    <span class="expansion-item"><span class="arr">&rarr;</span> 営業</span>
+    <span class="expansion-item"><span class="arr">&rarr;</span> R&amp;D</span>
+    <span class="expansion-item"><span class="arr">&rarr;</span> データ基盤構築</span>
+  </div>
+</div>
+```
+
+**ルール**：
+- 3〜5 個を目安
+- ピルは全て黒塗り＋白文字（Pill Tag と違い primary/通常の区別は付けない）
+- `.arr` は `&rarr;`（→）を透過白（`opacity:.6`）で表示
+- Filled-Header Card #26 内の `.section` に相当する位置（`.phase-body` 内）に置くのが典型。単独スライドの主役にはしない（情報密度が薄いため）
+
+---
+
 ## コンポーネント選択ガイド
 
 「こういう内容を表現したい」 → 「このコンポーネントを使う」の対応表。各コンポーネントは見た目のパターンであり、用途は柔軟に解釈してよい。
@@ -723,9 +906,9 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
 
 ## スライド文脈での利用（Slide Deck format）
 
-Slide Deck format（16:9 HTML スライドデッキ）でもここまでの 21 コンポーネントを **そのまま再利用**する。新規コンポーネントは追加しない（拡張コンポーネント 22〜25 は形式横断で利用可。先述）。
+Slide Deck format（16:9 HTML スライドデッキ）でもここまでの 21 コンポーネントを **そのまま再利用**する。加えて、拡張 4 種（#22〜25、形式横断で利用可）と、**Slide Deck 統一シャシの参照デザイン 5 種（#26〜30、Filled-Header Card / Value Bar / Icon Chip / Pill Tag / Expansion Pills、5 テーマ共通で accent 色に自動追従）** をスライドの主役として使う。
 
-**ただし「作り込み図版／レイアウトパターン」は例外**：21 種・拡張 4 種・8 図解で表現しきれない構造的メッセージのスライドに限り、`.fig-NN` 名前空間で per-figure scoped CSS を組んでよい（統制条件・作図文法・5 レイアウトパターンは `references/diagram-components.md` 後半）。既存コンポーネント／8 図解で表現できる構造はそちらを優先し、作り込み図版は最上位の選択肢として使う。
+**ただし「作り込み図版／レイアウトパターン」は例外**：30 種・8 図解で表現しきれない構造的メッセージのスライドに限り、`.fig-NN` 名前空間で per-figure scoped CSS を組んでよい（統制条件・作図文法・5 レイアウトパターンは `references/diagram-components.md` 後半）。既存コンポーネント／8 図解で表現できる構造はそちらを優先し、作り込み図版は最上位の選択肢として使う。
 
 ### 利用ルール
 

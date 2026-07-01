@@ -743,3 +743,47 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 ## カラーパレット（既定＝モノトーン）
 
 原典どおり、ブランド/意味の指定が無ければ **単色**（`--fig-accent` 濃淡＋中立トークン）。意味区分が要る箇所のみ `--good`/`--warn`。多色（4P色・ステップ別色）は**使わない**。
+
+### `--fig-accent` のテーマ別挙動
+
+`--fig-accent` は既定で `var(--accent)` を継承する。テーマ別の実効値は：
+
+| テーマ | `--fig-accent` 実効値 | Timeline/Gantt での見え方 |
+|---|---|---|
+| **Mono（Slide Deck 既定）** | `#1a1a1a` 黒 | 濃淡ランプが「黒 → 淡グレー」のモノクロ段階になる（下記「モノクロ段階濃度パターン」参照） |
+| Terracotta | `#9d3617` テラコッタ | 濃 → 淡テラコッタで進行を表現 |
+| Navy | `#1e3a5f` 紺 | 濃 → 淡ネイビーで進行を表現 |
+| Forest | `#2a4f3a` 深緑 | 濃 → 淡フォレストで進行を表現 |
+| Charcoal | `#2d2d33` チャコール | 濃 → 淡チャコールで進行を表現（実質モノクロに近い） |
+
+ブランド色を敢えて図版だけに効かせたい場合は、デッキの `:root` で `--fig-accent: #0052FF;` のように上書きする（既定では使わない）。
+
+### 段階濃度パターン（Slide Deck 統一シャシ・5 テーマ共通）
+
+Slide Deck で Gantt / Timeline / Progression（Phase の段階進行）を組むときの規範。参照デザイン `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures/fig07_schedule.png`（VisasQ Phase 1〜4 ガントバー）と `AI Biz Ops Partner/assets/fig01-opportunity-timeline.png`（3 者の時系列曲線）が範例。
+
+**規範**：時系列の進行度は、以下 4 段階の濃度ランプで表現する（`template-slides.html` で `--stage-1〜4` として定義済み。`--accent` から `color-mix` で自動派生）。
+
+| Stage | 変数 | 派生式 | Mono での値 |
+|---|---|---|---|
+| 1 | `--stage-1` | `var(--accent)` | `#1a1a1a` |
+| 2 | `--stage-2` | `color-mix(in srgb, var(--accent) 82%, #fff)` | ≈ `#434343` |
+| 3 | `--stage-3` | `color-mix(in srgb, var(--accent) 67%, #fff)` | ≈ `#656565` |
+| 4 | `--stage-4` | `color-mix(in srgb, var(--accent) 52%, #fff)` | ≈ `#888888` |
+
+Mono では VisasQ figures の Gantt バーとほぼ一致する濃 → 淡グレー。Terracotta を選べば濃 → 淡テラコッタ、Navy なら濃 → 淡ネイビーに自動追従する。**テーマ切替に `--stage-*` の再定義は不要**。
+
+**使い方**：
+- 4 段階のフェーズバー（Phase 1〜4）に `--stage-1〜4` を順に割り当てる（原典 VisasQ figures の Gantt バーの色分けと一致）
+- 3 段階なら `--stage-1 / --stage-2 / --stage-4` を使う（Stage 3 を飛ばして視認差を出す）
+- 5 段階以上必要なら `color-mix(in srgb, var(--accent) X%, #fff)` で任意ステップを補完（20% 刻みで生成）
+- 「Track A（推奨）vs Track B（共同）」のような **2 案対比**では、Track A に `--stage-1`＋2px accent 枠、Track B に白背景＋`var(--rule)` 1px 枠を使う（参照デザイン `fig03-acquire-expand-scale.png` の Track split パターン）
+
+**実装例**（VisasQ 型ガント）：
+
+```css
+.fig-gantt .bar-phase1 { background: var(--stage-1); }
+.fig-gantt .bar-phase2 { background: var(--stage-2); }
+.fig-gantt .bar-phase3 { background: var(--stage-3); }
+.fig-gantt .bar-phase4 { background: var(--stage-4); }
+```
