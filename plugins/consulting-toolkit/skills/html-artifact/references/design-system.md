@@ -101,7 +101,7 @@
 
 **向いている文書**：テクニカル文書、システム提案、議事メモ。ニュートラルでアクセントを目立たせない印象。
 
-### Theme 5: Mono（consulting pitch deck）
+### Theme 5: Mono（Vertical Document 用ブロック）
 
 ```css
 --bg: #ffffff;            /* 純白（紙質クリームではなく純白） */
@@ -124,14 +124,24 @@
 - 紙質クリームではなく純白背景を使う（コンサル提案書らしい清潔感）
 - フォントは他テーマと同じ Noto Sans JP（Meiryo・Noto Serif JP は使わない）。「コンサル提案書らしさ」は構成・余白・拡張コンポーネント（22〜25）で出す
 
+**Slide Deck では扱いが違う**：Slide Deck では 5 テーマ共通の統一シャシを使い、Mono を含む 5 テーマは `--accent` 系 3 変数のみで palette 切替される。上記の Mono ブロックは **Vertical Document で使う場合の定義**。Slide Deck の統一シャシは `slide-deck.md`「テーマ切替」を参照。
+
 ### テーマ選定のガイドライン
 
+出力形式（Output Format）で既定テーマが分かれる。
+
+**Vertical Document（縦長文書）**：
 - **迷ったら Terracotta（デフォルト）**
 - **公的・金融・大企業向け** → Navy
 - **学術・調査・ESG** → Forest
 - **テクニカル・無機質** → Charcoal
-- **投資家ピッチ・コンサル提案書** → **Mono**
-- **複数テーマを混ぜない**。1ドキュメントで1テーマ
+- **投資家ピッチ・コンサル提案書** → Mono
+
+**Slide Deck format（16:9 スライド）**：
+- **既定は Mono**（参照デザイン踏襲・投影前提のため純白＋モノクロが安定）
+- ブランド色を敢えて効かせたい／社内カジュアル用途などは Terracotta / Navy / Forest / Charcoal を選ぶ
+
+**共通ルール**：**複数テーマを混ぜない**。1 ドキュメントで 1 テーマ
 
 ## タイポグラフィ
 
@@ -196,7 +206,11 @@
 
 ## 影・グラデーション
 
-**使わない**。報告書スタイルではフラットに保つ。
+**Vertical Document では原則使わない**（報告書スタイルではフラットに保つ）。
+
+**Slide Deck の統一シャシでの例外**：Slide Deck では 5 テーマ共通で、`--card-shadow`（`0 1px 4px rgba(0,0,0,.05)`）と `--card-shadow-lg`（`0 2px 12px rgba(0,0,0,.08)`）の 2 段階に限り、カード類（`.phase-card`, `.section`, `.expansion-area`, `.track` 等）で使用してよい。参照デザイン（AI Biz Ops Partner / VisasQ 提案書 figures）の紙面感を再現するための Slide Deck 全テーマ共通の設定で、それ以外の使い方（背景全体・大きな要素・複数レイヤーの重ね掛け）はしない。
+
+グラデーションは Vertical / Slide 問わず一切使わない（単色のみ）。
 
 ## 印刷対応
 

@@ -13,23 +13,52 @@
 
 ## テーマ切替
 
-Slide Deck format は **5 テーマ共通の同一シェル**を使う。テーマ切替は `:root` の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数のみで行う。`<body>` クラスでモードを分ける仕組みは持たない（旧表現の対応は `document-recipes.md`「エイリアス（後方互換）」を参照）。
+Slide Deck format は **5 テーマ共通の統一シャシ**を使う。角丸・影・Filled-Header Card 群・Value Bar 等の視覚言語は 5 テーマで完全に共通で、**テーマ切替は `:root` の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数のみ**で完結する（`<body>` クラスによるモード切替はしない。旧表現の対応は `document-recipes.md`「エイリアス（後方互換）」を参照）。
 
-| テーマ | 性格・主用途 |
-|---|---|
-| Terracotta（デフォルト） | warm consulting — 企画書・報告書・議事メモのスライド版 |
-| Navy | 金融・大企業・通達のスライド |
-| Forest | 調査結果報告、ESG・サステナビリティ |
-| Charcoal | テクニカル・議事メモ |
-| **Mono** | **投資家ピッチ、コンサル提案書、ハイステークス資料** |
+**5 テーマは palette 違いのみ**：Mono = 黒帯、Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、Charcoal = チャコール帯（実質モノに近い）。既定は Mono。
 
-迷ったら：**外部のハイステークスステークホルダー向け = Mono**、それ以外は Terracotta。
+```css
+/* Terracotta に切り替える場合の唯一の差分 */
+:root{
+  --accent:#9d3617;
+  --accent-soft:#c45a2c;
+  --accent-bg:#f5e8de;
+}
+```
+
+構造色（`--bg` / `--panel-soft` / `--rule` / `--ink` 等）と、カード装飾（`--card-radius` / `--card-shadow`）、段階濃度ランプ（`--stage-1〜4`、`--accent` から `color-mix` で自動派生）は 5 テーマ共通で不動。Filled-Header Card / Value Bar / Icon Chip / Pill Tag / Expansion Pills（#26〜30）は **5 テーマすべてで使える**（Mono 専用ではない）。
+
+| テーマ | accent 値 | 性格・主用途 |
+|---|---|---|
+| **Mono（既定）** | `#1a1a1a` | **投資家ピッチ、コンサル提案書、外部向けハイステークス資料、投影用スライド全般。参照デザイン（AI Biz Ops Partner / VisasQ figures）踏襲** |
+| Terracotta | `#9d3617` | warm consulting — 社内カジュアルな企画書・報告書・議事メモのスライド版 |
+| Navy | `#1e3a5f` | 金融・大企業・通達のスライド |
+| Forest | `#2a4f3a` | 調査結果報告、ESG・サステナビリティ |
+| Charcoal | `#2d2d33` | テクニカル・議事メモ（Mono とほぼ同じ見た目、ごく僅かに暖色寄り） |
+
+迷ったら：**Slide Deck は Mono 既定**。社内向け／温かみを出したい／ブランド色を効かせたい場合のみ他テーマを選ぶ。
 
 ### Mono テーマと拡張コンポーネントの組み合わせ
 
 黒帯反転・巨大数字・結論バー・図解アノテーションのスタイルは、**Mono テーマ + 拡張コンポーネント 22〜25（Eyebrow Bar / Hero Number / Takeaway Strip / Annotation Pointer）** で構成する。
 
 これら拡張コンポーネントは他テーマや Vertical Document でも使えるが、Mono テーマと組み合わせた時に最も映える。詳細は `components.md` を参照。
+
+### 参照デザイン踏襲時のパターン（5 テーマ共通・スライド専用）
+
+Slide Deck では 5 テーマ共通で、参照デザイン（`AI Biz Ops Partner/assets` および `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures`）を踏襲する。テキストパネル・箇条書きで済ませず、以下 5 種を積極的に組み合わせる。定義は `components.md` #26〜30。Terracotta を選べばテラコッタ帯のカード、Navy を選べば紺帯のカード、と `--accent` に自動追従する。
+
+| コンポーネント | 使いどころ |
+|---|---|
+| **Filled-Header Card**（`.phase-card`） | Phase / Track / セグメント別のカード。黒帯ヘッダー＋淡グレーボディ＋内部に `.section` を積む。3〜4 枚横並びで Growth Model / Phase 概観 / 3 本柱を表現 |
+| **Value Bar**（`.value-bar`） | スライド最下部の締めバー。3〜4 アイテム＋縦罫でメッセージを凝縮。「1. 案件で入り課題を理解 → 2. 月額関係を構築 → …」の型 |
+| **Icon Chip**（`.icon-chip`） | Filled-Header Card 内の `.section-title` 先頭に置く 1 文字ラベル（G/K/S/X/T 等のセマンティックコード） |
+| **Pill Tag**（`.tag` / `.tag.primary`） | 入口テーマ・カテゴリ・分類の列挙。`.tag.primary` が黒塗り優先タグ、通常が淡グレー |
+| **Expansion Pills**（`.expansion-item`） | 「→ 経営企画」「→ 営業」「→ R&D」の横展開・派生方向のピル群 |
+
+### 段階濃度 Gantt / Timeline
+
+時系列の進行・スケジュールは、`--stage-1〜4`（`--accent` から `color-mix` で自動派生する濃淡ランプ）でフェーズの進行を表現する。VisasQ figures の Phase 1〜4 ガントバーが規範（Mono では黒 → 淡グレー）。Terracotta を選べば「濃 → 淡テラコッタ」、Navy なら「濃 → 淡ネイビー」に自動追従する。詳細は `diagram-components.md`「段階濃度パターン」。
 
 ### キャンバスサイズの実装
 
@@ -61,7 +90,7 @@ JS の `SLIDE_W` / `SLIDE_H` 定数も `getComputedStyle(document.documentElemen
 
 - `<section class="slide" id="sN">` を順に並べる。`N` は 1-origin の通し番号
 - 先頭の Cover スライドだけ `.cover` 修飾子を付ける（任意。本文 padding 調整用）
-- スライド外背景は **`#2a2c30` 固定**（テーマ非依存）。本体の `<body>` 背景に指定する
+- スライド外背景は **5 テーマ共通で `#e5e5e5` 薄グレー**（`<body>` 背景に指定）。統一シャシではスライド内が純白なので、暗地との過剰コントラストを避ける
 
 ### スケーリングと配置
 
@@ -75,7 +104,7 @@ html, body{
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background: #2a2c30;
+  background: #e5e5e5;  /* 5 テーマ共通の薄グレー */
 }
 
 .deck{
@@ -732,14 +761,14 @@ body.panel-open .thumb-panel{ transform: translateX(0) }
 
 ## 配色
 
-スライド固有のカラーパレットは持たない。`design-system.md` の `:root` 変数（Terracotta / Navy / Forest / Charcoal の 4 テーマ）をそのまま使う。
+Slide Deck では **5 テーマが統一シャシを共有**する（Vertical Document のテーマ体系とは別）。
 
-- スライド内背景：`var(--bg)`（`#fafaf6` 紙質クリーム）
-- スライド外背景：`#2a2c30` 固定（プレゼンモードでスライド周辺を暗くするため）
-- アクセント：`var(--accent)` 1 色のみ
-- テーマ差し替えは `--accent` / `--accent-soft` / `--accent-bg` の 3 変数のみ
+- スライド内背景：**5 テーマ共通で `#ffffff` 純白**
+- スライド外背景：**5 テーマ共通で `#e5e5e5` 薄グレー**
+- アクセント：`var(--accent)` 1 色のみ。テーマ切替は `--accent` / `--accent-soft` / `--accent-bg` の 3 変数
+- カード装飾（`--card-radius` / `--card-shadow`）、段階濃度ランプ（`--stage-1〜4` = `--accent` 派生）、構造色（`--panel-soft` / `--rule` / `--ink` 等）は 5 テーマ共通で不動
 
-スライド外背景の `#2a2c30` は唯一の例外。これは「投影中にスライドを浮き立たせる」ための機能色で、`design-system.md` のテーマには依存しない。
+**Vertical Document との差**：Vertical Document は各テーマが独自の背景・ink 等を持ち（Terracotta は紙質クリーム、Navy は同、Mono は純白）、視覚言語も異なる。Slide Deck の統一シャシは Slide Deck 専用の運用。
 
 ## アクセシビリティ・チェックリスト
 

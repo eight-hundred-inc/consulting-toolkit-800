@@ -40,29 +40,61 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   DESIGN TOKENS — テーマ切替は --accent / --accent-soft / --accent-bg のみ
-   既定: Terracotta（warm consulting）
+   DESIGN TOKENS — Slide Deck 全 5 テーマで統一シャシ
+   既定: Mono（参照デザイン踏襲・純白＋モノクロ）
    キャンバスは 1280×720 px 固定（テーマ・内容によらず変えない）
-   旧 body.pitch-mode（1600×900 + Meiryo UI）は廃止し、Mono テーマと
-   拡張コンポーネント 22〜25 で同等の見え方を実現する
+
+   Slide Deck では 5 テーマが同じ視覚言語（角丸・影・Filled-Header Card 群・
+   Value Bar 等）を共有し、**テーマ切替は --accent / --accent-soft /
+   --accent-bg の 3 変数のみ**で完結する。他の構造色（--bg / --panel-soft /
+   --rule / --ink 等）は 5 テーマ共通で不動。
+   Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、
+   Charcoal = チャコール帯（実質モノに近い）、Mono = 黒帯 の palette 違い。
+
+   ※ Vertical Document は別。design-system.md の各テーマブロック参照。
    ============================================================ */
 :root{
-  --bg:#fafaf6;
-  --bg-alt:#f1ede3;
+  /* --- 構造色（5 テーマ共通・不動） --- */
+  --bg:#ffffff;
+  --bg-alt:#f5f5f5;
   --panel:#ffffff;
-  --ink:#1a1c20;
-  --ink-soft:#3d4148;
-  --ink-mute:#6b6f76;
-  --rule:#d8d2c2;
-  --rule-soft:#e8e3d6;
-  --accent:#9d3617;
-  --accent-soft:#c45a2c;
-  --accent-bg:#f5e8de;
-  --fig-accent:var(--accent);  /* 作り込み図版の配色基点（design-system.md 参照。ブランド色はデッキ単位で上書き） */
+  --panel-soft:#f5f5f5;        /* Filled-Header Card ボディ背景 */
+  --ink:#1a1a1a;
+  --ink-soft:#444444;
+  --ink-mute:#777777;
+  --rule:#d0d0d0;
+  --rule-soft:#e8e8e8;
   --good:#2e5a3f;
   --good-bg:#e4ebd9;
   --warn:#7a4a1a;
   --warn-bg:#f0e3cd;
+
+  /* --- カード装飾（5 テーマ共通） --- */
+  --card-radius:12px;
+  --card-shadow:0 1px 4px rgba(0,0,0,0.05);
+  --card-shadow-lg:0 2px 12px rgba(0,0,0,0.08);
+
+  /* --- アクセント（テーマ切替の唯一のポイント） ---
+     既定は Mono（黒）。他テーマは以下の 3 行だけ差し替える：
+     Terracotta: --accent:#9d3617; --accent-soft:#c45a2c; --accent-bg:#f5e8de;
+     Navy:       --accent:#1e3a5f; --accent-soft:#3a5e8a; --accent-bg:#e3eaf3;
+     Forest:     --accent:#2a4f3a; --accent-soft:#4a7558; --accent-bg:#e2ebe1;
+     Charcoal:   --accent:#2d2d33; --accent-soft:#5a5a64; --accent-bg:#ebe9e4; */
+  --accent:#1a1a1a;
+  --accent-soft:#444444;
+  --accent-bg:#1a1a1a;
+
+  /* --- 段階濃度ランプ（Gantt/Timeline/Progression 用・accent 派生） ---
+     accent が黒なら黒 → 淡グレー、terracotta なら濃 → 淡テラコッタ、と自動追従。 */
+  --stage-1:var(--accent);
+  --stage-2:color-mix(in srgb, var(--accent) 82%, #fff);
+  --stage-3:color-mix(in srgb, var(--accent) 67%, #fff);
+  --stage-4:color-mix(in srgb, var(--accent) 52%, #fff);
+
+  /* --- 作り込み図版の配色基点（既定は --accent 継承。ブランド色はデッキ単位で上書き） --- */
+  --fig-accent:var(--accent);
+
+  /* --- スライドキャンバス --- */
   --slide-w:1280px;
   --slide-h:720px;
   --slide-scale:1;
@@ -114,13 +146,75 @@
 .annotation-pointer .ap-text{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:700;letter-spacing:0.1em;color:var(--ink);line-height:1.4;text-transform:uppercase;background:rgba(255,255,255,0.92);padding:3px 6px}
 .annotation-pointer .ap-text small{display:block;font-size:9.5px;font-weight:500;color:var(--ink-mute);text-transform:none;letter-spacing:0.04em;margin-top:1px}
 
+/* ============================================================
+   FILLED-HEADER CARD (Component #26) — Slide Deck 統一シャシ（5 テーマ共通）
+   黒帯ヘッダー＋淡グレーボディの主役カード。Growth Model / Phase 概観 / 3 本柱に。
+   フルスライドレイアウトとして使う（.title-bar + .message は使わない）。
+   ============================================================ */
+.slide .phase-title{text-align:center;margin:0 0 16px}
+.slide .phase-title h2{font-size:22px;font-weight:700;color:var(--ink);letter-spacing:0.02em;margin:0;padding:0;border:none}
+.slide .phase-title .phase-subtitle-top{font-size:13px;color:var(--ink-mute);margin-top:4px;line-height:1.5}
+.slide .phase-flow{display:flex;align-items:stretch;gap:0;margin:8px 0}
+.slide .phase-card{flex:1;border-radius:var(--card-radius,12px);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--card-shadow-lg,0 2px 12px rgba(0,0,0,0.08))}
+.slide .phase-header{background:var(--accent);padding:14px 18px 10px;display:flex;align-items:baseline;gap:10px}
+.slide .phase-header .phase-number{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:0.08em}
+.slide .phase-header .phase-name{font-size:19px;font-weight:700;color:#fff;letter-spacing:0.04em}
+.slide .phase-subtitle{background:var(--accent);font-size:11.5px;color:rgba(255,255,255,0.75);padding:0 18px 12px;line-height:1.5}
+.slide .phase-body{padding:14px 16px;flex:1;display:flex;flex-direction:column;gap:12px;background:var(--panel-soft,#f5f5f5)}
+.slide .phase-body .section{background:#fff;border-radius:8px;padding:10px 12px;box-shadow:var(--card-shadow,0 1px 4px rgba(0,0,0,0.05))}
+.slide .phase-body .section-title{font-size:11px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.slide .phase-body .section ul{list-style:none;padding:0;margin:0}
+.slide .phase-body .section li{font-size:11.5px;color:var(--ink-soft);line-height:1.55;padding:2px 0 2px 14px;position:relative}
+.slide .phase-body .section li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--ink-mute)}
+.slide .phase-body .section.reject{border:1px solid var(--rule);box-shadow:none}
+.slide .phase-body .section.reject .section-title{color:var(--ink-mute)}
+.slide .phase-body .section.reject li{color:var(--ink-mute)}
+.slide .phase-body .section.reject li::before{background:#999}
+.slide .phase-arrow{display:flex;align-items:center;justify-content:center;width:36px;flex-shrink:0}
+.slide .phase-arrow svg{width:36px;height:60px}
+
+/* ============================================================
+   VALUE BAR (Component #27) — Slide Deck 統一シャシ（5 テーマ共通）
+   スライド最下部の黒帯サマリ。3〜4 アイテム＋縦罫。
+   ============================================================ */
+.slide .value-bar{margin-top:14px;background:var(--accent);border-radius:var(--card-radius,10px);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.slide .value-bar-item{display:flex;align-items:center;gap:10px;color:#fff;flex:1}
+.slide .value-bar-item .vb-icon{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex-shrink:0;color:#fff}
+.slide .value-bar-item .vb-text{font-size:11.5px;font-weight:600;line-height:1.4;color:#fff}
+.slide .value-bar .vb-divider{width:1px;height:32px;background:rgba(255,255,255,0.2);flex-shrink:0}
+
+/* ============================================================
+   ICON CHIP (Component #28) — Slide Deck 統一シャシ（5 テーマ共通）
+   Filled-Header Card 内の section-title 先頭 1 字ラベル。
+   ============================================================ */
+.slide .icon-chip{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:4px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;flex-shrink:0;font-family:"JetBrains Mono",monospace}
+.slide .icon-chip.muted{background:var(--ink-mute)}
+
+/* ============================================================
+   PILL TAG (Component #29) — Slide Deck 統一シャシ（5 テーマ共通）
+   Filled-Header Card 内のカテゴリ列挙。.tag.primary は黒塗り優先。
+   ============================================================ */
+.slide .tag-list{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.slide .tag{display:inline-block;font-size:10px;font-weight:600;padding:3px 8px;border-radius:10px;background:var(--rule-soft,#e8e8e8);color:var(--ink);white-space:nowrap}
+.slide .tag.primary{background:var(--accent);color:#fff}
+
+/* ============================================================
+   EXPANSION PILLS (Component #30) — Slide Deck 統一シャシ（5 テーマ共通）
+   「→ 経営企画」型の横展開ピル群。
+   ============================================================ */
+.slide .expansion-area{background:#fff;border-radius:8px;padding:10px 12px;box-shadow:var(--card-shadow,0 1px 4px rgba(0,0,0,0.05))}
+.slide .expansion-area .expansion-title{font-size:11px;font-weight:700;color:var(--ink);letter-spacing:0.08em;margin-bottom:8px;text-transform:uppercase}
+.slide .expansion-arrows{display:flex;gap:6px;flex-wrap:wrap}
+.slide .expansion-item{display:inline-flex;align-items:center;gap:4px;background:var(--accent);color:#fff;font-size:10.5px;font-weight:600;padding:5px 10px;border-radius:16px;white-space:nowrap}
+.slide .expansion-item .arr{font-size:11px;opacity:0.6}
+
 *{margin:0;padding:0;box-sizing:border-box}
 
 html,body{
   height:100vh;
   width:100vw;
   overflow:hidden;
-  background:#2a2c30;
+  background:#e5e5e5;  /* Mono 既定。他テーマ使用時は #2a2c30 に戻す */
   color:var(--ink);
   font-family:"Noto Sans JP",sans-serif;
   font-feature-settings:"palt";
