@@ -92,7 +92,7 @@ description: コードレビューを行う専門エージェント
 
 ### Step 1: 目的と役割のヒアリング
 
-AskQuestionツールで以下を確認：
+AskUserQuestion ツールで以下を確認：
 
 1. **SubAgentの目的**
    - どんな専門領域を担当するか
@@ -105,7 +105,7 @@ AskQuestionツールで以下を確認：
 
 ### Step 2: 設定の確認
 
-AskQuestionツールで以下を確認：
+AskUserQuestion ツールで以下を確認：
 
 1. **保存場所**
    - プロジェクトレベル: `.claude/agents/` - このプロジェクトのみで使用
@@ -149,6 +149,8 @@ SubAgentの振る舞いを定義するMarkdown本文を作成：
 name: [subagent-name]
 description: [設計したdescription]
 tools: [使用可能ツール（省略時は全ツール継承）]
+skills:
+  - [プリロードするスキル名（任意。起動時に SKILL.md が自動で読み込まれる）]
 ---
 
 [システムプロンプト（Markdown本文）]
@@ -172,7 +174,7 @@ tools: [使用可能ツール（省略時は全ツール継承）]
 2. **詳細なdescription**: トリガーワードを含め、AIが委譲タイミングを判断できるように
 3. **proactive言語を使用**: `PROACTIVELY` を含めると自動委譲されやすい
 4. **SkillとSubAgentを分離**: ドメイン知識はSkill、実行ロジックはSubAgentに
-5. **SubAgentからSkillを参照**: 再利用可能な知識はSkillとして切り出す
+5. **SubAgentからSkillを参照**: 再利用可能な知識はSkillとして切り出す。`skills:` フロントマターに列挙すると起動時に SKILL.md が自動プリロードされる（本プラグインの desk-researcher / image-creator 等が採用）。プリロードを使わない場合は、システムプロンプトの実行手順で SKILL.md を Read させる
 6. **コンテキスト消費を考慮**: 大量ファイル読み込みや長い出力を生成するタスクはSubAgentに
 
 ## トラブルシューティング

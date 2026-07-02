@@ -17,7 +17,7 @@ skills:
   - 調査モード（`exploratory`、`hypothesis-driven`、`gap-filling`、または未指定）
   - 追加指示（参照すべきサイト、フォーカスする調査項目など）
 2. **調査の実行**: Skillの指示に従い、指定されたモードで調査を実行
-  - Layer 1: Exa（セマンティック検索） / WebSearch / WebFetch による情報収集（使い分けは `skills/desk-research/references/tool-selection.md` を参照）
+  - Layer 1: Exa（セマンティック検索） / WebSearch / WebFetch による情報収集（使い分けは `${CLAUDE_PLUGIN_ROOT}/skills/desk-research/references/tool-selection.md` を参照）
   - Layer 2: Browser Use による詳細調査（必要な場合）
   - Layer 3: Deep Researchプロンプトの生成（必要な場合、テンプレートは `references/deep-research-prompt.md`）
 3. **成果物の出力**: 調査レポートを出力先フォルダに格納（hypothesis-driven モードの場合は仮説検証シートを含む）

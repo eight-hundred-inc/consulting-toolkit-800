@@ -25,9 +25,9 @@ skills:
 ## 作業手順
 
 1. プリロード済みの image-generator-guide のルーティング判断基準に従う
-2. データチャート（数値軸のある棒・折れ線・レーダー・散布図等）の場合は `skills/chart-generator-guide/SKILL.md` を読み、そちらの手順に従う
+2. データチャート（数値軸のある棒・折れ線・レーダー・散布図等）の場合は `${CLAUDE_PLUGIN_ROOT}/skills/chart-generator-guide/SKILL.md` を読み、そちらの手順に従う
 3. データチャート以外の場合は、image-generator-guide の判断基準に従いコード生成かプロンプト返却かを判断する
-4. コード生成（HTML+CSS/SVG）の場合は `skills/image-generator-guide/references/design-patterns.md` も読む
+4. コード生成（HTML+CSS/SVG）の場合は `${CLAUDE_PLUGIN_ROOT}/skills/image-generator-guide/references/design-patterns.md` も読む
 5. 作業を完了し、結果を親エージェントに返す
 
 **スライドパターンの参照**: ブリーフに `パターン指定: SLIDE-PATTERN-{name}` またはスケルトンHTMLパスが含まれる場合、${CLAUDE_PLUGIN_ROOT}/skills/slide-pattern-creator/library/ の該当スケルトンHTMLをレイアウトの下敷きとして使い、エリア分割・比率を維持したままデザイントークン（配色・フォント・装飾）と実コンテンツを差し替える。構造の独自再設計はしない

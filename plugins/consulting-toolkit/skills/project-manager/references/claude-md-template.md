@@ -191,7 +191,7 @@
 |------|--------|-----|
 | `{プロジェクト名}` | ヒアリング | AI動向調査プロジェクト |
 | `{クライアント名}` | ヒアリング | 株式会社○○ |
-| `{project_type}` | AskQuestion の選択結果 | technology-research / market-research / interview-focused / due-diligence |
+| `{project_type}` | AskUserQuestion の選択結果 | technology-research / market-research / interview-focused / due-diligence |
 | `{YYYY-MM-DD}` | ヒアリング | 2026-03-31 |
 | `{スコープ}` | ヒアリング（1-2行） | 生成AI技術の市場動向と主要プレイヤーの戦略を調査し、参入機会を評価する |
 

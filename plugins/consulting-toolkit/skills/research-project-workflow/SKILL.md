@@ -32,17 +32,19 @@ Phase 2: 分析・とりまとめ
 ※ review_level: light → ユーザー確認のみ（quality-reviewerをスキップ）
 ```
 
-### スライド化フロー（Step 3 / Step 11 の下流）
+### スライド化フロー（Step 3 / Step 11 の下流）— 4 層アーキテクチャ
 
-Step 3（提案用）・Step 11（報告用）が出力するスライド構成 MD は、必要に応じて次の 2 段階で実体化する（11 ステップの外側・任意工程）：
+Step 3（提案用）・Step 11（報告用）が出力するスライド構成 MD は、必要に応じて HTML スライドや PPTX へ実体化する（11 ステップの外側・任意工程）。スライド生成は **内容構成・レイアウトパターン・スライドマスター・実装** の 4 層に分離されており、構成 MD の `パターン指定: SLIDE-PATTERN-{name}` はどの実装経路でも共通に有効（詳細はリポジトリ README「スライド化フロー」を参照）。
 
 ```
-スライド構成 MD ─②→ HTML スライド（html-artifact, Slide Deck format）─③→ PPTX（ブランド pptx）
+スライド構成 MD（＋パターン割当）──┬─▶ html-artifact（16:9 HTML デッキ・作り込み図版）
+                                 ├─▶ image-creator（HTML→PNG 画像先行 → PPTX 配置）
+                                 └─▶ ブランド pptx スキル（ネイティブ・編集可能 PPTX ※外部スキル）
 ```
 
-- **② HTML スライド**：`html-artifact` で 16:9 HTML デッキに変換。構造的メッセージは作り込み図版で図解化し、ブラウザ投影・デザインの作り込み確認に使う
-- **③ PPTX**：②の HTML デッキを「デザイン見本」として、ブランド pptx スキル（`pptx` をラップしたブランド版ラッパー）でレイアウト・配色・図版を再現したネイティブ PPTX を作成（納品形式が PPTX のとき）
-- 構成 MD から直接 ③ に渡してもよい（②を挟むかは案件の要否で判断）
+- **html-artifact**：ブラウザ投影・デザイン作り込み確認用の 16:9 HTML デッキに変換する
+- **ブランド pptx**：納品形式が PPTX のとき。html-artifact の HTML デッキを「デザイン見本」として渡し、レイアウト・配色・図版を再現させることもできる
+- 構成 MD からどの経路に直接渡してもよい（HTML を挟むかは案件の要否で判断）
 
 ## プロジェクト種類
 
@@ -95,6 +97,6 @@ Step 3（提案用）・Step 11（報告用）が出力するスライド構成 
 | Step 8 | インタビューまとめ | `Output/インタビューまとめ.md` |
 | Step 9 | デスクリサーチ結果 | ユーザー指定の出力先フォルダ |
 | Step 10 | 最終報告書 | `Output/最終報告書.md` |
-| Step 11 | スライド構成（報告） | `Output/スライド構成.md` |
-| Step 3/11 の②（任意） | HTML スライド（Slide Deck） | `Output/*_slides.html`（html-artifact） |
-| Step 3/11 の③（任意） | PPTX（デザイン再現・納品形式） | `Output/*.pptx`（ブランド pptx） |
+| Step 11 | スライド構成（報告） | `Output/スライド構成_報告.md` |
+| Step 3/11 の下流（任意） | HTML スライド（Slide Deck） | `Output/*_slides.html`（html-artifact） |
+| Step 3/11 の下流（任意） | PPTX（ネイティブ・納品形式） | `Output/*.pptx`（ブランド pptx ※外部スキル） |
