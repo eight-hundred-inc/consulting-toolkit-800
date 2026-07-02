@@ -83,7 +83,7 @@ Claude Code のプラグインとしてインストールします。OS・環境
 | [interview-candidate-selector](plugins/consulting-toolkit/skills/interview-candidate-selector/SKILL.md) | 候補者リストから最適なインタビュー対象者を選定・評価 | 「インタビュー対象者を選定して」「候補者を評価して」 |
 | [interview-minutes-creator](plugins/consulting-toolkit/skills/interview-minutes-creator/SKILL.md) | 文字起こしと質問リストから詳細なインタビュー議事録を作成 | 「インタビュー議事録を作成して」「ヒアリング内容を整理して」 |
 | [report-outline-creator](plugins/consulting-toolkit/skills/report-outline-creator/SKILL.md) | 提案書・調査結果から最終報告書の骨子を設計 | 「報告書骨子を作成して」「章立てを設計して」 |
-| [slide-structure-designer](plugins/consulting-toolkit/skills/slide-structure-designer/SKILL.md) | ソースドキュメントからスライドのページ構成をMDで設計 | 「スライド構成を設計して」「ページ構成を考えて」 |
+| [slide-structure-designer](plugins/consulting-toolkit/skills/slide-structure-designer/SKILL.md) | ソースドキュメントからスライドのページ構成をMDで設計。各スライドにレイアウトパターン（SLIDE-PATTERN）を割り当てる | 「スライド構成を設計して」「ページ構成を考えて」 |
 | [integrated-analysis-creator](plugins/consulting-toolkit/skills/integrated-analysis-creator/SKILL.md) | 調査結果を論点構造に沿って統合分析し、3層ピラミッド構造の最終報告書を作成 | 「最終報告書を作成して」「統合分析して」 |
 | [research-project-workflow](plugins/consulting-toolkit/skills/research-project-workflow/SKILL.md) | 3フェーズ・11ステップのワークフロー定義 | project-managerから自動呼び出し |
 
@@ -104,7 +104,8 @@ Claude Code のプラグインとしてインストールします。OS・環境
 | [subagent-creator](plugins/consulting-toolkit/skills/subagent-creator/SKILL.md) | SubAgent（エージェント定義）を作成するガイド。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「エージェントを作成して」「SubAgentを作って」 |
 | [chart-generator-guide](plugins/consulting-toolkit/skills/chart-generator-guide/SKILL.md) | matplotlibによるデータチャート生成ガイド。ブランドパレット対応、PNG+SVG二重出力。棒・レーダー・積み上げ等7パターンのテンプレート付き | image-creatorサブエージェント経由 |
 | [image-generator-guide](plugins/consulting-toolkit/skills/image-generator-guide/SKILL.md) | HTML+CSSによる構造化図解の設計ガイド。イラスト・アート系は画像生成プロンプトを返却。image-creatorサブエージェントから読み込まれる | image-creatorサブエージェント経由 |
-| [html-artifact](plugins/consulting-toolkit/skills/html-artifact/SKILL.md) | Markdown を業務文書スタイルの自己完結 HTML（縦長文書 / 16:9 スライドデッキ）に変換。25 コンポーネント＋8 図解＋作り込み図版。生成のみ（公開は html-publish、PPTX 化はブランド pptx へ） | 「HTML にして」「16:9 スライドにして」「ブラウザでめくれるプレゼンを作って」 |
+| [html-artifact](plugins/consulting-toolkit/skills/html-artifact/SKILL.md) | Markdown を業務文書スタイルの自己完結 HTML（縦長文書 / 16:9 スライドデッキ）に変換。30 コンポーネント＋8 図解＋作り込み図版。構成 MD のパターン指定があればスケルトンに従う。生成のみ（公開は html-publish、PPTX 化はブランド pptx へ） | 「HTML にして」「16:9 スライドにして」「ブラウザでめくれるプレゼンを作って」 |
+| [slide-pattern-creator](plugins/consulting-toolkit/skills/slide-pattern-creator/SKILL.md) | スライド1枚のコンテンツエリア構造（レイアウトパターン）の正本。画像・PPTX からパターンを言語化した定義 MD ＋グレースケール・スケルトン HTML を生成し、`library/` に蓄積（同梱 136 パターン） | 「スライドパターンを抽出して」「SLIDE-PATTERN を生成して」 |
 | [circleback-meeting-minutes](plugins/consulting-toolkit/skills/circleback-meeting-minutes/SKILL.md) | Circleback MCP から過去1週間の会議を取得し、プロジェクト関連を自動分類して議事録 MD を一括生成。複数件は並列処理 | 「Circlebackから議事録を作って」「先週の会議の議事録を作成して」 |
 
 ---
@@ -181,20 +182,27 @@ Phase 2: 分析・とりまとめ
 
 各AIステップ完了後、レビューゲートを経て次へ進む。ステップごとに `review_level` が設定されており、`full` は quality-reviewer SubAgent + ユーザー確認、`light` はユーザー確認のみで進む。
 
-#### スライド化フロー（Step 3 / Step 11 の下流）
+#### スライド化フロー（Step 3 / Step 11 の下流）— 4 層アーキテクチャ
 
-提案用（Step 3）・報告用（Step 11）のスライド構成 MD は、必要に応じて HTML スライド → PPTX へと実体化する（11 ステップの外側・任意工程）。
+提案用（Step 3）・報告用（Step 11）のスライド構成 MD は、必要に応じて HTML スライドや PPTX へと実体化する（11 ステップの外側・任意工程）。スライド生成は **内容構成・レイアウトパターン・スライドマスター・実装** の 4 層に分離されており、どの出力経路でも同じレイアウトパターンに従う。
+
+| 層 | 担当 | 責務 |
+|---|---|---|
+| 1 内容構成 | `slide-structure-designer` | 1 スライド 1 メッセージの構成 MD。各スライドに `パターン指定: SLIDE-PATTERN-{name}` を割り当てる |
+| 2 レイアウトパターン | `slide-pattern-creator` / `library` | **コンテンツエリアの構造の正本**（structure YAML ＋スケルトン HTML） |
+| 3 スライドマスター | ブランド pptx スキル（マスター選択式）／ html-artifact テーマ | 表紙・タイトル/メッセージ行・フッター・サイズ・フォント・配色トークンのみ |
+| 4 実装 | `html-artifact` ／ `image-creator` ／ ブランド pptx | パターン（構造）×マスター（スキン）に従って出力 |
 
 ```
-① スライド構成 MD            ② HTML スライド                 ③ PPTX（納品形式）
-  slide-structure-designer ──▶  html-artifact          ──▶  ブランド pptx
-  （タイトル/メッセージ/ボディ）   （Slide Deck・作り込み図版）    （②のデザイン・レイアウトを
-                                                              ネイティブ再構築・ブランド置換）
+① スライド構成 MD            ②〜④ 実装（いずれも 2 層のパターンに従う）
+  slide-structure-designer ──┬──▶ html-artifact（16:9 HTML デッキ・作り込み図版）
+  ＋ パターン割当              ├──▶ image-creator（HTML→PNG 画像先行 → PPTX）
+                             └──▶ ブランド pptx（ネイティブ・編集可能 PPTX。配色をブランド置換）
 ```
 
-- **②** `html-artifact`：構成 MD を 16:9 HTML デッキに変換。構造的メッセージは作り込み図版で図解化し、ブラウザ投影・デザイン確認に使う
-- **③** ブランド pptx スキル（`pptx` をラップしたブランド版ラッパー。「html-artifact 参照モード」を持つもの）：②の HTML デッキをデザイン見本として、レイアウト・配色・図版を再現したネイティブ（編集可能）PPTX を作成。配色はブランドトークンに置換
-- ②を挟まず構成 MD から直接 ③ に渡してもよい
+- **2 層（パターン）が構造の正本**。html-artifact の 30 コンポーネント・8 図解や diagram-components は「スライド 1 枚の中の部品・図版内部構造」を担い、スライド全体のレイアウトは扱わない
+- パターン指定がないスライドは従来どおり構図の自由記述で動く（後方互換）
+- ①から②③④のどれに渡してもよい
 
 ---
 
@@ -320,6 +328,7 @@ consulting-toolkit/
         │   ├── interview-minutes-creator/
         │   ├── report-outline-creator/
         │   ├── slide-structure-designer/
+        │   ├── slide-pattern-creator/        # レイアウトパターンの正本（library/ に 136 パターン）
         │   ├── integrated-analysis-creator/
         │   ├── research-project-workflow/
         │   ├── project-proposal/
