@@ -56,7 +56,11 @@ AIが判断しきれない意思決定はステップの前後に人間レビュ
 | `meeting-minutes-creator` | 会議メモから議事録作成 | 会議メモ | 議事録（アジェンダ・ToDo・合意事項） |
 | `slide-structure-designer` | スライド構成設計（提案用・報告用） | ソースドキュメント | スライド構成MD（タイトル・メッセージ・ボディの3層構造） |
 | `integrated-analysis-creator` | 調査結果の統合分析・最終報告書作成 | 提案書、報告書骨子、調査レポート、議事録 | 最終報告書MD |
-| `image-generator-guide` | 図解・画像生成（HTML+CSS/SVG or GenerateImage） | ソースドキュメント | PNG/SVG画像 |
+| `image-generator-guide` | 図解・画像生成ガイド（HTML+CSS→PNG。イラスト系は画像生成プロンプト返却。image-creator SubAgent から読み込まれる） | ソースドキュメント | PNG画像 or 画像生成プロンプト |
+| `chart-generator-guide` | matplotlib データチャート生成ガイド（image-creator SubAgent から読み込まれる） | データ・伝えたいメッセージ | PNG+SVG チャート |
+| `html-artifact` | Markdown を業務文書スタイルの自己完結 HTML（縦長文書 / 16:9 スライドデッキ）に変換 | Markdown（スライド構成 MD 含む） | 自己完結 HTML |
+| `slide-pattern-creator` | スライド画像・PPTX からレイアウトパターンを抽出しライブラリに蓄積 | スライド画像・.pptx・テキスト説明 | SLIDE-PATTERN 定義 MD＋スケルトン HTML |
+| `circleback-meeting-minutes` | Circleback MCP から会議を取得し議事録 MD を一括生成 | Circleback MCP（会議名・期間の指定） | 議事録 MD（複数件は並列生成） |
 | `pptx` ※外部 | PowerPointファイルの作成・編集 | .pptxファイルまたはMarkdown骨子 | .pptxファイル |
 
 ### SubAgent

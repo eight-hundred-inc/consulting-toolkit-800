@@ -1,6 +1,7 @@
-> **保守用リファレンス**: このファイルは各スキルの SKILL.md にインライン埋め込みされた
+> **保守用リファレンス**: このファイルは各スキルにインライン埋め込みされた
 > 共通ライティング原則の原典。実際に適用されるのはインライン側であり、原則を変更する場合は
-> 下表で「✓」が付いたスキルの SKILL.md を**連動して更新すること**。
+> 下表で「✓」が付いたスキルのインライン埋め込み先を**連動して更新すること**
+> （埋め込み先は原則 SKILL.md。ただし slide-structure-designer は references/writing-rules.md 側に全文がある）。
 >
 > | 原則 | slide-structure-designer | integrated-analysis-creator | interview-research-proposal | project-proposal |
 > |---|:---:|:---:|:---:|:---:|
@@ -15,6 +16,11 @@
 > 提案書スキル（interview-research-proposal / project-proposal）は調査前段階で
 > ハードファクトが少ないため、出典URL必須要件はインライン埋め込みの対象外とする
 > （原則4 のうち「捏造禁止・不明は不明と明記」部分は提案書にも適用される）。
+>
+> **AI 典型表現ブロックリスト（禁止ワード・赤旗）の正本**は `integrated-analysis-creator/SKILL.md` の品質チェックリスト E 節。
+> slide-structure-designer（SKILL.md の表現の赤旗＋references/quality-checklist.md の F）と
+> interview-research-proposal / project-proposal（references/quality-playbook.md の禁止ワード）はそのサブセットにあたる。
+> ブロックリストに項目を追加する場合は E 節へ追加したうえで、各サブセットへの反映要否を判断すること。
 
 # 共通ライティング原則
 
