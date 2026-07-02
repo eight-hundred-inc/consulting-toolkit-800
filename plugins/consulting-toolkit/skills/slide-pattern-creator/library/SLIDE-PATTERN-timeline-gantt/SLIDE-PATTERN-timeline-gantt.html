@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-timeline-gantt</title>
+<style>
+body { background:#E8E8E8; display:flex; flex-direction:column; align-items:center; padding:40px 20px; font-family: sans-serif; margin:0; }
+.slide-label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 6px; }
+.slide { width:960px; height:540px; background:#FFFFFF; border:1px solid #CCCCCC; position:relative; overflow:hidden; margin-bottom:8px; }
+.area-label { font-size:10px; color:#999999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; }
+.week { flex:1; text-align:center; font-size:10px; color:#666; }
+.grid-col { flex:1; border-right:1px dotted #EEE; }
+.grid-col:last-child { border-right:none; }
+.bar { background:#DDDDDD; padding:4px 6px; font-size:9px; color:#555; text-align:center; border-radius:3px; }
+.milestone-line { position:absolute; top:0; bottom:0; width:1px; border-left:2px dashed #999; }
+</style>
+</head>
+<body>
+
+<p class="slide-label">[timeline-gantt]</p>
+<div class="slide" style="display:flex; flex-direction:column;">
+
+  <div style="padding:14px 40px 12px; border-bottom:1px dashed #CCCCCC; flex-shrink:0; background:#FAFAFA;">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">スケジュール ／ 全体アプローチ</div>
+  </div>
+
+  <div style="flex:1; display:flex; flex-direction:column; padding:16px 30px;">
+
+    <!-- Milestone Header -->
+    <div class="area-label">Milestone Labels</div>
+    <div style="display:flex; gap:6px; margin-bottom:6px;">
+      <div style="width:15%;"></div>
+      <div style="flex:1; display:flex; position:relative;">
+        <div style="position:absolute; left:5%; top:-2px; font-size:10px; color:#666;">▼ キックオフ</div>
+        <div style="position:absolute; left:55%; top:-2px; font-size:10px; color:#666;">▼ 集中討議</div>
+        <div style="position:absolute; right:0; top:-2px; font-size:10px; color:#666;">▼ 経営会議</div>
+      </div>
+    </div>
+
+    <!-- Phase Band -->
+    <div style="display:flex; gap:6px; margin-bottom:6px;">
+      <div style="width:15%;"></div>
+      <div style="flex:1; display:flex;">
+        <div style="flex:2; background:#F0F0F0; text-align:center; font-size:10px; color:#666; padding:3px;">初期仮説構築</div>
+        <div style="flex:3; background:#E8E8E8; text-align:center; font-size:10px; color:#666; padding:3px;">グランドデザイン構築</div>
+      </div>
+    </div>
+
+    <!-- Timeline Header (weeks) -->
+    <div style="display:flex; gap:6px; margin-bottom:4px;">
+      <div style="width:15%; font-size:10px; color:#999;">Task</div>
+      <div style="flex:1; display:flex; border-bottom:1px solid #CCC; padding-bottom:2px;">
+        <div class="week">5/7</div>
+        <div class="week">5/11w</div>
+        <div class="week">5/18w</div>
+        <div class="week">5/25w</div>
+        <div class="week">6/1w</div>
+        <div class="week">6/8w</div>
+        <div class="week">6/15w</div>
+      </div>
+    </div>
+
+    <!-- Task rows -->
+    <div style="flex:1; display:flex; flex-direction:column; gap:8px; padding-top:6px;">
+
+      <div style="display:flex; gap:6px; align-items:center;">
+        <div style="width:15%; font-size:11px; color:#333;"><span style="color:#666; font-weight:bold;">A-1</span> タスク名1</div>
+        <div style="flex:1; display:flex; gap:2px;">
+          <div style="flex:1;"><div class="bar">資料分析</div></div>
+          <div style="flex:1;"></div>
+          <div style="flex:1;"><div class="bar">ヒアリング</div></div>
+          <div style="flex:2;"><div class="bar" style="background:#EEE;">集中討議</div></div>
+          <div style="flex:1;"><div class="bar">仮説修正</div></div>
+          <div style="flex:2;"></div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:6px; align-items:center;">
+        <div style="width:15%; font-size:11px; color:#333;"><span style="color:#666; font-weight:bold;">B-1</span> タスク名2</div>
+        <div style="flex:1; display:flex; gap:2px;">
+          <div style="flex:1;"><div class="bar">資料分析</div></div>
+          <div style="flex:1;"></div>
+          <div style="flex:1;"><div class="bar">棚卸し</div></div>
+          <div style="flex:5;"></div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:6px; align-items:center;">
+        <div style="width:15%; font-size:11px; color:#333;"><span style="color:#666; font-weight:bold;">B-2</span> タスク名3</div>
+        <div style="flex:1; display:flex; gap:2px;">
+          <div style="flex:1;"></div>
+          <div style="flex:2;"><div class="bar">デスクリサーチ</div></div>
+          <div style="flex:5;"></div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:6px; align-items:center;">
+        <div style="width:15%; font-size:11px; color:#333;"><span style="color:#666; font-weight:bold;">B-3</span> タスク名4</div>
+        <div style="flex:1; display:flex; gap:2px;">
+          <div style="flex:4;"></div>
+          <div style="flex:1;"><div class="bar">仮説修正</div></div>
+          <div style="flex:1;"></div>
+          <div style="flex:2;"><div class="bar" style="background:#BBB; color:#fff;">最終化</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

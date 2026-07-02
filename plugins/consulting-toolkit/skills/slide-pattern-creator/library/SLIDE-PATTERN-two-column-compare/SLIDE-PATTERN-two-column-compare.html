@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-two-column-compare</title>
+<style>
+body { background:#E8E8E8; display:flex; flex-direction:column; align-items:center; padding:40px 20px; font-family: sans-serif; margin:0; }
+.slide-label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 6px; }
+.slide { width:960px; height:540px; background:#FFFFFF; border:1px solid #CCCCCC; position:relative; overflow:hidden; margin-bottom:8px; }
+.area-label { font-size:11px; color:#999999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px; }
+</style>
+</head>
+<body>
+
+<p class="slide-label">[two-column-compare]</p>
+<div class="slide" style="display:flex; flex-direction:column;">
+
+  <div style="padding:14px 40px 12px; border-bottom:1px dashed #CCCCCC; flex-shrink:0; background:#FAFAFA;">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">スライドタイトル ／ サブタイトル</div>
+  </div>
+
+  <div style="flex:1; display:flex; padding:24px 40px;">
+    <div style="flex:1; padding-right:24px;">
+      <div class="area-label">Left Header (H3)</div>
+      <div style="font-size:16px; font-weight:bold; color:#333; margin-bottom:14px;">左カラム見出し（例：背景）</div>
+      <div class="area-label">Left Bullets</div>
+      <ul style="font-size:13px; color:#555; line-height:1.7; padding-left:18px; margin:0;">
+        <li>本文の主張ポイント1<div style="color:#999; font-size:12px; margin-top:2px;">補足のサブテキスト</div></li>
+        <li style="margin-top:10px;">本文の主張ポイント2<div style="color:#999; font-size:12px; margin-top:2px;">補足のサブテキスト</div></li>
+        <li style="margin-top:10px;">本文の主張ポイント3<div style="color:#999; font-size:12px; margin-top:2px;">補足のサブテキスト</div></li>
+      </ul>
+    </div>
+
+    <div style="width:1px; background:transparent; border-left:1px dotted #CCCCCC;"></div>
+
+    <div style="flex:1; padding-left:24px;">
+      <div class="area-label">Right Header (H3)</div>
+      <div style="font-size:16px; font-weight:bold; color:#333; margin-bottom:14px;">右カラム見出し（例：目的）</div>
+
+      <div class="area-label">Highlight Message</div>
+      <div style="font-size:15px; color:#555; font-weight:bold; padding:10px 12px; background:#F0F0F0; border-left:3px solid #666; margin-bottom:14px; line-height:1.5;">
+        このスライドの結論・キーメッセージが入ります
+      </div>
+
+      <div class="area-label">Right Bullets</div>
+      <ul style="font-size:13px; color:#555; line-height:1.7; padding-left:18px; margin:0;">
+        <li>結論を支える根拠1</li>
+        <li>結論を支える根拠2</li>
+        <li>結論を支える根拠3</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

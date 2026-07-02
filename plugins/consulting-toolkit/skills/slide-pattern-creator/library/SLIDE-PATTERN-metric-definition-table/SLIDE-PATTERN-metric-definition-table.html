@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-metric-definition-table</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #E8E8E8;
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+    color: #333333;
+  }
+  .stage { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 30px; }
+  .slide { position: relative; width: 960px; height: 540px; background: #FFFFFF; display: flex; flex-direction: column; overflow: hidden; }
+  .pattern-tag { position: absolute; top: 6px; right: 10px; font-size: 10px; color: #999999; letter-spacing: 0.06em; z-index: 5; }
+  .title-area { flex-shrink: 0; height: 62px; background: #F0F0F0; border-bottom: 1px solid #CCCCCC; display: flex; align-items: center; padding: 0 24px; }
+  .title-area-label { font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; }
+  .content { flex: 1; min-height: 0; padding: 16px 24px 20px; display: flex; flex-direction: column; gap: 8px; }
+  .area-label { font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  col.c-cat { width: 10%; }
+  col.c-sub { width: 18%; }
+  col.c-attr { width: 14.4%; }
+  th, td { border: 1px solid #CCCCCC; padding: 7px 8px; font-size: 10.5px; line-height: 1.35; text-align: left; vertical-align: top; color: #333333; }
+  thead th { background: #F0F0F0; font-weight: bold; text-align: center; }
+  td.cat { background: #F0F0F0; font-weight: bold; text-align: center; vertical-align: middle; }
+  td.sub { font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="slide">
+    <div class="pattern-tag">[metric-definition-table]</div>
+    <div class="title-area">
+      <span class="title-area-label">Title Area — スライドマスター参照</span>
+    </div>
+    <div class="content">
+      <div class="area-label">指標定義テーブル</div>
+      <table>
+        <colgroup>
+          <col class="c-cat"><col class="c-sub"><col class="c-attr"><col class="c-attr"><col class="c-attr"><col class="c-attr"><col class="c-attr">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>大分類</th>
+            <th>調査対象・指標</th>
+            <th>形式</th>
+            <th>条件</th>
+            <th>方式</th>
+            <th>頻度</th>
+            <th>サンプル数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cat" rowspan="2">分類が入る</td>
+            <td class="sub">対象・指標名</td>
+            <td>短句</td><td>短句</td><td>短句</td><td>短句</td><td>短句</td>
+          </tr>
+          <tr>
+            <td class="sub">対象・指標名</td>
+            <td>短句</td><td>短句</td><td>短句</td><td>短句</td><td>短句</td>
+          </tr>
+          <tr>
+            <td class="cat" rowspan="2">分類が入る</td>
+            <td class="sub">対象・指標名</td>
+            <td>短句</td><td>短句</td><td>短句</td><td>短句</td><td>短句</td>
+          </tr>
+          <tr>
+            <td class="sub">対象・指標名</td>
+            <td>短句</td><td>短句</td><td>短句</td><td>短句</td><td>短句</td>
+          </tr>
+          <tr>
+            <td class="cat" rowspan="2">分類が入る</td>
+            <td class="sub">対象・指標名</td>
+            <td>短句</td><td>短句</td><td>短句</td><td>短句</td><td>短句</td>
+          </tr>
+          <tr>
+            <td class="sub">対象・指標名</td>
+            <td>短句</td><td>短句</td><td>短句</td><td>短句</td><td>短句</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

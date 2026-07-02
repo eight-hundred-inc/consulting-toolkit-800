@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-references-table</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+    margin: 0;
+  }
+  .slide-label {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .title-area {
+    padding: 12px 40px 10px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .title-placeholder {
+    font-size: 16px;
+    color: #CCCCCC;
+    margin-top: 4px;
+  }
+  .content-area {
+    flex: 1;
+    padding: 14px 32px 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  col.c-no { width: 6%; }
+  col.c-pub { width: 15%; }
+  col.c-title { width: 31%; }
+  col.c-date { width: 14%; }
+  col.c-url { width: 22%; }
+  col.c-type { width: 12%; }
+  thead th {
+    font-size: 9.5px;
+    font-weight: bold;
+    color: #999999;
+    text-align: left;
+    padding: 4px 6px;
+    border-bottom: 1px solid #333333;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tbody td {
+    font-size: 9.5px;
+    color: #333333;
+    line-height: 1.4;
+    padding: 5px 6px;
+    border-bottom: 1px solid #CCCCCC;
+    vertical-align: top;
+  }
+  td.no {
+    font-weight: bold;
+  }
+  td.url {
+    color: #777777;
+    word-break: break-all;
+  }
+  .footnote {
+    font-size: 9.5px;
+    color: #999999;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+  <p class="slide-label">[references-table]</p>
+  <div class="slide">
+    <div class="title-area">
+      <div class="area-label">Title Area — スライドマスター参照</div>
+      <div class="title-placeholder">スライドタイトルが入ります</div>
+    </div>
+    <div class="content-area">
+      <div class="area-label">References Table</div>
+      <table>
+        <colgroup>
+          <col class="c-no"><col class="c-pub"><col class="c-title"><col class="c-date"><col class="c-url"><col class="c-type">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>番号</th><th>発行元</th><th>資料名</th><th>時期</th><th>URL</th><th>種別</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="no">※1</td><td>発行元名が入ります</td><td>資料名が入ります</td><td>20XX年X月</td><td class="url">https://example.com/doc1</td><td>一次情報</td></tr>
+          <tr><td class="no">※2</td><td>発行元名が入ります</td><td>資料名が入ります</td><td>20XX年X月</td><td class="url">https://example.com/doc2</td><td>一次情報</td></tr>
+          <tr><td class="no">※3</td><td>発行元名が入ります</td><td>資料名が入ります</td><td>20XX年X月</td><td class="url">https://example.com/doc3</td><td>準一次情報</td></tr>
+          <tr><td class="no">※4</td><td>発行元名が入ります</td><td>資料名が入ります</td><td>20XX年X月</td><td class="url">https://example.com/doc4</td><td>一次情報</td></tr>
+          <tr><td class="no">※5</td><td>発行元名が入ります</td><td>資料名が入ります</td><td>20XX年X月</td><td class="url">https://example.com/doc5</td><td>一次情報</td></tr>
+          <tr><td class="no">※6</td><td>発行元名が入ります</td><td>資料名が入ります</td><td>20XX年X月</td><td class="url">https://example.com/doc6</td><td>準一次情報</td></tr>
+          <tr><td class="no">※7</td><td>発行元名が入ります</td><td>資料名が入ります</td><td>20XX年X月</td><td class="url">https://example.com/doc7</td><td>一次情報</td></tr>
+          <tr><td class="no">※8</td><td>発行元名が入ります</td><td>資料名が入ります</td><td>20XX年X月</td><td class="url">https://example.com/doc8</td><td>一次情報</td></tr>
+          <tr><td class="no">※9</td><td>発行元名が入ります</td><td>資料名が入ります</td><td>20XX年X月</td><td class="url">https://example.com/doc9</td><td>準一次情報</td></tr>
+        </tbody>
+      </table>
+      <div class="area-label" style="margin-top:8px;">Confirmation Note</div>
+      <div class="footnote">全出典について参照日時点での一次ソース到達可能性を確認済み、という趣旨の確認注記が入ります。</div>
+    </div>
+  </div>
+</body>
+</html>

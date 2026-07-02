@@ -1,0 +1,188 @@
+<style>
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+  .slide-label {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .title-area {
+    padding: 14px 32px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .title-placeholder {
+    font-size: 16px;
+    color: #CCCCCC;
+    margin-top: 4px;
+  }
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 32px;
+    overflow: hidden;
+  }
+  .intro-text {
+    font-size: 11px;
+    color: #666666;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .cards {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+  }
+  .card {
+    flex: 1;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #CCCCCC;
+    background: #F0F0F0;
+  }
+  .card-chip {
+    background: #333333;
+    color: #FFFFFF;
+    font-size: 11px;
+    padding: 3px 9px;
+    flex-shrink: 0;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #333333;
+  }
+  .card-row {
+    padding: 10px 16px;
+    border-bottom: 1px dashed #CCCCCC;
+  }
+  .card-row:last-child {
+    border-bottom: none;
+  }
+  .row-label {
+    font-size: 10px;
+    color: #999999;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .row-body {
+    font-size: 11px;
+    color: #333333;
+    line-height: 1.5;
+  }
+  .bottom-band {
+    margin-top: 14px;
+    padding: 12px 18px;
+    background: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+  .band-label {
+    flex-shrink: 0;
+    background: #333333;
+    color: #FFFFFF;
+    font-size: 11px;
+    padding: 3px 9px;
+  }
+  .band-body {
+    font-size: 11px;
+    color: #333333;
+    line-height: 1.5;
+  }
+</style>
+
+<p class="slide-label">[proposal-cards-duo]</p>
+<div class="slide">
+  <!-- タイトルエリア（スライドマスター参照） -->
+  <div class="title-area">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div class="title-placeholder">スライドタイトルが入ります</div>
+  </div>
+
+  <!-- コンテンツエリア -->
+  <div class="content">
+    <div class="area-label">導入文</div>
+    <div class="intro-text">2枚のカードがどのような文脈で導かれたかを説明する前置きが1〜2文で入ります。</div>
+
+    <div class="area-label">施策・仮説カード（2枚対比）</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-chip">施策①</span>
+          <span class="card-title">施策・仮説の見出しが入ります</span>
+        </div>
+        <div class="card-row">
+          <div class="row-label">打ち手</div>
+          <div class="row-body">具体的なアクション内容が2〜3行で入ります。</div>
+        </div>
+        <div class="card-row">
+          <div class="row-label">先行事例</div>
+          <div class="row-body">根拠となる事例・実績が入ります。</div>
+        </div>
+        <div class="card-row">
+          <div class="row-label">効果</div>
+          <div class="row-body">期待される効果の説明が入ります。</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-chip">施策②</span>
+          <span class="card-title">施策・仮説の見出しが入ります</span>
+        </div>
+        <div class="card-row">
+          <div class="row-label">打ち手</div>
+          <div class="row-body">具体的なアクション内容が2〜3行で入ります。</div>
+        </div>
+        <div class="card-row">
+          <div class="row-label">先行事例</div>
+          <div class="row-body">根拠となる事例・実績が入ります。</div>
+        </div>
+        <div class="card-row">
+          <div class="row-label">効果</div>
+          <div class="row-body">期待される効果の説明が入ります。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-band">
+      <span class="band-label">両者の関係</span>
+      <span class="band-body">2つの施策・仮説がどう補完し合うか、あるいはどちらを優先すべきかの説明が入ります。</span>
+    </div>
+  </div>
+</div>

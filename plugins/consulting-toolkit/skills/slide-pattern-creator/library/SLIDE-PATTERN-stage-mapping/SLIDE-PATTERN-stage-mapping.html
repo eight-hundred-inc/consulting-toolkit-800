@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-stage-mapping</title>
+<style>
+body { background:#E8E8E8; display:flex; flex-direction:column; align-items:center; padding:40px 20px; font-family: sans-serif; margin:0; }
+.slide-label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 6px; }
+.slide { width:960px; height:540px; background:#FFFFFF; border:1px solid #CCCCCC; position:relative; overflow:hidden; margin-bottom:8px; }
+.area-label { font-size:10px; color:#999999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; }
+.num-badge { width:22px; height:22px; border-radius:50%; background:#999; color:#fff; font-size:11px; display:inline-flex; align-items:center; justify-content:center; }
+</style>
+</head>
+<body>
+
+<p class="slide-label">[stage-mapping]</p>
+<div class="slide" style="display:flex; flex-direction:column;">
+
+  <div style="padding:14px 40px 12px; border-bottom:1px dashed #CCCCCC; flex-shrink:0; background:#FAFAFA;">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">段階マッピング／本提案アプローチ</div>
+  </div>
+
+  <div style="flex:1; display:flex; padding:24px 40px;">
+    <!-- 左3列（3ステージ × 3項目） -->
+    <div style="flex:3; display:flex; flex-direction:column; gap:8px;">
+      <div style="display:flex; gap:12px; font-size:10px; color:#999; text-transform:uppercase; padding-bottom:4px; border-bottom:1px solid #CCC;">
+        <div style="width:25%;">Stage</div>
+        <div style="width:28%;">概要</div>
+        <div style="flex:1;">生成AIの役割</div>
+        <div style="width:24px;"></div>
+      </div>
+
+      <!-- Stage 1 -->
+      <div style="display:flex; gap:12px; align-items:center; padding:8px 0; border-bottom:1px dotted #CCC;">
+        <div style="width:25%; display:flex; align-items:center; gap:8px;"><span class="num-badge">1</span><span style="font-size:13px; font-weight:bold; color:#333;">段階名1</span></div>
+        <div style="width:28%; font-size:11px; color:#555; line-height:1.4;">概要説明が入ります</div>
+        <div style="flex:1;"><div style="font-size:12px; font-weight:bold; color:#333;">役割ラベル</div><div style="font-size:11px; color:#777;">サブテキスト</div></div>
+        <div style="width:24px; color:#999;">▶</div>
+      </div>
+
+      <div style="display:flex; gap:12px; align-items:center; padding:8px 0; border-bottom:1px dotted #CCC;">
+        <div style="width:25%; display:flex; align-items:center; gap:8px;"><span class="num-badge">2</span><span style="font-size:13px; font-weight:bold; color:#333;">段階名2</span></div>
+        <div style="width:28%; font-size:11px; color:#555; line-height:1.4;">概要説明が入ります</div>
+        <div style="flex:1;"><div style="font-size:12px; font-weight:bold; color:#333;">役割ラベル</div><div style="font-size:11px; color:#777;">サブテキスト</div></div>
+        <div style="width:24px; color:#999;">▶</div>
+      </div>
+
+      <div style="display:flex; gap:12px; align-items:center; padding:8px 0;">
+        <div style="width:25%; display:flex; align-items:center; gap:8px;"><span class="num-badge">3</span><span style="font-size:13px; font-weight:bold; color:#333;">段階名3</span></div>
+        <div style="width:28%; font-size:11px; color:#555; line-height:1.4;">概要説明が入ります</div>
+        <div style="flex:1;"><div style="font-size:12px; font-weight:bold; color:#333;">役割ラベル</div><div style="font-size:11px; color:#777;">サブテキスト</div></div>
+        <div style="width:24px; color:#999;">▶</div>
+      </div>
+    </div>
+
+    <!-- 右：提案ブラケット -->
+    <div style="flex:1; padding-left:20px; display:flex; flex-direction:column; justify-content:center; gap:14px; border-left:1px solid #EEE; margin-left:12px;">
+      <div class="area-label" style="margin-bottom:0;">Callout A</div>
+      <div style="padding:10px 12px; background:#F0F0F0; border-left:3px solid #666;">
+        <div style="font-size:12px; font-weight:bold; color:#333;">A ラベル</div>
+        <div style="font-size:11px; color:#555; margin-top:2px;">提案アプローチの説明</div>
+      </div>
+      <div class="area-label" style="margin-bottom:0;">Callout B</div>
+      <div style="padding:10px 12px; background:#F0F0F0; border-left:3px solid #666;">
+        <div style="font-size:12px; font-weight:bold; color:#333;">B ラベル</div>
+        <div style="font-size:11px; color:#555; margin-top:2px;">提案アプローチの説明</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

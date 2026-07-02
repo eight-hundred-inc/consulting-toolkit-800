@@ -1,0 +1,262 @@
+<style>
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+  .slide-label {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 5px;
+  }
+  .title-area {
+    padding: 12px 32px 10px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .title-placeholder {
+    font-size: 16px;
+    color: #CCCCCC;
+    margin-top: 4px;
+  }
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 28px;
+    overflow: hidden;
+    gap: 8px;
+  }
+  .intro-band {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .chip {
+    background: #333333;
+    color: #FFFFFF;
+    font-size: 10px;
+    padding: 2px 8px;
+    flex-shrink: 0;
+  }
+  .intro-text {
+    font-size: 10px;
+    color: #666666;
+    line-height: 1.4;
+  }
+  .lane {
+    border: 1px solid #CCCCCC;
+    padding: 8px 10px;
+  }
+  .lane-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .lane-label {
+    background: #333333;
+    color: #FFFFFF;
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+  .lane-desc {
+    font-size: 10px;
+    font-weight: bold;
+    color: #333333;
+  }
+  .lane-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .steps {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+  }
+  .step {
+    flex: 1;
+    border: 1px solid #CCCCCC;
+    background: #F0F0F0;
+    padding: 5px 7px;
+  }
+  .step-tag {
+    display: inline-block;
+    background: #333333;
+    color: #FFFFFF;
+    font-size: 9px;
+    padding: 1px 6px;
+    margin-bottom: 3px;
+  }
+  .step-text {
+    font-size: 9px;
+    color: #333333;
+    line-height: 1.35;
+  }
+  .arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999999;
+    font-size: 13px;
+    flex-shrink: 0;
+    width: 14px;
+  }
+  .case-card {
+    width: 150px;
+    flex-shrink: 0;
+    border: 1px solid #CCCCCC;
+    background: #F0F0F0;
+    padding: 5px 8px;
+  }
+  .case-tag {
+    display: inline-block;
+    border: 1px solid #333333;
+    color: #333333;
+    font-size: 9px;
+    padding: 1px 6px;
+    margin-bottom: 3px;
+  }
+  .case-text {
+    font-size: 9px;
+    color: #666666;
+    line-height: 1.35;
+  }
+  .bottom-section {
+    flex-shrink: 0;
+  }
+  .bottom-head {
+    font-size: 10px;
+    font-weight: bold;
+    color: #333333;
+    border-bottom: 1px solid #CCCCCC;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+  }
+  .bottom-cards {
+    display: flex;
+    gap: 10px;
+  }
+  .bottom-card {
+    flex: 1;
+    border: 1px solid #CCCCCC;
+    border-left: 3px solid #333333;
+    padding: 7px 10px;
+  }
+  .bottom-card-title {
+    font-size: 10px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 3px;
+  }
+  .bottom-card-body {
+    font-size: 9px;
+    color: #666666;
+    line-height: 1.4;
+  }
+</style>
+
+<p class="slide-label">[two-lane-pipeline]</p>
+<div class="slide">
+  <!-- タイトルエリア（スライドマスター参照） -->
+  <div class="title-area">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div class="title-placeholder">スライドタイトルが入ります</div>
+  </div>
+
+  <!-- コンテンツエリア -->
+  <div class="content">
+    <div class="intro-band">
+      <span class="chip">軸</span>
+      <span class="intro-text">2つのレーンがそれぞれ何を分担するかを説明する導入文が入ります。</span>
+    </div>
+
+    <!-- レーン1（上流など） -->
+    <div class="lane">
+      <div class="area-label">レーン1</div>
+      <div class="lane-head">
+        <span class="lane-label">レーン名</span>
+        <span class="lane-desc">このレーンで扱うテーマの見出し</span>
+      </div>
+      <div class="lane-flow">
+        <div class="steps">
+          <div class="step"><span class="step-tag">ステップ1</span><div class="step-text">内容説明が入ります</div></div>
+          <div class="arrow">→</div>
+          <div class="step"><span class="step-tag">ステップ2</span><div class="step-text">内容説明が入ります</div></div>
+          <div class="arrow">→</div>
+          <div class="step"><span class="step-tag">ステップ3</span><div class="step-text">内容説明が入ります</div></div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">先行事例</span>
+          <div class="case-text">実績・数値が入ります。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- レーン2（下流など） -->
+    <div class="lane">
+      <div class="area-label">レーン2</div>
+      <div class="lane-head">
+        <span class="lane-label">レーン名</span>
+        <span class="lane-desc">このレーンで扱うテーマの見出し</span>
+      </div>
+      <div class="lane-flow">
+        <div class="steps">
+          <div class="step"><span class="step-tag">ステップ1</span><div class="step-text">内容説明が入ります</div></div>
+          <div class="arrow">→</div>
+          <div class="step"><span class="step-tag">ステップ2</span><div class="step-text">内容説明が入ります</div></div>
+          <div class="arrow">→</div>
+          <div class="step"><span class="step-tag">ステップ3</span><div class="step-text">内容説明が入ります</div></div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">先行事例</span>
+          <div class="case-text">実績・数値が入ります。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 変化カード3枚 -->
+    <div class="bottom-section">
+      <div class="area-label">変化・帰結セクション</div>
+      <div class="bottom-head">もたらす変化</div>
+      <div class="bottom-cards">
+        <div class="bottom-card">
+          <div class="bottom-card-title">変化の見出し</div>
+          <div class="bottom-card-body">説明文が入ります。</div>
+        </div>
+        <div class="bottom-card">
+          <div class="bottom-card-title">変化の見出し</div>
+          <div class="bottom-card-body">説明文が入ります。</div>
+        </div>
+        <div class="bottom-card">
+          <div class="bottom-card-title">変化の見出し</div>
+          <div class="bottom-card-body">説明文が入ります。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

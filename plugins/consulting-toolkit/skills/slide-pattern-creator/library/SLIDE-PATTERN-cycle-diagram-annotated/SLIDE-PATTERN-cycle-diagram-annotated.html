@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-cycle-diagram-annotated</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E8E8E8;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 44px;
+  }
+  .slide-wrap { position: relative; }
+  .pattern-label {
+    position: absolute;
+    top: -22px;
+    left: 0;
+    font-size: 12px;
+    color: #999999;
+    letter-spacing: 0.05em;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .title-area {
+    flex-shrink: 0;
+    height: 66px;
+    background: #F0F0F0;
+    border-bottom: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    padding: 0 26px;
+  }
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    padding: 20px 26px;
+    min-height: 0;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .col-anno { width: 24%; display: flex; flex-direction: column; min-height: 0; }
+  .anno-stack { flex: 1; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+  .anno-box {
+    flex: 1;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    padding: 10px 12px;
+    font-size: 11px;
+    color: #333333;
+    line-height: 1.6;
+  }
+  .col-cycle { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .cycle-wrap { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
+  .cycle { position: relative; width: 260px; height: 260px; }
+  .ring {
+    position: absolute; top: 25px; left: 25px; width: 210px; height: 210px;
+    border: 2px dashed #CCCCCC; border-radius: 50%;
+  }
+  .hub {
+    position: absolute; top: 80px; left: 80px; width: 100px; height: 100px;
+    border-radius: 50%; background: #F0F0F0; border: 1px solid #CCCCCC;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: #333333; text-align: center;
+  }
+  .node {
+    position: absolute; width: 62px; height: 62px; border-radius: 50%;
+    background: #FFFFFF; border: 1px solid #CCCCCC;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: #333333;
+  }
+  .node.n { top: -6px; left: 99px; }
+  .node.e { top: 99px; left: 204px; }
+  .node.s { top: 204px; left: 99px; }
+  .node.w { top: 99px; left: -6px; }
+</style>
+</head>
+<body>
+  <div class="slide-wrap">
+    <div class="pattern-label">[cycle-diagram-annotated]</div>
+    <div class="slide">
+      <div class="title-area">
+        <span class="area-label">Title Area — スライドマスター参照</span>
+      </div>
+      <div class="content">
+        <div class="col-anno">
+          <span class="area-label">Annotations — 注記</span>
+          <div class="anno-stack">
+            <div class="anno-box">ノード①に対応する問い・説明が入ります。</div>
+            <div class="anno-box">ノード④に対応する問い・説明が入ります。</div>
+          </div>
+        </div>
+        <div class="col-cycle">
+          <span class="area-label">Cycle Diagram — 中央：円環4〜6ノード</span>
+          <div class="cycle-wrap">
+            <div class="cycle">
+              <div class="ring"></div>
+              <div class="hub">中核メッセージ</div>
+              <div class="node n">①</div>
+              <div class="node e">②</div>
+              <div class="node s">③</div>
+              <div class="node w">④</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-anno">
+          <span class="area-label">Annotations — 注記</span>
+          <div class="anno-stack">
+            <div class="anno-box">ノード②に対応する問い・説明が入ります。</div>
+            <div class="anno-box">ノード③に対応する問い・説明が入ります。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

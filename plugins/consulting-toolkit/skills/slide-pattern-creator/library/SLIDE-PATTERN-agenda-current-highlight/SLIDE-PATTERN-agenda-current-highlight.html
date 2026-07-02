@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-agenda-current-highlight</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+    margin: 0;
+  }
+  .slide-label {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .title-area {
+    padding: 14px 40px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .title-placeholder {
+    font-size: 16px;
+    color: #CCCCCC;
+    margin-top: 4px;
+  }
+  .content-area {
+    flex: 1;
+    padding: 20px 48px 28px;
+    display: flex;
+    flex-direction: column;
+  }
+  .top-rule {
+    border-top: 1px solid #CCCCCC;
+    margin-bottom: 18px;
+  }
+  .list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .list-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .item-number {
+    width: 34px;
+    height: 34px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .item-number.current {
+    background: #333333;
+    color: #FFFFFF;
+  }
+  .item-number.inactive {
+    background: #F0F0F0;
+    color: #AAAAAA;
+    border: 1px solid #CCCCCC;
+  }
+  .item-label {
+    font-size: 16px;
+  }
+  .item-label.current {
+    color: #333333;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .item-label.inactive {
+    color: #AAAAAA;
+    font-weight: normal;
+  }
+</style>
+</head>
+<body>
+  <p class="slide-label">[agenda-current-highlight]</p>
+  <div class="slide">
+    <div class="title-area">
+      <div class="area-label">Title Area — スライドマスター参照</div>
+      <div class="title-placeholder">スライドタイトルが入ります</div>
+    </div>
+    <div class="content-area">
+      <div class="area-label">Agenda List</div>
+      <div class="top-rule"></div>
+      <div class="list">
+        <div class="list-item">
+          <div class="item-number inactive">1</div>
+          <div class="item-label inactive">章タイトルが入ります（第1章）</div>
+        </div>
+        <div class="list-item">
+          <div class="item-number current">2</div>
+          <div class="item-label current">章タイトルが入ります（第2章・現在地）</div>
+        </div>
+        <div class="list-item">
+          <div class="item-number inactive">3</div>
+          <div class="item-label inactive">章タイトルが入ります（第3章）</div>
+        </div>
+        <div class="list-item">
+          <div class="item-number inactive">4</div>
+          <div class="item-label inactive">章タイトルが入ります（第4章）</div>
+        </div>
+        <div class="list-item">
+          <div class="item-number inactive">5</div>
+          <div class="item-label inactive">章タイトルが入ります（第5章）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

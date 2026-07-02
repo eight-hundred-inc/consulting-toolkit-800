@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-qa-cards</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+    margin: 0;
+  }
+  .slide-label {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .title-area {
+    padding: 14px 40px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .title-placeholder {
+    font-size: 16px;
+    color: #CCCCCC;
+    margin-top: 4px;
+  }
+  .content-area {
+    flex: 1;
+    padding: 22px 40px 28px;
+    display: flex;
+    flex-direction: column;
+  }
+  .qa-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 18px;
+  }
+  .qa-card {
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    background: #FFFFFF;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .qa-card.highlighted {
+    background: #333333;
+    border-color: #333333;
+  }
+  .qa-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .qa-badge {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 10px;
+    background: #333333;
+    color: #FFFFFF;
+    border-radius: 2px;
+  }
+  .qa-card.highlighted .qa-badge {
+    background: #FFFFFF;
+    color: #333333;
+  }
+  .qa-flag {
+    font-size: 10.5px;
+    font-weight: bold;
+    padding: 3px 9px;
+    border: 1px solid #999999;
+    color: #999999;
+    border-radius: 2px;
+  }
+  .qa-card.highlighted .qa-flag {
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+  }
+  .qa-body {
+    font-size: 13.5px;
+    color: #333333;
+    line-height: 1.7;
+  }
+  .qa-card.highlighted .qa-body {
+    color: #FFFFFF;
+  }
+</style>
+</head>
+<body>
+  <p class="slide-label">[qa-cards]</p>
+  <div class="slide">
+    <div class="title-area">
+      <div class="area-label">Title Area — スライドマスター参照</div>
+      <div class="title-placeholder">スライドタイトルが入ります</div>
+    </div>
+    <div class="content-area">
+      <div class="area-label">Q&amp;A Cards (2x2)</div>
+      <div class="qa-grid">
+        <div class="qa-card highlighted">
+          <div class="qa-top">
+            <span class="qa-badge">問い1</span>
+            <span class="qa-flag">最優先</span>
+          </div>
+          <div class="qa-body">問いの本文が入ります。最も確認したい内容をここに記載します。</div>
+        </div>
+        <div class="qa-card">
+          <div class="qa-top">
+            <span class="qa-badge">問い2</span>
+          </div>
+          <div class="qa-body">問いの本文が入ります。2〜3文程度で具体的に記載します。</div>
+        </div>
+        <div class="qa-card">
+          <div class="qa-top">
+            <span class="qa-badge">問い3</span>
+          </div>
+          <div class="qa-body">問いの本文が入ります。2〜3文程度で具体的に記載します。</div>
+        </div>
+        <div class="qa-card">
+          <div class="qa-top">
+            <span class="qa-badge">問い4</span>
+          </div>
+          <div class="qa-body">問いの本文が入ります。2〜3文程度で具体的に記載します。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

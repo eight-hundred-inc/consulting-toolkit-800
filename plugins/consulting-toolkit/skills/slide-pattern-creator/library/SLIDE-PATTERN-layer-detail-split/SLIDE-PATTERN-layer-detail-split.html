@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-layer-detail-split</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E8E8E8;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 44px;
+  }
+  .slide-wrap { position: relative; }
+  .pattern-label {
+    position: absolute;
+    top: -22px;
+    left: 0;
+    font-size: 12px;
+    color: #999999;
+    letter-spacing: 0.05em;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .title-area {
+    flex-shrink: 0;
+    height: 66px;
+    background: #F0F0F0;
+    border-bottom: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    padding: 0 26px;
+  }
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 22px;
+    padding: 22px 26px;
+    min-height: 0;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .col-left { width: 32%; display: flex; flex-direction: column; min-height: 0; }
+  .col-right { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .stack { flex: 1; display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+  .layer-box {
+    flex: 1;
+    background: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: #333333;
+  }
+  .detail-row {
+    flex: 1;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 12px;
+    color: #333333;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-wrap">
+    <div class="pattern-label">[layer-detail-split]</div>
+    <div class="slide">
+      <div class="title-area">
+        <span class="area-label">Title Area — スライドマスター参照</span>
+      </div>
+      <div class="content">
+        <div class="col-left">
+          <span class="area-label">Layer Stack — 左1/3：レイヤー構造図</span>
+          <div class="stack">
+            <div class="layer-box">レイヤー1</div>
+            <div class="layer-box">レイヤー2</div>
+            <div class="layer-box">レイヤー3</div>
+            <div class="layer-box">レイヤー4</div>
+          </div>
+        </div>
+        <div class="col-right">
+          <span class="area-label">Detail Rows — 右2/3：各層に対応する詳細説明（行対応）</span>
+          <div class="stack">
+            <div class="detail-row">レイヤー1が担う役割・構成要素・具体例の説明が入ります。</div>
+            <div class="detail-row">レイヤー2が担う役割・構成要素・具体例の説明が入ります。</div>
+            <div class="detail-row">レイヤー3が担う役割・構成要素・具体例の説明が入ります。</div>
+            <div class="detail-row">レイヤー4が担う役割・構成要素・具体例の説明が入ります。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

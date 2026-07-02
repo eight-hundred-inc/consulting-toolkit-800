@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-case-study-table</title>
+<style>
+body { background:#E8E8E8; display:flex; flex-direction:column; align-items:center; padding:40px 20px; font-family: sans-serif; margin:0; }
+.slide-label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 6px; }
+.slide { width:960px; height:540px; background:#FFFFFF; border:1px solid #CCCCCC; position:relative; overflow:hidden; margin-bottom:8px; }
+.area-label { font-size:10px; color:#999999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; }
+table { width:100%; border-collapse:collapse; font-size:11px; }
+th { text-align:left; padding:6px 8px; color:#999; font-weight:normal; text-transform:uppercase; font-size:10px; letter-spacing:0.05em; border-bottom:1px solid #CCC; }
+td { padding:6px 8px; border-bottom:1px dotted #DDD; vertical-align:top; }
+.company { color:#555; font-weight:bold; }
+.point { color:#555; font-weight:bold; }
+.overview { color:#666; }
+</style>
+</head>
+<body>
+
+<p class="slide-label">[case-study-table]</p>
+<div class="slide" style="display:flex; flex-direction:column;">
+
+  <div style="padding:14px 40px 12px; border-bottom:1px dashed #CCCCCC; flex-shrink:0; background:#FAFAFA;">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">先行企業事例 ／ 概要のサブタイトル</div>
+  </div>
+
+  <div style="flex:1; display:flex; flex-direction:column; padding:16px 40px 8px;">
+    <div class="area-label">Case Study Table</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:15%;">企業</th>
+          <th style="width:30%;">ポイント</th>
+          <th style="width:55%;">概要</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="company" rowspan="2">企業A</td>
+          <td class="point">ポイント1のタグ</td>
+          <td class="overview">概要説明が入ります。詳細な事実ベースの記述 ※1</td>
+        </tr>
+        <tr>
+          <td class="point">ポイント2のタグ</td>
+          <td class="overview">概要説明が入ります。詳細な事実ベースの記述 ※2</td>
+        </tr>
+        <tr>
+          <td class="company" rowspan="2">企業B</td>
+          <td class="point">ポイント3のタグ</td>
+          <td class="overview">概要説明が入ります。詳細な事実ベースの記述 ※3</td>
+        </tr>
+        <tr>
+          <td class="point">ポイント4のタグ</td>
+          <td class="overview">概要説明が入ります。詳細な事実ベースの記述 ※4</td>
+        </tr>
+        <tr>
+          <td class="company">企業C</td>
+          <td class="point">ポイント5のタグ</td>
+          <td class="overview">概要説明が入ります。詳細な事実ベースの記述 ※5</td>
+        </tr>
+        <tr>
+          <td class="company">企業D</td>
+          <td class="point">ポイント6のタグ</td>
+          <td class="overview">概要説明が入ります。詳細な事実ベースの記述 ※6</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:9px; color:#999; margin-top:auto; padding-top:6px;">※1 出典1  ※2 出典2  ※3 出典3  ※4 出典4  ※5 出典5  ※6 出典6</div>
+  </div>
+
+</div>
+
+</body>
+</html>
