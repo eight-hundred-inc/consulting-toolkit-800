@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-stage-table-with-points</title>
+<style>
+body { background:#E8E8E8; display:flex; flex-direction:column; align-items:center; padding:40px 20px; font-family: sans-serif; margin:0; }
+.slide-label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 6px; }
+.slide { width:960px; height:540px; background:#FFFFFF; border:1px solid #CCCCCC; position:relative; overflow:hidden; margin-bottom:8px; }
+.area-label { font-size:10px; color:#999999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; }
+.stage-arrow { flex:1; height:56px; background:#F0F0F0; border:1px solid #CCC; display:flex; align-items:center; justify-content:center; text-align:center; font-size:11px; color:#333; clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 12px 50%); }
+.stage-arrow.strong { background:#DDD; }
+.stage-arrow.marked { background:#BBB; color:#fff; }
+</style>
+</head>
+<body>
+
+<p class="slide-label">[stage-table-with-points]</p>
+<div class="slide" style="display:flex; flex-direction:column;">
+
+  <div style="padding:14px 40px 12px; border-bottom:1px dashed #CCCCCC; flex-shrink:0; background:#FAFAFA;">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">問い2｜貴センターの現在地と目指す方向は？</div>
+  </div>
+
+  <div style="flex:1; display:flex; padding:20px 40px; gap:20px;">
+    <!-- 左：4段階マトリクス -->
+    <div style="flex:3; display:flex; flex-direction:column; gap:10px;">
+      <div class="area-label">Marker Row (現在地 / 到達点)</div>
+      <div style="display:flex; gap:8px; font-size:10px; color:#666;">
+        <div style="flex:1; text-align:center;">現在地 ▼</div>
+        <div style="flex:1; text-align:center;">Layer A ▼</div>
+        <div style="flex:1; text-align:center;">Layer B ▼</div>
+        <div style="flex:1; text-align:center;">中長期 ▼</div>
+      </div>
+
+      <div class="area-label">Stage Arrows (4-stage)</div>
+      <div style="display:flex; gap:8px;">
+        <div class="stage-arrow strong">Stage 1</div>
+        <div class="stage-arrow">Stage 2</div>
+        <div class="stage-arrow">Stage 3</div>
+        <div class="stage-arrow marked">Stage 4</div>
+      </div>
+
+      <div class="area-label">特徴 Row</div>
+      <div style="display:flex; gap:8px; font-size:10px; color:#555;">
+        <div style="flex:1;">依頼ベースのリサーチ実行</div>
+        <div style="flex:1;">短期イノベーション貢献</div>
+        <div style="flex:1;">経営層との戦略的パートナー</div>
+        <div style="flex:1;">中長期の環境変化を先読み</div>
+      </div>
+
+      <div class="area-label">意味合い Row</div>
+      <div style="display:flex; gap:8px; font-size:10px; color:#555;">
+        <div style="flex:1;">サービス提供型</div>
+        <div style="flex:1;">品質底上げで事業貢献</div>
+        <div style="flex:1;">経営との対話チャネル確立</div>
+        <div style="flex:1;">定期ブリーフィングが定着</div>
+      </div>
+    </div>
+
+    <!-- 右：Points -->
+    <div style="flex:1; border-left:1px solid #EEE; padding-left:16px; display:flex; flex-direction:column; gap:12px;">
+      <div class="area-label">Key Points</div>
+      <div style="font-size:12px; color:#555; line-height:1.5;">• ポイント1が入ります</div>
+      <div style="font-size:12px; color:#555; line-height:1.5;">• ポイント2が入ります</div>
+      <div style="font-size:12px; color:#555; line-height:1.5;">• ポイント3が入ります</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

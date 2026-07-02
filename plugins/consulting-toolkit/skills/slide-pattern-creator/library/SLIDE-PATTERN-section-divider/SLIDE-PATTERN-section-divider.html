@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-section-divider</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+    margin: 0;
+  }
+  .slide-label {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .note-full {
+    position: absolute;
+    top: 14px;
+    left: 40px;
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 90px;
+  }
+  .section-number {
+    font-size: 13px;
+    color: #999999;
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+  .section-title {
+    font-size: 40px;
+    font-weight: bold;
+    color: #333333;
+    line-height: 1.4;
+    margin-bottom: 22px;
+  }
+  .lead-text {
+    font-size: 15px;
+    color: #777777;
+    line-height: 1.8;
+    max-width: 640px;
+  }
+</style>
+</head>
+<body>
+  <p class="slide-label">[section-divider]</p>
+  <div class="slide">
+    <div class="note-full">Full-bleed Layout — タイトル行なし（中扉専用マスター）</div>
+    <div class="content-area">
+      <div class="area-label">Section Number</div>
+      <div class="section-number">SECTION 02</div>
+      <div class="area-label">Section Title</div>
+      <div class="section-title">章タイトルが<br>ここに入ります</div>
+      <div class="area-label">Lead Text (optional)</div>
+      <div class="lead-text">この章で扱う論点の概要を1〜2行で説明するリード文が入ります。読み手に次の話題を予告します。</div>
+    </div>
+  </div>
+</body>
+</html>

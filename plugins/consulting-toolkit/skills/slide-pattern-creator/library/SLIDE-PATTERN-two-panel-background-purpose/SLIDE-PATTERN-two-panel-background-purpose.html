@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-two-panel-background-purpose</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E8E8E8;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 44px;
+  }
+  .slide-wrap { position: relative; }
+  .pattern-label {
+    position: absolute;
+    top: -22px;
+    left: 0;
+    font-size: 12px;
+    color: #999999;
+    letter-spacing: 0.05em;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .title-area {
+    flex-shrink: 0;
+    height: 66px;
+    background: #F0F0F0;
+    border-bottom: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    padding: 0 26px;
+  }
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 26px;
+    padding: 24px 26px;
+    min-height: 0;
+  }
+  .panel { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .panel-box {
+    flex: 1;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .header-band {
+    flex-shrink: 0;
+    background: #F0F0F0;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 12px 16px;
+    font-size: 15px;
+    color: #333333;
+    font-weight: bold;
+  }
+  .bullets {
+    flex: 1;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: #333333;
+    line-height: 2;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-wrap">
+    <div class="pattern-label">[two-panel-background-purpose]</div>
+    <div class="slide">
+      <div class="title-area">
+        <span class="area-label">Title Area — スライドマスター参照</span>
+      </div>
+      <div class="content">
+        <div class="panel">
+          <span class="area-label">Panel A — 見出し帯＋箇条書き</span>
+          <div class="panel-box">
+            <div class="header-band">背景</div>
+            <div class="bullets">
+              ・背景を説明する箇条書き項目<br>
+              ・背景を説明する箇条書き項目<br>
+              ・背景を説明する箇条書き項目
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <span class="area-label">Panel B — 見出し帯＋箇条書き</span>
+          <div class="panel-box">
+            <div class="header-band">目的</div>
+            <div class="bullets">
+              ・目的を説明する箇条書き項目<br>
+              ・目的を説明する箇条書き項目<br>
+              ・目的を説明する箇条書き項目
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-chart-with-commentary</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #E8E8E8;
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+    color: #333333;
+  }
+  .stage { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 30px; }
+  .slide { position: relative; width: 960px; height: 540px; background: #FFFFFF; display: flex; flex-direction: column; overflow: hidden; }
+  .pattern-tag { position: absolute; top: 6px; right: 10px; font-size: 10px; color: #999999; letter-spacing: 0.06em; z-index: 5; }
+  .title-area { flex-shrink: 0; height: 62px; background: #F0F0F0; border-bottom: 1px solid #CCCCCC; display: flex; align-items: center; padding: 0 24px; }
+  .title-area-label { font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; }
+  .content { flex: 1; min-height: 0; padding: 16px 24px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .area-label { font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+
+  .lead { border: 1px dashed #CCCCCC; padding: 8px 12px; }
+  .lead-text { font-size: 13px; color: #333333; }
+
+  .cc { flex: 1; display: flex; gap: 18px; min-height: 0; }
+  .chart-area { flex: 2; background: #F0F0F0; border: 1px solid #CCCCCC; padding: 12px 14px; display: flex; flex-direction: column; min-height: 0; }
+  .chart-canvas { flex: 1; display: flex; align-items: flex-end; gap: 16px; padding: 10px 4px 4px; }
+  .bar { flex: 1; background: #CCCCCC; }
+  .commentary { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .cpoints { display: flex; flex-direction: column; gap: 12px; }
+  .cpoint { display: flex; gap: 9px; }
+  .cnum { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; background: #333333; color: #FFFFFF; font-size: 11px; display: flex; align-items: center; justify-content: center; }
+  .ctext { font-size: 11px; color: #333333; line-height: 1.45; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="slide">
+    <div class="pattern-tag">[chart-with-commentary]</div>
+    <div class="title-area">
+      <span class="title-area-label">Title Area — スライドマスター参照</span>
+    </div>
+    <div class="content">
+      <div class="lead">
+        <div class="area-label">Lead — 全幅の要約文（任意）</div>
+        <div class="lead-text">チャートから言える結論を1文で示す見出しが入ります。</div>
+      </div>
+      <div class="cc">
+        <div class="chart-area">
+          <div class="area-label">チャートエリア（棒／ウォーターフォール等）</div>
+          <div class="chart-canvas">
+            <div class="bar" style="height:45%;"></div>
+            <div class="bar" style="height:70%;"></div>
+            <div class="bar" style="height:55%;"></div>
+            <div class="bar" style="height:85%;"></div>
+            <div class="bar" style="height:65%;"></div>
+            <div class="bar" style="height:92%;"></div>
+          </div>
+        </div>
+        <div class="commentary">
+          <div class="area-label">ポイント解説</div>
+          <div class="cpoints">
+            <div class="cpoint">
+              <div class="cnum">1</div>
+              <div class="ctext">チャートの読み取りポイントが入ります。変化点や差分に対応させます。</div>
+            </div>
+            <div class="cpoint">
+              <div class="cnum">2</div>
+              <div class="ctext">チャートの読み取りポイントが入ります。変化点や差分に対応させます。</div>
+            </div>
+            <div class="cpoint">
+              <div class="cnum">3</div>
+              <div class="ctext">チャートの読み取りポイントが入ります。変化点や差分に対応させます。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

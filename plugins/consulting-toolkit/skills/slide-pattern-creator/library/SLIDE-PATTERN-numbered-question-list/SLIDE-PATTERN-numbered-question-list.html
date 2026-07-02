@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-numbered-question-list</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E8E8E8;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 44px;
+  }
+  .slide-wrap { position: relative; }
+  .pattern-label {
+    position: absolute;
+    top: -22px;
+    left: 0;
+    font-size: 12px;
+    color: #999999;
+    letter-spacing: 0.05em;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .title-area {
+    flex-shrink: 0;
+    height: 66px;
+    background: #F0F0F0;
+    border-bottom: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    padding: 0 26px;
+  }
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 22px 26px;
+    min-height: 0;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .groups { flex: 1; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+  .group { flex: 1; display: flex; gap: 14px; min-height: 0; }
+  .category {
+    width: 26%;
+    background: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 13px;
+    color: #333333;
+    padding: 0 10px;
+  }
+  .questions { flex: 1; display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+  .q-row { flex: 1; display: flex; align-items: center; gap: 10px; }
+  .chip {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    background: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #333333;
+  }
+  .q-text {
+    flex: 1;
+    align-self: stretch;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 12px;
+    color: #333333;
+  }
+</style>
+</head>
+<body>
+  <div class="slide-wrap">
+    <div class="pattern-label">[numbered-question-list]</div>
+    <div class="slide">
+      <div class="title-area">
+        <span class="area-label">Title Area — スライドマスター参照</span>
+      </div>
+      <div class="content">
+        <span class="area-label">Numbered Question List — 左：大論点チップ／右：番号チップ＋問い文</span>
+        <div class="groups">
+          <div class="group">
+            <div class="category">大論点A</div>
+            <div class="questions">
+              <div class="q-row"><div class="chip">1</div><div class="q-text">小論点となる問い文が入ります。</div></div>
+              <div class="q-row"><div class="chip">2</div><div class="q-text">小論点となる問い文が入ります。</div></div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="category">大論点B</div>
+            <div class="questions">
+              <div class="q-row"><div class="chip">3</div><div class="q-text">小論点となる問い文が入ります。</div></div>
+              <div class="q-row"><div class="chip">4</div><div class="q-text">小論点となる問い文が入ります。</div></div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="category">大論点C</div>
+            <div class="questions">
+              <div class="q-row"><div class="chip">5</div><div class="q-text">小論点となる問い文が入ります。</div></div>
+              <div class="q-row"><div class="chip">6</div><div class="q-text">小論点となる問い文が入ります。</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

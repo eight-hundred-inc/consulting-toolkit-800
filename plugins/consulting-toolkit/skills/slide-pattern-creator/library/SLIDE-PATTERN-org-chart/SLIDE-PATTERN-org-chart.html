@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-org-chart</title>
+<style>
+body { background:#E8E8E8; display:flex; flex-direction:column; align-items:center; padding:40px 20px; font-family: sans-serif; margin:0; }
+.slide-label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 6px; }
+.slide { width:960px; height:540px; background:#FFFFFF; border:1px solid #CCCCCC; position:relative; overflow:hidden; margin-bottom:8px; }
+.area-label { font-size:10px; color:#999999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; }
+.org-box { border:1px solid #CCC; width:400px; margin:0 auto; }
+.org-header { background:#666; color:#fff; padding:6px 12px; font-size:11px; }
+.org-body { padding:14px 20px; background:#fff; display:flex; gap:20px; justify-content:center; }
+.member { text-align:center; }
+.role { font-size:9px; color:#999; margin-bottom:2px; }
+.name { font-size:14px; color:#333; }
+.connector { width:1px; height:20px; background:#CCC; margin:0 auto; }
+</style>
+</head>
+<body>
+
+<p class="slide-label">[org-chart]</p>
+<div class="slide" style="display:flex; flex-direction:column;">
+
+  <div style="padding:14px 40px 12px; border-bottom:1px dashed #CCCCCC; flex-shrink:0; background:#FAFAFA;">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">体制 ／ プロジェクト体制の全体像</div>
+  </div>
+
+  <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding:20px 40px;">
+
+    <div class="area-label" style="text-align:center;">Tier 1: Project Owner</div>
+    <div class="org-box">
+      <div class="org-header">プロジェクト責任者</div>
+      <div class="org-body">
+        <div class="member"><div class="role">役職</div><div class="name">氏名A</div></div>
+        <div class="member"><div class="role">役職</div><div class="name">氏名B</div></div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <div class="area-label" style="text-align:center;">Tier 2: Project Manager</div>
+    <div class="org-box">
+      <div class="org-header">プロジェクトマネージャー</div>
+      <div class="org-body">
+        <div class="member"><div class="role">役職</div><div class="name">氏名C</div></div>
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <div class="area-label" style="text-align:center;">Tier 3: Members</div>
+    <div class="org-box">
+      <div class="org-header">プロジェクトメンバー</div>
+      <div class="org-body">
+        <div class="member"><div class="role">役職</div><div class="name">氏名D</div></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

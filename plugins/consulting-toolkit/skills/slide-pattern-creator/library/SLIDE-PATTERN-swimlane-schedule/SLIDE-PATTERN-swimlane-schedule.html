@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-swimlane-schedule</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #E8E8E8;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 44px;
+  }
+  .slide-wrap { position: relative; }
+  .pattern-label {
+    position: absolute;
+    top: -22px;
+    left: 0;
+    font-size: 12px;
+    color: #999999;
+    letter-spacing: 0.05em;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .title-area {
+    flex-shrink: 0;
+    height: 66px;
+    background: #F0F0F0;
+    border-bottom: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+    padding: 0 26px;
+  }
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 26px;
+    min-height: 0;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+  }
+  .label-row { display: flex; margin-bottom: 8px; }
+  .label-row .l1 { width: 140px; }
+  .label-row .l2 { flex: 1; }
+  .sched {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    grid-template-rows: 34px repeat(4, 1fr);
+    gap: 1px;
+    background: #CCCCCC;
+    border: 1px solid #CCCCCC;
+    min-height: 0;
+  }
+  .corner { background: #F0F0F0; }
+  .time-head { background: #F0F0F0; display: flex; }
+  .time-head span {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: #333333;
+    border-right: 1px solid #CCCCCC;
+  }
+  .time-head span:last-child { border-right: none; }
+  .lane {
+    background: #F0F0F0;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    font-size: 12px;
+    color: #333333;
+  }
+  .track {
+    background: #FFFFFF;
+    position: relative;
+    background-image: repeating-linear-gradient(to right, #CCCCCC 0, #CCCCCC 1px, transparent 1px, transparent 25%);
+  }
+  .bar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 16px;
+    background: #F0F0F0;
+    border: 1px solid #CCCCCC;
+  }
+  .ms {
+    position: absolute;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    background: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  .legend { font-size: 11px; color: #999999; margin-top: 8px; }
+</style>
+</head>
+<body>
+  <div class="slide-wrap">
+    <div class="pattern-label">[swimlane-schedule]</div>
+    <div class="slide">
+      <div class="title-area">
+        <span class="area-label">Title Area — スライドマスター参照</span>
+      </div>
+      <div class="content">
+        <div class="label-row">
+          <span class="area-label l1">Lanes — 縦：担当</span>
+          <span class="area-label l2">Time Axis — 横：時間軸</span>
+        </div>
+        <div class="sched">
+          <div class="corner"></div>
+          <div class="time-head"><span>期間1</span><span>期間2</span><span>期間3</span><span>期間4</span></div>
+
+          <div class="lane">ストリーム①</div>
+          <div class="track"><div class="bar" style="left:2%;width:46%;"></div><div class="ms" style="left:50%;"></div></div>
+
+          <div class="lane">ストリーム②</div>
+          <div class="track"><div class="bar" style="left:24%;width:40%;"></div></div>
+
+          <div class="lane">ストリーム③</div>
+          <div class="track"><div class="bar" style="left:40%;width:55%;"></div></div>
+
+          <div class="lane">ストリーム④</div>
+          <div class="track"><div class="ms" style="left:30%;"></div><div class="ms" style="left:78%;"></div></div>
+        </div>
+        <div class="legend">◆ マイルストーン ／ ▬ バー（各ワークストリームの作業期間）</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-comparison-matrix</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #E8E8E8;
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+    color: #333333;
+  }
+  .stage { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 30px; }
+  .slide { position: relative; width: 960px; height: 540px; background: #FFFFFF; display: flex; flex-direction: column; overflow: hidden; }
+  .pattern-tag { position: absolute; top: 6px; right: 10px; font-size: 10px; color: #999999; letter-spacing: 0.06em; z-index: 5; }
+  .title-area { flex-shrink: 0; height: 62px; background: #F0F0F0; border-bottom: 1px solid #CCCCCC; display: flex; align-items: center; padding: 0 24px; }
+  .title-area-label { font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; }
+  .content { flex: 1; min-height: 0; padding: 16px 24px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .area-label { font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+
+  .lead { border: 1px dashed #CCCCCC; padding: 8px 12px; }
+  .lead-text { font-size: 13px; color: #333333; }
+
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  col.c-persp { width: 20%; }
+  th, td { border: 1px solid #CCCCCC; padding: 9px 10px; font-size: 11px; line-height: 1.4; text-align: left; vertical-align: top; color: #333333; }
+  thead th { background: #F0F0F0; font-weight: bold; text-align: center; }
+  thead th.corner { background: #FFFFFF; }
+  thead th.emph { background: #333333; color: #FFFFFF; }
+  td.persp { background: #F0F0F0; font-weight: bold; }
+  td.emph { background: #F0F0F0; }
+  .dots { display: inline-flex; gap: 4px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #CCCCCC; display: inline-block; }
+  .dot.on { background: #333333; border-color: #333333; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="slide">
+    <div class="pattern-tag">[comparison-matrix]</div>
+    <div class="title-area">
+      <span class="title-area-label">Title Area — スライドマスター参照</span>
+    </div>
+    <div class="content">
+      <div class="lead">
+        <div class="area-label">Lead — 全幅の要約文（任意）</div>
+        <div class="lead-text">比較から言える結論を1文で示す見出しが入ります。</div>
+      </div>
+      <div>
+        <div class="area-label">比較マトリクス</div>
+        <table>
+          <colgroup>
+            <col class="c-persp"><col><col><col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th class="corner"></th>
+              <th class="emph">対象A（強調列）</th>
+              <th>対象B</th>
+              <th>対象C</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="persp">観点：特性</td>
+              <td class="emph">短評が入ります</td>
+              <td>短評が入ります</td>
+              <td>短評が入ります</td>
+            </tr>
+            <tr>
+              <td class="persp">観点：強み</td>
+              <td class="emph">短評が入ります</td>
+              <td>短評が入ります</td>
+              <td>短評が入ります</td>
+            </tr>
+            <tr>
+              <td class="persp">観点：課題</td>
+              <td class="emph">短評が入ります</td>
+              <td>短評が入ります</td>
+              <td>短評が入ります</td>
+            </tr>
+            <tr>
+              <td class="persp">総合評価</td>
+              <td class="emph"><span class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span></td>
+              <td><span class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span></td>
+              <td><span class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

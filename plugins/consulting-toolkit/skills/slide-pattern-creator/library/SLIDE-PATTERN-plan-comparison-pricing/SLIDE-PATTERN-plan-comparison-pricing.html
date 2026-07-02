@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-plan-comparison-pricing</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+    margin: 0;
+  }
+  .slide-label {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .title-area {
+    padding: 14px 40px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .title-placeholder {
+    font-size: 16px;
+    color: #CCCCCC;
+    margin-top: 4px;
+  }
+  .content-area {
+    flex: 1;
+    padding: 18px 36px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .rows {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .plan-row {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 10px 0;
+  }
+  .plan-row:last-child {
+    border-bottom: none;
+  }
+  .col-plan {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    padding-right: 12px;
+  }
+  .plan-card {
+    background: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 10px 14px;
+    width: 100%;
+  }
+  .plan-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 4px;
+  }
+  .plan-tagline {
+    font-size: 10.5px;
+    color: #999999;
+  }
+  .col-tasks {
+    width: 55%;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px dashed #CCCCCC;
+    border-right: 1px dashed #CCCCCC;
+  }
+  .task-overview {
+    font-size: 12px;
+    color: #333333;
+    margin-bottom: 4px;
+  }
+  .task-detail {
+    font-size: 11px;
+    color: #777777;
+    line-height: 1.6;
+  }
+  .col-price {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    padding-left: 16px;
+  }
+  .price-amount {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333333;
+    line-height: 1;
+  }
+  .price-note {
+    font-size: 10.5px;
+    color: #999999;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+  <p class="slide-label">[plan-comparison-pricing]</p>
+  <div class="slide">
+    <div class="title-area">
+      <div class="area-label">Title Area — スライドマスター参照</div>
+      <div class="title-placeholder">スライドタイトルが入ります</div>
+    </div>
+    <div class="content-area">
+      <div class="rows">
+        <div class="plan-row">
+          <div class="col-plan">
+            <div class="area-label">Plan Card</div>
+            <div class="plan-card">
+              <div class="plan-name">プランA</div>
+              <div class="plan-tagline">キャッチコピーが入ります</div>
+            </div>
+          </div>
+          <div class="col-tasks">
+            <div class="area-label">Task Breakdown</div>
+            <div class="task-overview">タスク概要が入ります</div>
+            <div class="task-detail">・タスク詳細1が入ります<br>・タスク詳細2が入ります</div>
+          </div>
+          <div class="col-price">
+            <div class="area-label">Price</div>
+            <div class="price-amount">◯◯万円</div>
+            <div class="price-note">（税込）</div>
+          </div>
+        </div>
+        <div class="plan-row">
+          <div class="col-plan">
+            <div class="plan-card">
+              <div class="plan-name">プランB</div>
+              <div class="plan-tagline">キャッチコピーが入ります</div>
+            </div>
+          </div>
+          <div class="col-tasks">
+            <div class="task-overview">タスク概要が入ります</div>
+            <div class="task-detail">・タスク詳細1が入ります<br>・タスク詳細2が入ります</div>
+          </div>
+          <div class="col-price">
+            <div class="price-amount">◯◯万円</div>
+            <div class="price-note">（税込）</div>
+          </div>
+        </div>
+        <div class="plan-row">
+          <div class="col-plan">
+            <div class="plan-card">
+              <div class="plan-name">プランC</div>
+              <div class="plan-tagline">キャッチコピーが入ります</div>
+            </div>
+          </div>
+          <div class="col-tasks">
+            <div class="task-overview">タスク概要が入ります</div>
+            <div class="task-detail">・タスク詳細1が入ります<br>・タスク詳細2が入ります</div>
+          </div>
+          <div class="col-price">
+            <div class="price-amount">◯◯万円</div>
+            <div class="price-note">（税込）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

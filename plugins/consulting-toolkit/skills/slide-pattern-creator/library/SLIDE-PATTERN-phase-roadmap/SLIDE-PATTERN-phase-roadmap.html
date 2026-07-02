@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-phase-roadmap</title>
+<style>
+body { background:#E8E8E8; display:flex; flex-direction:column; align-items:center; padding:40px 20px; font-family: sans-serif; margin:0; }
+.slide-label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 6px; }
+.slide { width:960px; height:540px; background:#FFFFFF; border:1px solid #CCCCCC; position:relative; overflow:hidden; margin-bottom:8px; }
+.area-label { font-size:10px; color:#999999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; }
+.phase-arrow { flex:1; padding:10px 8px; text-align:center; color:#333; font-size:11px; background:#F0F0F0; border:1px solid #CCC; clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); }
+.phase-arrow.final { background:#BBB; color:#fff; }
+.row-label { width:8%; font-size:9px; color:#999; text-transform:uppercase; padding-right:6px; text-align:right; }
+</style>
+</head>
+<body>
+
+<p class="slide-label">[phase-roadmap]</p>
+<div class="slide" style="display:flex; flex-direction:column;">
+
+  <div style="padding:14px 40px 12px; border-bottom:1px dashed #CCCCCC; flex-shrink:0; background:#FAFAFA;">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">全体ロードマップ ／ 段階的展開の全体像</div>
+  </div>
+
+  <div style="flex:1; display:flex; flex-direction:column; padding:16px 30px; gap:6px;">
+
+    <!-- Phase header row -->
+    <div class="area-label">Phase Headers (4 phases)</div>
+    <div style="display:flex; gap:4px; align-items:center;">
+      <div class="row-label">Phase</div>
+      <div class="phase-arrow">Phase 1<br><span style="font-size:9px; color:#999;">2026/5-6</span></div>
+      <div class="phase-arrow">Phase 2<br><span style="font-size:9px; color:#999;">2026/7-12</span></div>
+      <div class="phase-arrow">Phase 3<br><span style="font-size:9px; color:#999;">2027/1-6</span></div>
+      <div class="phase-arrow final">Stage 4<br><span style="font-size:9px; color:#EEE;">2027/7-12</span></div>
+    </div>
+
+    <!-- Goal row -->
+    <div style="display:flex; gap:4px; align-items:flex-start; margin-top:4px;">
+      <div class="row-label">Goal</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#555; border-bottom:1px dotted #DDD;">ゴール1</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#555; border-bottom:1px dotted #DDD;">ゴール2</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#555; border-bottom:1px dotted #DDD;">ゴール3</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#555; border-bottom:1px dotted #DDD;">ゴール4</div>
+    </div>
+
+    <!-- Layer A row -->
+    <div style="display:flex; gap:4px; align-items:flex-start;">
+      <div class="row-label">Layer A</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• アクションA-1</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• アクションA-2<br>• アクションA-3</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• アクションA-4</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• アクションA-5</div>
+    </div>
+
+    <!-- Layer B row -->
+    <div style="display:flex; gap:4px; align-items:flex-start;">
+      <div class="row-label">Layer B</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• アクションB-1<br>• アクションB-2</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• アクションB-3</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• アクションB-4</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• アクションB-5</div>
+    </div>
+
+    <!-- Value row -->
+    <div style="display:flex; gap:4px; align-items:flex-start; border-top:1px solid #CCC; padding-top:6px;">
+      <div class="row-label">Value</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• 価値1</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• 価値2</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• 価値3</div>
+      <div style="flex:1; padding:6px 8px; font-size:10px; color:#666; line-height:1.5;">• 価値4</div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

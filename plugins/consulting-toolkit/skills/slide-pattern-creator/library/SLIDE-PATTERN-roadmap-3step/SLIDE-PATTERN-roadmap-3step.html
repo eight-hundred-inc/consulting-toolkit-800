@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-roadmap-3step</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+    margin: 0;
+  }
+  .slide-label {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .title-area {
+    padding: 14px 40px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .title-placeholder {
+    font-size: 16px;
+    color: #CCCCCC;
+    margin-top: 4px;
+  }
+  .content-area {
+    flex: 1;
+    padding: 20px 32px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .roadmap {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+  .rm-card {
+    flex: 1;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .rm-arrow {
+    flex: none;
+    width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #999999;
+  }
+  .rm-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #F0F0F0;
+    border-bottom: 1px solid #CCCCCC;
+  }
+  .rm-header.emphasis {
+    background: #333333;
+  }
+  .rm-step-label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #777777;
+  }
+  .rm-header.emphasis .rm-step-label {
+    color: #FFFFFF;
+  }
+  .rm-duration {
+    font-size: 10.5px;
+    font-weight: bold;
+    padding: 2px 8px;
+    background: #333333;
+    color: #FFFFFF;
+    border-radius: 2px;
+  }
+  .rm-header.emphasis .rm-duration {
+    background: transparent;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+  }
+  .rm-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+    padding: 12px 14px 6px;
+    line-height: 1.4;
+  }
+  .rm-body {
+    font-size: 11.5px;
+    color: #777777;
+    line-height: 1.6;
+    padding: 0 14px 10px;
+    flex: 1;
+  }
+  .rm-deliverable {
+    border-top: 1px solid #CCCCCC;
+    background: #F0F0F0;
+    padding: 10px 14px;
+  }
+  .rm-deliverable-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background: #333333;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+  .rm-deliverable-text {
+    display: block;
+    font-size: 11px;
+    color: #333333;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+  <p class="slide-label">[roadmap-3step]</p>
+  <div class="slide">
+    <div class="title-area">
+      <div class="area-label">Title Area — スライドマスター参照</div>
+      <div class="title-placeholder">スライドタイトルが入ります</div>
+    </div>
+    <div class="content-area">
+      <div class="area-label">3-Step Roadmap</div>
+      <div class="roadmap">
+        <div class="rm-card">
+          <div class="rm-header emphasis">
+            <span class="rm-step-label">STEP 1</span>
+            <span class="rm-duration">◯〜◯週間</span>
+          </div>
+          <div class="rm-title">ステップ1の見出しが入ります</div>
+          <div class="rm-body">ステップ1で行う具体的な内容の説明文が入ります。2〜4行程度を想定します。</div>
+          <div class="rm-deliverable">
+            <span class="rm-deliverable-label">成果物</span>
+            <span class="rm-deliverable-text">このステップで得られるアウトプットが入ります</span>
+          </div>
+        </div>
+        <div class="rm-arrow">→</div>
+        <div class="rm-card">
+          <div class="rm-header">
+            <span class="rm-step-label">STEP 2</span>
+            <span class="rm-duration">◯〜◯週間</span>
+          </div>
+          <div class="rm-title">ステップ2の見出しが入ります</div>
+          <div class="rm-body">ステップ2で行う具体的な内容の説明文が入ります。2〜4行程度を想定します。</div>
+          <div class="rm-deliverable">
+            <span class="rm-deliverable-label">成果物</span>
+            <span class="rm-deliverable-text">このステップで得られるアウトプットが入ります</span>
+          </div>
+        </div>
+        <div class="rm-arrow">→</div>
+        <div class="rm-card">
+          <div class="rm-header">
+            <span class="rm-step-label">STEP 3</span>
+            <span class="rm-duration">◯〜◯週間</span>
+          </div>
+          <div class="rm-title">ステップ3の見出しが入ります</div>
+          <div class="rm-body">ステップ3で行う具体的な内容の説明文が入ります。2〜4行程度を想定します。</div>
+          <div class="rm-deliverable">
+            <span class="rm-deliverable-label">成果物</span>
+            <span class="rm-deliverable-text">このステップで得られるアウトプットが入ります</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

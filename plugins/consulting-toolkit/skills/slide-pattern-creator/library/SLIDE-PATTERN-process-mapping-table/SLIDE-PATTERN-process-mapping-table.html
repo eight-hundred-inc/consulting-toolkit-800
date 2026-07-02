@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-process-mapping-table</title>
+<style>
+body { background:#E8E8E8; display:flex; flex-direction:column; align-items:center; padding:40px 20px; font-family: sans-serif; margin:0; }
+.slide-label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 6px; }
+.slide { width:960px; height:540px; background:#FFFFFF; border:1px solid #CCCCCC; position:relative; overflow:hidden; margin-bottom:8px; }
+.area-label { font-size:10px; color:#999999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; }
+table { width:100%; border-collapse:collapse; font-size:10px; }
+th { text-align:left; padding:4px 6px; color:#999; font-weight:normal; text-transform:uppercase; font-size:9px; letter-spacing:0.05em; border-bottom:1px solid #CCC; }
+td { padding:5px 6px; border-bottom:1px dotted #DDD; vertical-align:top; color:#555; }
+.step-num { display:inline-block; width:18px; height:18px; border-radius:50%; background:#666; color:#fff; font-size:10px; text-align:center; line-height:18px; margin-right:4px; }
+.step-num.dim { background:#CCC; }
+.badge { display:inline-block; padding:2px 6px; background:#DDD; color:#555; font-size:9px; border-radius:2px; }
+</style>
+</head>
+<body>
+
+<p class="slide-label">[process-mapping-table]</p>
+<div class="slide" style="display:flex; flex-direction:column;">
+
+  <div style="padding:14px 40px 12px; border-bottom:1px dashed #CCCCCC; flex-shrink:0; background:#FAFAFA;">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">プロセスのAI化 ／ 導入効果の見極め</div>
+  </div>
+
+  <div style="flex:1; padding:14px 30px; display:flex;">
+    <!-- 縦ブラケット -->
+    <div style="width:80px; display:flex; flex-direction:column; padding-right:8px;">
+      <div class="area-label">Grouping</div>
+      <div style="flex:1; display:flex; align-items:center;">
+        <div style="border-right:2px solid #999; padding-right:6px; height:80%; display:flex; align-items:center;">
+          <span style="writing-mode:vertical-rl; font-size:10px; color:#666;">前半：品質底上げ</span>
+        </div>
+      </div>
+      <div style="flex:1; display:flex; align-items:center;">
+        <div style="border-right:2px solid #999; padding-right:6px; height:80%; display:flex; align-items:center;">
+          <span style="writing-mode:vertical-rl; font-size:10px; color:#666;">後半：時間短縮</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div style="flex:1;">
+      <div class="area-label">Process Mapping Table (AI × Human)</div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:20%;">ステップ</th>
+            <th style="width:32%;">AIエージェントが行うこと</th>
+            <th style="width:26%;">人間が行う判断</th>
+            <th style="width:22%;">ポイント</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="step-num dim">1</span>依頼受付・論点整理</td><td>依頼の構造化、類似案件照合</td><td>本質的な論点の見極め</td><td rowspan="4" style="font-size:10px;">• 依頼を検証可能な調査設計に落とす力に個人差<br>• 前半でAIスキル適用</td></tr>
+          <tr><td><span class="step-num">2</span>過去調査の探索</td><td>過去調査の横断検索・要約</td><td>今回への転用可否</td></tr>
+          <tr><td><span class="step-num">3</span>仮説構築・調査設計</td><td>仮説候補・調査設計の草案</td><td>設計方向を決定 <span class="badge">AI効果高</span></td></tr>
+          <tr><td><span class="step-num">4</span>調査票作成</td><td>設問ドラフト生成</td><td>意図・ニュアンス調整</td></tr>
+          <tr><td><span class="step-num dim">5</span>実査管理</td><td>回収モニタリング</td><td>設計修正・中断判断</td><td rowspan="4" style="font-size:10px;">• 依頼リサーチの工数圧縮<br>• 浮いたリソースを再投下</td></tr>
+          <tr><td><span class="step-num">6</span>データ集計・基礎分析</td><td>クロス集計・自動実行</td><td>深掘り切り口の選択</td></tr>
+          <tr><td><span class="step-num">7</span>示唆抽出・深掘り</td><td>示唆素案生成</td><td>意味解釈・ストーリー <span class="badge">AI効果高</span></td></tr>
+          <tr><td><span class="step-num">8</span>レポート作成</td><td>骨子・チャート自動生成</td><td>メッセージの練り上げ</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:9px; color:#999; margin-top:6px;">※Phase1は導入領域の見極め、AI実装はPhase2で実施</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

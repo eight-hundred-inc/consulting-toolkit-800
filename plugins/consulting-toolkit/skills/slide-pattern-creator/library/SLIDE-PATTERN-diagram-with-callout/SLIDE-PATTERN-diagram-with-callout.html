@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-diagram-with-callout</title>
+<style>
+body { background:#E8E8E8; display:flex; flex-direction:column; align-items:center; padding:40px 20px; font-family: sans-serif; margin:0; }
+.slide-label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 6px; }
+.slide { width:960px; height:540px; background:#FFFFFF; border:1px solid #CCCCCC; position:relative; overflow:hidden; margin-bottom:8px; }
+.area-label { font-size:10px; color:#999999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; }
+.flow-box { flex:1; padding:12px 8px; text-align:center; background:#F0F0F0; border:1px solid #CCC; border-radius:4px; font-size:11px; color:#333; }
+.num-badge { width:22px; height:22px; border-radius:50%; background:#666; color:#fff; font-size:11px; display:inline-flex; align-items:center; justify-content:center; margin-right:8px; flex-shrink:0; }
+</style>
+</head>
+<body>
+
+<p class="slide-label">[diagram-with-callout]</p>
+<div class="slide" style="display:flex; flex-direction:column;">
+
+  <div style="padding:14px 40px 12px; border-bottom:1px dashed #CCCCCC; flex-shrink:0; background:#FAFAFA;">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">問い ／ サブタイトル</div>
+  </div>
+
+  <div style="flex:1; display:flex; padding:24px 40px; gap:24px;">
+    <!-- Left: diagram + bullets -->
+    <div style="flex:1.2; display:flex; flex-direction:column; gap:16px;">
+      <div>
+        <div class="area-label">Flow Diagram (3 boxes)</div>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <div class="flow-box">Box 1</div>
+          <div style="color:#999;">▶</div>
+          <div class="flow-box" style="background:#E5E5E5;">Box 2<br><span style="font-size:9px;color:#777;">中央強調</span></div>
+          <div style="color:#999;">▶</div>
+          <div class="flow-box">Box 3</div>
+        </div>
+      </div>
+      <div>
+        <div class="area-label">Bullet Explanation</div>
+        <ul style="font-size:12px; color:#555; line-height:1.7; padding-left:16px; margin:0;">
+          <li>フロー図の意味を補足する箇条書き1</li>
+          <li>フロー図の意味を補足する箇条書き2</li>
+          <li>フロー図の意味を補足する箇条書き3（結論への導入）</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="width:1px; border-left:1px dotted #CCCCCC;"></div>
+
+    <!-- Right: callout + numbered examples -->
+    <div style="flex:1; display:flex; flex-direction:column; gap:14px;">
+      <div>
+        <div class="area-label">Callout Answer</div>
+        <div style="font-size:13px; font-weight:bold; color:#333; padding:10px 12px; background:#F0F0F0; border-left:3px solid #666; line-height:1.55;">
+          「〜とは〜である」の結論文が入ります
+        </div>
+      </div>
+      <div>
+        <div class="area-label">Reference Note</div>
+        <div style="font-size:10px; color:#999;">参考）本プロジェクトを通じて具体化</div>
+      </div>
+      <div>
+        <div class="area-label">Numbered Examples</div>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:4px;">
+          <div style="display:flex; align-items:flex-start;">
+            <span class="num-badge">1</span>
+            <div><div style="font-size:12px; font-weight:bold; color:#333;">例示1の見出し</div><div style="font-size:11px; color:#777;">短い説明テキスト</div></div>
+          </div>
+          <div style="display:flex; align-items:flex-start;">
+            <span class="num-badge">2</span>
+            <div><div style="font-size:12px; font-weight:bold; color:#333;">例示2の見出し</div><div style="font-size:11px; color:#777;">短い説明テキスト</div></div>
+          </div>
+          <div style="display:flex; align-items:flex-start;">
+            <span class="num-badge">3</span>
+            <div><div style="font-size:12px; font-weight:bold; color:#333;">例示3の見出し</div><div style="font-size:11px; color:#777;">短い説明テキスト</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

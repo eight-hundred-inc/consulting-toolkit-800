@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-points-with-quotes</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #E8E8E8;
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+    color: #333333;
+  }
+  .stage { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 30px; }
+  .slide { position: relative; width: 960px; height: 540px; background: #FFFFFF; display: flex; flex-direction: column; overflow: hidden; }
+  .pattern-tag { position: absolute; top: 6px; right: 10px; font-size: 10px; color: #999999; letter-spacing: 0.06em; z-index: 5; }
+  .title-area { flex-shrink: 0; height: 62px; background: #F0F0F0; border-bottom: 1px solid #CCCCCC; display: flex; align-items: center; padding: 0 24px; }
+  .title-area-label { font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; }
+  .content { flex: 1; min-height: 0; padding: 16px 24px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .area-label { font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+
+  .lead { border: 1px dashed #CCCCCC; padding: 8px 12px; }
+  .lead-text { font-size: 13px; color: #333333; }
+
+  .two-col { flex: 1; display: flex; gap: 18px; min-height: 0; }
+  .col { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+  .points { display: flex; flex-direction: column; gap: 12px; }
+  .point { display: flex; gap: 10px; }
+  .chip { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #333333; color: #FFFFFF; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .point-head { font-size: 13px; font-weight: bold; color: #333333; }
+  .point-body { font-size: 11px; color: #333333; line-height: 1.4; margin-top: 2px; }
+
+  .quotes { display: flex; flex-direction: column; gap: 12px; }
+  .quote { display: flex; gap: 10px; background: #F0F0F0; border: 1px solid #CCCCCC; padding: 9px 11px; }
+  .avatar { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #CCCCCC; }
+  .speaker { font-size: 10px; color: #999999; margin-bottom: 3px; }
+  .quote-text { font-size: 11px; color: #333333; line-height: 1.4; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="slide">
+    <div class="pattern-tag">[points-with-quotes]</div>
+    <div class="title-area">
+      <span class="title-area-label">Title Area — スライドマスター参照</span>
+    </div>
+    <div class="content">
+      <div class="lead">
+        <div class="area-label">Lead — 全幅の要約文</div>
+        <div class="lead-text">ここに、このスライドの結論を1文で示す見出しが入ります。</div>
+      </div>
+      <div class="two-col">
+        <div class="col">
+          <div class="area-label">特筆ポイント（番号付き）</div>
+          <div class="points">
+            <div class="point">
+              <div class="chip">1</div>
+              <div>
+                <div class="point-head">特筆ポイントの見出しが入ります</div>
+                <div class="point-body">見出しを補足する短い説明文が1〜2行で入ります。</div>
+              </div>
+            </div>
+            <div class="point">
+              <div class="chip">2</div>
+              <div>
+                <div class="point-head">特筆ポイントの見出しが入ります</div>
+                <div class="point-body">見出しを補足する短い説明文が1〜2行で入ります。</div>
+              </div>
+            </div>
+            <div class="point">
+              <div class="chip">3</div>
+              <div>
+                <div class="point-head">特筆ポイントの見出しが入ります</div>
+                <div class="point-body">見出しを補足する短い説明文が1〜2行で入ります。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="area-label">引用コメント（発言者付き）</div>
+          <div class="quotes">
+            <div class="quote">
+              <div class="avatar"></div>
+              <div>
+                <div class="speaker">発言者ラベルが入ります</div>
+                <div class="quote-text">左のポイントを裏付ける発言の抜粋がここに入ります。話し言葉のまま短く…</div>
+              </div>
+            </div>
+            <div class="quote">
+              <div class="avatar"></div>
+              <div>
+                <div class="speaker">発言者ラベルが入ります</div>
+                <div class="quote-text">左のポイントを裏付ける発言の抜粋がここに入ります。話し言葉のまま短く…</div>
+              </div>
+            </div>
+            <div class="quote">
+              <div class="avatar"></div>
+              <div>
+                <div class="speaker">発言者ラベルが入ります</div>
+                <div class="quote-text">左のポイントを裏付ける発言の抜粋がここに入ります。話し言葉のまま短く…</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

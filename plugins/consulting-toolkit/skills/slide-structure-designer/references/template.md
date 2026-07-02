@@ -4,7 +4,13 @@
 
 ## 通常スライド
 
+先頭の frontmatter は任意。`design_skin:` を書いておくと下流のスライドマスター選択のヒントになる（未指定可）。
+
 ```markdown
+---
+design_skin:   # 任意。monotone / 800 / visasq / html-artifact-mono 等。下流のスライドマスター選択のヒント。未指定可
+---
+
 # スライド構成：[プレゼンタイトル]
 
 全Xページ / Yセクション

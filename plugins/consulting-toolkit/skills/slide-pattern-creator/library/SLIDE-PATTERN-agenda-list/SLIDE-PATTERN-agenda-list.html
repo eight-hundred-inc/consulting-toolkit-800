@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-agenda-list</title>
+<style>
+body { background:#E8E8E8; display:flex; flex-direction:column; align-items:center; padding:40px 20px; font-family: sans-serif; margin:0; }
+.slide-label { font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.08em; margin:0 0 6px; }
+.slide { width:960px; height:540px; background:#FFFFFF; border:1px solid #CCCCCC; position:relative; overflow:hidden; margin-bottom:8px; }
+.area-label { font-size:11px; color:#999999; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px; }
+</style>
+</head>
+<body>
+
+<p class="slide-label">[agenda-list]</p>
+<div class="slide" style="display:flex; flex-direction:column;">
+
+  <!-- タイトルエリア（スライドマスターの Slide Frame で定義） -->
+  <div style="padding:14px 40px 12px; border-bottom:1px dashed #CCCCCC; flex-shrink:0; background:#FAFAFA;">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">アジェンダ</div>
+  </div>
+
+  <!-- コンテンツエリア -->
+  <div style="flex:1; padding:40px 140px; display:flex; flex-direction:column; justify-content:center;">
+    <div class="area-label">Top Divider</div>
+    <div style="height:1px; background:#CCCCCC; margin-bottom:24px;"></div>
+
+    <div class="area-label">Agenda List</div>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:20px;">
+      <div style="color:#CCCCCC;">1. 章タイトルが入ります（非カレント）</div>
+      <div style="color:#333333;">2. 章タイトルが入ります（カレント）</div>
+      <div style="color:#CCCCCC;">3. 章タイトルが入ります（非カレント）</div>
+      <div style="color:#CCCCCC;">4. 章タイトルが入ります（非カレント）</div>
+      <div style="color:#CCCCCC;">5. 章タイトルが入ります（非カレント）</div>
+    </div>
+
+    <div class="area-label" style="margin-top:24px;">Bottom Divider</div>
+    <div style="height:1px; background:#CCCCCC;"></div>
+  </div>
+
+</div>
+
+</body>
+</html>

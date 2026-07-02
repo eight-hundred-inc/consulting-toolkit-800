@@ -10,6 +10,8 @@ description: >-
 
 image-creator サブエージェント向けの作業手順書。
 
+レイアウトパターン（図版内部の構造型）は html-artifact の references/diagram-components.md に統合済み。スライド1枚全体の構造は slide-pattern-creator の library（SLIDE-PATTERN）を参照
+
 ## 入出力
 
 - **入力**: ソースドキュメント（図解対象の情報を含む文書）、リクエスト内容

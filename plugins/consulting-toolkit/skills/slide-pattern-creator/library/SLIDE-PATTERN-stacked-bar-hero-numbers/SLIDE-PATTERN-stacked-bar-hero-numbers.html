@@ -1,0 +1,230 @@
+<style>
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+  .slide-label {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .title-area {
+    padding: 14px 32px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .title-placeholder {
+    font-size: 16px;
+    color: #CCCCCC;
+    margin-top: 4px;
+  }
+  .content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+  .col-left {
+    width: 60%;
+    padding: 16px 24px;
+    border-right: 1px solid #CCCCCC;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .col-right {
+    width: 40%;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .chip {
+    display: inline-block;
+    background: #333333;
+    color: #FFFFFF;
+    font-size: 11px;
+    padding: 3px 10px;
+    margin-bottom: 8px;
+  }
+  .bracket-label {
+    font-size: 11px;
+    color: #333333;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .bar {
+    display: flex;
+    height: 32px;
+  }
+  .seg {
+    height: 100%;
+  }
+  .seg-1 { background: #333333; width: 36%; }
+  .seg-2 { background: #999999; width: 14%; }
+  .seg-3 { background: #CCCCCC; width: 50%; }
+  .legend {
+    display: flex;
+    gap: 14px;
+    margin-top: 8px;
+    font-size: 10px;
+    color: #333333;
+  }
+  .legend span.sw {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-right: 4px;
+  }
+  .bar-note {
+    font-size: 10px;
+    color: #666666;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  .sub-block {
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px solid #CCCCCC;
+  }
+  .stat-big {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333333;
+  }
+  .hero-block {
+    margin-top: 18px;
+  }
+  .hero-label {
+    font-size: 10px;
+    color: #666666;
+    line-height: 1.4;
+  }
+  .hero-num {
+    font-size: 40px;
+    font-weight: bold;
+    color: #333333;
+    margin-top: 4px;
+  }
+  .right-note {
+    font-size: 10px;
+    color: #666666;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid #CCCCCC;
+    line-height: 1.4;
+  }
+  .bottom-band {
+    display: flex;
+    gap: 16px;
+    padding: 14px 24px;
+    flex-shrink: 0;
+    border-top: 1px solid #CCCCCC;
+  }
+  .bottom-box {
+    flex: 1;
+    padding: 10px 14px;
+    background: #F0F0F0;
+    border: 1px solid #CCCCCC;
+  }
+  .bottom-box.emphasis {
+    border: 2px solid #333333;
+    background: #FFFFFF;
+  }
+  .bottom-box-label {
+    font-size: 10px;
+    color: #999999;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .bottom-box-text {
+    font-size: 11px;
+    color: #333333;
+    line-height: 1.5;
+  }
+</style>
+
+<p class="slide-label">[stacked-bar-hero-numbers]</p>
+<div class="slide">
+  <!-- タイトルエリア（スライドマスター参照） -->
+  <div class="title-area">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div class="title-placeholder">スライドタイトルが入ります</div>
+  </div>
+
+  <!-- コンテンツエリア -->
+  <div class="content">
+    <!-- 左カラム：構成比セクション -->
+    <div class="col-left">
+      <div class="area-label">構成比セクション（積み上げ棒）</div>
+      <span class="chip">観点ラベル</span>
+      <div class="bracket-label">最大セグメントの構成比 約◯◯%</div>
+      <div class="bar">
+        <div class="seg seg-1"></div>
+        <div class="seg seg-2"></div>
+        <div class="seg seg-3"></div>
+      </div>
+      <div class="legend">
+        <span><span class="sw" style="background:#333333;"></span>セグメントA 約◯◯%</span>
+        <span><span class="sw" style="background:#999999;"></span>セグメントB 約◯◯%</span>
+        <span><span class="sw" style="background:#CCCCCC;"></span>その他</span>
+      </div>
+      <div class="bar-note">セグメントAが他を大きく引き離し全体で最大の構成比を占める、という補足説明が入ります。</div>
+
+      <div class="sub-block">
+        <div class="area-label">補助データセクション</div>
+        <span class="chip">観点ラベル</span>
+        <div class="stat-big">◯〜◯%</div>
+        <div class="bar-note">補助的な指標の説明文が2行程度で入ります。</div>
+      </div>
+    </div>
+
+    <!-- 右カラム：Hero Number ×2 -->
+    <div class="col-right">
+      <div class="area-label">Hero Number セクション</div>
+      <div class="hero-block">
+        <div class="hero-label">際立った実態値についての説明ラベル</div>
+        <div class="hero-num">◯◯</div>
+      </div>
+      <div class="hero-block">
+        <div class="hero-label">際立った実態値についての説明ラベル</div>
+        <div class="hero-num">◯◯</div>
+      </div>
+      <div class="right-note">Hero Numberを補強する短い注記が入ります。</div>
+    </div>
+  </div>
+
+  <!-- 下部帰結コールアウト帯 -->
+  <div class="bottom-band">
+    <div class="bottom-box emphasis">
+      <div class="bottom-box-label">帰結</div>
+      <div class="bottom-box-text">左右のデータから導かれる結論が1〜2文で入ります。</div>
+    </div>
+    <div class="bottom-box">
+      <div class="bottom-box-label">示唆</div>
+      <div class="bottom-box-text">読み手の状況に当てはめた示唆が入ります。</div>
+    </div>
+  </div>
+</div>

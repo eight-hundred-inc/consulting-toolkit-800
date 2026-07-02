@@ -1,0 +1,176 @@
+<style>
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+  .slide-label {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .title-area {
+    padding: 14px 32px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .title-placeholder {
+    font-size: 16px;
+    color: #CCCCCC;
+    margin-top: 4px;
+  }
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 32px;
+    overflow: hidden;
+  }
+  .section-head-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333333;
+  }
+  .section-note {
+    font-size: 10px;
+    color: #999999;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .rec-card {
+    border: 1px solid #CCCCCC;
+    background: #F0F0F0;
+    padding: 10px 12px;
+  }
+  .rec-chip {
+    display: inline-block;
+    background: #333333;
+    color: #FFFFFF;
+    font-size: 10px;
+    padding: 2px 8px;
+    margin-bottom: 6px;
+  }
+  .rec-body {
+    font-size: 9.5px;
+    color: #333333;
+    line-height: 1.4;
+  }
+  .transition-band {
+    margin: 14px 0;
+    background: #333333;
+    color: #FFFFFF;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .issue-cards {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+  }
+  .issue-card {
+    flex: 1;
+    border: 1px solid #333333;
+    padding: 12px 16px;
+    background: #FFFFFF;
+  }
+  .issue-header {
+    font-size: 11px;
+    font-weight: bold;
+    color: #333333;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #CCCCCC;
+  }
+  .issue-body {
+    font-size: 10px;
+    color: #666666;
+    line-height: 1.5;
+  }
+</style>
+
+<p class="slide-label">[recognition-cards-issues]</p>
+<div class="slide">
+  <!-- タイトルエリア（スライドマスター参照） -->
+  <div class="title-area">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div class="title-placeholder">スライドタイトルが入ります</div>
+  </div>
+
+  <!-- コンテンツエリア -->
+  <div class="content">
+    <!-- 上段：認識合わせカード4枚 -->
+    <div class="area-label">上段：認識合わせカード（4枚）</div>
+    <div class="section-head-row">
+      <span class="section-title">認識合わせ（4点）</span>
+      <span class="section-note">補足ラベルが入ります</span>
+    </div>
+    <div class="cards-grid">
+      <div class="rec-card">
+        <span class="rec-chip">観点</span>
+        <div class="rec-body">前提となる理解の説明文が入ります。</div>
+      </div>
+      <div class="rec-card">
+        <span class="rec-chip">観点</span>
+        <div class="rec-body">前提となる理解の説明文が入ります。</div>
+      </div>
+      <div class="rec-card">
+        <span class="rec-chip">観点</span>
+        <div class="rec-body">前提となる理解の説明文が入ります。</div>
+      </div>
+      <div class="rec-card">
+        <span class="rec-chip">観点</span>
+        <div class="rec-body">前提となる理解の説明文が入ります。</div>
+      </div>
+    </div>
+
+    <!-- 絞り込み帯 -->
+    <div class="transition-band">論点は2つに絞れる</div>
+
+    <!-- 下段：論点カード2枚 -->
+    <div class="area-label">下段：論点カード（2枚）</div>
+    <div class="issue-cards">
+      <div class="issue-card">
+        <div class="issue-header">論点A：見出しが入ります</div>
+        <div class="issue-body">論点の説明文が入ります。上段の認識から導かれた内容を記述します。</div>
+      </div>
+      <div class="issue-card">
+        <div class="issue-header">論点B：見出しが入ります</div>
+        <div class="issue-body">論点の説明文が入ります。上段の認識から導かれた内容を記述します。</div>
+      </div>
+    </div>
+  </div>
+</div>

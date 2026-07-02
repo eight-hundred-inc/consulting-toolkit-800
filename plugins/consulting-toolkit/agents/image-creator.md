@@ -30,6 +30,8 @@ skills:
 4. コード生成（HTML+CSS/SVG）の場合は `skills/image-generator-guide/references/design-patterns.md` も読む
 5. 作業を完了し、結果を親エージェントに返す
 
+**スライドパターンの参照**: ブリーフに `パターン指定: SLIDE-PATTERN-{name}` またはスケルトンHTMLパスが含まれる場合、${CLAUDE_PLUGIN_ROOT}/skills/slide-pattern-creator/library/ の該当スケルトンHTMLをレイアウトの下敷きとして使い、エリア分割・比率を維持したままデザイントークン（配色・フォント・装飾）と実コンテンツを差し替える。構造の独自再設計はしない
+
 ## 返却ルール
 
 - **コード生成パス（HTML+CSS / SVG / matplotlib）**: 生成した PNG のフルパスを返す

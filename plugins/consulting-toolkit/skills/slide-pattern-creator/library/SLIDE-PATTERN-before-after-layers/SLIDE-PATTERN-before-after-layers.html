@@ -1,0 +1,257 @@
+<style>
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+  .slide-label {
+    font-size: 12px;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 5px;
+  }
+  .title-area {
+    padding: 12px 32px 10px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .title-placeholder {
+    font-size: 16px;
+    color: #CCCCCC;
+    margin-top: 4px;
+  }
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 28px;
+    overflow: hidden;
+    gap: 10px;
+  }
+  .section-head {
+    font-size: 10px;
+    font-weight: bold;
+    color: #333333;
+    border-bottom: 1px solid #CCCCCC;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+  }
+
+  /* section 1: before/after */
+  .ba-row {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .ba-panel {
+    flex: 1;
+    border: 1px solid #CCCCCC;
+    background: #F0F0F0;
+    padding: 8px 12px;
+  }
+  .ba-panel.after {
+    border: 2px solid #333333;
+    background: #FFFFFF;
+  }
+  .ba-tag {
+    display: inline-block;
+    background: #999999;
+    color: #FFFFFF;
+    font-size: 9px;
+    padding: 2px 8px;
+    margin-bottom: 4px;
+  }
+  .ba-panel.after .ba-tag {
+    background: #333333;
+  }
+  .ba-body {
+    font-size: 10px;
+    color: #666666;
+    line-height: 1.4;
+  }
+  .ba-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999999;
+    font-size: 16px;
+    flex-shrink: 0;
+    width: 24px;
+  }
+
+  /* section 2: layers */
+  .layers {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .layer {
+    display: flex;
+    align-items: center;
+    border: 1px solid #CCCCCC;
+    background: #F0F0F0;
+    padding: 6px 10px;
+  }
+  .layer-idx {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    background: #333333;
+    color: #FFFFFF;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+  }
+  .layer-name {
+    flex-shrink: 0;
+    width: 110px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #333333;
+  }
+  .layer-desc {
+    font-size: 9.5px;
+    color: #666666;
+    line-height: 1.3;
+  }
+
+  /* section 3: types + expansion */
+  .types-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .types-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .type-card {
+    border: 1px solid #CCCCCC;
+    border-top: 3px solid #333333;
+    background: #F0F0F0;
+    padding: 6px 9px;
+  }
+  .type-title {
+    font-size: 10px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 2px;
+  }
+  .type-body {
+    font-size: 9px;
+    color: #666666;
+    line-height: 1.3;
+  }
+  .types-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999999;
+    font-size: 16px;
+    flex-shrink: 0;
+    width: 20px;
+  }
+  .expand-band {
+    width: 190px;
+    flex-shrink: 0;
+    background: #333333;
+    color: #FFFFFF;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .expand-title {
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #666666;
+    padding-bottom: 4px;
+  }
+  .expand-body {
+    font-size: 9px;
+    line-height: 1.4;
+    color: #DDDDDD;
+  }
+</style>
+
+<p class="slide-label">[before-after-layers]</p>
+<div class="slide">
+  <!-- タイトルエリア（スライドマスター参照） -->
+  <div class="title-area">
+    <div class="area-label">Title Area — スライドマスター参照</div>
+    <div class="title-placeholder">スライドタイトルが入ります</div>
+  </div>
+
+  <!-- コンテンツエリア -->
+  <div class="content">
+    <!-- 第1セクション：Before/After -->
+    <div>
+      <div class="area-label">第1セクション：今の状態 → 目指す姿</div>
+      <div class="ba-row">
+        <div class="ba-panel">
+          <span class="ba-tag">今</span>
+          <div class="ba-body">現状の説明が2〜3行で入ります。</div>
+        </div>
+        <div class="ba-arrow">→</div>
+        <div class="ba-panel after">
+          <span class="ba-tag">目指す姿</span>
+          <div class="ba-body">変化後の状態の説明が2〜3行で入ります。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第2セクション：レイヤー積層 -->
+    <div>
+      <div class="area-label">第2セクション：実装構成（レイヤー積層）</div>
+      <div class="layers">
+        <div class="layer"><span class="layer-idx">1</span><span class="layer-name">層の名称</span><span class="layer-desc">この層の役割・説明が入ります。</span></div>
+        <div class="layer"><span class="layer-idx">2</span><span class="layer-name">層の名称</span><span class="layer-desc">この層の役割・説明が入ります。</span></div>
+        <div class="layer"><span class="layer-idx">3</span><span class="layer-name">層の名称</span><span class="layer-desc">この層の役割・説明が入ります。</span></div>
+      </div>
+    </div>
+
+    <!-- 第3セクション：類型カード＋展開 -->
+    <div>
+      <div class="area-label">第3セクション：類型の分解 → 横展開</div>
+      <div class="types-row">
+        <div class="types-grid">
+          <div class="type-card"><div class="type-title">類型名</div><div class="type-body">説明文が入ります。</div></div>
+          <div class="type-card"><div class="type-title">類型名</div><div class="type-body">説明文が入ります。</div></div>
+          <div class="type-card"><div class="type-title">類型名</div><div class="type-body">説明文が入ります。</div></div>
+          <div class="type-card"><div class="type-title">類型名</div><div class="type-body">説明文が入ります。</div></div>
+        </div>
+        <div class="types-arrow">→</div>
+        <div class="expand-band">
+          <div class="expand-title">展開</div>
+          <div class="expand-body">類型をどう標準化・横展開するかの説明が入ります。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

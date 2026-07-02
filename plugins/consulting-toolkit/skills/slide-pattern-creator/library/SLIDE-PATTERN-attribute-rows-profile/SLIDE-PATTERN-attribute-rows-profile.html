@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-attribute-rows-profile</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #E8E8E8;
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+    color: #333333;
+  }
+  .stage { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 30px; }
+  .slide { position: relative; width: 960px; height: 540px; background: #FFFFFF; display: flex; flex-direction: column; overflow: hidden; }
+  .pattern-tag { position: absolute; top: 6px; right: 10px; font-size: 10px; color: #999999; letter-spacing: 0.06em; z-index: 5; }
+  .title-area { flex-shrink: 0; height: 62px; background: #F0F0F0; border-bottom: 1px solid #CCCCCC; display: flex; align-items: center; padding: 0 24px; }
+  .title-area-label { font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; }
+  .content { flex: 1; min-height: 0; padding: 14px 24px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .area-label { font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .rows { flex: 1; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+  .arow { flex: 1; display: flex; border: 1px solid #CCCCCC; min-height: 0; }
+  .attr-label { flex: 0 0 120px; background: #F0F0F0; border-right: 1px solid #CCCCCC; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; color: #333333; }
+  .attr-img { flex: 0 0 250px; background: #F0F0F0; border-right: 1px solid #CCCCCC; display: flex; align-items: center; justify-content: center; }
+  .attr-img .area-label { text-align: center; }
+  .attr-text { flex: 1; padding: 10px 14px; display: flex; align-items: center; }
+  .attr-text .txt { font-size: 11px; color: #333333; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="slide">
+    <div class="pattern-tag">[attribute-rows-profile]</div>
+    <div class="title-area">
+      <span class="title-area-label">Title Area — スライドマスター参照</span>
+    </div>
+    <div class="content">
+      <div class="area-label">属性行プロファイル（対象1件）</div>
+      <div class="rows">
+        <div class="arow">
+          <div class="attr-label">Product</div>
+          <div class="attr-img"><span class="area-label">画像プレースホルダ</span></div>
+          <div class="attr-text"><span class="txt">この属性についての説明文が2〜3行で入ります。要点を簡潔にまとめた記述がここに続きます。</span></div>
+        </div>
+        <div class="arow">
+          <div class="attr-label">Place</div>
+          <div class="attr-img"><span class="area-label">画像プレースホルダ</span></div>
+          <div class="attr-text"><span class="txt">この属性についての説明文が2〜3行で入ります。要点を簡潔にまとめた記述がここに続きます。</span></div>
+        </div>
+        <div class="arow">
+          <div class="attr-label">Promotion</div>
+          <div class="attr-img"><span class="area-label">画像プレースホルダ</span></div>
+          <div class="attr-text"><span class="txt">この属性についての説明文が2〜3行で入ります。要点を簡潔にまとめた記述がここに続きます。</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
