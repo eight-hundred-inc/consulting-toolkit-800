@@ -70,13 +70,13 @@ ToolSearch(query="select:SearchMeetings,ReadMeetings,GetTranscriptsForMeetings",
 
 **親側で解決したツール名は親自身が使用する。ワーカーには渡さない**（ワーカーは MCP を呼ばない設計のため）。
 
-> **往復削減**: Step 2 の ToolSearch、Step 3 のソース Read（`Output/プロジェクトサマリ.md`）、Step 7 のファイル存在確認（`workflow.md`・`Output/インタビューガイド.md`）は相互に独立で MCP 結果に依存しない。**冒頭で 1 メッセージにまとめて並列発行**し、最大 4 往復を 1 往復に短縮する（`CLAUDE.md` はシステムプロンプトに既出のため再読込不要。`SearchMeetings` は解決済みツール名に依存するため次メッセージに残す）。
+> **往復削減**: Step 2 の ToolSearch、Step 3 のソース Read（`プロジェクトサマリ.md`）、Step 7 のファイル存在確認（`workflow.md`・`Output/インタビューガイド.md`）は相互に独立で MCP 結果に依存しない。**冒頭で 1 メッセージにまとめて並列発行**し、最大 4 往復を 1 往復に短縮する（`CLAUDE.md` はシステムプロンプトに既出のため再読込不要。`SearchMeetings` は解決済みツール名に依存するため次メッセージに残す）。
 
 ### Step 3: プロジェクトキーワード抽出
 
 以下を優先順に Read し、最初に存在するソースから `clientName`・`projectName`・スコープ固有名詞 3〜5 語を抽出する:
 
-1. `Output/プロジェクトサマリ.md`
+1. `プロジェクトサマリ.md`
 2. `workflow.md`
 3. `CLAUDE.md`
 
