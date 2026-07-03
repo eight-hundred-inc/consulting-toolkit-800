@@ -1,6 +1,6 @@
 # workflow.md テンプレート
 
-プロジェクト初期化時に、以下のテンプレートを使用して `workflow.md` を作成する。
+プロジェクト初期化時に、以下のテンプレートを使用して `workflow.md` を作成する。本テンプレートは調査型（ステップ順次型）用。活動カタログ型・チェックリスト型・ポートフォリオ型は各類型のテンプレート（`workflow-template-{catalog|checklist|portfolio}.md`）を使う。
 
 ---
 
@@ -54,14 +54,14 @@
 
 ---
 
-## ワークフロースキルの対応
+## ワークフロー類型の対応
 
-| ワークフロー | 対応するプロジェクト種類 | スキルパス |
-|--------------|--------------------------|------------|
-| `research-project-workflow` | 調査プロジェクト（下記参照） | `skills/research-project-workflow/` |
-| `content-creation-workflow` | コンテンツ作成（将来追加） | - |
-| `business-planning-workflow` | 事業計画・戦略策定（将来追加） | - |
-| `software-development-workflow` | ソフトウェア開発（将来追加） | - |
+| 類型 | 対応するプロジェクト種類 | ワークフロー定義 |
+|------|--------------------------|-----------------|
+| 調査型 | 調査プロジェクト（下記参照） | スキル: `skills/research-project-workflow/` |
+| 活動カタログ型 | 月次継続支援 | テンプレート: `references/workflow-template-catalog.md` |
+| チェックリスト型 | 複数トラック並走案件 | テンプレート: `references/workflow-template-checklist.md` |
+| ポートフォリオ型 | 継続クライアントエンゲージメント | テンプレート: `references/workflow-template-portfolio.md` |
 
 ## プロジェクト種類の説明（調査プロジェクト）
 
