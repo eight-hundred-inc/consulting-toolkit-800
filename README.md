@@ -101,6 +101,7 @@ Claude Code のプラグインとしてインストールします。OS・環境
 |--------|------|----------|
 | [desk-research](plugins/consulting-toolkit/skills/desk-research/SKILL.md) | Exa（セマンティック検索）/ WebSearch / WebFetch / Browser Use / Deep Research プロンプトの3層で情報収集し、調査レポートを出力 | 「デスクリサーチを実行して」「初期調査をして」「市場規模を調べて」「競合調査して」 |
 | [meeting-minutes-creator](plugins/consulting-toolkit/skills/meeting-minutes-creator/SKILL.md) | 会議メモから議事録を作成 | 「会議メモから議事録を作って」「打ち合わせの議事録を作成して」 |
+| [report-revision](plugins/consulting-toolkit/skills/report-revision/SKILL.md) | 指摘ID管理による成果物の反復修正。同一修正指示の再送・取りこぼしを防ぐ | 「この指摘を反映して」「修正指示書に従って直して」 |
 | [800-branded-pptx](plugins/consulting-toolkit/skills/800-branded-pptx/SKILL.md) | 800社のブランドデザイン（ダークグリーン・Meiryo UI）に沿ったPowerPointを作成。pptxスキルをラップし、デザイントークンとボイラープレートを提供する | 「800風のスライドを作成」「800のpptxを作成」 |
 | [subagent-creator](plugins/consulting-toolkit/skills/subagent-creator/SKILL.md) | SubAgent（エージェント定義）を作成するガイド。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「エージェントを作成して」「SubAgentを作って」 |
 | [chart-generator-guide](plugins/consulting-toolkit/skills/chart-generator-guide/SKILL.md) | matplotlibによるデータチャート生成ガイド。ブランドパレット対応、PNG+SVG二重出力。棒・レーダー・積み上げ等7パターンのテンプレート付き | image-creatorサブエージェント経由 |
@@ -117,7 +118,7 @@ Claude Code のプラグインとしてインストールします。OS・環境
 
 | エージェント | 説明 | 呼び出しタイミング |
 |-------------|------|-------------------|
-| [quality-reviewer](plugins/consulting-toolkit/agents/quality-reviewer.md) | 成果物の品質レビュー専門。指定された品質チェック項目＋デフォルト5軸評価（論理構造・具体性・読み手視点・整合性・網羅性）の2層で評価し、合格/条件付き合格/要修正を判定する | AIタスク完了後のレビューゲート（review_level=fullのみ） |
+| [quality-reviewer](plugins/consulting-toolkit/agents/quality-reviewer.md) | 成果物の品質レビュー専門。指定された品質チェック項目＋デフォルト5軸評価（論理構造・具体性・読み手視点・整合性・網羅性）の2層で評価し、合格/条件付き合格/要修正を判定する。提出前最終検査モードでは出典照合・NG語彙辞書突合・クリスタライズ規範検査に加え、Playwright / soffice によるレンダリング検証（HTML・pptxのレイアウト崩れ確認）まで自己完結する | AIタスク完了後のレビューゲート（review_level=fullのみ）、提出前最終検査モード（親エージェントがモード指定して起動） |
 | [desk-researcher](plugins/consulting-toolkit/agents/desk-researcher.md) | デスクトップリサーチ実行専門。Exa（セマンティック検索）/ WebSearch / WebFetch / Browser Use で情報を収集し、調査レポートと仮説検証シートを出力する | Step 3（初期調査）、Step 10（詳細調査） |
 | [image-creator](plugins/consulting-toolkit/agents/image-creator.md) | 画像・図解・データチャートの生成。HTML+CSSで構造化図解をPNG化、matplotlibでデータチャートを生成。イラスト・アート系は画像生成プロンプトを返却 | 「画像にして」「図にして」「図解して」「グラフを作って」「データを可視化して」 |
 | [circleback-minutes-worker](plugins/consulting-toolkit/agents/circleback-minutes-worker.md) | Circleback MCP から単一会議のトランスクリプトを取得し、meeting-minutes-creator / interview-minutes-creator に従って議事録 MD を生成する専門ワーカー | circleback-meeting-minutes スキルから並列起動 |
@@ -279,12 +280,11 @@ Claude.ai 経由（推奨・無料枠あり）か、Exa の API key を直接設
 
 ## 併用推奨: Anthropic 公式スキルプラグイン
 
-本プラグインはコンサルティングワークフローに特化しているため、ドキュメント操作（PPTX・Excel・PDF・Word）やスキル作成といった汎用機能は [anthropics/skills](https://github.com/anthropics/skills) の公式プラグインとの併用を推奨します。
+本プラグインはコンサルティングワークフローに特化しているため、ドキュメント操作（PPTX・Excel・PDF・Word）やスキル作成、クリエイティブ・デザイン系の参考実装といった汎用機能は [anthropics/skills](https://github.com/anthropics/skills) の公式プラグインとの併用を推奨します。
 
 | プラグイン | 主なスキル | 用途 |
 |-----------|-----------|------|
-| `document-skills` | pptx, xlsx, pdf, docx, skill-creator 等 | ドキュメントの作成・編集・変換、スキルの新規作成・評価 |
-| `example-skills` | algorithmic-art, frontend-design, brand-guidelines 等 | クリエイティブ・デザイン・開発系の参考実装 |
+| `document-skills` | pptx, xlsx, pdf, docx, skill-creator, algorithmic-art, frontend-design, brand-guidelines 等 | ドキュメントの作成・編集・変換、スキルの新規作成・評価、クリエイティブ・デザイン・開発系の参考実装 |
 
 Claude Code で以下を実行するとインストールできます。
 
@@ -349,6 +349,7 @@ consulting-toolkit-800/
         │   ├── project-proposal/
         │   ├── desk-research/
         │   ├── meeting-minutes-creator/
+        │   ├── report-revision/
         │   ├── subagent-creator/
         │   ├── chart-generator-guide/
         │   ├── image-generator-guide/
