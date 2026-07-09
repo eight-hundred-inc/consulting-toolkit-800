@@ -24,7 +24,7 @@ action_label:
 
 header_row:
   display: grid
-  grid_template_columns: "32px 1fr 100px 100px"
+  grid_template_columns: "32px 1fr 120px 90px"
   gap: 16px
   padding: "8px 0"
   border_bottom: "2px solid #CCCCCC"
@@ -40,7 +40,7 @@ action_rows:
   count: 4〜5
   each:
     display: grid
-    grid_template_columns: "32px 1fr 100px 100px"
+    grid_template_columns: "32px 1fr 120px 90px"
     gap: 16px
     padding: "10px 0"
     border_bottom: "1px solid #F0F0F0"

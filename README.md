@@ -106,7 +106,7 @@ Claude Code のプラグインとしてインストールします。OS・環境
 | [subagent-creator](plugins/consulting-toolkit/skills/subagent-creator/SKILL.md) | SubAgent（エージェント定義）を作成するガイド。Skillが適切かSubAgentが適切かを判断し、適切な方を作成する | 「エージェントを作成して」「SubAgentを作って」 |
 | [chart-generator-guide](plugins/consulting-toolkit/skills/chart-generator-guide/SKILL.md) | matplotlibによるデータチャート生成ガイド。ブランドパレット対応、PNG+SVG二重出力。棒・レーダー・積み上げ等7パターンのテンプレート付き | image-creatorサブエージェント経由 |
 | [image-generator-guide](plugins/consulting-toolkit/skills/image-generator-guide/SKILL.md) | HTML+CSSによる構造化図解の設計ガイド。イラスト・アート系は画像生成プロンプトを返却。image-creatorサブエージェントから読み込まれる | image-creatorサブエージェント経由 |
-| [html-artifact](plugins/consulting-toolkit/skills/html-artifact/SKILL.md) | Markdown を業務文書スタイルの自己完結 HTML（縦長文書 / 16:9 スライドデッキ）に変換。30 コンポーネント＋8 図解＋作り込み図版。構成 MD のパターン指定があればスケルトンに従う。生成のみ（公開は html-publish、PPTX 化はブランド pptx へ） | 「HTML にして」「16:9 スライドにして」「ブラウザでめくれるプレゼンを作って」 |
+| [html-artifact](plugins/consulting-toolkit/skills/html-artifact/SKILL.md) | Markdown を業務文書スタイルの自己完結 HTML（縦長文書 / 16:9 スライドデッキ）に変換。30 コンポーネント＋8 図解＋作り込み図版。構成 MD のパターン指定＋図版指示で構造を組む（スケルトン HTML は比率採寸の任意参照）。生成のみ（公開は html-publish、PPTX 化はブランド pptx へ） | 「HTML にして」「16:9 スライドにして」「ブラウザでめくれるプレゼンを作って」 |
 | [slide-pattern-creator](plugins/consulting-toolkit/skills/slide-pattern-creator/SKILL.md) | スライド1枚のコンテンツエリア構造（レイアウトパターン）の正本。画像・PPTX からパターンを言語化した定義 MD ＋グレースケール・スケルトン HTML を生成し、`library/` に蓄積（同梱 136 パターン） | 「スライドパターンを抽出して」「SLIDE-PATTERN を生成して」 |
 | [circleback-meeting-minutes](plugins/consulting-toolkit/skills/circleback-meeting-minutes/SKILL.md) | Circleback MCP から過去1週間の会議を取得し、プロジェクト関連を自動分類して議事録 MD を一括生成。複数件は並列処理 | 「Circlebackから議事録を作って」「先週の会議の議事録を作成して」 |
 
@@ -191,20 +191,22 @@ Phase 2: 分析・とりまとめ
 | 層 | 担当 | 責務 |
 |---|---|---|
 | 1 内容構成 | `slide-structure-designer` | 1 スライド 1 メッセージの構成 MD。各スライドに `パターン指定: SLIDE-PATTERN-{name}` を割り当てる |
-| 2 レイアウトパターン | `slide-pattern-creator` / `library` | **コンテンツエリアの構造の正本**（structure YAML ＋スケルトン HTML） |
+| 2 レイアウトパターン | `slide-pattern-creator` / `library` | **コンテンツエリアの構造の正本**（structure YAML ＋スケルトン HTML）。html-artifact は既定でパターン名＋図版指示に従い、スケルトン HTML は比率採寸の任意参照 |
 | 3 スライドマスター | ブランド pptx スキル（マスター選択式）／ html-artifact テーマ | 表紙・タイトル/メッセージ行・フッター・サイズ・フォント・配色トークンのみ |
-| 4 実装 | `html-artifact` ／ `image-creator` ／ ブランド pptx | パターン（構造）×マスター（スキン）に従って出力 |
+| 4 実装 | `html-artifact`（主経路）／ ブランド pptx ／ image-creator（限定用途） | パターン（構造）×マスター（スキン）に従って出力 |
 
 ```
-① スライド構成 MD            ②〜④ 実装（いずれも 2 層のパターンに従う）
-  slide-structure-designer ──┬──▶ html-artifact（16:9 HTML デッキ・作り込み図版）
-  ＋ パターン割当              ├──▶ image-creator（HTML→PNG 画像先行 → PPTX）
-                             └──▶ ブランド pptx（ネイティブ・編集可能 PPTX。配色をブランド置換）
+① スライド構成 MD            ②〜③ 実装（いずれも 2 層のパターンに従う）
+  slide-structure-designer ──┬──▶ html-artifact（16:9 HTML デッキ・作り込み図版）＝主経路
+  ＋ パターン割当              └──▶ ブランド pptx（ネイティブ・編集可能 PPTX。配色をブランド置換）
+                     （限定用途）┄▶ image-creator（HTML→PNG 画像先行 → PPTX）
 ```
 
 - **2 層（パターン）が構造の正本**。html-artifact の 30 コンポーネント・8 図解や diagram-components は「スライド 1 枚の中の部品・図版内部構造」を担い、スライド全体のレイアウトは扱わない
+- **html-artifact はパターン名＋図版指示で構造を組み、スケルトン HTML は比率の採寸源として任意参照する**（実験4で、スケルトン HTML 未読でも構図維持・品質ほぼ同等＝差 0.1 前後・入力トークン約半減と確認）。優先順位は 構成 MD 構図 ＞ 図版指示 ＞ HTML 寸法採寸
+- **image-creator の画像先行経路は限定用途**（ビジュアル探索・画像納品時のみ。実験3・4で最も重く html-artifact で代替可能）。ただし成果物への図解・データチャート（matplotlib）の PNG 埋め込みは image-creator の本来の役割で、html-artifact が扱わない実数値チャートの唯一の生成経路
 - パターン指定がないスライドは従来どおり構図の自由記述で動く（後方互換）
-- ①から②③④のどれに渡してもよい
+- ①から②③のどれに渡してもよい
 
 ---
 

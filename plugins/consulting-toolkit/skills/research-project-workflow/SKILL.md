@@ -37,13 +37,14 @@ Phase 2: 分析・とりまとめ
 Step 3（提案用）・Step 11（報告用）が出力するスライド構成 MD は、必要に応じて HTML スライドや PPTX へ実体化する（11 ステップの外側・任意工程）。スライド生成は **内容構成・レイアウトパターン・スライドマスター・実装** の 4 層に分離されており、構成 MD の `パターン指定: SLIDE-PATTERN-{name}` はどの実装経路でも共通に有効（詳細はリポジトリ README「スライド化フロー」を参照）。
 
 ```
-スライド構成 MD（＋パターン割当）──┬─▶ html-artifact（16:9 HTML デッキ・作り込み図版）
-                                 ├─▶ image-creator（HTML→PNG 画像先行 → PPTX 配置）
+スライド構成 MD（＋パターン割当）──┬─▶ html-artifact（16:9 HTML デッキ・作り込み図版）＝主経路
                                  └─▶ ブランド pptx スキル（ネイティブ・編集可能 PPTX ※外部スキル）
+     （限定用途）                 ┄▶ image-creator（HTML→PNG 画像先行 → PPTX 配置）
 ```
 
-- **html-artifact**：ブラウザ投影・デザイン作り込み確認用の 16:9 HTML デッキに変換する
+- **html-artifact**：ブラウザ投影・デザイン作り込み確認用の 16:9 HTML デッキに変換する（既定の主経路）
 - **ブランド pptx**：納品形式が PPTX のとき。html-artifact の HTML デッキを「デザイン見本」として渡し、レイアウト・配色・図版を再現させることもできる
+- **image-creator（限定用途）**：ビジュアルの事前合意・探索や、画像そのものを納品したいときのみ。実験3・4で「品質は高いが最も重く、html-artifact でほぼ代替可能」と確認済みのため、通常のスライド化では使わない。なお成果物への図解・データチャート埋め込みは別役割（下記「連携スキル・SubAgent」参照）
 - 構成 MD からどの経路に直接渡してもよい（HTML を挟むかは案件の要否で判断）
 
 ## プロジェクト種類
@@ -74,7 +75,7 @@ Step 3（提案用）・Step 11（報告用）が出力するスライド構成 
 | Step 7 | `interview-minutes-creator` (Skill) | インタビュー議事録作成 |
 | Step 9 | `desk-researcher` (SubAgent) → `desk-research` (Skill) | ギャップ補完のデスクリサーチ |
 | Step 10 | `integrated-analysis-creator` (Skill) | 統合分析・最終報告書作成 |
-| 任意のステップ | `image-creator` (SubAgent) → `image-generator-guide` (Skill) | 図解・画像生成（成果物のビジュアル化が必要な場合） |
+| 任意のステップ | `image-creator` (SubAgent) → `image-generator-guide` / `chart-generator-guide` (Skill) | 成果物（報告書・提案書）への **構造化図解・データチャート（matplotlib）の PNG 埋め込み**。html-artifact が扱わない実数値チャート（棒・レーダー・積み上げ等）の唯一の生成経路。※スライド全体の画像先行生成は上記「スライド化フロー」の限定用途を参照 |
 | 全ステップ | `quality-reviewer` (SubAgent) | レビューゲートでの品質チェック |
 
 ### スキル呼び出し手順
