@@ -1,6 +1,6 @@
 ---
 name: slide-pattern-creator
-description: スライドの画像・ファイルからレイアウトパターンを抽出し、SLIDE-PATTERN-{name}.mdとスケルトンHTMLを生成する。「スライドパターンを抽出して」「スライドパターンを作って」「SLIDE-PATTERNを生成して」「slide-pattern-creator」と言われたときに使用する。パターンライブラリ（SLIDE-PATTERN-INDEX.md と各パターン一式）はプラグインに同梱されており、実行時はプラグインcache側を参照する。新規パターンはワークスペースのソース側 library に書き込み、/release-toolkit で配布する。
+description: パターンライブラリの保守用スキル（低頻度・明示起動のみ。ライブラリ本体は html-artifact / image-creator が実行時に参照する現役資産）。スライドの画像・ファイルからレイアウトパターンを抽出し、SLIDE-PATTERN-{name}.mdとスケルトンHTMLを生成する。「スライドパターンを抽出して」「スライドパターンを作って」「SLIDE-PATTERNを生成して」「slide-pattern-creator」と言われたときに使用する。パターンライブラリ（SLIDE-PATTERN-INDEX.md と各パターン一式）はプラグインに同梱されており、実行時はプラグインcache側を参照する。新規パターンはワークスペースのソース側 library に書き込み、/release-toolkit で配布する。
 ---
 
 # slide-pattern-creator

@@ -107,10 +107,10 @@
 
 ### Phase 0: 提案
 - [ ] Step 1: 論点・仮説の設計 ← 現在 [AI]
-- [ ] Step 2: 提案書作成 [AI] → interview-research-proposal
+- [ ] Step 2: 提案書作成 [AI] → project-proposal（調査型）
 - [ ] Step 3: 提案用スライド構成設計 [AI] → slide-structure-designer
 - [ ] Step 4: インタビューガイド作成 [AI] → interview-guide-creator
-- [ ] Step 5: 最終報告書骨子案作成 [AI] → report-outline-creator
+- [ ] Step 5: 最終報告書骨子案作成 [AI] → integrated-analysis-creator（骨子設計モード）
 
 ### Phase 1: 調査
 - [ ] Step 6: インタビュー対象者選定 [AI] → interview-candidate-selector
@@ -120,7 +120,7 @@
 - [ ] Step 9: デスクリサーチ [AI → SubAgent] → desk-researcher
 
 ### Phase 2: 分析・とりまとめ
-- [ ] Step 10: 最終報告書作成 [AI] → integrated-analysis-creator
+- [ ] Step 10: 最終報告書作成 [AI] → integrated-analysis-creator（本文執筆モード）
 - [ ] Step 11: 報告用スライド構成設計 [AI] → slide-structure-designer
 
 ## 成果物リンク
@@ -166,7 +166,7 @@
 
 ### Phase 0: 提案
 - [x] Step 1: 論点・仮説の設計 [AI] ✓ 2026-01-28
-- [x] Step 2: 提案書作成 [AI] → interview-research-proposal ✓ 2026-01-28
+- [x] Step 2: 提案書作成 [AI] → project-proposal（調査型） ✓ 2026-01-28
 - [x] Step 3: 提案用スライド構成設計 [AI] → slide-structure-designer ✓ 2026-01-29
 - [ ] Step 4: インタビューガイド作成 ← 現在 [AI] → interview-guide-creator
 ...

@@ -3,32 +3,32 @@
 > 下表で「✓」が付いたスキルのインライン埋め込み先を**連動して更新すること**
 > （埋め込み先は原則 SKILL.md。ただし slide-structure-designer は references/writing-rules.md 側に全文がある）。
 >
-> | 原則 | slide-structure-designer | integrated-analysis-creator | interview-research-proposal | project-proposal |
-> |---|:---:|:---:|:---:|:---:|
-> | 原則1 読み手はクライアント | ✓ | ✓ | ✓ | ✓ |
-> | 原則2 具体性と定量化 | ✓ | ✓ | ✓ | ✓ |
-> | 原則3 So What? | ✓ | ✓ | ✓ | ✓ |
-> | 原則4 ファクトの正確性（出典URL必須） | ✓ | ✓ | — | — |
-> | 原則5 前提知識に依存しない | ✓ | ✓ | ✓ | ✓ |
-> | 原則6 意思決定に必要なものだけ | ✓ | ✓ | ✓ | ✓ |
+> | 原則 | slide-structure-designer | integrated-analysis-creator | project-proposal |
+> |---|:---:|:---:|:---:|
+> | 原則1 読み手はクライアント | ✓ | ✓ | ✓ |
+> | 原則2 具体性と定量化 | ✓ | ✓ | ✓ |
+> | 原則3 So What? | ✓ | ✓ | ✓ |
+> | 原則4 ファクトの正確性（出典URL必須） | ✓ | ✓ | — |
+> | 原則5 前提知識に依存しない | ✓ | ✓ | ✓ |
+> | 原則6 意思決定に必要なものだけ | ✓ | ✓ | ✓ |
 >
 > **原則4 の「出典URL必須」要件は最終成果物（最終報告書・報告スライド）にのみ適用する。**
-> 提案書スキル（interview-research-proposal / project-proposal）は調査前段階で
+> 提案書スキル（project-proposal）は調査前段階で
 > ハードファクトが少ないため、出典URL必須要件はインライン埋め込みの対象外とする
 > （原則4 のうち「捏造禁止・不明は不明と明記」部分は提案書にも適用される）。
 >
 > **AI 典型表現ブロックリスト（禁止ワード・赤旗）の正本**は `integrated-analysis-creator/SKILL.md` の品質チェックリスト E 節。
 > slide-structure-designer（SKILL.md の表現の赤旗＋references/quality-checklist.md の F）と
-> interview-research-proposal / project-proposal（references/quality-playbook.md の禁止ワード）はそのサブセットにあたる。
+> project-proposal（references/quality-playbook.md の禁止ワード）はそのサブセットにあたる。
 > ブロックリストに項目を追加する場合は E 節へ追加したうえで、各サブセットへの反映要否を判断すること。
 >
 > 末尾の「**提出前最終検査基準**」節は例外的にインライン埋め込みせず、quality-reviewer エージェントの
 > 提出前最終検査モードから直接参照される。
 >
 > **原則7（NG語彙・言い換え辞書）・原則8（メッセージ・クリスタライズ規範）はインライン埋め込みしない。**
-> 文章を生成するスキル（slide-structure-designer / report-outline-creator / integrated-analysis-creator /
-> project-proposal / interview-research-proposal / meeting-minutes-creator / interview-minutes-creator /
-> html-artifact / report-revision / desk-research）が起草時にこのファイルを直接参照する。辞書に語を追加する
+> 文章を生成するスキル（slide-structure-designer / integrated-analysis-creator /
+> project-proposal / meeting-minutes-creator / interview-minutes-creator /
+> html-artifact / desk-research / interview-guide-creator / interview-candidate-selector）が起草時にこのファイルを直接参照する。辞書に語を追加する
 > ときは本ファイルのみ更新すればよい（各スキルへの再反映は不要）。
 
 # 共通ライティング原則

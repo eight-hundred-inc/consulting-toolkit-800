@@ -59,9 +59,9 @@
 
 ## 代替カラーテーマ
 
-デフォルトはテラコッタ（warm consulting）。ドキュメント種別やトーンに応じて以下の代替パレットへ差し替えてよい。**変更時は `:root` 内の `--accent` / `--accent-soft` / `--accent-bg` の3変数のみを置き換える**。それ以外の色は触らない。
+デフォルトは Mono。Vertical Document / Slide Deck format いずれも既定はこの 1 つ。他 4 テーマ（Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合の任意の代替パレット。**変更時は `:root` 内の `--accent` / `--accent-soft` / `--accent-bg` の3変数のみを置き換える**（Mono との入れ替えは `--bg` / `--ink` / `--rule` 等の構造色も異なるため対象外。詳細は Theme 5 参照）。それ以外の色は触らない。
 
-### Theme 1: Terracotta（デフォルト・warm consulting）
+### Theme 1: Terracotta（warm consulting）
 
 ```css
 --accent: #9d3617;
@@ -69,7 +69,7 @@
 --accent-bg: #f5e8de;
 ```
 
-**向いている文書**：企画書、提案書、戦略メモ。コンサル系の温かみのある印象。
+コンサル系の温かみのある印象。
 
 ### Theme 2: Navy（formal corporate）
 
@@ -79,7 +79,7 @@
 --accent-bg: #e3eaf3;
 ```
 
-**向いている文書**：金融系・大企業向け正式文書、意思決定文書、規程・通達。冷静で信頼感のある印象。
+冷静で信頼感のある印象。
 
 ### Theme 3: Forest（academic / sustainability）
 
@@ -89,7 +89,7 @@
 --accent-bg: #e2ebe1;
 ```
 
-**向いている文書**：調査レポート、学術寄りの分析、ESG・サステナビリティ系。落ち着いた知的な印象。
+落ち着いた知的な印象。
 
 ### Theme 4: Charcoal（minimal / modernist）
 
@@ -99,9 +99,9 @@
 --accent-bg: #ebe9e4;
 ```
 
-**向いている文書**：テクニカル文書、システム提案、議事メモ。ニュートラルでアクセントを目立たせない印象。
+ニュートラルでアクセントを目立たせない印象。
 
-### Theme 5: Mono（Vertical Document 用ブロック）
+### Theme 5: Mono（デフォルト・Vertical Document 用ブロック）
 
 ```css
 --bg: #ffffff;            /* 純白（紙質クリームではなく純白） */
@@ -117,7 +117,7 @@
 --accent-bg: #1a1a1a;     /* 黒帯反転用（白文字on黒地） */
 ```
 
-**向いている文書**：投資家ピッチ、コンサル提案書、McKinsey/BCG的なフォーマル提案、ハイステークス資料。黒帯反転・巨大数字・大きい余白で構造を見せるスタイル。**他テーマと違い `--accent-bg` は黒**（Eyebrow Bar・Hero Number等の黒帯反転で使う）。
+黒帯反転・巨大数字・大きい余白で構造を見せるスタイル。**他テーマと違い `--accent-bg` は黒**（Eyebrow Bar・Hero Number等の黒帯反転で使う）。
 
 **Mono テーマの追加ルール**：
 - `--accent-bg` が黒（`#1a1a1a`）であるため、Insight Callout など「アクセント背景にテキスト」のコンポーネントは Mono テーマでは反転表示（白文字on黒地）になる。読みづらい場合は `.insight.flat` 等の代替バリアントで `background: var(--bg-alt)` を使う
@@ -128,18 +128,7 @@
 
 ### テーマ選定のガイドライン
 
-出力形式（Output Format）で既定テーマが分かれる。
-
-**Vertical Document（縦長文書）**：
-- **迷ったら Terracotta（デフォルト）**
-- **公的・金融・大企業向け** → Navy
-- **学術・調査・ESG** → Forest
-- **テクニカル・無機質** → Charcoal
-- **投資家ピッチ・コンサル提案書** → Mono
-
-**Slide Deck format（16:9 スライド）**：
-- **既定は Mono**（参照デザイン踏襲・投影前提のため純白＋モノクロが安定）
-- ブランド色を敢えて効かせたい／社内カジュアル用途などは Terracotta / Navy / Forest / Charcoal を選ぶ
+**既定は Mono**。Vertical Document / Slide Deck format のいずれも既定はこの 1 つ（参照デザイン踏襲・純白＋モノクロで安定するため）。他 4 テーマ（Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合に選ぶ任意の代替パレット。テーマは内容・出力形式と直交した独立軸であり、用途に応じた使い分けは規定しない。
 
 **共通ルール**：**複数テーマを混ぜない**。1 ドキュメントで 1 テーマ
 
