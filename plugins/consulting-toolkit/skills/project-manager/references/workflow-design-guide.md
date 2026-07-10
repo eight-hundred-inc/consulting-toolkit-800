@@ -46,16 +46,15 @@ AIが判断しきれない意思決定はステップの前後に人間レビュ
 
 | スキル | 用途 | 入力 | 出力 |
 |--------|------|------|------|
-| `interview-research-proposal` | 調査プロジェクトの提案書作成 | 与件情報 | 提案書（論点・仮説・見積り） |
-| `project-proposal` | 汎用プロジェクトの提案書作成（調査以外） | 与件情報 | 提案書（論点・アプローチ・見積り） |
+| `project-proposal` | 提案書作成（冒頭で調査型／汎用型を判定） | 与件情報 | 提案書（論点・仮説またはアプローチ・見積り） |
 | `interview-guide-creator` | インタビューガイド作成 | 提案書、調査結果 | 質問リスト（対象者タイプ別） |
 | `interview-candidate-selector` | インタビュー対象者の選定・評価 | インタビューガイド、候補者リスト | 優先順位付き推奨候補リスト |
 | `interview-minutes-creator` | インタビュー文字起こしから議事録作成 | 文字起こし、質問リスト | 構造化された議事録 |
-| `report-outline-creator` | 報告書骨子の設計 | 提案書、調査結果 | 章立て・スライド構成 |
+| `integrated-analysis-creator`（骨子設計モード） | 報告書骨子の設計 | 提案書、調査結果 | 章立て・スライド構成 |
 | `desk-research` | デスクトップリサーチ実行 | 論点・仮説 | 調査レポート、仮説検証シート |
 | `meeting-minutes-creator` | 会議メモから議事録作成 | 会議メモ | 議事録（アジェンダ・ToDo・合意事項） |
 | `slide-structure-designer` | スライド構成設計（提案用・報告用） | ソースドキュメント | スライド構成MD（タイトル・メッセージ・ボディの3層構造） |
-| `integrated-analysis-creator` | 調査結果の統合分析・最終報告書作成 | 提案書、報告書骨子、調査レポート、議事録 | 最終報告書MD |
+| `integrated-analysis-creator`（本文執筆モード） | 調査結果の統合分析・最終報告書作成 | 提案書、報告書骨子、調査レポート、議事録 | 最終報告書MD |
 | `image-generator-guide` | 図解・画像生成ガイド（HTML+CSS→PNG。イラスト系は画像生成プロンプト返却。image-creator SubAgent から読み込まれる） | ソースドキュメント | PNG画像 or 画像生成プロンプト |
 | `chart-generator-guide` | matplotlib データチャート生成ガイド（image-creator SubAgent から読み込まれる） | データ・伝えたいメッセージ | PNG+SVG チャート |
 | `html-artifact` | Markdown を業務文書スタイルの自己完結 HTML（縦長文書 / 16:9 スライドデッキ）に変換 | Markdown（スライド構成 MD 含む） | 自己完結 HTML |

@@ -12,10 +12,10 @@ description: 調査プロジェクトのワークフロー定義。3フェーズ
 ```
 Phase 0: 提案
   1. 論点・仮説の設計 [AI → SubAgent] → desk-researcher            review_level: full
-  2. 提案書作成 [AI] → interview-research-proposal                review_level: full
+  2. 提案書作成 [AI] → project-proposal（調査型）                  review_level: full
   3. 提案用スライド構成設計 [AI] → slide-structure-designer        review_level: light
   4. インタビューガイド作成 [AI] → interview-guide-creator          review_level: full
-  5. 最終報告書骨子案作成 [AI] → report-outline-creator            review_level: full
+  5. 最終報告書骨子案作成 [AI] → integrated-analysis-creator（骨子設計モード） review_level: full
 
 Phase 1: 調査
   6. インタビュー対象者選定 [AI] → interview-candidate-selector     review_level: light
@@ -25,7 +25,7 @@ Phase 1: 調査
   9. デスクリサーチ [AI → SubAgent] → desk-researcher (gap-filling)   review_level: light
 
 Phase 2: 分析・とりまとめ
-  10. 最終報告書作成 [AI] → integrated-analysis-creator              review_level: full
+  10. 最終報告書作成 [AI] → integrated-analysis-creator（本文執筆モード） review_level: full
   11. 報告用スライド構成設計 [AI] → slide-structure-designer         review_level: light
 
 ※ review_level: full → quality-reviewer SubAgent + ユーザー確認
@@ -67,14 +67,14 @@ Step 3（提案用）・Step 11（報告用）が出力するスライド構成 
 | ステップ | スキル / SubAgent | 用途 |
 |----------|-------------------|------|
 | Step 1 | `desk-researcher` (SubAgent) → `desk-research` (Skill) | 論点・仮説設計の中で探索的調査・仮説検証調査を実行 |
-| Step 2 | `interview-research-proposal` (Skill) | 提案書作成 |
+| Step 2 | `project-proposal` (Skill・調査型) | 提案書作成 |
 | Step 3, 11 | `slide-structure-designer` (Skill) | スライド構成設計（提案用・報告用） |
 | Step 4 | `interview-guide-creator` (Skill) | インタビューガイド作成 |
-| Step 5 | `report-outline-creator` (Skill) | 報告書骨子作成 |
+| Step 5 | `integrated-analysis-creator` (Skill・骨子設計モード) | 報告書骨子作成 |
 | Step 6 | `interview-candidate-selector` (Skill) | インタビュー対象者選定・評価 |
 | Step 7 | `interview-minutes-creator` (Skill) | インタビュー議事録作成 |
 | Step 9 | `desk-researcher` (SubAgent) → `desk-research` (Skill) | ギャップ補完のデスクリサーチ |
-| Step 10 | `integrated-analysis-creator` (Skill) | 統合分析・最終報告書作成 |
+| Step 10 | `integrated-analysis-creator` (Skill・本文執筆モード) | 統合分析・最終報告書作成 |
 | 任意のステップ | `image-creator` (SubAgent) → `image-generator-guide` / `chart-generator-guide` (Skill) | 成果物（報告書・提案書）への **構造化図解・データチャート（matplotlib）の PNG 埋め込み**。html-artifact が扱わない実数値チャート（棒・レーダー・積み上げ等）の唯一の生成経路。※スライド全体の画像先行生成は上記「スライド化フロー」の限定用途を参照 |
 | 全ステップ | `quality-reviewer` (SubAgent) | レビューゲートでの品質チェック |
 

@@ -1,6 +1,6 @@
 # 出力フォーマット定義
 
-report-revision スキルの各 Step で出力するファイルのフォーマット。ファイル命名は `../../_shared/versioning-conventions.md` に従う。
+integrated-analysis-creator スキルの改訂モードの各 Step で出力するファイルのフォーマット。ファイル命名は `../../_shared/versioning-conventions.md` に従う。
 
 ---
 
