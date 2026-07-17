@@ -267,13 +267,13 @@ html, body{
   </div>
   <div class="slide-foot">
     <span class="doc-id">DOC-2026-001</span>
-    <span class="pg"><b>34</b> / 34 · ご討議に感謝いたします</span>
+    <span class="pg"><b>34</b> / 34</span>
   </div>
 </section>
 ```
 
 - Summary はスライド全体で **1 枚だけ**置く（複数置かない）
-- 議論喚起・謝辞を `.pg` 右側に付け加えるのは可
+- `.pg` 右側は空欄でよい（「ご清聴に感謝いたします」等の定型の締め文句は付けない）
 
 ## 作り込み図版（crafted figures / fig-canvas）
 
