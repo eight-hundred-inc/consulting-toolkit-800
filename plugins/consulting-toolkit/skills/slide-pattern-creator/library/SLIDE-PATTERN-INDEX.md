@@ -1,7 +1,7 @@
 # SLIDE-PATTERN-INDEX
 
-スライドパターンの一覧です。`slide-structure-designer` は構成MD作成時にこのファイルを参照して各スライドにパターンを割り当てます。下流実装（html-artifact / image-creator / branded-pptx）はパターン指定を受けて各フォルダの定義MD・スケルトンHTMLに従います。
-新しいパターンを追加した際は、該当カテゴリのテーブル末尾に追記してください（書き込みは必ずプラグインのソース側 `~/Workspace/consulting-toolkit/...` に行い、`/release-toolkit` で配布する）。
+スライドパターンの一覧です。パターンの割付は `html-artifact` のレイアウト割付（SKILL.md step 5）が軽量版 `SLIDE-PATTERN-INDEX-COMPACT.md` を読んで行い、詳細確認に本ファイルを参照します。下流実装（html-artifact / image-creator / branded-pptx）は割付（または構成MDの `パターン指定:`）を受けて各フォルダの定義MD・スケルトンHTMLに従います。
+新しいパターンを追加した際は、該当カテゴリのテーブル末尾に追記してください（書き込みは必ずプラグインのソース側 `~/Workspace/consulting-toolkit/...` に行い、`/release-toolkit` で配布する）。追記したら、同ディレクトリの `SLIDE-PATTERN-INDEX-COMPACT.md`（html-artifact のレイアウト割付が読む軽量版）にも同じパターンの 1 行を追加して同期を保つ。
 
 パターン数：136
 
