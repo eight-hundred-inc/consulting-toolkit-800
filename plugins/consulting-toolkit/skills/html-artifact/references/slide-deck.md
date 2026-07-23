@@ -1,6 +1,6 @@
 # Slide Deck — Slide Deck format 専用シェル仕様
 
-16:9 HTML スライドデッキ（Slide Deck format）のフレーム・プレゼンモード・印刷対応仕様。本文コンポーネント（`.title-bar`, `.message`, `.body-list`, `.insight`, `.scope-panel`, `.fact-list`, `.kpi-row` 等）と配色テーマは触らず、`components.md` / `design-system.md` のものをそのまま使う。
+16:9 HTML スライドデッキ（Slide Deck format）のフレーム・プレゼンモード・印刷対応仕様。本文コンポーネントの CSS はスライド専用部品（`.title-bar`, `.message`, `.body-list`, `.fact-list`, `.insight`（`.txt` 形）, `.scope`（スライド簡易形）等）も構造化データコンポーネント #10〜21（`.kpi-row`, `.state-grid`, `table.report-table`, `.prio-list`, `.budget-grid`, `.qa-grid`, `.roadmap-wrap`, `.proposal-card`, `.flow-margin`, `.scope-panel` 等）も `assets/template-slides.html` に搭載済み。仕様・利用ルール・配色テーマは `components.md` / `design-system.md` に従い、独自に再スタイルしない。
 
 ## 設計思想
 
@@ -318,6 +318,26 @@ per-figure 寸法はデッキの `<style>` に追記：
 - **絶対配置図版**：ネイティブ高 × scale を**図版領域高（≈440px）に近づける**よう設計する（小さく作らない）。
 - 「図版領域を使い切る」は diagram-components.md の作図文法 step 6・検証チェックリストの必須項目。`fig-slide` はそれをシェル側で担保する受け皿。
 
+### 非図版スライドの縦充填は `vfill` で行う（SKILL.md step 5「縦充填」の標準手段）
+
+図版を載せない通常の Content スライドは、そのままではコンテンツが上に積まれる（上重心）。SKILL.md step 5 の縦充填（下部に約 120px 超の空白を残さない）は、まず**行高・パディング・フォント・要素間マージンのスケールアップ**で領域を使い切り、それでも残る縦の余りを template-slides.html 標準搭載の `vfill` で吸収する。
+
+```html
+<section class="slide vfill" id="sN">
+  <div class="title-bar"> ... </div>
+  <p class="message"> ... </p>
+  <div class="vgrow">
+    <!-- 本文ブロック（body-list / kpi-row / state-grid 等）をここに集める -->
+  </div>
+  <div class="slide-foot"> ... </div>
+</section>
+```
+
+- `vfill` はスライドを縦 flex 化し、`.vgrow` に残りの縦領域を与えて**縦中央寄せ**にする（fig-slide の非図版版）
+- 本文ブロックが複数あり、ブロック間の余白を均等に広げたい場合は `<div class="vgrow spread">`
+- 表紙（cover）・章扉（divider）・まとめ（summary）の上重心にも `vfill`＋`.vgrow` が使える（divider は自前で縦中央のため不要）
+- 図版スライドには `vfill` でなく `fig-slide` を使う（併用しない）
+
 ### 印刷・サムネイルでのクリップ注意
 
 `transform: scale` は見た目を縮めるがレイアウト箱は縮まないため、`.fig-wrap{overflow:hidden}` が「視覚的には収まる」図版をクリップしうる。`.fig-canvas` の scale は `.slide` のビューポート scale、さらにサムネイルの `scale(0.125)` と三重に入れ子になる。**ライブ・印刷（PDF）・サムネイルの 3 経路で確認**し、`@media print` が `.slide` の transform だけを解除して子孫 `.fig-canvas` の scale を消さないことを確かめる。
@@ -333,7 +353,7 @@ per-figure 寸法はデッキの `<style>` に追記：
 .slide .minor-head{ font-size: 14.5px }
 .slide .insight .txt{ font-size: 15.5px; line-height: 1.7 }
 .slide .fact-list{ font-size: 13.5px }
-.slide table.tb{ font-size: 13px }
+.slide table.report-table{ font-size: 13px }
 .slide .scope ul{ font-size: 14.5px; line-height: 1.75 }
 .slide .summary ul li{ font-size: 17px; line-height: 1.7 }
 ```
