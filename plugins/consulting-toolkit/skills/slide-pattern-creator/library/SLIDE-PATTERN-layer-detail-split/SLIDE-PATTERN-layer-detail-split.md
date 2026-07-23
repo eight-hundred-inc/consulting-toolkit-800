@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-layer-detail-split
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** layer-detail-split
@@ -12,21 +12,20 @@
 ## Structure（構造）
 コンテンツエリアを左右に分割し、左カラム（約1/3）に複数の層を縦に積んだ構造図を、右カラム（約2/3）に各層と縦位置を揃えた詳細説明の行を配置する。左の層ボックスと右の説明行は必ず同じ高さ・同じ行数で揃え、視線が左右に往復したときに層と説明が1対1で対応するようにする。層は3〜6段を目安とし、下から上（または上から下）へ意味的な順序を持たせる。
 
-    structure:
-      layout: layer-detail-split
-      split: horizontal
-      columns:
-        - name: layer_stack
-          ratio: "1/3"
-          position: left
-          elements:
-            - 層ボックス（縦積み3〜6段。各段が1つの層）
-        - name: detail_rows
-          ratio: "2/3"
-          position: right
-          elements:
-            - 詳細行（層と縦位置を揃えた説明。層数と同数）
-      alignment: 左の各層ボックスと右の各詳細行は縦位置・行数を一致させる
+```yaml
+layout: layer-detail-split
+zones:
+  - role: layer_stack
+    width: "1/3"
+    position: left
+    content: 層ボックス（縦積み3〜6段。各段が1つの層）
+  - role: detail_rows
+    width: "2/3"
+    position: right
+    content: 詳細行（層と縦位置を揃えた説明。層数と同数）
+reading_order: 左（層ボックス、積み順）→ 右（対応する詳細行）
+notes: 左の各層ボックスと右の各詳細行は縦位置・行数を一致させる
+```
 
 ## Elements（各要素の役割）
 

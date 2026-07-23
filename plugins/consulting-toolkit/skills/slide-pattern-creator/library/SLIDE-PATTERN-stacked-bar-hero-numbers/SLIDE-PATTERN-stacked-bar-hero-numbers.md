@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-stacked-bar-hero-numbers
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** stacked-bar-hero-numbers
@@ -12,30 +12,22 @@
 ## Structure（構造）
 コンテンツエリアは左右2カラム（左約60%・右約40%、境界に縦罫線）で分割される。左カラムは「構成比セクション」と「補助データセクション」を縦に積み、構成比セクションは最大セグメントを示すブラケット注記→横積み上げ棒→凡例→補足説明文の順に並ぶ。右カラムはHero Number（大きな数値＋ラベル＋注記）を2つ縦に並べ、末尾に短い注記を置く。最下部には左右カラムをまたいで帰結コールアウト帯（結論ボックス＋示唆ボックスの2分割）を配置する。
 
-    structure:
-      layout: two-column-with-bottom-band
-      columns:
-        left:
-          width: 60%
-          type: chart+text
-          sections:
-            - bracket_annotation: 最大セグメントの構成比をブラケットで強調表示
-            - stacked_bar: 横積み上げ棒（3〜4セグメント）
-            - legend: 凡例（セグメント名＋数値）
-            - bar_note: 棒グラフの読み解きを補足する1文
-            - sub_block: 見出しラベル＋大きい数値＋補足テキストの小ブロック（構成比とは別の指標）
-        right:
-          width: 40%
-          type: hero-numbers
-          divider: left border
-          elements:
-            - hero_1: {label: 説明文, number: 大きな数値, unit: 単位}
-            - hero_2: {label: 説明文, number: 大きな数値, unit: 単位}
-            - footnote: 数値を補強する短い注記
-      bottom_band:
-        layout: two-box
-        left: { label: 帰結, style: 強調枠（太罫線）, content: 結論文＋根拠の説明 }
-        right: { label: 示唆, style: 塗りつぶし背景, content: 読み手への当てはめ・次の一手 }
+```yaml
+layout: two-column-with-bottom-band
+zones:
+  - role: intro
+    content: 導入文（このスライドで何を確認するかを1文で示す前置き）
+  - role: left_column
+    width: 60%
+    content: 構成比セクション（ブラケット注記→横積み上げ棒 3〜4セグメント→凡例→補足文）＋補助データブロック（見出しラベル＋大きい数値＋補足テキスト）
+  - role: right_column
+    width: 40%
+    content: Hero Number ×2（ラベル＋大きな数値＋単位）＋注記
+  - role: bottom_band
+    content: 帰結ボックス（結論文＋根拠）／示唆ボックス（読み手への当てはめ・次の一手）の2分割
+reading_order: 導入文 → 左カラム（ブラケット注記→積み上げ棒→凡例→補足文→補助データ） → 右カラム（Hero Number×2→注記） → 下部帯（帰結→示唆）
+notes: 左右カラムの境界に縦罫線を引く。帰結ボックスと示唆ボックスは視覚的に区別する。積み上げ棒のセグメントは3〜4個までに絞り、5個を超える場合は「その他」でまとめる
+```
 
 ## Elements（各要素の役割）
 

@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-four-step-card-flow
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,22 +12,24 @@
 
 コンテンツエリアはリード文（短い概要説明）エリアを上部に置き、その下に「タイムラインドット付き横線 ＋ 4カード横並び」の構造を配置する。タイムライン線は4枚のカードの上端付近を横断し、各カード上部のドットで接続位置を示す。カード内はSTEPラベル・大きな番号・ステップ名・区切り線・箇条書き詳細の構成。
 
-    structure:
-      layout: flow
-      lead_text: top
-      timeline:
-        type: horizontal-dot-line
-        position: above-cards
-      card_area:
-        direction: horizontal
-        card_count: 4
-        card_style: rounded-box
-        card_structure:
-          - step_label
-          - step_number_large
-          - step_name
-          - divider
-          - bullet_list
+```yaml
+layout: flow
+zones:
+  - role: lead-text
+    content: リード文（1〜2行）
+  - role: timeline
+    content: ドット付き横線（4カードの上端付近を横断）
+  - role: card
+    content: カード ×4（横並び）
+    elements:
+      - step_label
+      - step_number_large
+      - step_name
+      - divider
+      - bullet_list（2〜3行）
+reading_order: 上（リード文）→ タイムライン → カード（左 → 右）
+notes: カードは必ず4枚揃えること。タイムラインドットは各カード上部中央に配置し、横線との接続を示す
+```
 
 ## Elements（各要素の役割）
 

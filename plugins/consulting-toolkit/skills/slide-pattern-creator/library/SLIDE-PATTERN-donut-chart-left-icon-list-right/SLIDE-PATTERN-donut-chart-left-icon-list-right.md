@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-donut-chart-left-icon-list-right
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,27 +12,18 @@
 
 コンテンツエリアを左右に分割し、左にドーナツグラフ、右にアイコン付きリストを配置する。
 
-    structure:
-      layout: content-area-chart-left-list-right
-      padding: 16px 40px
-      gap: 24px
-      left-area:
-        width: 45%
-        align: center, center (flex)
-        elements:
-          - text-heading (font-size: 14px, bold, #555, text-align: center, 2行)
-          - donut-chart-svg (width: 160px, height: 160px, 4分割グレースケール)
-      right-area:
-        width: 55%
-        align: center (vertical flex)
-        elements:
-          - icon-list (4項目)
-          - each-row:
-              - icon-circle (width: 32px, height: 32px, #F0F0F0, border-radius: 50%)
-              - text-area:
-                  - item-heading (font-size: 13px, bold, #333)
-                  - item-description (font-size: 12px, #666)
-              - row-border-bottom: 1px solid #F0F0F0
+```yaml
+layout: content-area-chart-left-list-right
+zones:
+  - role: chart
+    width: 45%
+    content: テキスト見出し（中央揃え・2行）＋ドーナツグラフ（4分割）
+  - role: list
+    width: 55%
+    content: アイコン付きリスト 4項目（アイコン円＋項目見出し＋項目説明、行区切り線付き）
+reading_order: 左（テキスト見出し → ドーナツグラフ）→ 右（リスト項目を上から順に）
+notes: 左右エリアともに縦方向中央揃えで配置する
+```
 
 ## Elements（各要素の役割）
 

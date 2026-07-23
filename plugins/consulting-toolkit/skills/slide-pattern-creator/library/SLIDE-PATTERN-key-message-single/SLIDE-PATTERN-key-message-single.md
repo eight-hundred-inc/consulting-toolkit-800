@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-key-message-single
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,13 +12,19 @@
 
 コンテンツエリアを縦方向中央揃えで使用する。上区切り線→キーメッセージ→下区切り線→補足テキストの順で縦に積み上げる。
 
-    structure:
-      layout: content-area-centered
-      elements:
-        - divider-line-top (short, #CCCCCC, 60px)
-        - key-message (large, bold, centered, #333)
-        - divider-line-bottom (short, #CCCCCC, 60px)
-        - supplemental-text (small, muted, #888)
+```yaml
+layout: content-area-centered
+zones:
+  - role: content
+    position: center（縦方向中央揃え）
+    elements:
+      - divider-line-top（短い横線）
+      - key-message（大きく太字・中央揃え）
+      - divider-line-bottom（短い横線）
+      - supplemental-text（小さめ・控えめ）
+reading_order: 上から下（上区切り線→キーメッセージ→下区切り線→補足テキスト）
+notes: コンテンツ全体を縦方向中央に配置する
+```
 
 ## Elements（各要素の役割）
 

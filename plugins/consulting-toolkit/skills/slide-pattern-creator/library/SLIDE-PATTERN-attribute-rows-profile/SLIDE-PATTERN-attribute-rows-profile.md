@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-attribute-rows-profile
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** attribute-rows-profile
@@ -15,14 +15,16 @@
 ```yaml
 layout: repeating-attribute-rows
 subject: single   # 対象は1件
-areas:
-  - name: attribute-row
-    role: 属性ごとの行（繰り返し）
+zones:
+  - role: attribute-row
     repeat: 3-4
+    content: 属性ごとの行（繰り返し）
     columns:
       - attribute-label   # 左：属性の行ラベル（Product/Place/Promotion等）
       - image             # 中央：画像プレースホルダ
       - description       # 右：説明文
+reading_order: 各行を上から下（行内は左→中央→右）
+notes: 行ラベルの観点セットはスライド間で揃える。画像が用意できない行は中央列をプレースホルダのまま残すか、説明文を中央まで広げて2列構成にする
 ```
 
 ## Elements（各要素の役割）

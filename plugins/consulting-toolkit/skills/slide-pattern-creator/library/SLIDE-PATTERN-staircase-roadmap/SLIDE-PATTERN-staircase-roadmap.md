@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-staircase-roadmap
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,17 +12,16 @@
 
 コンテンツエリアに左下から右上へ向かう階段図形を配置する。各段（ステップ）の上部または内部にステップ番号・見出しを、段の上部に吹き出し/テキストエリアで詳細説明を配置する。X軸下部に期間ラベル（例：1ヶ月、3ヶ月など）を追加できる。
 
-    structure:
-      layout: staircase
-      steps: 4
-      direction: left-to-right (ascending)
-      step:
-        shape: filled-rectangle (progressive height)
-        label_position: above or inside
-        elements: [step-number, step-title, description-text]
-      timeline_bar:
-        position: bottom
-        elements: [period-labels]
+```yaml
+layout: staircase
+zones:
+  - role: staircase
+    content: 階段図形 ×4段（左から右へ段階的に高さが増す矩形）。各段にステップ番号・ステップ見出し（上部または内部）、説明テキスト（吹き出し/テキストエリア、2〜3行）
+  - role: timeline
+    content: 期間ラベル（下部X軸エリア）
+reading_order: 左 → 右（階段）／ 下部に期間ラベル
+notes: 各段の幅は均等でなくてもよい（期間に応じて調整可）。段の高さが低い左端は吹き出し形式で上部にテキストを配置する。
+```
 
 ## Elements（各要素の役割）
 

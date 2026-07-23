@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-closing-slide
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** closing-slide
@@ -13,53 +13,37 @@
 layout: closing-slide
 title_area: false
 content_area:
-  type: full_size
-  width: 960px
-  height: 540px
+  type: full-size
   direction: column
   align: center
   justify: center
-  background: "#FFFFFF"
-  elements:
-    - type: accent_line
-      width: 48px
-      height: 2px
-      color: "#CCCCCC"
-    - type: main_message
-      text: "ご清聴ありがとうございました"
-      font_size: 28px
-      font_weight: bold
-      color: "#333333"
-      text_align: center
-    - type: sub_message
-      text: "Thank you for your attention"
-      font_size: 14px
-      color: "#999999"
-      text_align: center
-    - type: divider
-      width: 320px
-      height: 1px
-      color: "#EEEEEE"
-    - type: presenter_info
-      font_size: 14px
-      color: "#555555"
-      text_align: center
-      content: "会社名 / 発表者名"
-    - type: contact_info
-      font_size: 12px
-      color: "#888888"
-      text_align: center
-      content: "メールアドレス・連絡先"
+zones:
+  - role: accent-line
+    width: 約5%
+    content: 装飾用の短い区切り線
+  - role: main-message
+    content: メインメッセージ（例："ご清聴ありがとうございました"）
+  - role: sub-message
+    content: サブメッセージ（英語併記、例："Thank you for your attention"）
+  - role: divider
+    width: 約33%
+    content: 区切り線
+  - role: presenter-info
+    content: 発表者情報（会社名 / 発表者名）
+  - role: contact-info
+    content: 連絡先情報（メールアドレス・連絡先）
+reading_order: 上から下へ（アクセント線 → メインメッセージ → サブメッセージ → 区切り線 → 発表者情報 → 連絡先情報）
+notes: 全要素は縦積みで中央揃え。タイトルエリアは使用しないフルサイズレイアウト
 ```
 
 ## Elements（各要素の役割）
 
 | 要素 | 役割 | 推奨テキスト量 |
 |------|------|--------------|
-| アクセント線 | 視覚的な区切り・洗練された印象を与える | 装飾（固定幅48px） |
+| アクセント線 | 視覚的な区切り・洗練された印象を与える | 装飾（幅約5%） |
 | メインメッセージ | お礼・締めくくりの主要メッセージ | 「ご清聴ありがとうございました」等 |
 | サブメッセージ | 英語併記でグローバル対応 | 英語訳1行 |
-| 区切り線 | メッセージと発表者情報を分離 | 固定幅320px |
+| 区切り線 | メッセージと発表者情報を分離 | 幅約33% |
 | 発表者情報 | 会社名・部署名・発表者名 | 1〜2行、30文字以内 |
 | 連絡先情報 | メールアドレス・URLなど | 1行、メール形式 |
 

@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-pie-chart-left-list-right
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,17 +12,16 @@
 
 コンテンツエリアを左右2カラムに分割する。左カラム（幅約45%）には円グラフまたはドーナツチャートを配置し、中央にキャッチアップ数値やラベルを表示する。右カラム（幅約55%）には各区分の色付きラベル・名称・数値・説明を縦に並べたリストを配置する。
 
-    structure:
-      layout: two-column
-      left_col_width: 45%
-      right_col_width: 55%
-      left:
-        type: pie-chart
-        variant: donut
-        center_label: optional
-      right:
-        type: legend-list
-        item: color-dot + label + value + description
+    layout: two-column
+    zones:
+      - role: chart
+        width: 45%
+        content: 円グラフ／ドーナツチャート（中央ラベルは任意）
+      - role: legend
+        width: 55%
+        content: 凡例リスト（カラードット＋ラベル＋数値＋説明）を縦に並べる
+    reading_order: 左 → 右
+    notes: 区分数は2〜6個が見やすい（7つ以上は「その他」にまとめる）。右カラムの凡例はグラフの色と対応させる
 
 ## Elements（各要素の役割）
 

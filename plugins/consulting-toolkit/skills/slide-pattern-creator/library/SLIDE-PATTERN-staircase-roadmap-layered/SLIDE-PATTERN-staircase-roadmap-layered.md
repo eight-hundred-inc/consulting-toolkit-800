@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-staircase-roadmap-layered
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,18 +12,18 @@
 
 コンテンツエリアは上部の箇条書き（サマリーポイント）エリアと、下部のビジュアルロードマップエリアで縦に分かれる。ロードマップエリアは、左下から右上に向かって高さが増す4つの台形矢印ブロックを横並びに配置し、各ブロックには年度ラベル・ステップ名・主要テキストを入れる。ブロック群の下には、右方向に伸びる複数の横長帯（累積レイヤー）を積み重ねて全フェーズを貫く施策・目標を示す。
 
-    structure:
-      layout: staircase-flow-with-layers
-      summary_bullets: top
-      staircase_area:
-        direction: left-bottom-to-right-top
-        step_count: 4
-        block_shape: trapezoid-arrow
-        year_label: above_each_block
-      layer_bands:
-        position: below_staircase
-        count: 3
-        direction: horizontal-right
+```yaml
+layout: staircase-flow-with-layers
+zones:
+  - role: summary
+    content: サマリー箇条書き（2〜3行）
+  - role: roadmap
+    elements:
+      - ステアケース矢印ブロック（台形形状 ×4、左下→右上へ高さが増す、各ブロック上部に年度ラベル）
+      - 累積レイヤー帯（横長帯 ×3、ロードマップ下部に積み重ね、右方向へ伸びる）
+reading_order: 上（サマリー）→ 下（ステアケース → 累積レイヤー帯）
+notes: ステアケースブロックは4つが基本（3つにする場合は幅比率を調整）。左側ほど高さが低く、右側ほど高くして時間的進行を表現する。累積レイヤー帯は下から上へ積み重ねる。
+```
 
 ## Elements（各要素の役割）
 

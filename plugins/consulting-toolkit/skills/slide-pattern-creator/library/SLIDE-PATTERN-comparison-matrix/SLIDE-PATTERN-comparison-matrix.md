@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-comparison-matrix
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** comparison-matrix
@@ -14,20 +14,20 @@
 
 ```yaml
 layout: matrix-table
-areas:
-  - name: lead
-    role: 全幅の要約文（1文・任意）
-    position: top-full-width
+zones:
+  - role: lead
+    content: 全幅の要約文（1文・任意）
     optional: true
-  - name: comparison-matrix
-    role: 比較マトリクス
-    position: full
-    column-headers: targets      # 比較対象（列）
-    row-headers: perspectives     # 比較観点（行）
-    target-count: 2-4
-    perspective-count: 3-6
-    cell-style: text-or-rating     # 短評テキスト or 評価ドット
-    emphasis: single-column        # 1列だけ強調可（任意）
+  - role: comparison-matrix
+    content: 比較マトリクス本体（列ヘッダー＝比較対象、行ヘッダー＝比較観点、セルは短評テキストまたは評価ドット）
+    column_headers: targets（比較対象）
+    row_headers: perspectives（比較観点）
+    target_count: 2-4
+    perspective_count: 3-6
+    cell_style: text-or-rating
+    emphasis: single-column（任意、1列のみ強調可）
+reading_order: 上（リード文）→ マトリクス（列ヘッダー → 行ヘッダー → 各セル）
+notes: 比較対象は2〜4列、観点は3〜6行に収める。強調列は多くても1列
 ```
 
 ## Elements（各要素の役割）

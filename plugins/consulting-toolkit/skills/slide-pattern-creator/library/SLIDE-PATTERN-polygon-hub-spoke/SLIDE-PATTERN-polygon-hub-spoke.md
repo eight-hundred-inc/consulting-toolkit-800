@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-polygon-hub-spoke
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,19 +12,14 @@
 
 コンテンツエリアの中央に多角形ダイアグラムを配置し、多角形の各辺に沿って番号バッジを並べる。各バッジから放射方向に説明テキストブロック（見出し＋本文）を接続する。左側2〜3ブロック・右側2〜3ブロックに振り分けることが多い。
 
-    structure:
-      layout: radial-polygon
-      center:
-        element: polygon-shape
-        sides: 5
-        label: center-theme
-      spokes:
-        count: 5
-        node: circle-badge
-        content: heading + body-text
-        distribution:
-          left: 3
-          right: 2
+    layout: radial-polygon
+    zones:
+      - role: center
+        content: 多角形（頂点数は項目数に合わせる）＋中央テーマラベル
+      - role: spokes
+        content: 番号バッジ＋見出し＋本文テキストのスポーク ×5（左3・右2に振り分け）
+    reading_order: 中央 → 番号順（左グループ → 右グループ）
+    notes: 多角形の辺数（頂点数）は項目数に合わせる（5項目→ペンタゴン、6項目→ヘキサゴン）。左グループは右揃え、右グループは左揃えのテキスト方向にすると読みやすい
 
 ## Elements（各要素の役割）
 

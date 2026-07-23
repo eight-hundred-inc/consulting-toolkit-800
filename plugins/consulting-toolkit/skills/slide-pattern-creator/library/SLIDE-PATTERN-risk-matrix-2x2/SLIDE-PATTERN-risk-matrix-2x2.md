@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-risk-matrix-2x2
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** risk-matrix-2x2
@@ -12,61 +12,28 @@
 ```yaml
 layout: risk-matrix-2x2
 title_area: true
-content_area:
-  direction: row
-  padding: "16px 48px"
-  gap: 24px
-  children:
-    - id: matrix_body
-      width: "75%"
-      elements:
-        - type: y_axis_label
-          text: "影響度"
-          writing_mode: vertical-rl
-          font_size: 12px
-          color: "#666666"
-        - type: grid_2x2
-          cells:
-            - position: top_left
-              label: "重点管理"
-              description: "高影響・低確率"
-              background: "#F5F5F5"
-              items: ["コンプライアンス違反", "システム障害"]
-            - position: top_right
-              label: "最優先対応"
-              description: "高影響・高確率"
-              background: "#EEEEEE"
-              items: ["人材不足", "コスト超過"]
-            - position: bottom_left
-              label: "経過観察"
-              description: "低影響・低確率"
-              background: "#FFFFFF"
-              items: ["軽微な仕様変更"]
-            - position: bottom_right
-              label: "対応計画"
-              description: "低影響・高確率"
-              background: "#F0F0F0"
-              items: ["スケジュール遅延", "認識齟齬"]
-        - type: x_axis_label
-          text: "発生確率"
-          font_size: 12px
-          color: "#666666"
-          align: center
-    - id: legend_area
-      width: "25%"
-      elements:
-        - type: legend_item
-          label: "最優先対応"
-          background: "#EEEEEE"
-        - type: legend_item
-          label: "重点管理"
-          background: "#F5F5F5"
-        - type: legend_item
-          label: "対応計画"
-          background: "#F0F0F0"
-        - type: legend_item
-          label: "経過観察"
-          background: "#FFFFFF"
+zones:
+  - role: matrix
+    width: 75%
+    content: 縦軸ラベル（影響度、縦書き）＋2×2グリッド＋横軸ラベル（発生確率）
+    elements:
+      - cell: top_left
+        label: 重点管理（高影響・低確率）
+        items: リスク項目（例：コンプライアンス違反、システム障害）
+      - cell: top_right
+        label: 最優先対応（高影響・高確率）
+        items: リスク項目（例：人材不足、コスト超過）
+      - cell: bottom_left
+        label: 経過観察（低影響・低確率）
+        items: リスク項目（例：軽微な仕様変更）
+      - cell: bottom_right
+        label: 対応計画（低影響・高確率）
+        items: リスク項目（例：スケジュール遅延、認識齟齬）
+  - role: legend
+    width: 25%
+    content: 凡例 ×4（最優先対応／重点管理／対応計画／経過観察の各象限に対応）
+reading_order: マトリクス（左上 → 右上 → 左下 → 右下） → 凡例
+notes: 各セルのリスク項目は1〜3個が目安。凡例は各セルとの対応関係が分かるように並べる
 ```
 
 ## Elements（各要素の役割）

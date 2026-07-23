@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-three-col-large-icon-card
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,17 +12,19 @@
 
 コンテンツエリアを3等分した列にカードを配置する。各カードは垂直方向に「ヘッダーゾーン（アイコン＋見出し）」と「ボディゾーン（箇条書きリスト）」の2つのセクションに分かれる。ヘッダーは塗り背景で強調し、アイコンはカード左上隅の折り返し装飾（ドッグイヤー）として表現することもある。
 
-    structure:
-      layout: three-column-grid
-      column_count: 3
-      card_structure:
-        header:
-          elements: [icon, heading]
-          background: accent-color
-        body:
-          elements: [bullet-list]
-          item_count: 3
-      gap: equal
+```yaml
+layout: three-column-grid
+zones:
+  - role: cards
+    content: カード ×3（均等配置、高さ揃え）
+    elements:
+      - role: header
+        content: アイコン（またはドッグイヤー装飾）＋見出し（アクセントカラー背景）
+      - role: body
+        content: 箇条書きリスト 3〜4項目
+reading_order: 左から右（カード）、各カードは上から下（ヘッダー→ボディ）
+notes: 3列の各カードは高さを揃える。各カードの箇条書き項目数は同数に揃えるとバランスが良い。
+```
 
 ## Elements（各要素の役割）
 

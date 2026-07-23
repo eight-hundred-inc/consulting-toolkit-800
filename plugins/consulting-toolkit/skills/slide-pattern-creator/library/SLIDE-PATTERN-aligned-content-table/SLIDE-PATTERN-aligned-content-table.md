@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-aligned-content-table
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -10,21 +10,35 @@
 
 ## Structure（構造）
 
-コンテンツエリアを1枚のテーブルにする。列は「主体（15%）」「属性1（10%）」「属性2（30%）」「属性3（15%）」「属性4（15%）」「属性5（15%）」等の可変構成。行数は3〜5が最適。各行は点線または細線で区切り、視覚的な密度を管理する。
+コンテンツエリアを1枚のテーブルにする。列は「主体（15%）」「属性1（10%）」「属性2（30%）」「属性3（15%）」「属性4（15%）」「属性5（15%）」等の可変構成。行数は3〜5が最適。各行は区切り線で分け、視覚的な密度を管理する。
 
-    structure:
-      layout: multi-column-table
-      columns: 5-6
-      first_column:
-        role: "主体（アウトプット物・タスク・機能名）"
-        style: "アクセントカラーの太字・ドキュメントアイコン等"
-      middle_columns:
-        role: "属性1〜N（頻度・内容例・受け手・シーン等）"
-        style: "Text Subカラー・本文サイズ"
-      example_column:
-        style: "斜体または細字でイタリック的にサンプルを表示"
-      row_dividers: "1px dotted Border"
-      annotation: "スライド下部にスコープ精査などの補足注記"
+    layout: multi-column-table
+    zones:
+      - role: header-row
+        content: 列見出し（アウトプット／頻度／内容／受け手 等）
+      - role: subject-column
+        width: 15%
+        content: 主体列（アウトプット物・タスク・機能名）。ドキュメントアイコン等＋名称、視覚的に強調
+      - role: frequency-column
+        width: 10%
+        content: 頻度列（頻度・タイミングを一言で）
+      - role: content-column
+        width: 30%
+        content: 内容列（見出し＋サンプル表記。本文と区別して表示）
+      - role: question-column
+        width: 15%
+        content: 答える問い列（この行が扱う本質的な問い）
+      - role: audience-column
+        width: 15%
+        content: 受け手列（アウトプットを届ける対象）
+      - role: usage-column
+        width: 15%
+        content: 活用シーン列（意思決定場面や活用文脈を短い箇条書きで）
+      - role: annotation
+        position: テーブル下
+        content: 補足注記（スコープ精査中の旨など、任意）
+    reading_order: ヘッダー行 → 各行を上から下（各行内は主体列→属性列を左から右） → 補足注記
+    notes: 各行は区切り線で分ける。行数は3〜5が最適。列数は5〜6が上限（7列以上は分割を検討）
 
 ## Elements（各要素の役割）
 

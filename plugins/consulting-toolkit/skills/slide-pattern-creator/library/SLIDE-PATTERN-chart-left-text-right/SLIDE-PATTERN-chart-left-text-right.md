@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-chart-left-text-right
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,18 +12,16 @@
 
 コンテンツエリアを左右に分割し、左側（約55%）にグラフ、右側（約45%）に凡例＋各系列の説明テキストを配置する。右側の説明は2〜3項目の縦リスト形式（各項目：色ドット＋系列名＋説明文）で構成する。
 
-    structure:
-      layout: two-column
-      left:
+    layout: two-column
+    zones:
+      - role: chart
         width: 55%
-        type: chart
-        elements: [line-or-bar-chart, x-axis, y-axis, legend]
-      right:
+        content: グラフ（線または棒）＋X軸＋Y軸＋凡例
+      - role: legend-list
         width: 45%
-        type: text-list
-        items: 2-3
-        item:
-          elements: [color-indicator, series-name (bold), description-body]
+        content: 縦リスト2〜3項目（各項目：色ドット＋系列名（太字）＋説明文）
+    reading_order: 左（グラフ）→ 右（系列説明、上から下）
+    notes: 右側の色ドットはグラフの凡例色と一致させる。説明が多い場合は3系列が上限（4系列以上は右側が詰まる）
 
 ## Elements（各要素の役割）
 

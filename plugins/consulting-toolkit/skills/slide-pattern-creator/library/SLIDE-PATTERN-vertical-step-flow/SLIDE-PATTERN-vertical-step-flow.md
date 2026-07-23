@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-vertical-step-flow
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,18 +12,19 @@
 
 コンテンツエリア中央（または右寄り）に縦フローを配置する。各ステップは左カラム（番号バッジ＋ラベル）と右カラム（内容テキスト）の2列で構成され、ステップ間に下向き矢印を置く。最終ステップは異なる色（強調）にすることが多い。
 
-    structure:
-      layout: vertical-flow
-      steps: 4-6
-      step:
-        left:
-          elements: [step-label (STEP 1等)]
-          background: filled-color
-        right:
-          elements: [content-text]
-          background: bordered-box
-      connector:
-        type: down-arrow between steps
+```yaml
+layout: vertical-flow
+zones:
+  - role: step（4〜6回繰り返し）
+    elements:
+      - role: step-label
+        content: 番号バッジ（STEP 1等）
+      - role: content
+        content: 内容テキスト
+connector: 各ステップ間の下向き矢印
+reading_order: 上 → 下（各ステップ内は左のラベル → 右の内容の順）
+notes: 最終ステップは強調（色分け等）にして到達点を示すことが多い
+```
 
 ## Elements（各要素の役割）
 

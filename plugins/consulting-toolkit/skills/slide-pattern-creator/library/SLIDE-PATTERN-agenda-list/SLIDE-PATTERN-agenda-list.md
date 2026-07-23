@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-agenda-list
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -10,22 +10,20 @@
 
 ## Structure（構造）
 
-コンテンツエリアの上下に細い水平線を引き、その間に番号付きの章リストを縦に並べる。現在ページに該当する項目は本文色、それ以外はミュート色で表示することでカレント位置を明示する。
+コンテンツエリアの上下に細い水平線を引き、その間に番号付きの章リストを縦に並べる。現在ページに該当する項目は通常表示、それ以外は抑えた表示にすることでカレント位置を明示する。
 
-    structure:
-      layout: single-centered-list
-      list:
-        alignment: left
-        indent_from_center: true
-        format: "{番号}. {章タイトル}"
-        typography: "36px / Regular"
-      current_item:
-        color: "Text"
-      other_items:
-        color: "Text Muted"
-      dividers:
-        top: "1px solid Border"
-        bottom: "1px solid Border"
+    layout: single-centered-list
+    zones:
+      - role: top-divider
+        content: 上部の区切り線
+      - role: list
+        position: コンテンツエリア中央（ブロック自体は中央配置、テキストは左揃え）
+        content: 番号付き章タイトルのリスト（形式: "{番号}. {章タイトル}"）5〜7項目
+        emphasis: カレント章は通常表示、他の章は抑えた表示（グレーアウト）で統一する
+      - role: bottom-divider
+        content: 下部の区切り線
+    reading_order: 上部区切り線 → 章リスト（上から下） → 下部区切り線
+    notes: 章の数は5〜7項目が視覚的にちょうどよい。それ以上は two-column-toc の使用を検討する
 
 ## Elements（各要素の役割）
 

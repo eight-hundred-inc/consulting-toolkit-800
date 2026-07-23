@@ -1,4 +1,4 @@
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ---
 
@@ -15,17 +15,16 @@
 ## Structure
 
 ```yaml
-structure:
-  layout: bilateral-flow
-  left_circle:
-    size: large
-    content: [entity-name, sub-items]
-  center:
-    elements: [arrow-right, arrow-left, flow-labels]
-  right_circle:
-    size: large
-    content: [entity-name, sub-items]
-  bottom_labels: [left-entity-name, right-entity-name]
+layout: bilateral-flow
+zones:
+  - role: left-circle
+    content: 主体名ラベル＋サブ要素（3〜5個）＋直下にボトムラベル（主体の呼称）
+  - role: center
+    content: 右向き矢印（上部）＋左向き矢印（下部）＋各フローの名称ラベル
+  - role: right-circle
+    content: 主体名ラベル＋サブ要素（3〜5個）＋直下にボトムラベル（主体の呼称）
+reading_order: 左円 → 中央（上下矢印） → 右円
+notes: 左右の円は同じサイズで配置する（差をつけると主従関係が生まれるため）
 ```
 
 ## Elements

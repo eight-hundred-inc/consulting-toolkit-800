@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-three-tier-segment-list
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,34 +12,23 @@
 
 コンテンツエリアを左右に分割し、左の括り見出しと右の3セグメントリストで構成する。左右は破線で区切られる。
 
-    structure:
-      layout: content-area-left-label-right-segment-list
-      padding: 16px 0 16px 32px
-      gap: 0
-      left-area:
-        width: 22%
-        align: center (vertical flex)
-        border-right: 1px dashed #CCCCCC
-        padding-right: 16px
-        elements:
-          - area-label (font-size: 11px, #999, uppercase)
-          - bracket-heading (font-size: 13px, bold, #555, text-align: center, 2行)
-      right-area:
-        width: 78%
-        padding: 8px 32px
-        justify-content: space-around
-        elements:
-          - segment-rows (3行)
-          - each-row:
-              border-bottom: 1px solid #F0F0F0
-              padding: 12px 0
-              gap: 16px
-              - icon-circle (40px × 40px, #F0F0F0, border-radius: 50%, border: 1px solid #CCCCCC)
-              - text-area:
-                  - segment-label (font-size: 11px, #999)
-                  - heading (font-size: 14px, bold, #333)
-                  - subtitle (font-size: 12px, #555)
-                  - bullet-list (2項目, font-size: 11px, #666)
+```yaml
+layout: content-area-left-label-right-segment-list
+zones:
+  - role: left-label
+    width: 22%
+    content: エリアラベル＋括り見出し（2行、中央揃え）
+  - role: right-segment-list
+    width: 78%
+    content: セグメント行 ×3（縦積み、行区切り線で分離）
+    elements:
+      - role: icon-circle
+        content: アイコン円（プレースホルダー）
+      - role: text-area
+        content: セグメントラベル＋見出し＋サブタイトル＋箇条書き 2項目
+reading_order: 左（エリアラベル・括り見出し）→ 右（セグメント行、上から下）
+notes: 左右エリアは縦の破線区切りで分離する。各セグメント行はアイコン円＋テキストエリアの横並び構成。
+```
 
 ## Elements（各要素の役割）
 

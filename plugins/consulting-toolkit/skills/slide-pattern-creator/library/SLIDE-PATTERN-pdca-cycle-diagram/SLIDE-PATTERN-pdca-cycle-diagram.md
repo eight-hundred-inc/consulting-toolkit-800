@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-pdca-cycle-diagram
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,21 +12,24 @@
 
 コンテンツエリアは上下2行・左右2列の2×2グリッドと、中央に重なる円形ダイアグラムで構成される。上部には概要テキストエリア（リード文）を配置し、その下の2×2グリッドの中央に円形サイクル図をオーバーレイする。各グリッドセルには、アクセントカラーのフェーズ名と本文説明テキストが入る。
 
-    structure:
-      layout: center-diagram-with-four-corners
-      top:
-        content: lead-text
-      center:
-        diagram: circular-cycle
-        segments: 4
-        direction: clockwise
-      corners:
-        top-left: phase-block
-        top-right: phase-block
-        bottom-left: phase-block
-        bottom-right: phase-block
-      phase-block:
-        elements: [phase-title, description-text]
+```yaml
+layout: center-diagram-with-four-corners
+zones:
+  - role: lead-text
+    content: リード文（コンテンツ上部・全幅、1〜2行）
+  - role: center-diagram
+    content: 円形サイクル図（4分割、時計回り）
+  - role: corner-top-right     # Plan
+    content: フェーズブロック（フェーズタイトル＋説明テキスト）
+  - role: corner-bottom-right  # Do
+    content: フェーズブロック（フェーズタイトル＋説明テキスト）
+  - role: corner-bottom-left   # Check
+    content: フェーズブロック（フェーズタイトル＋説明テキスト）
+  - role: corner-top-left      # Action
+    content: フェーズブロック（フェーズタイトル＋説明テキスト）
+reading_order: 上（リード文）→ 中央（円形図、時計回り）→ 四隅（右上→右下→左下→左上）
+notes: 円形サイクル図は2×2グリッドの中央にオーバーレイして配置する。Plan（右上）→Do（右下）→Check（左下）→Action（左上）の順が標準的配置。
+```
 
 ## Elements（各要素の役割）
 

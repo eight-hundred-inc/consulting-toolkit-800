@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-donut-chart-spoke-labels
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,20 +12,18 @@
 
 コンテンツエリア中央にドーナツ（リング）グラフを配置し、ドーナツの穴中央にテーマラベルを置く。各セグメントの重心から放射方向に引き出し線を伸ばし、左右に分配したテキストブロック（見出し＋本文）に接続する。左側ブロック群は右側端揃え、右側ブロック群は左側端揃えにする。
 
-    structure:
-      layout: radial-donut
-      center:
-        element: donut-chart
-        hole: center-label
-        segments: 5
-      spokes:
-        count: 5
-        connector: leader-line
-        distribution:
-          left: 2
-          right: 3
-      text_block:
-        composition: heading + body-text
+```yaml
+layout: radial-donut
+zones:
+  - role: center
+    content: ドーナツグラフ（5セグメント）＋中央ラベル（穴部分）
+  - role: spokes-left
+    content: 引き出し線で接続されたテキストブロック（見出し＋本文） × 2
+  - role: spokes-right
+    content: 引き出し線で接続されたテキストブロック（見出し＋本文） × 3
+reading_order: 中央（ドーナツグラフ）→ 左側テキストブロック → 右側テキストブロック
+notes: 左ブロック群は右端揃え、右ブロック群は左端揃え。セグメントの重心から放射方向に引き出し線を伸ばす
+```
 
 ## Elements（各要素の役割）
 

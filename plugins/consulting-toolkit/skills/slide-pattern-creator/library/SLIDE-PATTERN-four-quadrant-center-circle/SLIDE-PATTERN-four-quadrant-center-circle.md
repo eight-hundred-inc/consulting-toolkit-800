@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-four-quadrant-center-circle
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,38 +12,17 @@
 
 コンテンツエリア全体を4象限グリッドとして使用し、中央に絶対配置の円を重ねる構造。
 
-    structure:
-      layout: content-area-four-quadrant-center-circle
-      position: relative
-      padding: 12px 48px
-      center-circle:
-        position: absolute
-        top: 50%
-        left: 50%
-        transform: translate(-50%, -50%)
-        size: 120px × 120px
-        border-radius: 50%
-        border: 2px solid #CCCCCC
-        background: #F8F8F8
-        elements:
-          - center-text (font-size: 11px, #888, text-align: center, 1〜2行)
-      quadrant-grid:
-        display: grid
-        grid-template-columns: 1fr 1fr
-        grid-template-rows: 1fr 1fr
-        width: 100%
-        height: 100%
-        gap: 8px
-      each-quadrant:
-        display: flex
-        flex-direction: column
-        padding: 12px
-        gap: 6px
-        border: 1px dashed #E8E8E8
-        elements:
-          - icon-placeholder (40px × 40px, #F0F0F0, border-radius: 50%, border: 1px dashed #CCCCCC)
-          - heading (font-size: 13px, bold, #333)
-          - description (font-size: 11px, #666, line-height: 1.6, 2〜3行)
+```yaml
+layout: content-area-four-quadrant-center-circle
+zones:
+  - role: quadrant
+    content: 象限 ×4（アイコンプレースホルダー＋見出し＋説明文 2〜3行、2×2グリッド）
+  - role: center-circle
+    content: 中央円（テキスト1〜2行）。直径はコンテンツエリア幅のおよそ1割強
+    position: 4象限の中心に重ねて絶対配置
+reading_order: 左上 → 右上 → 左下 → 右下（中央円は中心の共通テーマとして参照）
+notes: 象限同士は破線で区切る。中央円が大きいため、各象限のコンテンツは中央に寄りすぎないよう外寄りに配置する
+```
 
 ## Elements（各要素の役割）
 

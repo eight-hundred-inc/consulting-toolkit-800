@@ -1,4 +1,4 @@
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 # SLIDE-PATTERN: vertical-step-three-col
 
@@ -13,28 +13,30 @@
 ## Structure
 
 ```yaml
-structure:
-  layout: three-column-vertical
-  rows: 5
-  left_col:
+layout: three-column-vertical
+rows: 5
+zones:
+  - role: step-badge
     width: 15%
-    element: step-badge (colored pill/capsule)
-  middle_col:
+    content: 番号バッジ（STEP1, STEP2等）
+  - role: step-name
     width: 25%
-    element: step-name (large heading)
-  right_col:
+    content: ステップ名（見出し）
+  - role: detail
     width: 60%
-    element: bullet-list (detail)
-  row_connector: dotted-vertical-line
+    content: 詳細箇条書き（1〜2項目）
+row_connector: 各行を結ぶ縦の連結線
+reading_order: 左 → 中央 → 右（各行は上から下）
+notes: 5〜6行が最適（3〜4行の場合は行の高さを増やし余白を設ける）。右列の詳細は1〜2項目にまとめる。
 ```
 
 ## Elements
 
 | 要素 | 配置 | 役割 |
 |---|---|---|
-| ステップバッジ | 左列・各行 | 「STEP1」「STEP2」等の番号付きカプセル型ラベル |
-| 点線縦連結 | バッジ間 | ステップの流れを示す縦の点線 |
-| ステップ名 | 中列・各行 | 各ステップの名称（大きめフォント・太字） |
+| ステップバッジ | 左列・各行 | 「STEP1」「STEP2」等の番号バッジ |
+| 縦連結線 | バッジ間 | ステップの流れを示す縦の連結線 |
+| ステップ名 | 中列・各行 | 各ステップの名称（見出し） |
 | 詳細箇条書き | 右列・各行 | ステップの詳細説明（1〜2項目・箇条書き） |
 | リード文 | 全体上部 | フロー全体の説明（1行） |
 

@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-points-with-quotes
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** points-with-quotes
@@ -14,28 +14,18 @@
 
 ```yaml
 layout: two-column-with-lead
-areas:
-  - name: lead
-    role: 全幅の要約文（1文）
-    position: top-full-width
-  - name: points
-    role: 番号付き特筆ポイント列
-    position: left
+zones:
+  - role: lead
+    width: 100%（全幅）
+    content: 要約文（1文）
+  - role: points
     width: 50%
-    items:
-      - number-chip   # 丸番号
-      - bold-heading  # 太字見出し
-      - short-text    # 補足の短文
-    count: 3-4
-  - name: quotes
-    role: 引用コメント列（発言者付き）
-    position: right
+    content: 番号チップ＋太字見出し＋補足短文の特筆ポイント ×3〜4
+  - role: quotes
     width: 50%
-    items:
-      - speaker-avatar # 発言者アイコン
-      - speaker-label  # 発言者ラベル
-      - quote-text     # コメント本文
-    count: 2-3
+    content: 発言者アイコン＋発言者ラベル＋コメント本文の引用 ×2〜3
+reading_order: 上（リード文）→ 左（特筆ポイント）→ 右（引用コメント）
+notes: ポイントと引用は件数を無理に一致させない（ポイント3〜4件、引用は代表的なものを2〜3件）。引用が無い場合は右カラムを外し、左のポイント列を全幅にしてよい
 ```
 
 ## Elements（各要素の役割）

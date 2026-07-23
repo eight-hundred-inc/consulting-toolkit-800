@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-two-col-text-body
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,23 +12,18 @@
 
 コンテンツエリアを左右2カラムに分割する。各カラムはエリアラベル・見出し・区切り線・本文テキストの構造を持つ。カラム間に縦区切り線を配置する。
 
-    structure:
-      layout: content-area-two-column
-      padding: 24px 48px
-      gap: 32px
-      column-divider: vertical-line (1px, #EEEEEE)
-      left-column:
-        elements:
-          - area-label (uppercase, muted)
-          - heading (font-size: 16px, bold, #333)
-          - divider-line (2px, 40px, #CCCCCC)
-          - body-text (font-size: 13px, #555, line-height: 1.8)
-      right-column:
-        elements:
-          - area-label (uppercase, muted)
-          - heading (font-size: 16px, bold, #333)
-          - divider-line (2px, 40px, #CCCCCC)
-          - body-text (font-size: 13px, #555, line-height: 1.8)
+```yaml
+layout: content-area-two-column
+zones:
+  - role: left-column
+    width: 50%
+    content: エリアラベル＋見出し＋区切り線＋本文テキスト（3〜4行）
+  - role: right-column
+    width: 50%
+    content: エリアラベル＋見出し＋区切り線＋本文テキスト（3〜4行）
+reading_order: 左 → 右
+notes: カラム間に縦の区切り線を配置する。左右の本文量はできるだけ揃える。
+```
 
 ## Elements（各要素の役割）
 

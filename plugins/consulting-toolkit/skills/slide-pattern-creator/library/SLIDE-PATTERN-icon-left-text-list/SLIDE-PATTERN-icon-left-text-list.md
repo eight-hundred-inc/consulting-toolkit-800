@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-icon-left-text-list
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,16 +12,23 @@
 
 コンテンツエリアを3〜4行に分割し、各行は左側のアイコンエリアと右側のテキストエリアで構成される。行間は薄い区切り線で分ける。各行の高さは均等。
 
-    structure:
-      layout: icon-left-text-rows
-      rows: 3
-      row:
-        left:
-          width: 80-100px
-          type: icon (image or symbol)
-        right:
-          elements: [heading-h2 (colored), body-text]
-        divider: bottom-border between rows
+```yaml
+layout: icon-left-text-rows
+zones:
+  - role: row
+    count: 3
+    elements:
+      - role: icon
+        width: 約10%
+        position: left
+        content: アイコン（画像またはシンボル）
+      - role: text
+        position: right
+        content: 見出し（H2・カラー）＋本文
+    divider: 行区切り線（下端）
+reading_order: 上から下（行1→行2→行3）
+notes: 各行の高さは均等にする
+```
 
 ## Elements（各要素の役割）
 

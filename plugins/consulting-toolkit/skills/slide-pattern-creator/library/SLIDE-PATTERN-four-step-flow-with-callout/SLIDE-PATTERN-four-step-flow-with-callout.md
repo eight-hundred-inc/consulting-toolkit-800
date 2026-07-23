@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-four-step-flow-with-callout
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,18 +12,27 @@
 
 コンテンツエリアは、メインリードコピー（大見出し）エリアを上部に置き、その下に「4ステップカード＋コールアウト列」の横並びレイアウトで構成される。4つのステップカードはそれぞれ番号バッジ・ステップ名・アイコン・説明文を持ち、矢印でつながれる。右端のコールアウト列には2つのボックス（補足・注意）を縦に並べる。最下部には連携要素を示すタイムライン（横線＋アイコン）を置く。
 
-    structure:
-      layout: flow-with-sidebar
-      main_lead: top
-      flow_area:
-        direction: horizontal
-        step_count: 4
-        connector: arrow
-      callout_column:
-        position: right
-        box_count: 2
-        types: [supplement, caution]
-      timeline_bar: bottom
+```yaml
+layout: flow-with-sidebar
+zones:
+  - role: main-lead
+    content: メインリードコピー（大見出し、1〜2行）
+  - role: step-card
+    content: ステップカード ×4（横並び、矢印で接続）
+    elements:
+      - number-badge
+      - step-name
+      - icon
+      - description
+  - role: callout-column
+    position: right
+    content: コールアウトボックス ×2（縦積み：補足／注意）
+  - role: timeline-bar
+    position: bottom
+    content: 横線＋アイコン（連携イメージ、省略可）
+reading_order: 上（メインリード）→ 中央（ステップカード 左 → 右）／右（コールアウト）→ 下（タイムラインバー）
+notes: ステップカードは必ず4つ揃えること。コールアウトは上段を補足・活用例、下段を注意・制限事項として使い分ける
+```
 
 ## Elements（各要素の役割）
 

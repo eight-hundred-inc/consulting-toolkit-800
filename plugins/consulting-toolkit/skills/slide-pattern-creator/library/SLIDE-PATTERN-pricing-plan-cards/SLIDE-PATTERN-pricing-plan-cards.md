@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-pricing-plan-cards
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,18 +12,15 @@
 
 コンテンツエリアを3等分した横並びカードで構成する。各カードはプラン名ヘッダー・価格・特徴行（複数）で構成される。中央カードは「おすすめ」バッジ付きで上部に突出させるか、背景色を強調色にして目立たせる。左端に行ラベル列を設けることもある。
 
-    structure:
-      layout: three-column-cards
-      left-col (optional):
-        width: 120px
-        elements: [row-label list]
-      cards:
-        count: 3
-        middle_card: highlighted (recommended)
-        card:
-          header: [plan-name, recommended-badge (middle only)]
-          price: [large-price-text]
-          feature-rows: [label-value pairs or checkbox-list]
+    layout: three-column-cards
+    zones:
+      - role: row-label-column
+        width: 約12%（任意）
+        content: 行ラベルリスト
+      - role: plan-cards
+        content: カード ×3（中央カードを推奨として強調）。各カードはヘッダー（プラン名＋推奨バッジは中央のみ）・価格（大きめ表示）・機能行（ラベル値ペアまたはチェックリスト）で構成
+    reading_order: （行ラベル列がある場合）左 → 各カード（左→中央→右）
+    notes: 中央カードは推奨プランとして強調する
 
 ## Elements（各要素の役割）
 
