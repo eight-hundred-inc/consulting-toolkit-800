@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-quote-large-center
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** quote-large-center
@@ -12,39 +12,11 @@
 ```yaml
 layout: quote-large-center
 title_area: true
-content_area:
-  direction: column
-  align: center
-  justify: center
-  padding: "32px 80px"
-  gap: 16px
-  elements:
-    - type: quote_mark_open
-      symbol: "“"
-      font_size: 64px
-      color: "#DDDDDD"
-      align_self: flex-start
-    - type: quote_text
-      font_size: 18px
-      color: "#333333"
-      text_align: center
-      line_height: 1.8
-      font_style: italic
-      lines: 2〜3行
-    - type: divider
-      width: 60px
-      height: 1px
-      color: "#CCCCCC"
-    - type: attribution
-      format: "— 著者名・出典"
-      font_size: 13px
-      color: "#888888"
-      text_align: center
-    - type: quote_mark_close
-      symbol: "”"
-      font_size: 64px
-      color: "#DDDDDD"
-      align_self: flex-end
+zones:
+  - role: content
+    content: 引用ブロック（縦方向・中央揃え）。開き引用符（装飾）→ 引用テキスト（2〜3行）→ 区切り線 → 引用元（「— 著者名・出典」形式）→ 閉じ引用符（装飾）
+reading_order: 上 → 下
+notes: 開き引用符は左上寄せ、閉じ引用符は右下寄せで非対称に配置する
 ```
 
 ## Elements（各要素の役割）
@@ -53,7 +25,7 @@ content_area:
 |------|------|--------------|
 | 開き引用符「"」 | 視覚的アクセント・引用の開始を示す | 1文字（装飾） |
 | 引用テキスト | メインメッセージ・名言・統計 | 20〜60文字（2〜3行） |
-| 区切り線 | 引用本文と出典を視覚的に分離 | 固定幅60px |
+| 区切り線 | 引用本文と出典を視覚的に分離 | 固定幅の短い一本線 |
 | 引用元テキスト | 出典・著者名・データソース | 「— ○○○」形式、15〜30文字 |
 | 閉じ引用符「"」 | 視覚的アクセント・引用の終了を示す | 1文字（装飾） |
 

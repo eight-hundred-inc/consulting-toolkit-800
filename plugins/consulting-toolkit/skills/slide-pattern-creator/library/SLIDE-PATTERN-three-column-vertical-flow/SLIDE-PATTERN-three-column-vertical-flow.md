@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-three-column-vertical-flow
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,17 +12,29 @@
 
 コンテンツエリアを縦3等分。各カラムは上から「機能名見出し（H3）」「データソースアイコン＋ラベル」「主担当＋番号付きプロセスリスト」「下向き矢印」「アウトプット箱」の順で縦積みされる。カラム間を細い右矢印で接続する。
 
-    structure:
-      layout: three-column-vertical-flow
-      columns: 3
-      column:
-        top: "機能名（H3・アクセントカラー）"
-        section_1: "データソース（アイコン＋ラベル）"
-        section_2: "主担当＋プロセスステップ（番号付き）"
-        section_3: "下矢印"
-        section_4: "アウトプット箱（ドキュメントアイコン＋名前＋頻度）"
-      inter_column_arrow: "→（右向き細矢印）"
-      annotation: "スライド下部にスコープ精査などの補足注記"
+```yaml
+layout: three-column-vertical-flow
+zones:
+  - role: column
+    content: カラム ×3（縦フロー、横並び）
+    elements:
+      - role: heading
+        content: 機能名見出し（H3、アクセントカラー）
+      - role: data-source
+        content: データソース（アイコン＋ラベル）
+      - role: process
+        content: 主担当ラベル＋番号付きプロセスステップ 4〜5個
+      - role: arrow-down
+        content: 下向き矢印
+      - role: output
+        content: アウトプット箱（ドキュメントアイコン＋成果物名＋頻度）
+  - role: inter-column-arrow
+    content: カラム間の右向き矢印（前カラムの成果が次カラムの入力になることを示す、任意）
+  - role: annotation
+    content: スライド下部の補足注記（スコープ精査等）
+reading_order: 各カラムは上から下（見出し→データソース→プロセス→矢印→アウトプット）、カラムは左から右
+notes: 3カラムが最適（2カラムはtwo-column-compare、4カラムは窮屈になる）。プロセスステップは4〜5個が上限。カラム間矢印は必須ではなく任意。
+```
 
 ## Elements（各要素の役割）
 

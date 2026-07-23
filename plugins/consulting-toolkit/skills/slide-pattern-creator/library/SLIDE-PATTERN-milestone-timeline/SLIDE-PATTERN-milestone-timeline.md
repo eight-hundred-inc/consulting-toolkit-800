@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-milestone-timeline
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** milestone-timeline
@@ -12,72 +12,20 @@
 ```yaml
 layout: milestone-timeline
 title_area: true
-content_area:
-  direction: column
-  padding: "24px 48px"
-  justify: center
-  elements:
-    - type: phase_label_row
-      phases:
-        - label: "Q1（1〜3月）"
-        - label: "Q2（4〜6月）"
-        - label: "Q3（7〜9月）"
-        - label: "Q4（10〜12月）"
-      item_style:
-        flex: 1
-        border_right: "1px solid #E0E0E0"
-        padding: "4px 8px"
-        font_size: 11px
-        color: "#999999"
-    - type: timeline_container
-      position: relative
-      elements:
-        - type: timeline_line
-          height: 2px
-          background: "#CCCCCC"
-        - type: milestone_markers
-          items:
-            - date: "1/10"
-              label: "キックオフ"
-              description: "プロジェクト開始"
-              status: completed
-            - date: "3/31"
-              label: "要件確定"
-              description: "要件定義完了"
-              status: completed
-            - date: "6/30"
-              label: "設計完了"
-              description: "基本設計レビュー"
-              status: completed
-            - date: "9/15"
-              label: "開発完了"
-              description: "内部テスト開始"
-              status: planned
-            - date: "11/1"
-              label: "UAT完了"
-              description: "ユーザー受入テスト"
-              status: planned
-            - date: "12/15"
-              label: "本番リリース"
-              description: "サービス開始"
-              status: planned
-          marker_style:
-            width: 14px
-            height: 14px
-            border: "2px solid #888"
-            border_radius: 50%
-          completed_bg: "#CCCCCC"
-          planned_bg: "#FFFFFF"
-    - type: legend
-      items:
-        - symbol: "●"
-          color: "#888888"
-          label: "完了"
-        - symbol: "○"
-          color: "#888888"
-          label: "予定"
-      font_size: 11px
-      color: "#888888"
+zones:
+  - role: phase_label_row
+    content: フェーズラベル ×4〜5（期間区分）
+  - role: timeline
+    content: タイムライン横線＋マイルストーンマーカー 5〜7点
+    elements:
+      - date
+      - label
+      - description
+      - status（completed / planned）
+  - role: legend
+    content: 凡例（完了マーカー・予定マーカーの意味を示す2項目）
+reading_order: 上（フェーズラベル）→ 中央（タイムライン、左→右）→ 下（凡例）
+notes: コンテンツ全体は縦方向中央揃え。完了マーカーは塗りつぶし、予定マーカーは白抜きで視覚的に区別する。
 ```
 
 ## Elements（各要素の役割）
@@ -85,7 +33,7 @@ content_area:
 | 要素 | 役割 | 推奨テキスト量 |
 |------|------|--------------|
 | フェーズラベル行 | 期間の区分（Q1〜Q4等）を示す | 4〜5区間、各10文字以内 |
-| タイムライン横線 | 時間の流れを示す基準線 | 装飾（固定高さ2px） |
+| タイムライン横線 | 時間の流れを示す基準線 | 装飾（細い線） |
 | マイルストーンマーカー | 各マイルストーンの位置を示す丸印 | 完了=塗りつぶし、予定=空洞 |
 | 日付テキスト（上） | マーカーの日付 | 「M/D」形式、5文字以内 |
 | マイルストーン名（下） | マイルストーンの名称 | 5〜10文字 |
@@ -119,5 +67,5 @@ Phase1（4〜6月） / Phase2（7〜9月） / Phase3（10〜12月） / Phase4（
 - マイルストーンは5〜7個が視認性の観点で適切
 - 「完了」マーカーは塗りつぶし、「予定」マーカーは白抜きで区別する
 - フェーズラベルは等幅に分割されるため、時間軸の比率に注意
-- 現在日付を赤線などで示すとより進捗が伝わりやすい（スライドマスターのアクセントカラーを活用）
+- 現在日付を強調線などで示すとより進捗が伝わりやすい（スライドマスターのアクセントカラーを活用）
 - 年をまたぐ場合は年号を「'25 Q1」のように省略表記するとよい

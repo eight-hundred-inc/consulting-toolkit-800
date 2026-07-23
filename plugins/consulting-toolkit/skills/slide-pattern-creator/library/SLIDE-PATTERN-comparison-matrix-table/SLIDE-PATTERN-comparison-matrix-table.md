@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-comparison-matrix-table
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -10,18 +10,16 @@
 
 ## Structure（構造）
 
-コンテンツエリア全体をテーブルで占める。左端列に比較軸（行ヘッダー）、上部行に対象名（列ヘッダー）を配置する。特定列（推奨・強調対象）は背景色を変えてハイライトする。
+コンテンツエリア全体をテーブルで占める。左端列に比較軸（行ヘッダー）、上部行に対象名（列ヘッダー）を配置する。特定列（推奨・強調対象）はハイライト表示する。
 
-    structure:
-      layout: matrix-table
-      header_row:
-        left_empty_cell: yes
-        column_headers: 3-4 (segment or option names)
-        highlight_column: 1 (rightmost or target column)
-      data_rows: 4-6
-      row:
-        left_cell: [criterion-label (bold)]
-        data_cells: [text values, highlighted in highlight column]
+    layout: matrix-table
+    zones:
+      - role: header-row
+        content: 列ヘッダー3〜4（比較対象名）＋左端は空セル。1列を強調列に指定可
+      - role: data-rows
+        content: データ行4〜6行（各行：行ヘッダー（比較軸名、太字）＋データセル）
+    reading_order: 上（ヘッダー行）→ 下（各データ行）、左（行ヘッダー）→ 右（データ）
+    notes: 強調列はハイライト表示。行数は6行以内が適切（それ以上は文字が小さくなりすぎる）
 
 ## Elements（各要素の役割）
 
@@ -30,7 +28,7 @@
 | 列ヘッダー | 最上行 | 比較対象の名称（例：中小企業、中堅企業、SaaS企業） |
 | 行ヘッダー | 最左列 | 比較軸の名称（例：課題、需要、予算、意思決定） |
 | データセル | 各交差点 | 対応する比較内容のテキスト |
-| ハイライト列 | 強調したい列全体 | 推奨・注目対象であることを背景色で示す |
+| ハイライト列 | 強調したい列全体 | 推奨・注目対象であることを強調表示する |
 
 ## Usage Guide（AIへの使い方）
 

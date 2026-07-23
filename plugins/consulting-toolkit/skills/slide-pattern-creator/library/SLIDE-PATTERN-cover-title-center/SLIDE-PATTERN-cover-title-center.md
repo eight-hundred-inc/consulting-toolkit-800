@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-cover-title-center
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,14 +12,16 @@
 
 スライド全体（タイトルエリアも含む）を使うカバーレイアウト。背景に装飾グラフィック（グラデーション、波形、半透明の幾何学図形など）を配置し、中央にタイトル・サブタイトルを大きく表示する。通常、スライドマスターのSlide Frameを無効化またはシンプルに変更して使う。
 
-    structure:
-      layout: full-slide-centered
-      background:
-        type: decorative-graphic (gradient, wave, shapes)
-      center:
-        elements:
-          - main-title (large, bold)
-          - sub-title (medium)
+```yaml
+layout: full-slide-centered
+zones:
+  - role: background
+    content: 装飾グラフィック（グラデーション・波形・図形等）
+  - role: center
+    content: メインタイトル（大・太字）＋サブタイトル（中）
+reading_order: 背景（全体）→ 中央（メインタイトル → サブタイトル）
+notes: Slide Frame（タイトルエリア）を無効化またはシンプル化して使う全画面カバーレイアウト
+```
 
 ## Elements（各要素の役割）
 

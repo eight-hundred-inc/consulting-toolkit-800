@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-plan-comparison-pricing
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** plan-comparison-pricing
@@ -12,23 +12,20 @@
 ## Structure（構造）
 コンテンツエリアはプラン数に応じた行（通常3行）で構成され、各行が1つのプランに対応する。各行は横方向に3つの領域に分かれる：左（プラン名カード。プラン名と短いキャッチコピー）、中央（タスク内訳。概要とタスクの範囲を箇条書きまたは短文で列挙）、右（金額。大きめのフォントで税込金額を表示）。行間には罫線を引いて各プランを区切る。
 
-    structure:
-      layout: stacked-rows
-      row_count: 3
-      row:
-        left:
-          width: 20%
-          type: plan-name-card
-          elements: [plan_label, plan_tagline]
-        center:
-          width: 55%
-          type: task-breakdown
-          elements: [task_overview, task_scope_detail]
-        right:
-          width: 25%
-          type: price
-          elements: [price_amount(large), price_note]
-      row_divider: 罫線で各プラン行を区切る
+    layout: stacked-rows
+    row_count: 3
+    zones:
+      - role: plan-name
+        width: 20%
+        content: プラン名カード（プラン名＋キャッチコピー）
+      - role: task-breakdown
+        width: 55%
+        content: タスク概要＋タスク詳細（箇条書きまたは短文）
+      - role: price
+        width: 25%
+        content: 金額（大きめ表示）＋金額注記
+    reading_order: 上 → 下（行の並び）。各行内は左 → 中央 → 右
+    notes: 行間に罫線を引いて各プラン行を区切る
 
 ## Elements（各要素の役割）
 

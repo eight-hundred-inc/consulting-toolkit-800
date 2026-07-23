@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-three-col-icon-card-header-band
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,17 +12,25 @@
 
 コンテンツエリアの上部にリード文を置き、その下に3つのカードを横並びで配置する。各カードは上部のカラーバンド・アイコン・見出し（下線付き）・箇条書き本文・CTAボタンで縦に積み上げられた構造。
 
-    structure:
-      layout: three-column-grid
-      lead_text: true
-      columns: 3
-      card:
-        header_band: true
-        icon: hexagon
-        heading: true
-        heading_underline: true
-        body: bullet-list
-        cta_button: true
+```yaml
+layout: three-column-grid
+zones:
+  - role: lead-text
+    content: リード文（1行、カードグループ上部・全幅）
+  - role: cards
+    content: カード ×3（横並び、等幅・等間隔）
+    elements:
+      - role: header-band
+        content: ヘッダーバンド（アクセントカラー帯）＋六角形アイコン（バンドに重なる中央配置）
+      - role: heading
+        content: 見出し（下線付き、中央揃え）
+      - role: body
+        content: 箇条書き本文 2〜3項目
+      - role: cta
+        content: CTAボタン（目標値・KPI・カテゴリラベルを強調表示）
+reading_order: 上（リード文）→ 左から右（カード）、各カードは上から下（ヘッダーバンド→見出し→本文→CTA）
+notes: ヘッダーバンドはアクセントカラーで塗り、アイコンはバンドに重なるよう配置する。見出し直下には必ず下線を引く。CTAボタンはカード最下部に固定配置する。
+```
 
 ## Elements（各要素の役割）
 

@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-two-feature-with-result
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,42 +12,20 @@
 
 コンテンツエリアを縦方向に上部説明・中段カード群・矢印・下部結果ボックスの4層で構成する。
 
-    structure:
-      layout: content-area-two-feature-with-result
-      padding: 12px 48px
-      gap: 12px
-      upper-description:
-        font-size: 12px
-        color: #555
-        line-height: 1.7
-        lines: 1〜2行
-      middle-cards:
-        display: flex
-        gap: 16px
-        card:
-          flex: 1
-          border: 1px solid #CCCCCC
-          background: #F8F8F8
-          padding: 16px
-          elements:
-            - area-label (「機能 01」形式, font-size: 11px, #999)
-            - heading (font-size: 14px, bold, #333)
-            - description (font-size: 12px, #666, 2行)
-      arrow-area:
-        text-align: center
-        font-size: 20px
-        color: #CCCCCC
-        content: ▼
-      result-box:
-        border: 1px solid #CCCCCC
-        background: #F0F0F0
-        padding: 14px 24px
-        display: flex
-        align-items: center
-        gap: 16px
-        elements:
-          - result-label (「実績・効果」, font-size: 11px, #999)
-          - result-text (font-size: 14px, bold, #333)
+```yaml
+layout: content-area-two-feature-with-result
+zones:
+  - role: upper-description
+    content: 説明テキスト（1〜2行）
+  - role: middle-cards
+    content: 機能カード ×2（横並び。各カード＝エリアラベル「機能 01」形式＋見出し＋説明2行）
+  - role: arrow
+    content: 矢印（下向き、中央）
+  - role: result-box
+    content: 結果ラベル「実績・効果」＋結果テキスト（横並び）
+reading_order: 上 → 中段（カード2枚横並び） → 矢印 → 下部結果ボックス
+notes: 機能カードは2枚とも同じ幅で横並びにする。結果テキストは1行に収める。
+```
 
 ## Elements（各要素の役割）
 

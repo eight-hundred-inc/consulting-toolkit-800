@@ -1,4 +1,4 @@
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ---
 
@@ -15,16 +15,14 @@
 ## Structure
 
 ```yaml
-structure:
-  layout: hub-spoke-illustration
-  center:
-    element: illustration-placeholder
-    label: サービス名/プラットフォーム名
-  spokes:
-    count: 5
-    positions: [top, top-left, bottom-left, top-right, bottom-right]
-    elements: [icon-circle, label]
-    arrows: inward
+layout: hub-spoke-illustration
+zones:
+  - role: center
+    content: 中央イラスト（半円形背景付き）＋ラベル（サービス名/プラットフォーム名）
+  - role: spokes
+    content: スポークアイコン ×5（円形）＋各アイコン下にラベル（データソース名・種別名）
+reading_order: 中央 → 各スポーク（上 → 左上 → 左下 → 右上 → 右下）
+notes: 各スポークアイコンから中央へ向かう矢印（内向き）。スポーク数は4〜6が適切
 ```
 
 ## Elements

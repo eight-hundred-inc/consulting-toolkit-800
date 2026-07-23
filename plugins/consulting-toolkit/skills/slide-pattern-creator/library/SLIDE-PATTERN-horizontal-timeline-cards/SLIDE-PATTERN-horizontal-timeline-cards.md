@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-horizontal-timeline-cards
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,21 +12,23 @@
 
 コンテンツエリアを縦に2分割する。上部（約15%）に水平タイムライン（点線とドットマーカー）、下部（約85%）に4枚のカードを等間隔で横並びに配置する。各カードはマーカーと視覚的に対応する。
 
-    structure:
-      layout: timeline-cards
-      timeline:
-        position: top
-        type: horizontal-dotted-line
-        markers: 4 (circle dots)
-      cards:
-        count: 4
-        layout: horizontal-equal-width
-        card:
-          elements:
-            - step-label (STEP 01 etc.)
-            - step-number (large)
-            - heading
-            - bullet-list (2-3 items)
+```yaml
+layout: timeline-cards
+zones:
+  - role: timeline
+    height: 約15%
+    content: 水平の点線＋ドットマーカー ×4
+  - role: cards
+    height: 約85%
+    content: カード ×4（横並び・等幅）
+    elements:
+      - step-label（STEP 01等）
+      - step-number（大）
+      - heading
+      - bullet-list（2〜3項目）
+reading_order: 上（タイムライン）→ 下（カード、左→右）
+notes: 各カードは対応するマーカーの直下に配置し、視覚的に対応させる
+```
 
 ## Elements（各要素の役割）
 

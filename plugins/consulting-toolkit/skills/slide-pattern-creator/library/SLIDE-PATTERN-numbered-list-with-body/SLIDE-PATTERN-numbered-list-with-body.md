@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-numbered-list-with-body
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -10,19 +10,16 @@
 
 ## Structure（構造）
 
-コンテンツエリアを3行に分割し、各行が独立した区切り線（または薄いボーダー）で区切られる。各行の左側に番号または図形バッジ、右側に見出しと本文を配置する。
+コンテンツエリアを3行に分割し、各行は区切り線で区切られる。各行の左側に番号または図形バッジ、右側に見出しと本文を配置する。
 
-    structure:
-      layout: single-column-list
-      items: 3
-      item:
-        left:
-          type: badge
-          shape: circle or hexagon or square
-          elements: [number]
-        right:
-          elements: [heading-h2, body-text]
-      divider: horizontal-line between items
+```yaml
+layout: single-column-list
+zones:
+  - role: list
+    content: リスト行 ×3（各行：左に番号バッジ［丸・六角形・四角形のいずれか］、右に見出し［H2］＋本文）
+reading_order: 上から下
+notes: 各行は水平の区切り線で区切る
+```
 
 ## Elements（各要素の役割）
 

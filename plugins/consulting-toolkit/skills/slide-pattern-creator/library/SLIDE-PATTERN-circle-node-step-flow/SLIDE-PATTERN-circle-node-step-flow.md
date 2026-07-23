@@ -1,4 +1,4 @@
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ---
 
@@ -15,15 +15,18 @@
 ## Structure
 
 ```yaml
-structure:
-  layout: horizontal-flow
-  nodes:
-    count: 5
-    shape: circle
-    connector: thin-line
-    highlight: last-node (filled)
-  label_position: inside-circle
-  flow_direction: left-to-right
+layout: horizontal-flow
+zones:
+  - role: lead
+    content: リード文（フロー全体の説明、1〜2行、任意）
+  - role: step-nodes
+    content: 円形ノード ×5（横一列・等間隔、細い線で接続）。各ノード内にステップ名（1〜3語）＋補足テキスト（任意）
+  - role: goal-node
+    content: 最終ノード（最右端、塗りつぶしで強調）
+  - role: footnote
+    content: 注記（補足・注意事項、任意）
+reading_order: 上（リード文）→ 左から右（ステップ順）→ 下（注記）
+notes: 円は5〜7個が適切（8個以上は円が小さくなり文字が読みにくい）。最終ノードの塗りつぶしは「ゴール」「合格」を暗示するため、ネガティブな最終ステップには不向き
 ```
 
 ## Elements

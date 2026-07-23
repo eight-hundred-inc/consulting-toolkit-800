@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-three-col-icon-card-with-cta
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,19 +12,25 @@
 
 コンテンツエリアの上部に2段構成のリード文（通常テキスト＋強調テキスト）を置き、その下に3つのカードを横並びで配置する。各カードは円形アイコン・強調見出し（主テキスト）・補足見出し・説明テキストで縦に積み上げられた構造。カードに枠線はなく、アイコン周囲の円形ボーダーが視覚的アクセントとなる。
 
-    structure:
-      layout: three-column-grid
-      lead_text:
-        type: two-line
-        line1: plain
-        line2: bold-accent
-      columns: 3
-      card:
-        icon_shape: circle
-        heading_primary: true
-        heading_secondary: true
-        description: center-aligned
-        background: none
+```yaml
+layout: three-column-grid
+zones:
+  - role: lead-text
+    content: リード文 2行（1行目は通常テキスト、2行目は強調テキスト）
+  - role: cards
+    content: カード ×3（横並び、等幅、背景・枠なし）
+    elements:
+      - role: icon
+        content: 円形アイコン（円形ボーダー付き、カード上部中央）
+      - role: heading-primary
+        content: 主見出し（アクセントカラー、中央揃え）
+      - role: heading-secondary
+        content: 補足見出し（主見出し直下、中央揃え）
+      - role: description
+        content: 説明テキスト（中央揃え、2〜3行）
+reading_order: 上（リード文2行）→ 左から右（カード）、各カードは上から下（アイコン→主見出し→補足見出し→説明）
+notes: カードに背景・枠線は付けず、アイコンの円形ボーダーのみを視覚的アクセントとする
+```
 
 ## Elements（各要素の役割）
 
@@ -45,7 +51,7 @@
 
 **注意点：**
 - リード文は2行構成とし、2行目を太字＋アクセントカラーで強調する
-- アイコンは大きめの円形ボーダー（直径80〜100px程度）で囲み中央配置する
+- アイコンは大きめの円形ボーダーで囲み中央配置する
 - 主見出しはアクセントカラーで表示し、数値や短いキャッチコピーに使う
 - 補足見出しは主見出しと同色で小さめのフォントにする
 - 説明テキストは中央揃えにし、2〜3行に収める

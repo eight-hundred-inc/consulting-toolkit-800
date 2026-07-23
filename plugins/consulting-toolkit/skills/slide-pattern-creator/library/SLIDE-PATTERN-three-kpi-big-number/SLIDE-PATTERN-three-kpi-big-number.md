@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-three-kpi-big-number
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** three-kpi-big-number
@@ -11,47 +11,22 @@
 
 ```yaml
 layout: three-kpi-big-number
-content_area:
-  display: flex
-  padding: "20px 48px"
-  gap: 24px
-  align-items: center
-
-kpi_columns:
-  count: 3
-  each:
-    flex: 1
-    border: "1px solid #E0E0E0"
-    display: flex
-    flex-direction: column
-    align-items: center
-    padding: "28px 16px"
-    gap: 8px
-
-each_kpi_structure:
-  - area_label: "KPI ラベル（指標名）"
-  - big_number:
-      font_size: 48px
-      font_weight: bold
-      color: "#333"
-      unit:
-        font_size: 20px
-        color: "#888"
-        layout: "数字と横並び"
-  - description:
-      font_size: 13px
-      color: "#666"
-      text_align: center
-  - supplement:
-      font_size: 11px
-      color: "#999"
-      content: "前回比 +XX% など"
-
-divider:
-  between_columns: true
-  style: "1px solid #EEEEEE"
-  height: "60%"
-  align: center
+zones:
+  - role: kpi-column
+    content: KPIカラム ×3（横並び、等幅、カード面で区切る）
+    elements:
+      - role: area-label
+        content: KPIラベル（指標名の見出し）
+      - role: big-number
+        content: 大きな数字（特大フォント）＋単位（数字と横並び）
+      - role: description
+        content: 説明テキスト（中央揃え）
+      - role: supplement
+        content: 補足テキスト（例：「前回比 +XX%」など）
+  - role: divider
+    content: カラム間の縦区切り線（カラム中央、高さ約60%）
+reading_order: 左から右（カラム）、各カラムは上から下（ラベル→大きな数字→説明→補足）
+notes: 縦区切り線はカラム間の視覚的な分離のみが目的であり、コンテンツとしては含まない。
 ```
 
 ## Elements（各要素の役割）

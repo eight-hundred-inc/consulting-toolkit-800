@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-case-study-visual
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** case-study-visual
@@ -14,23 +14,25 @@
 
 ```yaml
 layout: two-column-case
-areas:
-  - name: lead
-    role: 全幅の要約文（1文・任意）
+zones:
+  - role: lead
+    content: 全幅の要約文（1文・任意）
     position: top-full-width
     optional: true
-  - name: case-lead
-    role: 事例リード
+  - role: case-lead
+    content: 事例リード
     position: left
     width: 50%
-    items:
+    elements:
       - attribute-tag   # 企業属性ラベル（業種・規模等）
       - case-heading    # 事例の見出し
       - support-text    # 支援内容2〜3行
-  - name: visual
-    role: ビジュアル（スクショ・写真コラージュのプレースホルダ）
+  - role: visual
+    content: ビジュアル（スクショ・写真コラージュのプレースホルダ）
     position: right
     width: 50%
+reading_order: （任意）全幅要約文 → 左（事例リード：属性タグ→見出し→支援内容） → 右（ビジュアル）
+notes: 1スライド＝1事例。左テキストは要点のみに絞る。ビジュアルが用意できない場合はプレースホルダのまま残すか、左テキストを全幅に広げて画像枠を「後日差し込み」として明示する
 ```
 
 ## Elements（各要素の役割）

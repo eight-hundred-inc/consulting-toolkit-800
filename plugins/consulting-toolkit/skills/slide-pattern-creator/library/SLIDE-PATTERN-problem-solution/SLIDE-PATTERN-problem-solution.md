@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-problem-solution
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** problem-solution
@@ -11,38 +11,18 @@
 
 ```yaml
 layout: problem-solution
-content_area:
-  display: flex
-  padding: "20px 32px"
-  gap: 0
-  align-items: stretch
-
-left_column:
-  width: "45%"
-  label: "課題"
-  label_style: "背景#F0F0F0、font-size: 13px、padding: 6px 16px"
-  body_style: "background: #FAFAFA、border: 1px solid #E0E0E0"
-  items:
-    - type: numbered_list
-      count: 3
-      content: "課題・問題点のテキスト"
-
-center_arrow:
-  icon: "▶"
-  font_size: 32px
-  color: "#CCCCCC"
-  width: "10%"
-  align: center（縦方向も中央揃え）
-
-right_column:
-  width: "45%"
-  label: "解決策"
-  label_style: "背景#E8E8E8、font-size: 13px、padding: 6px 16px"
-  body_style: "background: #FAFAFA、border: 1px solid #E0E0E0"
-  items:
-    - type: numbered_list
-      count: 3
-      content: "各課題に対応する解決策のテキスト"
+zones:
+  - role: problem       # 課題
+    width: 45%
+    content: ゾーン見出しラベル（課題）＋番号付きリスト 3項目
+  - role: transition
+    width: 10%
+    content: 課題から解決策への論理的なつながりを示す矢印（縦中央）
+  - role: solution       # 解決策
+    width: 45%
+    content: ゾーン見出しラベル（解決策）＋番号付きリスト 3項目（各課題に対応）
+reading_order: 左 → 中央 → 右
+notes: 課題と解決策は同じ番号で対応関係を示し、項目数は左右で必ず揃える
 ```
 
 ## Elements（各要素の役割）
@@ -51,7 +31,7 @@ right_column:
 |------|------|-----------|
 | 「課題」ラベル | 左カラムが問題・課題側であることを示すヘッダー | 固定（"課題"） |
 | 課題リスト（番号付き） | 抱えている問題点を具体的に列挙 | 1項目あたり25〜50文字 |
-| 中央矢印（▶） | 課題から解決策への論理的なつながりを示す | 固定 |
+| 中央矢印 | 課題から解決策への論理的なつながりを示す | 固定（矢印1つ） |
 | 「解決策」ラベル | 右カラムが解決策・対応策側であることを示すヘッダー | 固定（"解決策"） |
 | 解決策リスト（番号付き） | 各課題に対応する解決策・アプローチを列挙 | 1項目あたり25〜50文字 |
 

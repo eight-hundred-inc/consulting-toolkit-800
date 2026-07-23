@@ -1,4 +1,4 @@
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 # SLIDE-PATTERN: step-detail-photo-aside
 
@@ -13,17 +13,19 @@
 ## Structure
 
 ```yaml
-structure:
-  layout: three-column
-  left_col:
+layout: three-column
+zones:
+  - role: steps
     width: 12%
-    element: vertical-step-circles (with dotted connector)
-  middle_col:
+    content: 縦ステップ円 ×3（点線縦連結）
+  - role: body
     width: 63%
-    element: step-blocks (heading + bullet-list per step)
-  right_col:
+    content: ステップブロック（見出し＋箇条書き本文）×3、各ブロック間に分割線
+  - role: profile
     width: 25%
-    element: profile (circle-photo + name + title)
+    content: プロフィール（丸型写真＋氏名＋役職）
+reading_order: 左（ステップ）→ 中央（本文）→ 右（プロフィール）
+notes: ステップ円は3個が標準（2個は間延びする）。中列の各ブロックは均等な高さにする。右の写真エリアは縦中央揃えにする。
 ```
 
 ## Elements
@@ -44,5 +46,5 @@ structure:
 - 左のステップ円は3個が標準。2個だと間延びする
 - 中列の各ステップブロックは均等な高さにする
 - 右の写真エリアは縦中央揃えにするとバランスが取れる
-- ステップ円の最後（成果・成長実感）を濃い背景色にすると強調効果がある
+- ステップ円の最後（成果・成長実感）を強調表示にすると効果がある
 - 中列の見出しにブランドカラーを適用すると視認性と統一感が上がる

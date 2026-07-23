@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-headline-three-chart-grid
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライド生成AIや人間のデザイナーが一貫したレイアウトを再現できるよう、構造・要素・使用方法を定義します。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライド生成AIや人間のデザイナーが一貫したレイアウトを再現できるよう、構造・要素・使用方法を定義します。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ---
 
@@ -33,45 +33,46 @@
 └────────────┴────────────┴────────────────────┘
 ```
 
+```yaml
+layout: headline-three-chart-grid
+zones:
+  - role: headline
+    content: 大見出し（1〜2行）＋区切り線＋説明テキスト（2行）
+  - role: chart-panel
+    width: 33%（3等分）
+    content: グラフパネル ×3（横棒グラフ／縦棒グラフ／折れ線グラフ、各見出し＋サブテキスト付き）
+reading_order: 上（見出し）→ 下（グラフ3列、左 → 右）
+notes: 3つのグラフは互いに補完し合う関係にする（同一データを3種類で見せない）
+```
+
 ---
 
 ## Elements
 
 ### コンテンツエリア全体
-- `display: flex; flex-direction: column; padding: 12px 40px; gap: 12px;`
+- 縦方向に「見出しエリア」「グラフエリア」の2段を配置するコンテナ
 
 ### 上部見出しエリア
-- `flex-shrink: 0;`
-- 大見出し: `font-size: 18px; font-weight: bold; color: #333; line-height: 1.5;` — 1〜2行
-- 区切り線: `border: none; border-top: 1px solid #CCCCCC; margin: 6px 0;`
-- 説明テキスト: `font-size: 12px; color: #555; line-height: 1.7;` — 2行
+- 大見出し（1〜2行）
+- 区切り線（見出しと説明テキストの間）
+- 説明テキスト（2行）
 
 ### 下部グラフエリア（3列）
-- コンテナ: `flex: 1; display: flex; gap: 16px; padding-top: 4px;`
-- 各グラフパネル（3つ）: `flex: 1; border: 1px solid #E0E0E0; padding: 12px;`
-  - パネル見出し: `font-size: 12px; font-weight: bold; color: #333;`
-  - サブテキスト: `font-size: 10px; color: #888; margin-bottom: 6px;`
+- 3つのグラフパネルを横並びで等幅に配置
+- 各グラフパネルの構成：パネル見出し＋サブテキスト＋グラフ本体
 
 #### パネル1：横棒グラフ
-- 5〜7本の横棒: `display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 10px; color: #555;`
-- 棒部分: `height: 8px; background: #CCCCCC;` + 幅でデータ比率を表現
+- 横棒 5〜7本（各項目にラベル、棒の長さでデータ比率を表現）
 
 #### パネル2：縦棒グラフ
-- グラフコンテナ: `display: flex; align-items: flex-end; gap: 3px; height: 80px;`
-- 各棒: `width: 14px; background: #CCCCCC;` + 高さでデータ比率を表現
+- 縦棒（データ項目数に応じた本数、棒の高さでデータ比率を表現）
 
-#### パネル3：折れ線グラフ（SVG）
-```html
-<svg width="100%" height="80" viewBox="0 0 160 80" preserveAspectRatio="none">
-  <polyline points="10,60 40,45 70,55 100,25 130,20 150,30"
-    fill="none" stroke="#CCCCCC" stroke-width="2"/>
-  <line x1="0" y1="70" x2="160" y2="70" stroke="#EEEEEE" stroke-width="1"/>
-</svg>
-```
+#### パネル3：折れ線グラフ
+- 折れ線（時系列のデータ推移を表す1本の線）＋基準線（横軸）
 
 ### 凡例・出典テキスト
-- 凡例: `font-size: 10px; color: #888; margin-top: 6px;`
-- 出典: `font-size: 10px; color: #AAAAAA; text-align: right; margin-top: 4px;`
+- 凡例（グラフの下、任意）
+- 出典（右揃え、全パネル共通で1行にまとめてもよい）
 
 ---
 

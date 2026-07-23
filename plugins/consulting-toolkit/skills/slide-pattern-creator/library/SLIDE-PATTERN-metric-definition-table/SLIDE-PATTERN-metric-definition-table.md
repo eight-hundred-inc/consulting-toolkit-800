@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-metric-definition-table
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** metric-definition-table
@@ -14,10 +14,9 @@
 
 ```yaml
 layout: full-width-table
-areas:
-  - name: definition-table
-    role: 指標定義テーブル
-    position: full
+zones:
+  - role: definition-table
+    width: full
     columns:
       - category        # 大分類（セル結合）
       - subject-metric  # 調査対象・指標（行ラベル）
@@ -29,6 +28,8 @@ areas:
     column-count: 5-7
     row-grouping: category-rowspan  # 大分類でセル結合
     cell-style: short-phrase        # セルは短句のみ
+reading_order: 上（ヘッダ行）→ 下（各行）、左（大分類・行ラベル）→ 右（属性列）
+notes: 大分類でまとめられる対象は左端列をセル結合する。列は5〜7列に抑える。
 ```
 
 ## Elements（各要素の役割）

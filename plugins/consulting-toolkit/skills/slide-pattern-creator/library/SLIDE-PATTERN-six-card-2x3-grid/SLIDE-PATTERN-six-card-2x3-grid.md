@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-six-card-2x3-grid
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライド生成AIや人間のデザイナーが一貫したレイアウトを再現できるよう、構造・要素・使用方法を定義します。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライド生成AIや人間のデザイナーが一貫したレイアウトを再現できるよう、構造・要素・使用方法を定義します。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ---
 
@@ -33,25 +33,36 @@
 縦書きサイドバー（カテゴリ名）
 ```
 
+```yaml
+layout: six-card-2x3-grid
+zones:
+  - role: sidebar
+    width: 約5%（細幅・固定）
+    content: 縦書きサイドバーラベル（カテゴリ名／セクション名）
+  - role: grid
+    content: カード ×6（2行×3列グリッド）。各カードはアイコン円＋見出し＋説明テキスト（2行程度）
+reading_order: サイドバー → カード①→②→③（上段）→ カード④→⑤→⑥（下段）
+notes: サイドバーラベルが不要な場合は省略し、グリッド側の余白を広げて使用する
+```
+
 ---
 
 ## Elements
 
 ### コンテンツエリア全体
-- `display: flex; flex: 1; padding: 12px 16px; gap: 16px;`
+- サイドバーとグリッドを横並びに配置する
 
 ### 左サイドバー
-- `width: 40px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;`
-- サイドバーラベル: `font-size: 11px; color: #888; writing-mode: vertical-rl; text-orientation: mixed; letter-spacing: 0.1em;`
+- 幅の小さい固定サイドバーに、縦書きのラベルを中央揃えで配置する
 
 ### 右グリッドエリア
-- `flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 12px; height: 100%;`
+- 2行×3列のグリッドで6枚のカードを均等配置する
 
 ### 各カード（6つ）
-- `border: 1px solid #EEEEEE; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px;`
-  - アイコン円: `width: 44px; height: 44px; border-radius: 50%; border: 1px solid #CCCCCC; background: #F5F5F5; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #AAAAAA;`
-  - 見出し: `font-size: 13px; font-weight: bold; color: #333;`
-  - 説明テキスト: `font-size: 11px; color: #666; line-height: 1.6;` — 2行程度
+- カード（枠面）内にアイコン円・見出し・説明テキストを縦に並べる
+  - アイコン円: カードの内容を象徴するアイコン
+  - 見出し: 太字の項目タイトル
+  - 説明テキスト: 2行程度の補足説明
 
 ---
 
@@ -73,6 +84,6 @@
 
 ### 注意点
 - 1カードの説明テキストは2行以内に収める（グリッドセルの高さが均等に保たれる）
-- 見出しが長い場合は `font-size: 12px` に縮小して対応する
-- アイコン円のサイズは44pxを基準とし、グリッド密度に応じて36〜48pxの範囲で調整可
-- サイドバーラベルが不要な場合は左サイドバーを省略して `padding: 12px 40px` を使用する
+- 見出しが長い場合は文字サイズを一段階縮小して対応する
+- アイコン円のサイズはカードとのバランスを保った中程度の大きさを基準とし、グリッド密度に応じて一回り小さく／大きくする微調整も可
+- サイドバーラベルが不要な場合は左サイドバーを省略し、グリッド側の左右余白を均等に広げて使用する

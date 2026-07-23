@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-kpi-bar-chart
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,27 +12,30 @@
 
 コンテンツエリアを左右に分割し、左側（約35%）に主要KPI数値を大きなフォントで表示、右側（約65%）に棒グラフを配置する。グラフ下部にオプションでサマリーテーブル（前年比・トピック等）を追加できる。
 
-    structure:
-      layout: two-column
-      left:
-        width: 35%
-        type: kpi-text
-        elements:
-          - metric-name
-          - primary-value (large)
-          - secondary-metric-name
-          - secondary-value (large)
-          - period-note
-      right:
-        width: 65%
-        type: bar-chart
-        elements:
-          - bar-chart
-          - data-labels
-          - growth-arrow (optional)
-      bottom:
-        type: summary-table (optional)
-        elements: [yoy-row, topic-row]
+```yaml
+layout: two-column
+zones:
+  - role: kpi-text
+    width: 35%
+    elements:
+      - metric-name
+      - primary-value（大）
+      - secondary-metric-name
+      - secondary-value（大）
+      - period-note
+  - role: bar-chart
+    width: 65%
+    elements:
+      - bar-chart
+      - data-labels
+      - growth-arrow（任意）
+  - role: summary-table
+    width: full
+    content: サマリーテーブル（任意）
+    elements: [yoy-row, topic-row]
+reading_order: 左（KPI数値）→ 右（グラフ）→ 下（サマリーテーブル、任意）
+notes: サマリーテーブルは任意要素
+```
 
 ## Elements（各要素の役割）
 
@@ -52,6 +55,6 @@
 > 「SLIDE-PATTERN-kpi-bar-chartのレイアウトで、左にARR[数値]億円・YoY[%]を大きく表示し、右に[年度]からの推移グラフを配置してください。デザインはスライドマスターに従ってください。」
 
 **注意点：**
-- 左のKPI数値は60px以上の大きなフォントサイズで目立たせる
+- 左のKPI数値は大きなフォントサイズで目立たせる
 - 棒グラフの最新期のみ強調色を使い、他期は淡色にすると視点が定まる
 - サマリーテーブルはグラフのデータ密度が高い場合に補足として有効

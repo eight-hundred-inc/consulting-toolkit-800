@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-action-items-list
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** action-items-list
@@ -11,64 +11,26 @@
 
 ```yaml
 layout: action-items-list
-content_area:
-  display: flex
-  flex-direction: column
-  padding: "16px 48px"
-  gap: 0
-
-action_label:
-  text: "ACTION ITEMS"
-  style: "area-label（font-size: 11px、color: #999、letter-spacing: 0.08em）"
-  margin_bottom: 8px
-
-header_row:
-  display: grid
-  grid_template_columns: "32px 1fr 120px 90px"
-  gap: 16px
-  padding: "8px 0"
-  border_bottom: "2px solid #CCCCCC"
-  font_size: 11px
-  color: "#999"
-  columns:
-    - "No"
-    - "アクション"
-    - "担当"
-    - "期限"
-
-action_rows:
-  count: 4〜5
-  each:
-    display: grid
-    grid_template_columns: "32px 1fr 120px 90px"
-    gap: 16px
-    padding: "10px 0"
-    border_bottom: "1px solid #F0F0F0"
-    cells:
-      number:
-        width: 32px
-        height: 32px
-        background: "#F0F0F0"
-        border_radius: 50%
-        font_size: 12px
-        font_weight: bold
-        color: "#555"
-        display: flex
-        align_items: center
-        justify_content: center
-      action_text:
-        font_size: 14px
-        color: "#333"
-      assignee:
-        font_size: 13px
-        color: "#555"
-        background: "#F5F5F5"
-        padding: "2px 8px"
-        border_radius: 4px
-        display: inline-block
-      deadline:
-        font_size: 13px
-        color: "#666"
+zones:
+  - role: area-label
+    content: エリアラベル（固定テキスト "ACTION ITEMS"）
+  - role: header-row
+    content: 列見出し4つ（No / アクション / 担当 / 期限）
+    columns:
+      - { role: no, width: 4% }
+      - { role: action, width: 72% }
+      - { role: assignee, width: 14% }
+      - { role: deadline, width: 10% }
+  - role: action-rows
+    repeat: 4-5
+    content: 行×4〜5（番号バッジ＋アクション内容＋担当者タグ＋期限）
+    columns:
+      - { role: no, width: 4%, content: 番号バッジ（円形） }
+      - { role: action, width: 72%, content: アクション内容テキスト }
+      - { role: assignee, width: 14%, content: 担当者タグ }
+      - { role: deadline, width: 10%, content: 期限テキスト }
+reading_order: エリアラベル → ヘッダー行 → 各アクション行（上から下）
+notes: ヘッダー行・各アクション行の下に区切り線を入れる。列幅はヘッダー行と各行で揃える。
 ```
 
 ## Elements（各要素の役割）

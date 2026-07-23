@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-image-left-text-right
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,20 +12,22 @@
 
 コンテンツエリアを左右に分割する。左に画像、右にテキスト情報を配置する。
 
-    structure:
-      layout: content-area-image-left-text-right
-      left-column:
-        width: ~38%
-        elements:
-          - image-placeholder (full height, dashed border)
-      right-column:
-        width: ~62%
-        padding: 32px 40px
-        elements:
-          - area-label (uppercase, muted)
-          - heading (font-size: 18px, bold, #333)
-          - divider-line (2px, 40px, #CCCCCC)
-          - bullet-list (3–4 items, prefix: ▶ or ●, font-size: 14px)
+```yaml
+layout: content-area-image-left-text-right
+zones:
+  - role: image
+    width: 約38%
+    content: 画像プレースホルダー（全高・破線枠）
+  - role: text
+    width: 約62%
+    elements:
+      - area-label（大文字・控えめ）
+      - heading（太字）
+      - divider-line（短い横線）
+      - bullet-list（3〜4項目・マーカー付き）
+reading_order: 左（画像）→ 右（ラベル→見出し→区切り線→リスト）
+notes: 画像プレースホルダーは破線枠で示す
+```
 
 ## Elements（各要素の役割）
 
@@ -35,7 +37,7 @@
 | エリアラベル | 右カラム上部 | コンテンツのカテゴリ・ラベルを小さく表示 |
 | 見出し | ラベルの下 | このスライドで説明する主題を太く大きく表示 |
 | 区切り線 | 見出しの下 | 見出しと箇条書きの視覚的分離（短い横線） |
-| 箇条書きリスト | 区切り線の下 | 3〜4項目の特徴・ポイントを「▶」「●」付きで表示 |
+| 箇条書きリスト | 区切り線の下 | 3〜4項目の特徴・ポイントをマーカー付きで表示 |
 
 ## Usage Guide（AIへの使い方）
 
@@ -46,5 +48,5 @@
 **注意点：**
 - 箇条書きは3〜4項目が最適。5項目以上は別パターンを検討すること
 - 各箇条書き項目は1〜2行に収めること
-- 画像が用意できない場合はグレーのプレースホルダーのまま生成し、後から差し替えてもよい
-- 箇条書きのプレフィックス記号は「▶」の他、ブランドデザインに合わせて変更してよい
+- 画像が用意できない場合はプレースホルダーのまま生成し、後から差し替えてもよい
+- 箇条書きのマーカー（先頭記号）はスライドマスターの規定に従う

@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-before-after-two-col
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** before-after-two-col
@@ -11,50 +11,29 @@
 
 ```yaml
 layout: before-after-two-col
-content_area:
-  display: flex
-  padding: "24px 40px"
-  gap: 24px
-  align-items: stretch
-
-left_column:
-  label: "BEFORE"
-  label_style: "背景#F0F0F0、パディング8px 16px、font-size: 13px"
-  border: "1px solid #CCCCCC"
-  items:
-    - type: list
-      count: 3〜4
-      marker: "×"
-      marker_color: "#888"
-      content: "現状の課題・問題点"
-
-center_arrow:
-  icon: "→"
-  font_size: 32px
-  color: "#CCCCCC"
-  align: center（縦方向も中央揃え）
-
-right_column:
-  label: "AFTER"
-  label_style: "背景#E8E8E8、border: 1px solid #CCCCCC、パディング8px 16px、font-size: 13px"
-  border: "1px solid #CCCCCC"
-  items:
-    - type: list
-      count: 3〜4
-      marker: "○"
-      marker_color: "#666"
-      content: "改善後の状態・目標"
+zones:
+  - role: before      # 現状・課題
+    width: 42%
+    content: ゾーン見出しラベル（BEFORE）＋リスト 3〜4項目（負の側のマーカー）
+  - role: transition
+    width: 8%
+    content: 変化の方向を示す矢印（縦中央）
+  - role: after       # 改善後・目標
+    width: 42%
+    content: ゾーン見出しラベル（AFTER）＋リスト 3〜4項目（正の側のマーカー）
+reading_order: 左 → 中央 → 右
+notes: Before と After の項目数は揃え、対応関係が分かる順に並べる
 ```
 
 ## Elements（各要素の役割）
 
 | 要素 | 役割 | 推奨文字数 |
 |------|------|-----------|
-| BEFORE ラベル | 左カラムが「現状・課題」であることを示すヘッダー | 固定（"BEFORE"） |
-| × リストアイテム | 現状の問題点・課題を箇条書きで列挙 | 1項目あたり20〜40文字 |
-| 中央矢印（→） | BEFOREからAFTERへの変化・改善の方向を示す | 固定（"→"） |
-| AFTER ラベル | 右カラムが「改善後・目標」であることを示すヘッダー | 固定（"AFTER"） |
-| ○ リストアイテム | 改善後の状態・達成すべき目標を箇条書きで列挙 | 1項目あたり20〜40文字 |
+| BEFORE ラベル | 左カラムが「現状・課題」であることを示すゾーン見出し | 固定（"BEFORE"） |
+| 負マーカー付きリスト | 現状の問題点・課題を箇条書きで列挙 | 1項目あたり20〜40文字 |
+| 中央矢印 | BEFOREからAFTERへの変化・改善の方向を示す | 固定（矢印1つ） |
+| AFTER ラベル | 右カラムが「改善後・目標」であることを示すゾーン見出し | 固定（"AFTER"） |
+| 正マーカー付きリスト | 改善後の状態・達成すべき目標を箇条書きで列挙 | 1項目あたり20〜40文字 |
 
 ## Usage Guide（AIへの使い方）
 

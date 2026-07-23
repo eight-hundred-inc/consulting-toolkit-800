@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-chart-with-commentary
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスター（表紙・タイトル行・フッター・配色・フォント）はマスター側（branded-pptx / html-artifactテーマ等）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** chart-with-commentary
@@ -14,21 +14,18 @@
 
 ```yaml
 layout: two-third-chart-plus-notes
-areas:
-  - name: lead
-    role: 全幅の要約文（1文・任意）
-    position: top-full-width
+zones:
+  - role: lead
+    content: 全幅の要約文（1文・任意）
     optional: true
-  - name: chart
-    role: チャートエリア（棒・ウォーターフォール・積み上げ等）
-    position: left
+  - role: chart
     width: 66%
-  - name: commentary
-    role: 読み取りポイントの箇条書き
-    position: right
+    content: チャートエリア（棒・ウォーターフォール・積み上げ等）
+  - role: commentary
     width: 33%
-    marker: number-or-bullet   # 番号 or ●
-    count: 3-4
+    content: 読み取りポイントの箇条書き（番号または●）3〜4件
+reading_order: 上（リード文）→ 左（チャート）→ 右（解説）
+notes: 各解説項目はチャート上の特徴（変化点・最大値・差分など）に対応させる
 ```
 
 ## Elements（各要素の役割）

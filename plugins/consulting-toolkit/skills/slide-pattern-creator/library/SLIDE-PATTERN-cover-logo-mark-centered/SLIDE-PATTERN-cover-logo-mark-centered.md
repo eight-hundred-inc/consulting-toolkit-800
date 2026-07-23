@@ -1,6 +1,6 @@
 # SLIDE-PATTERN: cover-logo-mark-centered
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ---
 
@@ -12,16 +12,21 @@
 
 ## Structure
 
-```
-structure:
-  layout: single-column
-  alignment: center
-  elements:
-    logo_mark: top-center (large symbol)
-    main_title: below-logo (large, bold)
-    company_name: below-title
-    date: below-company
-    additional_info: below-date (stock code etc.)
+```yaml
+layout: single-column
+zones:
+  - role: logo-mark
+    content: ロゴマーク（シンボル）
+  - role: main-title
+    content: メインタイトル
+  - role: company-name
+    content: 会社名
+  - role: date
+    content: 日付
+  - role: additional-info
+    content: 付加情報（証券コード等）
+reading_order: 上 → 下（縦積み・中央揃え）
+notes: 5〜6要素の縦積みが標準。それ以上増やすと間隔が詰まる
 ```
 
 ---
@@ -44,5 +49,5 @@ structure:
 - タイトルと会社名の間の仕切り線はブランドカラーを適用
 - 5〜6要素の縦積みが標準。それ以上増やすと間隔が詰まる
 - ロゴマークのサイズはスライド高さの13〜15%程度を目安にする
-- 仕切り線の幅は40〜60px程度。ブランドカラーのアクセントラインとして機能する
+- 仕切り線は装飾的なアクセントラインとして機能する程度に短くとどめる
 - 付加情報（証券コード等）はオプション。不要な場合は省略可能

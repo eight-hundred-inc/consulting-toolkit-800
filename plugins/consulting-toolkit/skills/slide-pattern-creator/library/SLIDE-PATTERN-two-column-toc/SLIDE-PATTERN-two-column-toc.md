@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-two-column-toc
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,18 +12,18 @@
 
 コンテンツエリアを左右2カラムに分割し、各カラムに5項目前後の目次を配置する。各目次項目は「番号.項目名 ……………… ページ番号」のリーダー付き形式で表示する。
 
-    structure:
-      layout: two-column
-      left:
-        width: 50%
-        items: 5
-        item:
-          elements: [number, item-name, dotted-leader, page-number]
-      right:
-        width: 50%
-        items: 5
-        item:
-          elements: [number, item-name, dotted-leader, page-number]
+```yaml
+layout: two-column
+zones:
+  - role: left-column
+    width: 50%
+    content: 目次項目 5件（番号＋項目名＋点線リーダー＋ページ番号）
+  - role: right-column
+    width: 50%
+    content: 目次項目 5件（番号＋項目名＋点線リーダー＋ページ番号）
+reading_order: 左（上→下） → 右（上→下）
+notes: 左右カラムの項目数は均等にする。項目数が5以下の場合はnumbered-tocパターンを検討する。
+```
 
 ## Elements（各要素の役割）
 
@@ -42,5 +42,5 @@
 
 **注意点：**
 - 項目数が少ない（5項目以下）場合はnumbered-tocパターンの方が適切
-- 点線リーダーはCSSのborder-bottomのdottedまたは文字「…」の繰り返しで表現できる
+- 点線リーダーは罫線や文字「…」の繰り返しで表現できる
 - 左カラムと右カラムの項目数は均等にするとバランスが良い

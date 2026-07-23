@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-profile-bio
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,23 +12,21 @@
 
 コンテンツエリアを左右2カラムに分割する。左カラム（約35%）に顔写真（正方形または縦長）と名前キャプションを配置し、右カラム（約65%）に名前見出し・役職・各種プロフィール情報をテーブル形式で並べる。
 
-    structure:
-      layout: two-column
-      left:
+    layout: two-column
+    zones:
+      - role: photo
         width: 35%
         elements:
-          - photo (portrait image)
-          - name-caption (small text below photo)
-      right:
+          - 顔写真（正方形または縦長）
+          - 名前キャプション（写真下の小さいテキスト）
+      - role: profile
         width: 65%
         elements:
-          - full-name (large heading)
-          - title-position (text)
-          - profile-table:
-              rows:
-                - label: 出身地
-                - label: 学歴
-                - label: 経歴 (multiple rows)
+          - フルネーム（大見出し）
+          - 役職・所属
+          - プロフィールテーブル（行：出身地／学歴／経歴（複数行））
+    reading_order: 左 → 右
+    notes: 経歴テーブルは「年：内容」の2カラム形式が読みやすい
 
 ## Elements（各要素の役割）
 

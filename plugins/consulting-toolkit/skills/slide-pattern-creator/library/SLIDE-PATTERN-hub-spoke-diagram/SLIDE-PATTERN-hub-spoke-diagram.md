@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-hub-spoke-diagram
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,16 +12,21 @@
 
 コンテンツエリア中央に大きな図形（ハブ）を配置し、その上下左右または対角に4〜6つのテキストボックス（スポーク）を配置する。スポークには見出し（H3）と説明文を記述する。線でハブとスポークをつなぐことがある。
 
-    structure:
-      layout: hub-spoke
-      center:
-        type: circle or hexagon or polygon
-        label: [core-concept-name]
-      spokes:
-        count: 4-6
-        position: radial (top/right/bottom/left or corners)
-        spoke:
-          elements: [heading-h3, description-body]
+```yaml
+layout: hub-spoke
+zones:
+  - role: hub
+    position: center
+    content: ハブ図形（円・六角形・多角形等）＋ハブラベル
+  - role: spokes
+    position: radial（上下左右または対角）
+    content: スポーク ×4〜6
+    elements:
+      - heading-h3
+      - description-body
+reading_order: 中央（ハブ）→ 周囲（スポーク、配置順）
+notes: ハブとスポークを接続線でつなぐ場合は任意要素とする
+```
 
 ## Elements（各要素の役割）
 

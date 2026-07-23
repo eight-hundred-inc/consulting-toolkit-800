@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-faq-single-column
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,15 +12,17 @@
 
 コンテンツエリアを3行に分割し、各行を1つのQ&Aボックスとして配置する。各ボックスは上部に「Q.」テキスト＋質問文、下部に回答本文を入れる。ボックス間は余白で区切る。
 
-    structure:
-      layout: single-column-list
-      items: 3
-      item:
-        type: bordered-box
-        top:
-          elements: [q-label (colored), question-text]
-        bottom:
-          elements: [answer-body]
+```yaml
+layout: single-column-list
+zones:
+  - role: qa-box
+    content: Q&Aボックス ×3（縦積み）
+    elements:
+      - top: Qラベル＋質問文
+      - bottom: 回答本文
+reading_order: 上 → 下
+notes: 3項目が最適。2項目の場合はボックス高さを大きくしてゆとりを持たせる
+```
 
 ## Elements（各要素の役割）
 

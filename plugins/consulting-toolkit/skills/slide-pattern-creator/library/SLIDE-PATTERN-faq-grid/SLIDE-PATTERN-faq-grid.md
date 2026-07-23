@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-faq-grid
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,15 +12,16 @@
 
 コンテンツエリアを3列×2行のグリッドに分割する。各セルは上部に番号バッジ＋質問見出し、下部に回答本文を配置する。セルは境界線またはボックスで区切る。
 
-    structure:
-      layout: three-column-two-row-grid
-      columns: 3
-      rows: 2
-      cell:
-        elements:
-          - number-badge (Q1〜Q6)
-          - question-heading
-          - answer-body
+```yaml
+layout: three-column-two-row-grid
+zones:
+  - role: cell
+    content: 番号バッジ（Q1〜Q6）＋質問見出し＋回答本文
+    count: 6
+    arrangement: 3列×2行グリッド
+reading_order: 上段左→右（Q1→Q3）→ 下段左→右（Q4→Q6）
+notes: セルは境界線またはボックスで区切る
+```
 
 ## Elements（各要素の役割）
 

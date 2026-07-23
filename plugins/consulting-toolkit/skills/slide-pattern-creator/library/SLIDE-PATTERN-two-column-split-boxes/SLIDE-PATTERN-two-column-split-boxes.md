@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-two-column-split-boxes
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -10,22 +10,23 @@
 
 ## Structure（構造）
 
-コンテンツエリアを左右2等分し、各側を境界線付きのボックスで囲む。左右各ボックスは見出し＋本文で構成される。2ボックスの中央（接続部）に矢印や円など接続シンボルを配置する（任意）。
+コンテンツエリアを左右2等分し、各側をカード（枠面）で囲む。左右各ボックスは見出し＋本文で構成される。2ボックスの中央（接続部）に矢印や円など接続シンボルを配置する（任意）。
 
-    structure:
-      layout: two-equal-columns
-      left:
-        width: 48%
-        type: bordered-box
-        elements: [heading-h2, body-text]
-      connector:
-        width: 4%
-        type: circle-or-arrow (optional)
-        label: [connector-text]
-      right:
-        width: 48%
-        type: bordered-box
-        elements: [heading-h2, body-text]
+```yaml
+layout: two-equal-columns
+zones:
+  - role: left-box
+    width: 48%
+    content: カード（見出し＋本文3〜5行）
+  - role: connector
+    width: 4%
+    content: 接続シンボル（矢印または円、任意）
+  - role: right-box
+    width: 48%
+    content: カード（見出し＋本文3〜5行）
+reading_order: 左 → 中央（接続シンボル） → 右
+notes: 接続シンボルは省略可。2つのボックスは同等の情報量にすると視覚的バランスが保てる。
+```
 
 ## Elements（各要素の役割）
 
@@ -46,4 +47,4 @@
 **注意点：**
 - 2つのボックスは同等の情報量にすると視覚的バランスが保てる
 - 接続シンボルが不要な場合は省略してシンプルな2分割にもできる
-- ボックスの背景色を左右で変えると（例：左=薄青・右=薄グレー）対比が明確になる
+- 左右のボックスの見た目を変えると対比が明確になる

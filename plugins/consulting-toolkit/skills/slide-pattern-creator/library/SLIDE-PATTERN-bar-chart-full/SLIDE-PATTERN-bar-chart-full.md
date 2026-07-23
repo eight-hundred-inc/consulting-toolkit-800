@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-bar-chart-full
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,20 +12,22 @@
 
 コンテンツエリアはグラフエリアが大部分を占める単一レイアウト。上部に注釈行（凡例・単位）、中央に大型グラフ（棒グラフ＋オプションで折れ線オーバーレイ）、右上にKPI強調バッジ（最新値・成長率など）を配置する。
 
-    structure:
-      layout: single
-      main:
-        type: bar-chart
-        overlay: line-chart (optional)
+    layout: single
+    zones:
+      - role: main-chart
         position: full-width
-      annotation_row:
-        position: top-left of chart
-        elements: [unit-label, legend-dots]
-      kpi_badge:
-        position: top-right of chart
-        elements: [primary-value, secondary-value, growth-rate-badge]
-      x_axis:
-        elements: [period-labels]
+        content: 棒グラフ（type: bar-chart）＋オプションで折れ線オーバーレイ（line-chart）
+      - role: annotation-row
+        position: グラフ左上
+        content: 単位ラベル＋凡例ドット
+      - role: kpi-badge
+        position: グラフ右上
+        content: 主要数値＋副次数値＋成長率バッジ
+      - role: x-axis
+        position: グラフ下部
+        content: 期間ラベル
+    reading_order: 上（注釈・KPIバッジ） → グラフ本体 → X軸ラベル
+    notes: X軸ラベルが多い場合（12期以上）は斜め表示や省略を検討。折れ線オーバーレイは比率指標を絶対値と同時に見せる際に効果的
 
 ## Elements（各要素の役割）
 

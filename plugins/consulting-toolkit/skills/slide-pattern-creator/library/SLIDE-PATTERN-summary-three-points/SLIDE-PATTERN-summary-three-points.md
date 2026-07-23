@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-summary-three-points
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 **パターン名：** summary-three-points
@@ -11,46 +11,16 @@
 
 ```yaml
 layout: summary-three-points
-content_area:
-  display: flex
-  flex-direction: column
-  justify-content: center
-  padding: "24px 80px"
-  gap: 16px
-
-summary_label:
-  text: "SUMMARY"
-  style: "area-label（font-size: 11px、color: #999、letter-spacing: 0.08em）"
-  margin_bottom: 4px
-
-point_items:
-  count: 3
-  each:
-    display: flex
-    align-items: flex-start
-    gap: 20px
-    padding: "14px 0"
-    border-bottom: "1px solid #F0F0F0"
-    check_icon:
-      width: 28px
-      height: 28px
-      border: "2px solid #CCCCCC"
-      display: flex
-      align-items: center
-      justify-content: center
-      font_size: 14px
-      color: "#888"
-      flex_shrink: 0
-      content: "✓"
-    text_block:
-      heading:
-        font_size: 15px
-        font_weight: bold
-        color: "#333"
-      body:
-        font_size: 13px
-        color: "#666"
-        margin_top: 4px
+zones:
+  - role: summary_label
+    content: エリアラベル（"SUMMARY"固定）
+  - role: point_items
+    content: ポイント項目 ×3。各項目間を区切り線で分離
+    elements:
+      - チェックアイコン（固定 "✓"）
+      - テキストブロック（見出し＋その下に補足テキスト）
+reading_order: 上（SUMMARYラベル）→ 下（ポイント項目を縦に3つ）
+notes: ラベル＋3ポイントのブロック全体はコンテンツエリア内で縦中央に配置する。各ポイント項目はチェックアイコン｜テキストブロックの2カラム横並び構成で、アイコンとテキストブロックは上端揃え。
 ```
 
 ## Elements（各要素の役割）

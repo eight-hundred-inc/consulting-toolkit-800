@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-three-card-icon-with-subheading
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライド生成AIや人間のデザイナーが一貫したレイアウトを再現できるよう、構造・要素・使用方法を定義します。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライド生成AIや人間のデザイナーが一貫したレイアウトを再現できるよう、構造・要素・使用方法を定義します。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ---
 
@@ -20,20 +20,15 @@
 
 コンテンツエリアを上部の区切り見出しと、下部の3カードに分割する構造です。
 
-```
-┌──────────────────────────────────────────────┐
-│ タイトルエリア（スライドタイトル）            │
-├──────────────────────────────────────────────┤
-│ ──────── セクション見出しテキスト ──────── │ ← 区切り見出し
-├────────────┬────────────┬────────────────────┤
-│ ┌──────┐  │ ┌──────┐  │ ┌──────┐          │
-│ │  01  │  │ │  02  │  │ │  03  │          │ ← 番号バナー
-│ ├──────┤  │ ├──────┤  │ ├──────┤          │
-│ │  ○   │  │ │  ○   │  │ │  ○   │          │ ← アイコン円
-│ │見出し│  │ │見出し│  │ │見出し│          │
-│ │説明  │  │ │説明  │  │ │説明  │          │
-│ └──────┘  │ └──────┘  │ └──────┘          │
-└────────────┴────────────┴────────────────────┘
+```yaml
+layout: three-card-icon-with-subheading
+zones:
+  - role: section_heading
+    content: 区切り見出し（左右の線に挟まれた中央揃えの見出しテキスト、任意）
+  - role: cards
+    content: カード ×3（横並び、等幅）。各カードは番号バナー＋アイコン円＋見出し＋説明テキストを縦に積む
+reading_order: 上（区切り見出し）→ 下（カード、左→右）
+notes: 区切り見出しが不要な場合は省略し、カードを上から配置してもよい。カードの高さは自動で揃える。
 ```
 
 ---
@@ -41,27 +36,21 @@
 ## Elements
 
 ### コンテンツエリア全体
-- `display: flex; flex-direction: column; padding: 12px 40px; gap: 12px;`
+- 区切り見出しと3カードグリッドを縦に配置
 
 ### 区切り見出しエリア
-- コンテナ: `display: flex; align-items: center; gap: 16px; text-align: center;`
-- 左線: `flex: 1; height: 1px; background: #CCCCCC;`
-- 見出しテキスト: `font-size: 14px; font-weight: bold; color: #333; white-space: nowrap;`
-- 右線: 左線と同スタイル
+- 左右の線に挟まれた中央揃えの見出しテキスト
 
 ### 3カードグリッド
-- コンテナ: `display: flex; gap: 16px; flex: 1;`
-- 各カード（3つ）: `flex: 1; border: 1px solid #E0E0E0; background: #F8F8F8; display: flex; flex-direction: column;`
+- 3枚のカードを均等幅で横並びに配置
 
 #### 番号バナー
-- `padding: 4px 12px; background: #E8E8E8; border-bottom: 1px solid #CCCCCC; text-align: center;`
-- 番号テキスト: `font-size: 12px; font-weight: bold; color: #555;` ← 「01」「02」「03」
+- カード上部の帯。番号テキスト（「01」「02」「03」等）を表示
 
 #### カード本体
-- `padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1;`
-- アイコン円: `width: 56px; height: 56px; border-radius: 50%; background: #F0F0F0; border: 1px dashed #CCCCCC; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #AAAAAA;`
-- カード見出し: `font-size: 14px; font-weight: bold; color: #333; text-align: center;`
-- 説明テキスト: `font-size: 12px; color: #666; text-align: center; line-height: 1.6;`
+- アイコン円（カテゴリを表すアイコンを中央配置）
+- カード見出し（中央揃え）
+- 説明テキスト（中央揃え、2〜4行程度）
 
 ---
 
@@ -85,5 +74,5 @@
 ### 注意点
 - 説明テキストは3カードで文字量を揃えると整って見える
 - アイコン円には実際のアイコン画像またはUnicode文字を使用可
-- カードの高さは `flex: 1` により自動で揃う
+- カードの高さは自動で揃う
 - 区切り見出しが不要な場合は省略し、カードを上から配置してもよい

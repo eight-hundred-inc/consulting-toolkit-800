@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-cover-with-image-left
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,21 +12,18 @@
 
 スライド全体（タイトルエリアなし）を左右2分割で使うカバーレイアウト。左に画像、右にテキスト情報を縦に積み上げる。
 
-    structure:
-      layout: full-slide-two-column (no title area)
-      left-column:
-        width: ~45%
-        elements:
-          - image-placeholder (full height)
-      right-column:
-        width: ~55%
-        padding: 48px
-        elements:
-          - category-label (small, muted, #999)
-          - main-title (large, bold, #222)
-          - description (1–2 lines, #555)
-          - divider-line
-          - meta-info (date, author, company, #888)
+```yaml
+layout: full-slide-two-column (no title area)
+zones:
+  - role: image
+    width: 45%
+    content: 画像プレースホルダー（フル高さ）
+  - role: text
+    width: 55%
+    content: カテゴリラベル（小・控えめ）＋メインタイトル（大・太字）＋説明文（1〜2行）＋区切り線＋メタ情報（日付・著者・会社名、控えめ）
+reading_order: 左（画像）→ 右（カテゴリラベル → メインタイトル → 説明文 → 区切り線 → メタ情報）
+notes: タイトルエリアを使わない全画面レイアウト。右カラムの各要素は縦に積み上げて配置する
+```
 
 ## Elements（各要素の役割）
 

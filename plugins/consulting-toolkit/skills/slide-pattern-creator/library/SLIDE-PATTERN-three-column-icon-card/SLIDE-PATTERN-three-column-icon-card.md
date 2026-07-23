@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-three-column-icon-card
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,15 +12,21 @@
 
 コンテンツエリアを3等分した横並びカードで構成する。各カードは上部にアイコン（図形またはシンボル）、中央に見出し（H2）、下部に本文テキスト（箇条書きまたは段落）を配置する。カードは背景色または枠線で区切る。
 
-    structure:
-      layout: three-equal-columns
-      card:
-        top:
-          elements: [icon (symbol or image)]
-        middle:
-          elements: [heading-h2]
-        bottom:
-          elements: [body-text or bullet-list]
+```yaml
+layout: three-equal-columns
+zones:
+  - role: cards
+    content: カード ×3（横並び、等幅）
+    elements:
+      - role: top
+        content: アイコン（図形・シンボルまたは画像）
+      - role: middle
+        content: 見出し（H2）
+      - role: bottom
+        content: 本文テキストまたは箇条書き（2〜4行）
+reading_order: 左から右（カード）、各カードは上から下（アイコン→見出し→本文）
+notes: 3列固定のパターン。2列または4列にしたい場合は別パターンを使用する。カード間の余白を十分にとる。
+```
 
 ## Elements（各要素の役割）
 

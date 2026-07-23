@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-cycle-diagram-with-labels
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,17 +12,22 @@
 
 コンテンツエリア中央に大きなサイクル図形（円形または円弧型の矢印を持つ4分割構成）を配置する。図形の四隅（左上・右上・左下・右下）にそれぞれのフェーズ名と説明文ボックスを配置する。図形の中心にはコアコンセプト名を置く。
 
-    structure:
-      layout: center-diagram-with-corner-labels
-      center:
-        type: circular-cycle-diagram
-        segments: 4
-        center-label: [core-concept-text]
-      corners:
-        top-left: [phase-name, description]
-        top-right: [phase-name, description]
-        bottom-left: [phase-name, description]
-        bottom-right: [phase-name, description]
+```yaml
+layout: center-diagram-with-corner-labels
+zones:
+  - role: center
+    content: 円形サイクル図形（4セグメント）＋中心ラベル（コアコンセプト）
+  - role: top-left
+    content: フェーズ名＋説明
+  - role: top-right
+    content: フェーズ名＋説明
+  - role: bottom-left
+    content: フェーズ名＋説明
+  - role: bottom-right
+    content: フェーズ名＋説明
+reading_order: 中央（サイクル図・中心ラベル）→ 四隅（左上→右上→左下→右下）
+notes: 4フェーズ固定のパターン
+```
 
 ## Elements（各要素の役割）
 

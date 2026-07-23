@@ -1,6 +1,6 @@
 # SLIDE-PATTERN-numbered-list-hexagon-badge
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ## Overview
 
@@ -12,15 +12,16 @@
 
 コンテンツエリアは上部のリード文エリアと、下部の番号付きリストエリアで縦に分かれる。リストエリアは各行が「左：六角形番号バッジ ／ 右：テキストブロック（見出し＋説明文）」の2カラム構成で、行間は水平罫線で区切られる。
 
-    structure:
-      layout: single
-      lead_text: top
-      list_area:
-        row_count: 3
-        row_layout: two-column
-        left_col: hexagon-badge
-        right_col: heading-with-body
-        divider: horizontal-rule
+```yaml
+layout: single
+zones:
+  - role: lead-text
+    content: リード文（1〜2行、スライド全体の主旨・前置き）
+  - role: list
+    content: リスト行 ×3（各行：左に六角形番号バッジ、右にテキストブロック［見出し＋説明文］の2カラム）
+reading_order: 上（リード文）→ 下（リスト、上から下）
+notes: 各リスト行は水平罫線で区切る
+```
 
 ## Elements（各要素の役割）
 

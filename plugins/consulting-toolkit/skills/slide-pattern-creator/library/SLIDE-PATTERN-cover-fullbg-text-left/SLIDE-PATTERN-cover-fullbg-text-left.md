@@ -1,6 +1,6 @@
 # SLIDE-PATTERN: cover-fullbg-text-left
 
-このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。
+このファイルはスライドのコンテンツエリア（タイトル行より下の領域）のレイアウトパターン定義書です。スライドマスターと組み合わせてAIツールに渡すことで、このパターンのスライドを生成できます。タイトルエリア・ページ番号・装飾はスライドマスター（branded-pptx / html-artifactテーマ）で定義されるため、このファイルには含みません。プレビュー .html は生成当時の見本であり非規範。見た目は選択マスターが決めます。
 
 ---
 
@@ -13,17 +13,16 @@
 ## Structure
 
 ```
-structure:
-  layout: two-column
-  left:
+layout: two-column
+zones:
+  - role: text-block
     width: 55%
-    type: text
-    alignment: bottom-left
-    elements: [main-title, subtitle, presenter-name, affiliation]
-  right:
+    content: メインタイトル＋サブタイトル＋発表者名＋所属情報（縦積み、左下揃え）
+  - role: background-image
     width: 45%
-    type: background-image
-    role: decorative visual
+    content: 装飾的な背景画像・テクスチャ
+reading_order: 左（テキスト、上から下）→ 右（背景画像）
+notes: 左右の比率は55:45が標準。テキスト量によって60:40〜50:50に調整可能
 ```
 
 ---
@@ -47,4 +46,4 @@ structure:
 - タイトルは3行程度まで。長くなる場合はフォントサイズを下げる
 - 左右の比率は55:45が標準。テキスト量によって60:40〜50:50に調整可能
 - 発表者名の後ろにSNSハンドル（@xxx）を添えることも多い
-- 右エリアの画像はオブジェクトフィット:coverで全面を覆う形が推奨
+- 右エリアの画像はエリア全面を覆う形が推奨
