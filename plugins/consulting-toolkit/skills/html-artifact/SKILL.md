@@ -259,7 +259,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 
 ### ボディのベースライン規範（Slide Deck format のみ）
 
-Slide Deck format のボディ（タイトル行・メッセージ行より下のコンテンツエリア）は**ベースライン規範**に従う。正本は `${CLAUDE_PLUGIN_ROOT}/skills/_shared/slide-body-principles.md`（5 原則＋例外 2 つ＋数値換算表。読み込み順序表の 4 番）。
+Slide Deck format のボディ（タイトル行・メッセージ行より下のコンテンツエリア）は**ベースライン規範**に従う。正本は `${CLAUDE_PLUGIN_ROOT}/skills/_shared/slide-body-principles.md`（6 原則＋例外 2 つ＋数値換算表。読み込み順序表の 4 番）。
 
 - 規範は**最低保証ライン（床）であって表現の上限ではない**。1 枚に部品 7 種・入れ子カード・強調 3 箇所のような散らかりを防ぐのが目的で、床の上に作り込むのは自由
 - **例外①（図版の見せ場）**は `references/diagram-components.md` の**リッチ判定**と接続する：リッチ判定に該当する作り込み図版が主役のスライドでは原則 1（部品 3〜4 種）・原則 2（ネスト禁止）を適用せず、図版内部は diagram-components.md の規範に従う
