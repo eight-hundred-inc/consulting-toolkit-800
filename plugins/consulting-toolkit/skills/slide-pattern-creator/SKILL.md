@@ -79,15 +79,7 @@ STEP 2で提示した命名候補をユーザーが承認していない場合�
 
 - 英小文字・ハイフン区切りのみ使用する
 - 構造が一目でわかる名前にする
-- 命名例：
-  - `title-center` — 中央にタイトルのみ
-  - `image-left-text-right` — 左に画像・右にテキスト
-  - `three-column-icons` — 3カラムにアイコンと説明
-  - `full-image-overlay` — 全面画像にテキストオーバーレイ
-  - `bullet-list` — 見出し＋箇条書き
-  - `data-chart` — 見出し＋グラフ・表
-  - `quote-statement` — 引用・インパクト文字
-  - `summary-grid` — まとめのカードグリッド
+- 命名例：`image-left-text-right`（左に画像・右にテキスト）、`three-column-icons`（3カラムにアイコンと説明）、`full-image-overlay`（全面画像にテキストオーバーレイ）、`summary-grid`（まとめのカードグリッド）
 
 ### 確認の進め方
 
@@ -214,72 +206,9 @@ STEP 4と同じフォルダ内にスケルトンHTMLを生成する。
 - **タイトルエリアのプレースホルダーを必ず上部に配置する**：薄いグレーで "Title Area — スライドマスター参照" とラベル表示し、このエリアがスライドマスター（branded-pptx のマスター定義 / html-artifact のテーマ）で定義されることを明示する。タイトルより下がコンテンツエリア（このパターンが定義する領域）となる。
 - **スライド全体は `display:flex; flex-direction:column;` で構成する**：タイトルエリアを `flex-shrink:0` で固定し、コンテンツエリアを `flex:1` で残りを埋める。
 
-### CSSの基本構造
+### CSS 基本構造・HTML 構成例
 
-    body {
-      background: #E8E8E8;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-      font-family: sans-serif;
-    }
-
-    .slide {
-      width: 960px;
-      height: 540px;
-      background: #FFFFFF;
-      border: 1px solid #CCCCCC;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 8px;
-    }
-
-    .area-label {
-      font-size: 11px;
-      color: #999999;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 6px;
-    }
-
-    .placeholder-box {
-      background: #F0F0F0;
-      border: 1px dashed #CCCCCC;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #AAAAAA;
-      font-size: 13px;
-    }
-
-### HTMLの構成例（image-left-text-rightの場合）
-
-パターンの構造に応じてHTMLを生成する。以下は2カラム（左画像・右テキスト）の構成例：
-
-    <p class="slide-label">[{name}]</p>
-    <div class="slide" style="display:flex; flex-direction:column;">
-      <!-- タイトルエリア（スライドマスターで定義） -->
-      <div style="padding:14px 40px 12px; border-bottom:1px dashed #CCCCCC; flex-shrink:0; background:#FAFAFA;">
-        <div class="area-label">Title Area — スライドマスター参照</div>
-        <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">スライドタイトルが入ります</div>
-      </div>
-      <!-- コンテンツエリア（このパターンが定義する領域） -->
-      <div style="display:flex; flex:1; overflow:hidden;">
-        <div style="width:50%; padding:24px 32px; display:flex; flex-direction:column; justify-content:center; border-right:1px solid #CCCCCC;">
-          <div class="area-label">Image Area</div>
-          <div class="placeholder-box" style="flex:1;">[IMAGE]</div>
-        </div>
-        <div style="width:50%; padding:24px 32px; display:flex; flex-direction:column; justify-content:center;">
-          <div class="area-label">Heading (H2)</div>
-          <div style="font-size:20px; font-weight:bold; color:#333; margin-bottom:12px;">見出しが入ります</div>
-          <div class="area-label">Body Text</div>
-          <div style="font-size:13px; color:#555; line-height:1.7; margin-bottom:12px;">本文テキストが入ります。2〜4行程度の説明文が配置されます。ここにメッセージの詳細を記述します。</div>
-          <div class="area-label">Caption (optional)</div>
-          <div style="font-size:11px; color:#999;">補足・注釈テキスト</div>
-        </div>
-      </div>
-    </div>
+`references/skeleton-html-template.md` の CSS 基本構造（body / .slide / .area-label / .placeholder-box）と HTML 構成例（image-left-text-right の 2 カラム例）に従う。**スケルトンHTML生成前に必ず読むこと。**
 
 ### 生成時の注意
 
@@ -355,14 +284,4 @@ STEP 4と同じフォルダ内にスケルトンHTMLを生成する。
 
 ### 完了通知
 
-インデックス更新後、以下のようにユーザーに伝える：
-
-> 「[X]件のスライドパターンファイルを生成し、SLIDE-PATTERN-INDEX.md を更新しました。
->
-> [生成したフォルダ・ファイルの一覧]
-> 例（ソース側ライブラリに保存した場合）：
-> - ~/Workspace/consulting-toolkit/plugins/consulting-toolkit/skills/slide-pattern-creator/library/SLIDE-PATTERN-image-left-text-right/
->   - SLIDE-PATTERN-image-left-text-right.md
->   - SLIDE-PATTERN-image-left-text-right.html
->
-> ソース側に保存したので、`/release-toolkit` で配布すると実行時（cache側）にも反映されます。スライドマスター（branded-pptx のマスター定義 / html-artifact のテーマ）とこれらのパターンファイルをAIツールに渡すことで、このデザインとレイアウトでスライドを生成できます。」
+インデックス更新後、ユーザーに以下を伝える：生成件数と INDEX 更新の報告／生成したフォルダ・ファイルの一覧／ソース側に保存した場合は「`/release-toolkit` で配布すると実行時（cache側）にも反映される」旨／スライドマスターとパターンファイルをAIツールに渡せばこのデザインとレイアウトでスライドを生成できる旨。

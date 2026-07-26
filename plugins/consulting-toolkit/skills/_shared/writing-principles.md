@@ -17,7 +17,7 @@
 > ハードファクトが少ないため、出典URL必須要件はインライン埋め込みの対象外とする
 > （原則4 のうち「捏造禁止・不明は不明と明記」部分は提案書にも適用される）。
 >
-> **AI 典型表現ブロックリスト（禁止ワード・赤旗）の正本**は `integrated-analysis-creator/SKILL.md` の品質チェックリスト E 節。
+> **AI 典型表現ブロックリスト（禁止ワード・赤旗）の正本**は `integrated-analysis-creator/references/quality-checklist.md` の E 節。
 > slide-structure-designer（SKILL.md の表現の赤旗＋references/quality-checklist.md の F）と
 > project-proposal（references/quality-playbook.md の禁止ワード）はそのサブセットにあたる。
 > ブロックリストに項目を追加する場合は E 節へ追加したうえで、各サブセットへの反映要否を判断すること。
@@ -230,4 +230,4 @@
 
 ## 検査基準E: AI臭表現
 
-正本は `integrated-analysis-creator/SKILL.md` の品質チェックリスト E 節（ダッシュ挿入・物理メタファ動詞・比喩名詞・キャッチー単語・戦闘メタファ・詩的余韻ほか）。検査時は E 節を読み込んで適用する。本節では重複列挙しない。原則6の「口語・煽り・AI臭表現」も併用する。
+正本は `integrated-analysis-creator/references/quality-checklist.md` の E 節（ダッシュ挿入・物理メタファ動詞・比喩名詞・キャッチー単語・戦闘メタファ・詩的余韻ほか）。検査時は E 節を読み込んで適用する。本節では重複列挙しない。原則6の「口語・煽り・AI臭表現」も併用する。

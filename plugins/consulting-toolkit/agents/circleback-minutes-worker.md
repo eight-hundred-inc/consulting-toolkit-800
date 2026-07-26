@@ -36,19 +36,10 @@ skills:
 
 会議詳細 JSON 構造（`meeting_<linkId>.json`）:
 ```json
-{
-  "id": 9050730,
-  "linkId": "...",
-  "name": "【確定】キッコーマン様 赤城様ヒアリング",
-  "createdAt": "2026-05-26T06:01:08.817Z",
-  "duration": 1965.737,
-  "notes": "...Markdown 要約...",
-  "actionItems": [{"title": "...", "assignee": {"name": "..."}, "status": "PENDING"}],
-  "attendees": [{"name": "...", "email": null}],
-  "tags": [],
-  "url": "...",
-  "icalUid": "..."
-}
+{"id": 9050730, "linkId": "...", "name": "会議名", "createdAt": "2026-05-26T06:01:08.817Z",
+ "duration": 1965.737, "notes": "...Markdown 要約...",
+ "actionItems": [{"title": "...", "assignee": {"name": "..."}, "status": "PENDING"}],
+ "attendees": [{"name": "...", "email": null}], "tags": [], "url": "...", "icalUid": "..."}
 ```
 
 トランスクリプト raw JSON 構造（`transcript_<linkId>.json`）: `GetTranscriptsForMeetings` のレスポンスをそのまま保存したもの。セグメントは以下のいずれかの形（環境差あり）:
