@@ -9,13 +9,7 @@ Circleback MCP から会議を取得して議事録 MD を生成する。取得�
 
 ## 設計原則: 親が取得→単一はファストパス・複数はワーカー並列
 
-サブエージェントのツール権限はホスト環境によって変動し、MCP ツール（`mcp__claude_ai_Circleback__*`）がワーカーに露出しないケースがある。そのため、本スキルでは:
-
-- **親（本スキル）**が Circleback MCP を直接呼んでトランスクリプト・会議詳細を取得し、`/tmp` に raw JSON で保存する
-- **単一会議（ファストパス）**: 親が直接議事録 MD を生成する（ワーカー起動コストを省略）
-- **複数会議**: `circleback-minutes-worker` が Read / Write / Bash の最小権限で動作し、保存済み JSON から議事録 MD を生成する
-
-これにより MCP ツール名の環境差異を吸収しつつ、単一会議の処理を高速化する。
+サブエージェントには MCP ツール（`mcp__claude_ai_Circleback__*`）が露出しないケースがあるため、**親（本スキル）**が Circleback MCP を直接呼んでトランスクリプト・会議詳細を取得し、複数会議時は `/tmp` に raw JSON で保存する。**単一会議**は親が直接議事録 MD を生成（ファストパス。ワーカー起動コストを省略）、**複数会議**は `circleback-minutes-worker`（Read / Write / Bash の最小権限）が保存済み JSON から生成する。
 
 ## Circleback MCP フィールド名（実証済み）
 
@@ -68,7 +62,7 @@ ToolSearch(query="+ReadMeetings", max_results=1)
 ToolSearch(query="+GetTranscriptsForMeetings", max_results=1)
 ```
 
-> **`select:` に裸名を渡さないこと（重要・実証済み）**: `select:SearchMeetings` のような裸のツール名は必ず空振りする。Circleback の MCP ツールは `mcp__<UUID>__SearchMeetings` という名前空間付きの完全名で登録されており、`select:` は**完全名の厳密一致**でしか解決しない（`Read`/`Edit` 等の組み込みツールは「裸名＝完全名」なので効くが、MCP ツールは接頭辞が付くため効かない）。UUID プレフィックスは環境ごとに異なり事前に分からないので、`select:` では動的解決できない。名前の一部（`SearchMeetings` 等）を拾える `+` キーワード検索を使う。
+> **`select:` に裸名を渡さないこと（重要・実証済み）**: `select:SearchMeetings` は必ず空振りする。Circleback の MCP ツールは `mcp__<UUID>__SearchMeetings` という完全名で登録され、`select:` は完全名の厳密一致でしか解決しない（UUID は環境ごとに異なり事前に分からない）。名前の一部を拾える `+` キーワード検索を使う。
 
 3 ツールのいずれも 0 件なら「Circleback MCP が未接続です。`/mcp` で接続後に再実行してください」と案内して終了。（`+` でも解決しない稀な環境では、`ToolSearch(query="Circleback meetings transcripts", max_results=10)` で候補一覧を出し、該当ツールの完全名を特定する。）
 
@@ -220,7 +214,7 @@ transcript_<linkId>.json     # トランスクリプト（raw JSON）
 
 #### 8-A: 単一会議ファストパス（対象が 1 件の場合）
 
-対象会議が **1 件のみ** の場合、ワーカーサブエージェントを起動せず **親が直接** 議事録 MD を生成する。これによりサブエージェント起動コスト（数分）を省き、単一会議の処理を大幅に高速化する。
+対象会議が **1 件のみ** の場合、ワーカーを起動せず **親が直接** 議事録 MD を生成する。
 
 1. `GetTranscriptsForMeetings` の結果がコンテキスト内にあればそのまま使う。大容量レスポンスでファイル退避された場合は Read で読み込む
 2. 会議詳細（`ReadMeetings` の結果、または ReadMeetings スキップ時は `SearchMeetings` の結果）も同様にコンテキスト内のデータを直接使用する

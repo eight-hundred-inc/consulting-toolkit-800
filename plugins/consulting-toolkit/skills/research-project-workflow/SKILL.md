@@ -76,7 +76,7 @@ Step 3（提案用）・Step 11（報告用）が出力するスライド構成 
 | Step 9 | `desk-researcher` (SubAgent) → `desk-research` (Skill) | ギャップ補完のデスクリサーチ |
 | Step 10 | `integrated-analysis-creator` (Skill・本文執筆モード) | 統合分析・最終報告書作成 |
 | 任意のステップ | `image-creator` (SubAgent) → `image-generator-guide` / `chart-generator-guide` (Skill) | 成果物（報告書・提案書）への **構造化図解・データチャート（matplotlib）の PNG 埋め込み**。html-artifact が扱わない実数値チャート（棒・レーダー・積み上げ等）の唯一の生成経路。※スライド全体の画像先行生成は上記「スライド化フロー」の限定用途を参照 |
-| 全ステップ | `quality-reviewer` (SubAgent) | レビューゲートでの品質チェック |
+| review_level: full のステップ（Step 1, 2, 4, 5, 7, 10） | `quality-reviewer` (SubAgent) | レビューゲートでの品質チェック。light のステップ（Step 3, 6, 8, 9, 11）では起動しない |
 
 ### スキル呼び出し手順
 

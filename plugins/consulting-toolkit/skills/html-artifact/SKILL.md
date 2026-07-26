@@ -2,36 +2,27 @@
 name: html-artifact
 description: >-
   Markdown を業務文書スタイルの自己完結 HTML アーティファクトに変換するスキル。コンサルティングファームの
-  社内文書のような上品で構造的なデザイン（紙質クリーム背景・Noto Sans JP 統一フォント・テラコッタアクセント）で、
+  社内文書のような上品で構造的なデザイン（紙質クリーム背景・Noto Sans JP 統一フォント）で、
   企画書・提案書・報告書・調査レポート・戦略メモ・意思決定文書・議事メモ・社内通達・3 案比較・実装計画・
-  業務プロセス文書を生成する。
-  21 種の構造化コンポーネント（Cover, TOC, Section Head, KPI Row, State Grid, Scope Panel, Report Table,
-  Rating Dots, Insight Callout, Priority List, Budget Grid, Q&A Card, Roadmap, Proposal Card, Flow with Margin,
-  Summary 他）に 4 種の拡張コンポーネント（Eyebrow Bar, Hero Number, Takeaway Strip, Annotation Pointer）
-  と、Slide Deck × Mono テーマ専用の 5 種の参照デザインコンポーネント（Filled-Header Card, Value Bar,
-  Icon Chip, Pill Tag, Expansion Pills）を加えた合計 30 種、さらに 8 種の構造化図解（概念フロー、
-  2x2 マトリクス、ピラミッド、ファネル、サイクル、ベン図、組織図、レイヤー積層図）を
-  インライン HTML+CSS で文書内に埋め込める。
-  同じデザインシステムで 16:9 HTML スライドデッキ（Slide Deck format, 1280×720）の生成にも対応し、
-  ブラウザでめくれる投影資料を 1 枚 1 メッセージ単位で出力できる（単スライド表示・キーボード送り・
-  サムネイル一覧・URL ハッシュ深リンク・印刷時 1 ページ 1 スライド対応）。
-  「Markdown を HTML に」「ブラウザで開ける形式に」「HTML 化」「自己完結 HTML」「企画書を HTML にして」
-  「報告書を HTML で作って」「議事メモを HTML にまとめて」「調査結果を HTML レポートに」「業務文書 HTML にして」
-  「社内向けの説明資料を作って」「ちゃんとした体裁のドキュメントにして」「3 案比較を作って」
-  「実装計画を作って」「16:9 のスライドにして」「ブラウザでめくれるプレゼンを作って」
-  「HTML スライドデッキを作って」「投影資料を作って」「文書に図解を入れて」「概念フロー図を作って」
-  「4 象限マトリクスで整理して」「ピラミッド図にして」「ファネルで可視化して」「ベン図で表現して」などの
-  リクエスト時に使用する。既存 Markdown ファイルがある場合も、対話的にゼロから作る場合も対応する。
-  Markdown を Single Source of Truth として保持し、HTML は派生物として再生成できる。
-  生成した HTML を共有 URL として公開したい場合は `html-publish` スキルに出力パスを渡す（本スキルは生成のみ）。
+  業務プロセス文書を生成する。30 種の構造化コンポーネント（基本 21＋拡張 4＋Slide Deck 統一シャシ 5）と
+  8 種の構造化図解（概念フロー、2x2 マトリクス、ピラミッド、ファネル、サイクル、ベン図、組織図、
+  レイヤー積層図）をインライン HTML+CSS で埋め込め、同じデザインシステムで 16:9 HTML スライドデッキ
+  （Slide Deck format, 1280×720。単スライド表示・キーボード送り・サムネイル一覧・URL ハッシュ深リンク・
+  印刷対応）も生成できる。
+  「HTML 化・HTML にして・HTML で作って」「ブラウザで開ける形式に」「自己完結 HTML」
+  「企画書／報告書／議事メモ／調査結果／業務文書を HTML に」「社内向けの説明資料を作って」
+  「ちゃんとした体裁のドキュメントにして」「3 案比較を作って」「実装計画を作って」「16:9 のスライドにして」
+  「ブラウザでめくれるプレゼン」「HTML スライドデッキ」「投影資料を作って」「文書に図解を入れて」
+  「概念フロー図」「4 象限マトリクスで整理して」「ピラミッド図」「ファネルで可視化」「ベン図で表現して」
+  などのリクエスト時に使用する。既存 Markdown がある場合も対話的にゼロから作る場合も対応し、
+  Markdown を Single Source of Truth として HTML を派生物として再生成できる。
+  共有 URL 公開は `html-publish` スキルへ（本スキルは生成のみ）。
   マガジン風・編集デザイン風・派手な装飾のリクエストには使用しない。
 ---
 
 # html-artifact
 
-Markdown を業務文書スタイルの自己完結 HTML に変換する（生成専用）。生成した HTML を Cloudflare Pages で共有 URL 化する公開フローは別スキル `html-publish` に分離されている。
-
-業務文書（コンサルティングファームの社内資料）として違和感のない、紙質クリーム背景＋Noto Sans JP 統一フォントの上品で実務的なドキュメントを生成する。Markdown は読み切りの「レポート」、HTML は継続的に使える「インターフェース」として運用する（Thariq Shihipar「Using Claude Code: The Unreasonable Effectiveness of HTML」, 2026-05-08 の思想を踏襲）。
+Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP 統一フォント）の自己完結 HTML に変換する（生成専用。公開フローは別スキル `html-publish`）。Markdown は読み切りの「レポート」、HTML は継続的に使える「インターフェース」として運用する。
 
 本スキルの設計は **3 軸の直交した選択** で成り立つ。混同しないこと：
 
@@ -63,8 +54,6 @@ Markdown を業務文書スタイルの自己完結 HTML に変換する（生�
 | 8 | [assets/template.html](assets/template.html) | Vertical Document 用スケルトンテンプレート（プレースホルダー付き。必ず複製してから編集） |
 | 9 | [assets/template-slides.html](assets/template-slides.html) | Slide Deck format 用テンプレート（5 枚スケルトン＋プレゼンモード CSS/JS＋図解スキャフォルド（fig-canvas / dgram-* / 高さ補正）） |
 | 10 | [assets/examples/travel_ai_poc.html](assets/examples/travel_ai_poc.html) | 全コンポーネントを使った完成形のサンプル（参考用） |
-
-生成した HTML を共有 URL として公開する場合は、本スキルの完了後に `html-publish` スキルへ出力パスを渡す（公開フローの詳細は html-publish 側のドキュメントを参照）。
 
 ## Triggers
 
@@ -139,9 +128,9 @@ Markdown を業務文書スタイルの自己完結 HTML に変換する（生�
 5. **コンポーネント選択**
    - **レイアウト割付（Slide Deck format では必須の先行工程）**：スライドを組み始める前に、`${CLAUDE_PLUGIN_ROOT}/skills/slide-pattern-creator/library/SLIDE-PATTERN-INDEX-COMPACT.md`（1 行/パターンの軽量インデックス）を読み、全スライドの割付表（# / タイトル / 内容構造 1 行 / 割付 / 理由 1 行）を作ってから実装に入る。スライドごとに：①**構造翻訳を先に行う** — ボディの内容構造（対比／分類／フロー／表／並列強調 等）を 1 行で言語化する。テーブル記法だからテーブル系、箇条書きだからリスト系、と**記法に引きずられない**（内容が対構造なら並置系、流れならフロー系を優先検討）。②割付は (a) **ライブラリの実在パターン名**（インデックスから verbatim コピー。**名前の発明・改変は禁止**）を既定とし、構造化図版が主役のスライドは (b) `fig-slide`、どのパターンにも合わない場合のみ (c) `自由記述`＋理由 1 行（無理に当てはめて情報を落とすくらいなら (c) を選ぶ）。構成MDに `パターン指定:` が既にあるスライドはそれを優先する。割付表は完了報告に含める（別ファイルにはしない）
    - **割付の 3 規範（割付と不可分。これを守らない割付は自由記述に劣る＝実測）**：(1) **パターンは出発点であって上限ではない** — 列数の増減・ピル/バッジ追加など内容に合わせた拡張は可。禁止は「見出し＋箇条書き素組み」への退行のみ。full/light のような 2 値属性はテキストでなくピル（黒塗り/白抜き）で可視化する。(2) **縦充填** — コンテンツエリア（タイトル行下〜フッター上、約 560px）を使い切る。パターン既定寸法が小さければ行高・パディング・フォント・要素間マージンをスケールアップし、下部に約 120px 超の空白を残さない（表紙・まとめも中央寄せ等で上重心を避ける。並置カード内部の上寄り・中空きも直す）。スケールアップ後に残る縦の余りは、テンプレ標準搭載の `.slide.vfill`＋`.vgrow`（縦中央/均等配分。slide-deck.md「非図版スライドの縦充填」）で吸収する（図版スライドは `fig-slide`）。(3) **意味の忠実性** — 手順でない項目（性質・補足・横断的な話）をステップに混ぜず、注記・コールアウトに分離する。並列カードの見出し帯の色・濃度は揃える（濃淡ランプは段階・進行など意味のある差にのみ使う）。表紙はサブタイトルとカバーメタで同じ情報を二重に書かない。**単調性ガード**：非図版コンテンツスライドで同一構図を 3 枚以上連続させない／body-list 素組みは非図版コンテンツスライドの半数以下
-   - > 根拠：実験（2026-07-17・講義資料サブセット 7 枚・盲検レビュー 2 ラウンド）。「パターンに当てはめるだけ」の素朴な割付は自由記述に総合 13 対 16 で敗れたが、構造翻訳ファースト＋縦充填＋意味の忠実性を加えた本ルールでは総合 17 対 13 で自由記述を上回った（評価軸：レイアウト適合度・可読性・多様性とリズム・仕上がり）。3 規範は割付の付属品ではなく勝敗を分けた本体
+   - > 根拠：盲検レビュー実験（2026-07-17）で、素朴なパターン当てはめは自由記述に敗れたが、3 規範を加えた本ルールは自由記述を上回った。3 規範は割付の付属品ではなく勝敗を分けた本体
    - **パターン指定の解釈（スケルトンHTMLは任意採寸）**：入力の構成MDに `パターン指定: SLIDE-PATTERN-{name}` がある場合、まず **パターン名と構成MDの図版指示から** コンテンツエリア構造（エリア分割・要素配置）を組む。**構造の決定権は「構成MDのパターン指定＋図版指示」が正本**であり、`${CLAUDE_PLUGIN_ROOT}/skills/slide-pattern-creator/library/` のスケルトンHTMLは **既定では開かない**。列比・固定幅・多段の高さ配分など **比率の採寸に迷うときだけ**、該当スケルトンHTMLを採寸源として任意参照する（高密度パターン＝references-table / stacked-bar 60/40 / two-lane-pipeline 等）。優先順位は **構成MD構図 ＞ 図版指示 ＞ HTML寸法採寸**（slide-pattern-creator の正本ルールと同じ）。部品の実装は components.md / diagram-components.md から充当する。パターン指定がないスライドは、上記レイアウト割付で決めた割付（実在パターン名／fig-slide／理由付き自由記述）に従って組む
-   - > 根拠：実験4（別題材13枚・評価者2名）で、スケルトンHTMLを読まずに構成MDのパターン指定＋図版指示だけで組んでも、構図（2×2等）は維持され品質差は僅差（総合0.1前後）、入力トークンは約半減だった。スケルトンHTML参照が構図逸脱を防ぐ効果も確認されなかったため、必須参照から任意採寸に格下げした
+   - > 根拠：実験4で、スケルトンHTMLを読まずに構成MDのパターン指定＋図版指示だけで組んでも品質差は僅差で入力トークンは約半減だったため、必須参照から任意採寸に格下げした
    - 各章の内容に最適なコンポーネントを `references/components.md` の 30 種（基本 21 種＋拡張 4 種＋Slide Deck 統一シャシ 5 種）から選ぶ
    - **拡張コンポーネント（22〜25：Eyebrow Bar / Hero Number / Takeaway Strip / Annotation Pointer）**：Slide Deck format × Mono テーマで最も映えるが、他のテーマや Vertical Document でも使ってよい
    - **統一シャシ 5 種（26〜30：Filled-Header Card / Value Bar / Icon Chip / Pill Tag / Expansion Pills）**：**Slide Deck 全 5 テーマ共通**（`--accent` に自動追従）。参照デザイン（AI Biz Ops Partner / VisasQ figures）踏襲時の主役コンポーネント。Vertical Document には適用しない。**#26 Filled-Header Card はカード内カード構造のため、図版の見せ場（ベースライン規範 例外①）としてのみ主役に使う**（components.md #26 のルール参照）
@@ -224,21 +213,9 @@ Markdown を業務文書スタイルの自己完結 HTML に変換する（生�
 
 ## アウトプットの命名規則
 
-`<内容を表す英語snake_case>_document.html` または `_report.html` 形式。
+`<内容を表す英語snake_case>_document.html` または `_report.html` 形式（例：`travel_ai_poc_proposal.html`、`q3_market_analysis_report.html`）。
 
-**例**：
-- `travel_ai_poc_proposal.html`（提案書）
-- `q3_market_analysis_report.html`（調査レポート）
-- `org_change_announcement.html`（社内通達）
-- `2026_strategy_memo.html`（戦略メモ）
-- `vendor_selection_decision.html`（意思決定文書）
-- `kickoff_meeting_notes.html`（議事メモ）
-
-**Slide Deck format の例**：`<英語snake_case>_slides.html`
-- `kickoff_meeting_slides.html`（キックオフ投影資料）
-- `2026_strategy_memo_slides.html`（戦略メモのプレゼン版）
-- `vendor_review_slides.html`（ベンダー選定報告のスライド）
-- `investor_pitch_slides.html`（投資家ピッチ：Slide Deck × Mono テーマ）
+**Slide Deck format**：`<英語snake_case>_slides.html`（例：`kickoff_meeting_slides.html`）
 
 ## Guardrails
 
@@ -303,17 +280,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 
 ### Slide Deck format のテーマ選定ガイド
 
-Slide Deck format は **5 テーマ共通の統一シャシ**を使う。テーマ切替は `:root` の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数のみで完結する（構造色・カード装飾・段階濃度は 5 テーマ共通で不動）。**既定は Mono**（参照デザイン踏襲。AI Biz Ops Partner / VisasQ figures）。
-
-| テーマ | accent 値 |
-|---|---|
-| **Mono（既定）** | `#1a1a1a` |
-| Terracotta | `#9d3617` |
-| Navy | `#1e3a5f` |
-| Forest | `#2a4f3a` |
-| Charcoal | `#2d2d33` |
-
-色味を変えたい場合のみ他テーマを選ぶ。用途に応じた使い分けは規定しない。
+テーマの既定・切替方式は step 6 のとおり（Mono 既定・3 変数のみの palette 差分）。accent 値：Mono `#1a1a1a`／Terracotta `#9d3617`／Navy `#1e3a5f`／Forest `#2a4f3a`／Charcoal `#2d2d33`。
 
 **Mono テーマと拡張コンポーネント（22〜25）の組み合わせ**：
 
@@ -362,8 +329,6 @@ Slide Deck format は **5 テーマ共通の統一シャシ**を使う。テー�
 - `assets/template.html` — HTML スケルトン（Vertical Document 用。コピーして編集する）
 - `assets/template-slides.html` — スライドデッキスケルトン（Slide Deck format 用。コピーして編集する）
 - `assets/examples/travel_ai_poc.html` — 全コンポーネントを使った完成形のサンプル
-
-公開フロー（Cloudflare Pages）は別スキル `html-publish` を参照。
 
 ## 関連スキルとの境界
 
