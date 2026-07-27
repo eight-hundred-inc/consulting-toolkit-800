@@ -362,6 +362,8 @@ flowchart LR
 | 第 4 層 実装 | `html-artifact` ／ ブランド pptx ／ `image-creator` | 第 2 層のパターンと第 3 層のマスターに従って、実際のファイルを出力する |
 
 - **レイアウト構造の正本は第 2 層（レイアウトパターン）**。html-artifact が持つコンポーネントや図解は「スライド 1 枚の中の部品や図の作り方」であって、スライド全体の並べ方は決めない。
+- **パターンの引き方**：第 2 層のインデックスは**視覚形式**（表紙／目次／リスト／フロー／図解／カード／グラフ／表）で並んでいるため、「この主張をしたい」からは引けない。メッセージの述語から論理型を判定してパターン候補を出す逆引き索引を別に置いている（[`SLIDE-PATTERN-INDEX-BY-LOGIC.md`](plugins/consulting-toolkit/skills/slide-pattern-creator/library/SLIDE-PATTERN-INDEX-BY-LOGIC.md)）。
+- **スライドをまたぐ約束事**は層をまたぐため別置き（[`_shared/deck-rhetoric.md`](plugins/consulting-toolkit/skills/_shared/deck-rhetoric.md)）。識別子の貫通・現在地の提示・再掲の明示・確度表示（（仮説）（参考））・引用の器を定める。1 枚の中の作法（ベースライン規範）とパターン定義の**間**を埋める層。
 - **見た目の決め方**：パターン（第 2 層）は「何をどこに置くか（構造）」だけを持ち、色・線・余白などの見た目は持たない。見た目は第 3 層のスライドマスター／テーマと、ボディ（コンテンツエリア）の最低保証ライン「ベースライン規範」（[`_shared/slide-body-principles.md`](plugins/consulting-toolkit/skills/_shared/slide-body-principles.md)）が決める。ベースライン規範は「1 枚に部品を詰め込みすぎない・面を入れ子にしない・強調は 1 箇所」といった床（＝最低保証ラインであって表現の上限ではない）で、html-artifact（Slide Deck）と branded-pptx が共通で従う。
 - **実データのグラフ（棒・折れ線など）は image-creator（matplotlib）でしか作れない**。html-artifact は数値グラフを扱わないため、グラフを成果物に載せるときは image-creator で PNG を作って貼り込む。
 - 構成 MD は上のどの経路にも渡せる。
