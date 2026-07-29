@@ -79,10 +79,17 @@
      Terracotta: --accent:#9d3617; --accent-soft:#c45a2c; --accent-bg:#f5e8de;
      Navy:       --accent:#1e3a5f; --accent-soft:#3a5e8a; --accent-bg:#e3eaf3;
      Forest:     --accent:#2a4f3a; --accent-soft:#4a7558; --accent-bg:#e2ebe1;
-     Charcoal:   --accent:#2d2d33; --accent-soft:#5a5a64; --accent-bg:#ebe9e4; */
+     Charcoal:   --accent:#2d2d33; --accent-soft:#5a5a64; --accent-bg:#ebe9e4;
+
+     【トークン契約】--accent-bg は「文字を載せるアクセント面」であり、5 テーマすべてで
+     accent の淡ティント（明るい色）にする。--ink / --accent を載せて 4.5:1 以上を保つため、
+     --accent-bg に --accent と同値や暗い色を入れてはいけない（Insight・固定 8 図解の
+     .accent バリアントが一斉に潰れる）。反転（白文字 on 濃地）が要る場合は
+     --accent-bg ではなく background:var(--accent) + color:#fff を使う
+     （Takeaway Strip / Hero Number.dark / state-box.target / report-table thead が該当）。 */
   --accent:#1a1a1a;
   --accent-soft:#444444;
-  --accent-bg:#1a1a1a;
+  --accent-bg:#ededed;   /* accent の淡ティント。文字を載せる面なので必ず明るく保つ（下記の契約） */
 
   /* --- 段階濃度ランプ（Gantt/Timeline/Progression 用・accent 派生） ---
      accent が黒なら黒 → 淡グレー、terracotta なら濃 → 淡テラコッタ、と自動追従。 */
@@ -934,13 +941,13 @@ h1.cover-title{
   right:20px;
   font-family:"JetBrains Mono",monospace;
   font-size:11px;
-  color:rgba(255,255,255,0.55);
+  color:var(--ink-mute);   /* ビューポート背景 #e5e5e5 上。白文字にすると同化して読めない */
   letter-spacing:0.12em;
   z-index:1000;
   pointer-events:none;
   user-select:none;
 }
-.deck-counter b{color:rgba(255,255,255,0.85);font-weight:500}
+.deck-counter b{color:var(--ink);font-weight:500}
 
 .deck-hint{
   position:fixed;
@@ -948,7 +955,7 @@ h1.cover-title{
   left:20px;
   font-family:"JetBrains Mono",monospace;
   font-size:11px;
-  color:rgba(255,255,255,0.4);
+  color:var(--ink-mute);   /* 同上 */
   letter-spacing:0.08em;
   z-index:1000;
   pointer-events:none;
