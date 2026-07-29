@@ -388,16 +388,16 @@ per-figure 寸法はデッキの `<style>` に追記：
 .deck-counter{
   position: fixed; bottom: 14px; right: 20px; z-index: 1000;
   font-family: "JetBrains Mono", monospace; font-size: 11px;
-  color: rgba(255,255,255,0.55); letter-spacing: 0.12em;
+  color: var(--ink-mute); letter-spacing: 0.12em;   /* ビューポート背景 #e5e5e5 上。白文字にしない */
   pointer-events: none; user-select: none;
 }
-.deck-counter b{ color: rgba(255,255,255,0.85); font-weight: 500 }
+.deck-counter b{ color: var(--ink); font-weight: 500 }
 
 /* Navigation hint (auto-fade) */
 .deck-hint{
   position: fixed; bottom: 14px; left: 20px; z-index: 1000;
   font-family: "JetBrains Mono", monospace; font-size: 11px;
-  color: rgba(255,255,255,0.4); letter-spacing: 0.08em;
+  color: var(--ink-mute); letter-spacing: 0.08em;   /* 同上 */
   pointer-events: none; user-select: none;
   transition: opacity 0.6s ease, left 0.25s ease;
 }
@@ -784,7 +784,7 @@ body.panel-open .thumb-panel{ transform: translateX(0) }
 Slide Deck では **5 テーマが統一シャシを共有**する（Vertical Document のテーマ体系とは別）。
 
 - スライド内背景：**5 テーマ共通で `#ffffff` 純白**
-- スライド外背景：**5 テーマ共通で `#e5e5e5` 薄グレー**
+- スライド外背景：**5 テーマ共通で `#e5e5e5` 薄グレー**。この上に置くプレゼンチャーム（カウンタ・操作ヒント）の文字は `--ink-mute` / `--ink` を使う（**白文字にすると薄グレー地と同化して読めない**）。暗地に白文字を置くのはサムネイルパネル内とトグルボタンだけで、そちらは自前で暗背景を持つ
 - アクセント：`var(--accent)` 1 色のみ。テーマ切替は `--accent` / `--accent-soft` / `--accent-bg` の 3 変数
 - カード装飾（`--card-radius` / `--card-shadow`）、段階濃度ランプ（`--stage-1〜4` = `--accent` 派生）、構造色（`--panel-soft` / `--rule` / `--ink` 等）は 5 テーマ共通で不動
 

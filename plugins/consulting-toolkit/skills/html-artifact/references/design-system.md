@@ -31,7 +31,9 @@
   /* アクセント（必ずこの3トーンの範囲で使う） */
   --accent: #9d3617;      /* 主アクセント（深いテラコッタ） */
   --accent-soft: #c45a2c; /* 明るいアクセント（ダーク背景上で使う） */
-  --accent-bg: #f5e8de;   /* アクセント背景（insight等） */
+  --accent-bg: #f5e8de;   /* アクセント背景（insight・固定8図解の .accent 等）。
+                             ★契約：文字を載せる面なので 5 テーマすべてで accent の淡ティント
+                             （明るい色）にする。詳細は下記「--accent-bg の契約」 */
 
   /* 作り込み図版（crafted figures, Slide Deck 限定）の配色基点。
      既定で --accent を継承し、テーマ切替に追従する。
@@ -114,17 +116,37 @@
 --rule-soft: #e0e0e0;
 --accent: #1a1a1a;        /* アクセントを ink と同色に → 実質モノクロ */
 --accent-soft: #444444;
---accent-bg: #1a1a1a;     /* 黒帯反転用（白文字on黒地） */
+--accent-bg: #ededed;     /* accent の淡ティント（文字を載せる面。下記の契約） */
 ```
 
-黒帯反転・巨大数字・大きい余白で構造を見せるスタイル。**他テーマと違い `--accent-bg` は黒**（Eyebrow Bar・Hero Number等の黒帯反転で使う）。
+黒帯反転・巨大数字・大きい余白で構造を見せるスタイル。
 
 **Mono テーマの追加ルール**：
-- `--accent-bg` が黒（`#1a1a1a`）であるため、Insight Callout など「アクセント背景にテキスト」のコンポーネントは Mono テーマでは反転表示（白文字on黒地）になる。読みづらい場合は `.insight.flat` 等の代替バリアントで `background: var(--bg-alt)` を使う
 - 紙質クリームではなく純白背景を使う（コンサル提案書らしい清潔感）
 - フォントは他テーマと同じ Noto Sans JP（Meiryo・Noto Serif JP は使わない）。「コンサル提案書らしさ」は構成・余白・拡張コンポーネント（22〜25）で出す
 
 **Slide Deck では扱いが違う**：Slide Deck では 5 テーマ共通の統一シャシを使い、Mono を含む 5 テーマは `--accent` 系 3 変数のみで palette 切替される。上記の Mono ブロックは **Vertical Document で使う場合の定義**。Slide Deck の統一シャシは `slide-deck.md`「テーマ切替」を参照。
+
+## `--accent-bg` の契約（背景と文字色を衝突させない）
+
+`--accent-bg` は **「文字を載せるアクセント面」** である。5 テーマすべてで **accent の淡ティント（明るい色）** にし、`--ink`（`#1a1a1a`）と `--accent` を載せて 4.5:1 以上を保つ。
+
+| テーマ | `--accent` | `--accent-bg` |
+|---|---|---|
+| Mono | `#1a1a1a` | `#ededed` |
+| Terracotta | `#9d3617` | `#f5e8de` |
+| Navy | `#1e3a5f` | `#e3eaf3` |
+| Forest | `#2a4f3a` | `#e2ebe1` |
+| Charcoal | `#2d2d33` | `#ebe9e4` |
+
+**`--accent-bg` に `--accent` と同値や暗い色を入れてはいけない。** 入れると `--accent-bg` を背景に使う全コンポーネントが一斉に「同色の地と文字」になり、テキストが消える。対象は次の 9 ルール（両テンプレート共通）で、いずれも文字色が `--ink` または `--accent` である。
+
+- `.insight`（`.txt` は `--ink`、`.insight-label` は `--accent`）
+- 固定 8 図解の `.accent` バリアント 8 種：`.dflow-node.accent` / `.dq-cell.accent` / `.dp-layer.accent` / `.df-stage.accent` / `.dc-node.accent` / `.dorg-node.accent` / `.dl-layer.accent`（ラベル・タグ・番号がいずれも `--accent`）
+
+**反転（白文字 on 濃地）が要る場合は `--accent-bg` を使わない。** `background: var(--accent)` ＋ `color: #fff` の組み合わせで行う。既にこの方式を採っているのは Takeaway Strip・Hero Number（`.dark`）・State Box（`.target`）・Report Table の `thead`・Value Bar・Filled-Header Card の `.phase-header` で、いずれも `--accent-bg` に依存していない。
+
+> **背景**：かつて Mono だけ `--accent-bg: #1a1a1a` を「黒帯反転用」として持っていたが、黒帯反転を行うコンポーネントはいずれも `--accent` を使っており、`--accent-bg` の黒を必要とするものは 1 つも無かった。結果として Insight と固定 8 図解の `.accent` が Mono（＝既定テーマ）で判読不能になっていた。2026-07 に契約を明文化し、Mono の値を淡ティントへ修正した。
 
 ### テーマ選定のガイドライン
 
