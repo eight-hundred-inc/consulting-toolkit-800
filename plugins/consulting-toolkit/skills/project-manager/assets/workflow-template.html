@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 <!--
   ============================================================
-  BUSINESS DOCUMENT HTML TEMPLATE (html-artifact)
+  WORKFLOW HTML TEMPLATE (consulting-toolkit / project-manager)
   ============================================================
   使い方:
-  1. このファイルを出力先ディレクトリにコピーしてから編集する
-     （デフォルトは入力 MD と同一ディレクトリ）
-  2. {{プレースホルダー}} を実際のコンテンツに置換する
-  3. 必要なコンポーネントを references/components.md から追加する
-  4. 不要なセクションは削除する
-  5. <英語snake_case>_document.html または _report.html として保存する
-  6. 公開する場合は scripts/publish.sh で Cloudflare Pages にデプロイ
+  1. このファイルをプロジェクトルートに `workflow.html` としてコピーする
+  2. {{プレースホルダー}} を実際の内容に置換する
+  3. 類型（調査型 / 活動カタログ型 / チェックリスト型 / ポートフォリオ型）に応じて
+     節を差し替える・増減する（references/workflow-template-*.md を参照）
+  4. 以降の状態更新は、このファイルの該当節を Edit で直接書き換える
+     （Markdown 版は作らない。本文一箇所ルール）
+  5. 末尾に「まとめ」節は置かない。最終節（運用記録）で終え、フッターに続ける
 
   重要:
-  - 外部 stylesheet は Google Fonts のみ許可（publish.sh の検証と同期）
-  - 既定テーマは Mono（下記 :root は Mono の値）
-  - Terracotta / Navy / Forest / Charcoal に切り替える場合は :root 全体を
-    references/design-system.md の該当テーマブロックに差し替える
-    （Mono だけ --bg / --ink / --rule 等の構造色も異なるため、
-    アクセント3変数だけの置換では戻らない）
+  - 外部 stylesheet は Google Fonts のみ（html-artifact の規約と同期）
+  - テーマは Mono 固定（配色を変える場合は :root の --accent 系3変数のみ）
+  - 絵文字は使わない。記号は ●■◆＋×✓ 等のみ
   ============================================================
 -->
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ドキュメントタイトル}}</title>
+<title>{{プロジェクト名}} workflow</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -66,6 +63,7 @@ body{
 
 .serif{font-family:"Noto Sans JP",sans-serif} /* legacy hook: kept as alias of body font */
 .mono{font-family:"JetBrains Mono",monospace}
+code.mono{overflow-wrap:anywhere}   /* 長いファイル名で横スクロールを出さない */
 
 /* ============ PAGE WRAPPER ============ */
 .page{max-width:1180px;margin:0 auto;padding:0 56px}
@@ -139,11 +137,11 @@ table.report-table{width:100%;border-collapse:collapse;margin:16px 0 28px;font-s
 table.report-table thead{background:var(--accent);color:#fff}
 table.report-table th{text-align:left;font-family:"Noto Sans JP",sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;padding:12px 16px;border-right:1px solid rgba(255,255,255,0.15)}
 table.report-table th:last-child{border-right:none}
-table.report-table th.num-col{text-align:center;width:50px}
+table.report-table th.num-col{text-align:center;width:62px}
 table.report-table td{padding:12px 16px;border-bottom:1px solid var(--rule-soft);border-right:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-soft);line-height:1.7}
 table.report-table td:last-child{border-right:none}
 table.report-table tbody tr:last-child td{border-bottom:none}
-table.report-table td.num{text-align:center;font-family:"JetBrains Mono",monospace;color:var(--accent);font-weight:500}
+table.report-table td.num{text-align:center;font-family:"JetBrains Mono",monospace;color:var(--accent);font-weight:500;white-space:nowrap}
 table.report-table td.name{font-weight:600;color:var(--ink)}
 table.report-table td.center{text-align:center}
 
@@ -382,15 +380,6 @@ table.report-table td.center{text-align:center}
 .dl-layer.accent .dl-label{color:var(--accent)}
 .dl-desc{font-size:11.5px;color:var(--ink-soft);margin-top:3px;line-height:1.6}
 
-/* ============ SUMMARY ============ */
-.summary{background:var(--bg);color:var(--ink);padding:72px 56px 80px;border-top:2px solid var(--ink)}
-.summary .sum-tag{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.2em;color:var(--accent);margin-bottom:24px;text-transform:uppercase}
-.summary h2{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:32px;line-height:1.5;margin-bottom:32px;color:var(--ink);letter-spacing:0.01em}
-.summary .sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
-.summary .sum-card{padding:24px;border:1px solid var(--rule);background:#ffffff}
-.summary .sum-card .num{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:32px;color:var(--accent);line-height:1;margin-bottom:12px}
-.summary .sum-card h6{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:16px;margin-bottom:12px;color:var(--ink)}
-.summary .sum-card p{font-size:13px;line-height:1.85;color:var(--ink-soft)}
 
 /* ============ FOOTER ============ */
 .footer{padding:32px 56px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-size:11px;font-family:"JetBrains Mono",monospace;color:var(--ink-mute);letter-spacing:0.1em}
@@ -424,10 +413,9 @@ table.report-table td.center{text-align:center}
   .df-s2,.df-s3,.df-s4,.df-s5{width:90%}
   .dc-track{flex-direction:column}
   .dc-arrow{width:24px;height:18px;transform:rotate(90deg);align-self:center}
-  .summary{padding:48px 24px}
-  .summary .sum-grid{grid-template-columns:1fr}
   table.report-table{font-size:12px}
-  table.report-table th,table.report-table td{padding:8px 10px}
+  table.report-table th,table.report-table td{padding:8px 10px;overflow-wrap:anywhere}   /* 狭幅では長いトークンも折り返して横スクロールを出さない */
+  table.report-table td.num{white-space:normal}   /* 狭幅では ID・日付の折り返しを許して横スクロールを出さない */
   h1.cover-title{font-size:30px}
   .doc-header nav{display:none}
 }
@@ -439,240 +427,382 @@ table.report-table td.center{text-align:center}
   a{color:inherit;text-decoration:none}
   .flow-notes{position:static}
 }
+
+/* ============ WBS GANTT (fig-wbs / layout pattern 5) ============ */
+.fig-wbs{--fig-accent:var(--accent);display:flex;flex-direction:column;gap:0}
+.fig-wbs .wbs-head,.fig-wbs .wbs-sub,.fig-wbs .wbs-row{display:flex;align-items:center;gap:10px}
+.fig-wbs .wbs-row{min-height:29px;border-bottom:1px dashed var(--rule-soft)}
+.fig-wbs .wbs-row:last-of-type{border-bottom:none}
+.fig-wbs .lbl{width:252px;flex-shrink:0;text-align:right;font-size:11.5px;line-height:1.5;color:var(--ink-soft)}
+.fig-wbs .lbl .id{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--fig-accent);font-weight:500;margin-right:6px}
+.fig-wbs .track{flex:1;display:grid;grid-template-columns:repeat(var(--wbs-cols,8),1fr);gap:3px;align-items:center}
+.fig-wbs .mh{text-align:center;font-family:"JetBrains Mono",monospace;font-size:11px;padding:5px 0;background:var(--bg-alt);border-bottom:2px solid var(--fig-accent);color:var(--ink)}
+.fig-wbs .sh{text-align:center;font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--ink-mute);padding:3px 0 5px}
+.fig-wbs .bar{height:22px;border-radius:3px;background:var(--fig-accent);color:#fff;font-size:10px;font-weight:600;display:flex;align-items:center;padding:0 7px;white-space:nowrap;overflow:hidden}
+.fig-wbs .bar.done{background:var(--panel);border:1.5px solid var(--ink);color:var(--ink)}
+.fig-wbs .bar.buf{background:var(--bg-alt);border:1.5px dashed var(--rule);color:var(--ink-mute)}
+.fig-wbs .msk{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:600;color:var(--fig-accent);text-align:center;letter-spacing:0.03em}
+.fig-wbs .wbs-row.mrow{border-bottom:none;border-top:1px solid var(--rule);min-height:26px}
+.fig-wbs .wbs-row.mrow .lbl{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-mute)}
+.fig-wbs .wbs-legend{display:flex;gap:20px;justify-content:flex-end;margin-top:14px;font-size:10.5px;color:var(--ink-mute)}
+.fig-wbs .wbs-legend .k{display:inline-flex;align-items:center;gap:6px}
+.fig-wbs .wbs-legend .sw{width:22px;height:10px;border-radius:2px;background:var(--fig-accent)}
+.fig-wbs .wbs-legend .sw.done{background:var(--panel);border:1.5px solid var(--ink)}
+.fig-wbs .wbs-legend .sw.buf{background:var(--bg-alt);border:1.5px dashed var(--rule)}
+@media (max-width:1120px){
+  .fig-wbs .lbl{width:186px;font-size:10.5px}
+  .fig-wbs .bar{font-size:9px;padding:0 4px}
+}
+@media (max-width:920px){
+  .fig-wbs .lbl{width:118px;font-size:10px}
+  .fig-wbs .bar{font-size:0;padding:0;height:18px}   /* 狭幅では期間ラベルを畳み、日付は下の WBS 表で読む */
+  .fig-wbs .mh{font-size:9px}
+  .fig-wbs .msk{font-size:9px}
+  .fig-wbs .sh{display:none}
+}
+@media print{
+  .fig-wbs .lbl{width:176px;font-size:10px}
+  .fig-wbs .bar{font-size:8.5px;padding:0 3px;height:20px}
+  .fig-wbs .msk{font-size:9px}
+}
 </style>
 </head>
 <body>
 
-<!-- ====== DOC HEADER（必須） ====== -->
+<!-- ====== DOC HEADER ====== -->
 <header class="doc-header">
   <div class="doc-header-inner">
-    <div><span class="doc-id">{{DOC-ID}}</span> &nbsp;·&nbsp; {{ドキュメントタイトル}}</div>
+    <div><span class="doc-id">{{DOC-ID}}</span> &nbsp;·&nbsp; {{プロジェクト名}} workflow</div>
     <nav>
-      <a href="#sec-1">1. {{章名}}</a>
-      <a href="#sec-3">3. {{章名}}</a>
+      <a href="#sec-1">基本情報</a>
+      <a href="#sec-2">現在の状態</a>
+      <a href="#sec-3">作業計画</a>
+      <a href="#sec-6">運用記録</a>
     </nav>
   </div>
 </header>
 
 <div class="page">
 
-<!-- ====== COVER（必須） ====== -->
+<!-- ====== COVER ====== -->
 <section class="cover">
-  <div class="cover-tag">{{ドキュメント種別ラベル（英語）}}</div>
-  <h1 class="cover-title">{{メインタイトル}}</h1>
-  <p class="cover-sub">{{サブタイトル<br>1〜2行}}</p>
+  <div class="cover-tag">Workflow</div>
+  <h1 class="cover-title">{{プロジェクト名}}<br>workflow</h1>
+  <p class="cover-sub">{{1〜2行でこのプロジェクトが何をどこまでやるか}}</p>
 
   <dl class="cover-meta">
-    <div><dt>{{ラベル1（英語）}}</dt><dd>{{値1}}</dd></div>
-    <div><dt>{{ラベル2（英語）}}</dt><dd>{{値2}}</dd></div>
-    <div><dt>{{ラベル3（英語）}}</dt><dd>{{値3}}</dd></div>
-    <div><dt>Issued</dt><dd>{{YYYY.MM}}</dd></div>
+    <div><dt>Client</dt><dd>{{クライアント名}}</dd></div>
+    <div><dt>Type</dt><dd>{{調査型 / 活動カタログ型 / チェックリスト型 / ポートフォリオ型}}</dd></div>
+    <div><dt>Period</dt><dd>{{YYYY.MM – YYYY.MM}}</dd></div>
+    <div><dt>Updated</dt><dd>{{YYYY.MM.DD}}</dd></div>
   </dl>
 </section>
 
-<!-- ====== TOC（必須・章数に応じて li を追加） ====== -->
+<!-- ====== TOC（節を増減したら合わせて直す） ====== -->
 <section class="toc">
   <div class="toc-header">
     <div class="toc-title">目次</div>
     <div class="toc-label">TABLE OF CONTENTS</div>
   </div>
   <ul class="toc-list">
-    <li><a href="#sec-1"><span class="toc-num">1.</span><span class="toc-text">{{章名1}}</span><span class="toc-page">P.01</span></a></li>
-    <li><a href="#sec-2"><span class="toc-num">2.</span><span class="toc-text">{{章名2}}</span><span class="toc-page">P.02</span></a></li>
-    <li><a href="#sec-3"><span class="toc-num">3.</span><span class="toc-text">{{章名3}}</span><span class="toc-page">P.03</span></a></li>
+    <li><a href="#sec-1"><span class="toc-num">1.</span><span class="toc-text">基本情報・ファイル配置・連携リンク</span><span class="toc-page">P.01</span></a></li>
+    <li><a href="#sec-2"><span class="toc-num">2.</span><span class="toc-text">現在の状態</span><span class="toc-page">P.02</span></a></li>
+    <li><a href="#sec-3"><span class="toc-num">3.</span><span class="toc-text">作業計画（WBS）</span><span class="toc-page">P.03</span></a></li>
+    <li><a href="#sec-4"><span class="toc-num">4.</span><span class="toc-text">成果物リンク</span><span class="toc-page">P.04</span></a></li>
+    <li><a href="#sec-5"><span class="toc-num">5.</span><span class="toc-text">タスク（積み残し）</span><span class="toc-page">P.05</span></a></li>
+    <li><a href="#sec-6"><span class="toc-num">6.</span><span class="toc-text">運用記録（意思決定・履歴ログ）</span><span class="toc-page">P.06</span></a></li>
   </ul>
 </section>
 
-<!-- ====== SECTION 1（章ごとに繰り返し） ====== -->
+<!-- ====== 1. 基本情報 ====== -->
 <section class="report-section" id="sec-1">
   <div class="sec-head">
     <div class="sec-num">01</div>
     <div class="sec-text">
-      <div class="sec-eyebrow">Section 01 / {{英語サブタイトル}}</div>
-      <h2>{{章タイトル}}</h2>
+      <div class="sec-eyebrow">Section 01 / Basics</div>
+      <h2>基本情報・ファイル配置・連携リンク</h2>
     </div>
   </div>
 
   <p class="lede">
-    {{章冒頭のリード文。読者がこの章で何を理解すべきかを1〜2文で。}}
+    このファイルはプロジェクトの作業状態の正本である。状態が変わったらこのファイルの該当節を直接編集する。Markdown 版は持たない（本文一箇所ルール）。スコープ・論点・リスクの正本は <code class="mono">プロジェクトサマリ.md</code>、クライアント名・納期・文書作成ガイドラインの正本は <code class="mono">CLAUDE.md</code> にある。
   </p>
 
-  <p>{{本文段落}}</p>
-
-  <h3 class="sub-head"><span class="num">1.1</span>{{小見出し}}</h3>
-  <p>{{本文}}</p>
-
+  <h3 class="sub-head"><span class="num">1.1</span>基本情報</h3>
   <ul class="body">
-    <li>{{項目1}}</li>
-    <li>{{項目2}}</li>
+    <li>ワークフロー類型: {{調査型 / 活動カタログ型 / チェックリスト型 / ポートフォリオ型}}</li>
+    <li>ワークフローソース: {{predefined: skills/{workflow-skill}/ ／ custom: 本ファイル}}</li>
+    <li>形態: {{単発（納期あり）／月次継続（期限なし）等。金額があれば記載}}</li>
+    <li>開始日: {{YYYY-MM-DD}}</li>
+    <li>直近の期日: {{YYYY-MM-DD（何の期日か）}}</li>
+    <li>完了条件・解散条件: {{何をもって終わりとするか}}</li>
   </ul>
 
-  <!-- KPI Row（必要なら） -->
-  <div class="kpi-row">
-    <div class="kpi-cell">
-      <div class="kpi-label">{{ラベル1}}</div>
-      <div class="kpi-value">{{値1}}<span class="unit">{{単位}}</span></div>
-      <div class="kpi-note">{{補足}}</div>
-    </div>
-    <div class="kpi-cell">
-      <div class="kpi-label">{{ラベル2}}</div>
-      <div class="kpi-value">{{値2}}<span class="unit">{{単位}}</span></div>
-      <div class="kpi-note">{{補足}}</div>
-    </div>
-    <div class="kpi-cell">
-      <div class="kpi-label">{{ラベル3}}</div>
-      <div class="kpi-value">{{値3}}<span class="unit">{{単位}}</span></div>
-      <div class="kpi-note">{{補足}}</div>
-    </div>
-  </div>
+  <h3 class="sub-head"><span class="num">1.2</span>ファイル配置</h3>
+  <ul class="body">
+    <li><code class="mono">workflow.html</code>: 本ファイル。作業状態・作業計画・運用記録の正本</li>
+    <li><code class="mono">CLAUDE.md</code>: プロジェクト概要・作業上の注意・文書作成ガイドライン（静的）</li>
+    <li><code class="mono">プロジェクトサマリ.md</code>: 論点・仮説の検証状況・リスク等の知識状態</li>
+    <li><code class="mono">Input/</code>: クライアント提供資料・与件</li>
+    <li><code class="mono">Output/</code>: 全成果物（<code class="mono">Output/議事録/</code>・<code class="mono">Output/調査/</code>）</li>
+    <li><code class="mono">Work/</code>: 仕掛中のファイル・メモ等</li>
+    <li><code class="mono">Meeting/</code>: 会議資料・討議ドキュメント</li>
+  </ul>
+
+  <h3 class="sub-head"><span class="num">1.3</span>連携リンク</h3>
+  <!-- 初期化時に Notion プロジェクトページ・Slack チャンネルを確認して記録。
+       該当なし・不使用は「なし（YYYY-MM-DD 確認）」と明示し、探し忘れと区別する -->
+  <ul class="body">
+    <li>Notion プロジェクトページ: {{URL}} ／ なし（{{YYYY-MM-DD}} 確認）</li>
+    <li>Slack チャンネル: {{#channel}} ／ なし（{{YYYY-MM-DD}} 確認）</li>
+  </ul>
 </section>
 
-<!-- ====== SECTION 2: As-Is/To-Be + Scope Panel + Insight の例 ====== -->
+<!-- ====== 2. 現在の状態 ======
+     類型で中身を切り替える（節そのものは全類型で必須）:
+     - 調査型: 「現在のステップ」の定義リスト（フェーズ／ステップ／ステータス／担当）
+     - 活動カタログ型・チェックリスト型・ポートフォリオ型: 「進行中の活動」表
+     詳細は references/workflow-template-{catalog|checklist|portfolio}.md -->
 <section class="report-section" id="sec-2">
   <div class="sec-head">
     <div class="sec-num">02</div>
     <div class="sec-text">
-      <div class="sec-eyebrow">Section 02 / {{英語サブタイトル}}</div>
-      <h2>{{章タイトル}}</h2>
+      <div class="sec-eyebrow">Section 02 / Current State</div>
+      <h2>現在の状態</h2>
     </div>
   </div>
 
-  <h3 class="sub-head"><span class="num">2.1</span>現状と目指す姿</h3>
-  <p>{{本文}}</p>
+  <!-- 調査型（ステップ順次型）の場合 -->
+  <ul class="body">
+    <li>フェーズ: {{Phase 0 (提案)}}</li>
+    <li>ステップ: {{Step 1 (論点・仮説の設計)}}</li>
+    <li>ステータス: {{not_started / in_progress / review_pending / waiting_human / completed / skipped}}</li>
+    <li>担当: {{AI / 人間}}</li>
+  </ul>
 
-  <div class="state-grid">
-    <div class="state-box">
-      <div class="state-label">As-Is / 現状</div>
-      <div class="state-title">{{現状の要約}}</div>
-      <ul>
-        <li>{{現状のポイント1}}</li>
-        <li>{{現状のポイント2}}</li>
-      </ul>
-    </div>
-    <div class="state-box target">
-      <div class="state-label">To-Be / 目指す姿</div>
-      <div class="state-title">{{目指す姿の要約}}</div>
-      <ul>
-        <li>{{To-Beのポイント1}}</li>
-        <li>{{To-Beのポイント2}}</li>
-      </ul>
-    </div>
-  </div>
-
-  <h3 class="sub-head"><span class="num">2.2</span>推奨スコープ</h3>
-  <p>{{本文}}</p>
-
-  <div class="scope-panel">
-    <div class="scope-head">Recommended Scope</div>
-    <div class="scope-sub">{{スコープを1行で}}</div>
-    <ul>
-      <li>{{スコープ項目1}}</li>
-      <li>{{スコープ項目2}}</li>
-      <li>{{スコープ項目3}}</li>
-      <li>{{スコープ項目4}}</li>
-    </ul>
-  </div>
-
-  <div class="insight">
-    <div class="insight-label">Key Insight</div>
-    <div class="insight-body">
-      {{この章の最重要メッセージを1〜2文で}}
-    </div>
-  </div>
+  <!-- 活動カタログ型・チェックリスト型・ポートフォリオ型の場合はこの表に差し替える
+  <table class="report-table">
+    <thead>
+      <tr><th>活動</th><th>ステータス</th><th>開始日</th><th>備考</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">{{活動名}}</td><td>in_progress</td><td class="num">{{YYYY-MM-DD}}</td><td>{{次のアクション・待ち先}}</td></tr>
+    </tbody>
+  </table>
+  -->
 </section>
 
-<!-- ====== SECTION 3: Table + Rating + Priority の例 ====== -->
+<!-- ====== 3. 作業計画（WBS） ====== -->
 <section class="report-section" id="sec-3">
   <div class="sec-head">
     <div class="sec-num">03</div>
     <div class="sec-text">
-      <div class="sec-eyebrow">Section 03 / {{英語サブタイトル}}</div>
-      <h2>{{章タイトル}}</h2>
+      <div class="sec-eyebrow">Section 03 / Work Breakdown</div>
+      <h2>作業計画（WBS）</h2>
     </div>
   </div>
 
-  <h3 class="sub-head"><span class="num">3.1</span>比較表</h3>
+  <p class="lede">
+    {{作業パッケージの分解方針を1〜2文。期間は着手から完了までの目安。担当は当社＝{{自社名}}、{{クライアント名}}＝{{窓口}}。}}
+  </p>
+
+  <h3 class="sub-head"><span class="num">3.1</span>マイルストーン</h3>
 
   <table class="report-table">
     <thead>
-      <tr>
-        <th class="num-col">No.</th>
-        <th>{{列1}}</th>
-        <th>{{列2}}</th>
-        <th class="center">{{評価}}</th>
-      </tr>
+      <tr><th class="num-col">No.</th><th>マイルストーン</th><th>目標日</th><th>満たすべき条件</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="num">M1</td><td class="name">{{マイルストーン}}</td><td>{{YYYY.MM.DD}}</td><td>{{満たすべき条件}}</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub-head"><span class="num">3.2</span>ゲート</h3>
+  <!-- 決着しないと後続に着手できない判断点だけを置く。無ければ節ごと削除する -->
+
+  <table class="report-table">
+    <thead>
+      <tr><th class="num-col">No.</th><th>判断・確認事項</th><th>内容</th><th>期限</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="num">G1</td><td class="name">{{決めること}}</td><td>{{何の前提になるか・選択肢}}</td><td>{{YYYY.MM.DD}}</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub-head"><span class="num">3.3</span>スケジュール</h3>
+
+  <!-- ガント（レイアウトパターン5）。
+       --wbs-cols に列数、各バーに grid-column:{開始列}/span {列数} を指定する。
+       期間の粒度は案件に合わせる（月×前半/後半、週、フェーズ等）。
+       バーの種類: 既定=予定 / .done=完了 / .buf=バッファ。
+       マイルストーン・ゲートはバー内に入れず最下段の専用行（.mrow）に ◆ で置く（狭い列で文字が見切れるため）。 -->
+  <figure class="diagram">
+    <div class="fig-wrap"><div class="fig-canvas fig-wbs" style="--wbs-cols:8">
+      <div class="wbs-head">
+        <div class="lbl"></div>
+        <div class="track">
+          <div class="mh" style="grid-column:1/span 2">{{1月}}</div>
+          <div class="mh" style="grid-column:3/span 2">{{2月}}</div>
+          <div class="mh" style="grid-column:5/span 2">{{3月}}</div>
+          <div class="mh" style="grid-column:7/span 2">{{4月}}</div>
+        </div>
+      </div>
+      <div class="wbs-sub">
+        <div class="lbl"></div>
+        <div class="track">
+          <div class="sh">前半</div><div class="sh">後半</div>
+          <div class="sh">前半</div><div class="sh">後半</div>
+          <div class="sh">前半</div><div class="sh">後半</div>
+          <div class="sh">前半</div><div class="sh">後半</div>
+        </div>
+      </div>
+
+      <div class="wbs-row">
+        <div class="lbl"><span class="id">{{A-1}}</span>{{作業パッケージ名}}</div>
+        <div class="track"><div class="bar done" style="grid-column:1/span 1">{{1/5 完了}}</div></div>
+      </div>
+      <div class="wbs-row">
+        <div class="lbl"><span class="id">{{A-2}}</span>{{作業パッケージ名}}</div>
+        <div class="track"><div class="bar" style="grid-column:1/span 2">{{1/6–1/20}}</div></div>
+      </div>
+
+      <div class="wbs-row mrow">
+        <div class="lbl">マイルストーン</div>
+        <div class="track">
+          <div class="msk" style="grid-column:2">◆M1</div>
+        </div>
+      </div>
+      <div class="wbs-row mrow">
+        <div class="lbl">ゲート</div>
+        <div class="track">
+          <div class="msk" style="grid-column:2">◆G1</div>
+        </div>
+      </div>
+
+      <div class="wbs-legend">
+        <span class="k"><span class="sw"></span>予定</span>
+        <span class="k"><span class="sw done"></span>完了</span>
+        <span class="k"><span class="sw buf"></span>バッファ</span>
+        <span class="k">◆ マイルストーン／ゲート</span>
+      </div>
+    </div></div>
+    <figcaption>Figure 1 — 作業パッケージ別スケジュール</figcaption>
+  </figure>
+
+  <h3 class="sub-head"><span class="num">3.4</span>{{A. 作業パッケージ名}}</h3>
+
+  <!-- 作業パッケージ（WBS レベル1）ごとに1つの表を置く。
+       状態は「完了（YYYY-MM-DD）」「未着手」「条件付き（何の後か）」「対象外（理由）」等を成果物欄か専用列に書く。
+       調査型では 作業パッケージ = フェーズ、WBS = Step 番号 に読み替える -->
+  <table class="report-table">
+    <thead>
+      <tr><th class="num-col">WBS</th><th>作業パッケージ</th><th>開始</th><th>終了</th><th>担当</th><th>成果物</th><th>先行</th></tr>
     </thead>
     <tbody>
       <tr>
-        <td class="num">①</td>
-        <td class="name">{{項目名}}</td>
-        <td>{{説明}}</td>
-        <td class="center"><span class="rating"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span><span class="d"></span></span></td>
-      </tr>
-      <tr>
-        <td class="num">②</td>
-        <td class="name">{{項目名}}</td>
-        <td>{{説明}}</td>
-        <td class="center"><span class="rating"><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d on"></span><span class="d"></span></span></td>
+        <td class="num">{{A-1}}</td>
+        <td class="name">{{作業内容}}</td>
+        <td>{{M/D}}</td>
+        <td>{{M/D}}</td>
+        <td>{{当社 / クライアント / 両者}}</td>
+        <td>{{成果物（完了なら「完了（YYYY.MM.DD）」）}}</td>
+        <td>{{先行 WBS / —}}</td>
       </tr>
     </tbody>
   </table>
 
-  <h3 class="sub-head"><span class="num">3.2</span>優先順位</h3>
-
-  <div class="prio-list">
-    <div class="prio-item">
-      <div class="prio-rank">1</div>
-      <div class="prio-body">
-        <div class="prio-tag">First Priority</div>
-        <h5>{{項目名}}</h5>
-        <p><strong>{{キーフレーズ}}</strong>{{理由の説明}}</p>
-      </div>
-    </div>
-    <div class="prio-item">
-      <div class="prio-rank">2</div>
-      <div class="prio-body">
-        <div class="prio-tag">Second Priority</div>
-        <h5>{{項目名}}</h5>
-        <p><strong>{{キーフレーズ}}</strong>{{理由の説明}}</p>
-      </div>
-    </div>
-    <div class="prio-item">
-      <div class="prio-rank">3</div>
-      <div class="prio-body">
-        <div class="prio-tag">Third Priority</div>
-        <h5>{{項目名}}</h5>
-        <p><strong>{{キーフレーズ}}</strong>{{理由の説明}}</p>
-      </div>
-    </div>
-  </div>
+  <h3 class="sub-head"><span class="num">3.5</span>本計画の対象外</h3>
+  <ul class="body">
+    <li>{{対象外の作業 — 理由}}</li>
+  </ul>
 </section>
 
-<!--
-   ====== 必要に応じて他のコンポーネントを追加 ======
-   - .budget-grid（予算別の進め方）
-   - .qa-grid（商談確認事項）
-   - .roadmap-wrap（ロードマップ）
-   - .proposal-card（提案パッケージ）
-   - .flow-margin（業務プロセス可視化 — 本体ステップ＋右側マージン注釈）
-   詳細は references/components.md を参照
--->
+<!-- ====== 4. 成果物リンク ====== -->
+<section class="report-section" id="sec-4">
+  <div class="sec-head">
+    <div class="sec-num">04</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 04 / Deliverables</div>
+      <h2>成果物リンク</h2>
+    </div>
+  </div>
+
+  <table class="report-table">
+    <thead>
+      <tr><th>成果物</th><th>パス</th><th>状態</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">{{与件}}</td><td><code class="mono">Input/与件.md</code></td><td>{{作成済 / 未作成}}</td></tr>
+      <tr><td class="name">{{提案書}}</td><td>—</td><td>未作成</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ====== 5. タスク（積み残し） ====== -->
+<section class="report-section" id="sec-5">
+  <div class="sec-head">
+    <div class="sec-num">05</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 05 / Backlog</div>
+      <h2>タスク（積み残し）</h2>
+    </div>
+  </div>
+
+  <p class="lede">
+    セッションをまたいで持ち越す作業。「タスクとして積んでおいて」と言われたらここに追記する。完了しても行は削除せず、状態を「完了（YYYY-MM-DD）」に変える。
+  </p>
+
+  <table class="report-table">
+    <thead>
+      <tr><th>タスク</th><th>登録日</th><th>状態</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">{{タスク内容}}</td><td class="num">{{YYYY-MM-DD}}</td><td>{{未完了 / 完了（YYYY-MM-DD）}}</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ====== 6. 運用記録 ====== -->
+<section class="report-section" id="sec-6">
+  <div class="sec-head">
+    <div class="sec-num">06</div>
+    <div class="sec-text">
+      <div class="sec-eyebrow">Section 06 / Operating Record</div>
+      <h2>運用記録</h2>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="num">6.1</span>重要な意思決定</h3>
+  <!-- スコープ変更・方針転換・クライアント指示など、プロジェクトの方向性に影響する決定を追記する -->
+
+  <table class="report-table">
+    <thead>
+      <tr><th>日付</th><th>決定</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="num">{{YYYY-MM-DD}}</td><td>{{決定内容}}</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub-head"><span class="num">6.2</span>履歴ログ</h3>
+  <!-- 主要な活動・成果物・状態変化を時系列で追記する（新しい行は下に足す） -->
+
+  <table class="report-table">
+    <thead>
+      <tr><th>日付</th><th>内容</th><th>関連ファイル</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="num">{{YYYY-MM-DD}}</td><td>プロジェクト初期化</td><td class="mono">CLAUDE.md, workflow.html, プロジェクトサマリ.md</td></tr>
+    </tbody>
+  </table>
+</section>
 
 </div><!-- /.page -->
 
-<!--
-   ====== まとめ節（任意・既定では置かない） ======
-   Vertical Document では末尾の「まとめ」節を既定で置かない。
-   読者が最後に持ち帰る要点を1画面で見せたい文書（提案書・報告書など）に限り、
-   references/components.md の「Summary」を `</div><!-- /.page -->` の後に追加する。
-   その場合も章番号は付けず `<div class="sum-tag">Summary</div>` とし、
-   TOC のまとめ行は `toc-num` を空にする（節を増減しても付け替えが発生しないようにする）。
--->
-
-<!-- ====== FOOTER（必須） ====== -->
+<!-- ====== FOOTER ====== -->
 <footer class="footer">
-  <div>{{DOC-ID}} &nbsp;·&nbsp; {{ドキュメントタイトル}}</div>
-  <div>Page N of N</div>
+  <div>{{DOC-ID}} &nbsp;·&nbsp; {{プロジェクト名}} workflow</div>
+  <div>Updated {{YYYY.MM.DD}}</div>
 </footer>
 
 </body>

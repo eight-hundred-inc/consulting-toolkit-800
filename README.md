@@ -139,7 +139,7 @@ claude mcp add --transport http circleback https://circleback.ai/api/mcp
 
 #### Notion / Slack MCP — 任意
 
-`project-manager` はプロジェクト初期化時に、Notion プロジェクトページと Slack チャンネルを検索して `workflow.md` の「連携リンク」節に記録する。また `circleback-meeting-minutes` は、生成した議事録を Notion のミーティング DB と突合できる。いずれも接続されていなければスキップされ、ワークフローは通常どおり進む。
+`project-manager` はプロジェクト初期化時に、Notion プロジェクトページと Slack チャンネルを検索して `workflow.html` の「連携リンク」節に記録する。また `circleback-meeting-minutes` は、生成した議事録を Notion のミーティング DB と突合できる。いずれも接続されていなければスキップされ、ワークフローは通常どおり進む。
 
 **セットアップ**: claude.ai の Settings → Connectors で Notion / Slack を追加し、Claude Code で `/mcp` を実行して有効化する。
 
@@ -252,7 +252,7 @@ sudo apt install libreoffice
 | エージェント | 説明 | 呼び出しタイミング |
 |-------------|------|-------------------|
 | [quality-reviewer](plugins/consulting-toolkit/agents/quality-reviewer.md) | 成果物の品質レビュー専門。品質チェック項目と 5 軸（論理構造・具体性・読み手視点・整合性・網羅性）で評価し、合格 / 条件付き合格 / 要修正を判定する。提出前の最終検査では、出典の照合・NG 表現の点検に加え、HTML や PPTX を PDF 化してレイアウト崩れまで確認する（HTML は screenshot.py、PPTX は soffice を使用） | AIタスク完了後のレビューゲート（review_level=full のみ）、提出前最終検査モード（親エージェントがモードを指定して起動） |
-| [desk-researcher](plugins/consulting-toolkit/agents/desk-researcher.md) | デスクトップリサーチ実行専門。Exa（セマンティック検索）/ WebSearch / WebFetch / Browser Use で情報を収集し、調査レポートと仮説検証シートを出力する | Step 1（論点・仮説の設計）、Step 9（デスクリサーチ） |
+| [desk-researcher](plugins/consulting-toolkit/agents/desk-researcher.md) | デスクトップリサーチ実行専門。Exa（セマンティック検索）/ WebSearch / WebFetch / Browser Use で情報を収集し、調査レポートと仮説検証シートを出力する | Step 1 の探索的調査・仮説検証調査、Step 9（デスクリサーチ） |
 | [image-creator](plugins/consulting-toolkit/agents/image-creator.md) | 画像・図解・データチャートの生成。HTML+CSSで構造化図解をPNG化、matplotlibでデータチャートを生成。イラスト・アート系は画像生成プロンプトを返却 | 「画像にして」「図にして」「図解して」「グラフを作って」「データを可視化して」 |
 | [circleback-minutes-worker](plugins/consulting-toolkit/agents/circleback-minutes-worker.md) | 親が `/tmp` に保存した単一会議のトランスクリプトから、meeting-minutes-creator / interview-minutes-creator に従って議事録 MD を生成する専門ワーカー | circleback-meeting-minutes スキルから並列起動 |
 | [slide-figure-creator](plugins/consulting-toolkit/agents/slide-figure-creator.md) | html-artifact のスライドデッキで、図版を 1 図につき 1 エージェントで作る専門ワーカー。設計・描画・確認・修正を繰り返し、デッキに埋め込む HTML 断片を返す | html-artifact スキルから並列起動（Step 9.5・1 図ごと） |
@@ -265,8 +265,8 @@ project-manager は汎用オーケストレーターとして動作し、プロ�
 
 プロジェクトの状態は3ファイルで管理する:
 - **CLAUDE.md**: 静的な基本情報（クライアント名・納期・ファイル配置）。全セッションで自動ロード
-- **workflow.md**: プロセス進捗（チェックリスト・成果物リンク・履歴・重要な意思決定）
-- **プロジェクトサマリ.md**: 知識状態（論点・仮説検証状況・リスク・主要発見事項）。プロジェクトルート直下に置き、初期化時にスケルトンを作成して以降随時更新する（`Output/` ではなくルート直下。CLAUDE.md・workflow.md と並ぶ状態管理ファイルのため）
+- **workflow.html**: 作業状態の正本（基本情報・現在の状態・作業計画（WBS。マイルストーン・ゲート・ガント）・成果物リンク・タスク・重要な意思決定・履歴ログ）。共通シェル `skills/project-manager/assets/workflow-template.html` から生成し、状態更新は HTML を直接編集する（Markdown 版は持たない）
+- **プロジェクトサマリ.md**: 知識状態（論点・仮説検証状況・リスク・主要発見事項）。プロジェクトルート直下に置き、初期化時にスケルトンを作成して以降随時更新する（`Output/` ではなくルート直下。CLAUDE.md・workflow.html と並ぶ状態管理ファイルのため）
 
 与件の内容に応じて3つのパスでワークフローを決定する:
 
@@ -293,7 +293,7 @@ project-manager は汎用オーケストレーターとして動作し、プロ�
 flowchart TB
     subgraph P0["Phase 0: 提案"]
         direction TB
-        S1["Step 1 論点・仮説の設計<br/>desk-researcher"]
+        S1["Step 1 論点・仮説の設計<br/>PM（調査は desk-researcher）"]
         S2["Step 2 提案書作成<br/>project-proposal（調査型）"]
         S3["Step 3 提案用スライド構成設計<br/>slide-structure-designer"]
         S4["Step 4 インタビューガイド作成<br/>interview-guide-creator"]
@@ -419,7 +419,7 @@ flowchart LR
 | インタビューまとめ | `Output/インタビューまとめ.md` |
 | 最終報告書 | `Output/最終報告書.md` |
 | スライド構成（報告） | `Output/スライド構成_報告.md` |
-| 進捗状況 | `workflow.md` |
+| 進捗状況 | `workflow.html` |
 
 ---
 

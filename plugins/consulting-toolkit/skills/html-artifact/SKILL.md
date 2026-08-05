@@ -317,7 +317,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 - **コンポーネントが足りない**：components.md にない要素は既存 30 種の組み合わせで実現。新規 CSS は追加しない
 - **色をもっと使いたい**：禁止。代わりに 5 テーマ（Terracotta / Navy / Forest / Charcoal / Mono）の切り替えを検討
 - **派手にしてほしいと言われた**：本スキルは業務文書スタイル。マガジン風・装飾デザインは別アプローチで対応する
-- **議事メモのような短い文書**：TOC と Summary を省略し、Cover→2〜4 章→Footer のシンプル構成にする
+- **議事メモのような短い文書**：TOC も省略し、Cover→2〜4 章→Footer のシンプル構成にする（まとめ節は Vertical Document では既定で置かない）
 - **図解が単調な「箱の列」になる／元資料のようなリッチな図にしたい**：リッチ判定（diagram-components.md「図解の 3 層」）を確認し、作り込み図版（レイアウトパターン＋exemplar 方式）で組み直す
 - **annotated-flow（縦長プロセス＋右側注釈）を作りたい**：Recipe E + Flow with Margin コンポーネント（components.md #21）
 - **3 案比較を作りたい**：Recipe D + Proposal Card × 3、または Report Table + Rating Dots
