@@ -142,10 +142,14 @@
 
 末尾の「まとめ」セクション。クリーム背景のまま、太い上罫線で最終章であることを示す。3項目のサマリーカードを含む。**Web ページのダークフッターのようには見せない**（業務文書として最終ページが急にダーク背景になる違和感を避ける）。
 
+**まとめ節は任意で、既定では置かない**。読者が最後に持ち帰る要点を1画面で見せたい文書（提案書・報告書など）に限って追加する。進行管理・記録系の文書（workflow・議事メモ・通達）には置かない。
+
+置く場合も**章番号は付けない**。`sum-tag` は `Summary` のみとし、`11 / Summary` のようには書かない（節を増減するたびに付け替えが必要になり、実際に付け替え漏れが起きるため）。TOC のまとめ行も `toc-num` を空にする。
+
 ```html
 <section class="summary" id="summary">
   <div class="page" style="padding:0 56px">
-    <div class="sum-tag">11 / Summary</div>
+    <div class="sum-tag">Summary</div>
     <h2>まとめのキーメッセージ。<br>2行程度。</h2>
     <p style="color:var(--ink-soft);font-size:14px;line-height:1.95;max-width:880px">
       まとめの本文（200字程度）。
@@ -1084,7 +1088,7 @@ tags: ["progress", "q1"]
 | 「Phase 1 / Phase 2 / Phase 3 / Phase 4」見出し列、4 段階で固定 | Roadmap |
 | 縦長プロセス + 各ステップへの右側補足注釈 | Flow with Margin |
 | 提案サービス／パッケージ説明（実施内容 + 成果物 + 期間 + 金額） | Proposal Card |
-| まとめ章（3 ポイント要約 + 全体総括） | Summary（必須構造） |
+| まとめ章（3 ポイント要約 + 全体総括） | Summary（任意。置く場合の構造） |
 
 ## 自動生成要素
 

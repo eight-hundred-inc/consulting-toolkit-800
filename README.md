@@ -139,7 +139,7 @@ claude mcp add --transport http circleback https://circleback.ai/api/mcp
 
 #### Notion / Slack MCP — 任意
 
-`project-manager` はプロジェクト初期化時に、Notion プロジェクトページと Slack チャンネルを検索して `workflow.md` の「連携リンク」節に記録する。また `circleback-meeting-minutes` は、生成した議事録を Notion のミーティング DB と突合できる。いずれも接続されていなければスキップされ、ワークフローは通常どおり進む。
+`project-manager` はプロジェクト初期化時に、Notion プロジェクトページと Slack チャンネルを検索して `workflow.html` の「連携リンク」節に記録する。また `circleback-meeting-minutes` は、生成した議事録を Notion のミーティング DB と突合できる。いずれも接続されていなければスキップされ、ワークフローは通常どおり進む。
 
 **セットアップ**: claude.ai の Settings → Connectors で Notion / Slack を追加し、Claude Code で `/mcp` を実行して有効化する。
 
@@ -266,8 +266,8 @@ project-manager は汎用オーケストレーターとして動作し、プロ�
 
 プロジェクトの状態は3ファイルで管理する:
 - **CLAUDE.md**: 静的な基本情報（クライアント名・納期・ファイル配置）。全セッションで自動ロード
-- **workflow.md**: プロセス進捗（チェックリスト・成果物リンク・履歴・重要な意思決定）
-- **プロジェクトサマリ.md**: 知識状態（論点・仮説検証状況・リスク・主要発見事項）。プロジェクトルート直下に置き、初期化時にスケルトンを作成して以降随時更新する（`Output/` ではなくルート直下。CLAUDE.md・workflow.md と並ぶ状態管理ファイルのため）
+- **workflow.html**: 作業状態の正本（基本情報・現在の状態・作業計画（WBS。マイルストーン・ゲート・ガント）・成果物リンク・タスク・重要な意思決定・履歴ログ）。共通シェル `skills/project-manager/assets/workflow-template.html` から生成し、状態更新は HTML を直接編集する（Markdown 版は持たない）
+- **プロジェクトサマリ.md**: 知識状態（論点・仮説検証状況・リスク・主要発見事項）。プロジェクトルート直下に置き、初期化時にスケルトンを作成して以降随時更新する（`Output/` ではなくルート直下。CLAUDE.md・workflow.html と並ぶ状態管理ファイルのため）
 
 与件の内容に応じて3つのパスでワークフローを決定する:
 
@@ -420,7 +420,7 @@ flowchart LR
 | インタビューまとめ | `Output/インタビューまとめ.md` |
 | 最終報告書 | `Output/最終報告書.md` |
 | スライド構成（報告） | `Output/スライド構成_報告.md` |
-| 進捗状況 | `workflow.md` |
+| 進捗状況 | `workflow.html` |
 
 ---
 
