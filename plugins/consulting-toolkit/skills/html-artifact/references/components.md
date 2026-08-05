@@ -6,7 +6,7 @@
 
 **コンポーネントの範囲**：
 - 基本 21 種（#1〜#21）＋拡張 4 種（#22〜#25）は **Vertical Document / Slide Deck 両方**で使う
-- 参照デザイン 5 種（#26〜#30）は **Slide Deck 専用の統一シャシ・全 5 テーマ共通**（`.slide` スコープ内で使用。Vertical Document には適用しない。テーマ切替で accent 色に自動追従する）
+- 参照デザイン 5 種（#26〜#30）は **Slide Deck 専用の統一シャシ・全 6 テーマ共通**（`.slide` スコープ内で使用。Vertical Document には適用しない。テーマ切替で accent 色に自動追従する）
 
 ## 目次
 
@@ -687,7 +687,7 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
 
 ## Slide Deck 統一シャシ 参照デザイン（26〜30）
 
-参照デザイン（`AI Biz Ops Partner/assets` および `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures`）を踏襲する 5 種の追加コンポーネント。**Slide Deck 全 5 テーマで使える統一シャシ**（`.slide` スコープで定義。CSS は `assets/template-slides.html` に組み込み済み）。すべて `var(--accent)` 系トークンで色を取るため、テーマを Terracotta / Navy / Forest / Charcoal / Mono のどれに切り替えても、帯色・ピル色・アイコン色が自動追従する。
+参照デザイン（`AI Biz Ops Partner/assets` および `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures`）を踏襲する 5 種の追加コンポーネント。**Slide Deck 全 6 テーマで使える統一シャシ**（`.slide` スコープで定義。CSS は `assets/template-slides.html` に組み込み済み）。すべて `var(--accent)` 系トークンで色を取るため、テーマを Terracotta / Navy / Forest / Charcoal / Mono / EightHundred のどれに切り替えても、帯色・ピル色・アイコン色が自動追従する。
 
 **Vertical Document には適用しない**（Vertical Document は別の視覚言語系を持つ）。
 
@@ -907,7 +907,7 @@ Filled-Header Card 内で入口テーマ・カテゴリ・分類を列挙する�
 
 ## スライド文脈での利用（Slide Deck format）
 
-Slide Deck format（16:9 HTML スライドデッキ）でもここまでの 21 コンポーネントを **そのまま再利用**する。加えて、拡張 4 種（#22〜25、形式横断で利用可）と、**Slide Deck 統一シャシの参照デザイン 5 種（#26〜30、Filled-Header Card / Value Bar / Icon Chip / Pill Tag / Expansion Pills、5 テーマ共通で accent 色に自動追従）** をスライドの主役として使う。
+Slide Deck format（16:9 HTML スライドデッキ）でもここまでの 21 コンポーネントを **そのまま再利用**する。加えて、拡張 4 種（#22〜25、形式横断で利用可）と、**Slide Deck 統一シャシの参照デザイン 5 種（#26〜30、Filled-Header Card / Value Bar / Icon Chip / Pill Tag / Expansion Pills、6 テーマ共通で accent 色に自動追従）** をスライドの主役として使う。
 
 **CSS の所在**：#1〜21 の CSS は Vertical Document では `assets/template.html`、Slide Deck では `assets/template-slides.html`（`.slide` スコープ・外側マージンをスライド向けに縮小済み）にそれぞれ搭載済み。デッキ側で CSS をコピー・再定義する必要はない。ただしスライドでは 2 コンポーネントに**スライド簡易形**があり、そちらが基本：Insight Callout は `.insight > .txt`（`slide-deck.md`「Content」の型。#15 の `.insight-label`/`.insight-body` 形も使える）、Scope Panel は `.scope`＋`.scope-sub`＋`ul`（#12 の `.scope-panel` 形も使える）。
 

@@ -13,7 +13,7 @@
 - **ハイブリッド：モノクロ基調＋アクセント 1 点**
   - 図全体は `--ink` / `--ink-soft` / `--ink-mute` / `--rule` / `--rule-soft` で構築
   - 強調は `--accent` を **1 箇所のみ**（最重要象限・推奨層・主役レイヤー等）
-- テーマ（Terracotta/Navy/Forest/Charcoal）の切替に追随する（`--accent` 変数経由）
+- テーマ（Terracotta/Navy/Forest/Charcoal/EightHundred）の切替に追随する（`--accent` 変数経由）
 - 色は 1 色制約を維持。複数アクセントは禁止
 - 図はあくまで業務文書の補助。装飾過多にしない（章タイトルの内側に置く想定）
 
@@ -407,7 +407,7 @@ Slide Deck format（16:9 HTML スライドデッキ）でも本ファイルの 8
   - Venn: 2 円推奨（3 円は凡例が窮屈）
 - スライド内のフォントは template-slides.html 側の他コンポーネントと整合（17px message、14.5px body）するよう、図解内のラベルは Noto Sans JP 14px・説明は 11.5px のまま使う
 - 縦長になる図（縦フロー 5 ノード等）は **複数スライドに分割**するか、横フローに切り替える
-- 配色はメイン文書と同じ。テーマ切替（Terracotta / Navy / Forest / Charcoal / Mono）で `--accent` が変わる
+- 配色はメイン文書と同じ。テーマ切替（Terracotta / Navy / Forest / Charcoal / Mono / EightHundred）で `--accent` が変わる
 
 ## CSS の配置
 
@@ -759,7 +759,7 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 
 ブランド色を敢えて図版だけに効かせたい場合は、デッキの `:root` で `--fig-accent: #0052FF;` のように上書きする（既定では使わない）。
 
-### 段階濃度パターン（Slide Deck 統一シャシ・5 テーマ共通）
+### 段階濃度パターン（Slide Deck 統一シャシ・6 テーマ共通）
 
 Slide Deck で Gantt / Timeline / Progression（Phase の段階進行）を組むときの規範。参照デザイン `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures/fig07_schedule.png`（VisasQ Phase 1〜4 ガントバー）と `AI Biz Ops Partner/assets/fig01-opportunity-timeline.png`（3 者の時系列曲線）が範例。
 

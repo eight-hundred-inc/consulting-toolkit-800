@@ -22,7 +22,9 @@
 
   カスタマイズ:
   - 配色テーマは :root の --accent / --accent-soft / --accent-bg の 3 変数のみ
-    5 テーマ（Mono（既定） / Terracotta / Navy / Forest / Charcoal）は references/design-system.md を参照
+    （EightHundred のみ --font-jp も追加）
+    6 テーマ（Mono（既定） / Terracotta / Navy / Forest / Charcoal / EightHundred）は
+    references/design-system.md を参照
   - キャンバスは 1280×720 px 固定（旧 pitch-mode の 1600×900 は廃止）
   - スライド内の本文コンポーネント追加は references/components.md
   - シェル仕様の詳細は references/slide-deck.md
@@ -40,21 +42,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   DESIGN TOKENS — Slide Deck 全 5 テーマで統一シャシ
+   DESIGN TOKENS — Slide Deck 全 6 テーマで統一シャシ
    既定: Mono（参照デザイン踏襲・純白＋モノクロ）
    キャンバスは 1280×720 px 固定（テーマ・内容によらず変えない）
 
-   Slide Deck では 5 テーマが同じ視覚言語（角丸・影・Filled-Header Card 群・
+   Slide Deck では 6 テーマが同じ視覚言語（角丸・影・Filled-Header Card 群・
    Value Bar 等）を共有し、**テーマ切替は --accent / --accent-soft /
-   --accent-bg の 3 変数のみ**で完結する。他の構造色（--bg / --panel-soft /
-   --rule / --ink 等）は 5 テーマ共通で不動。
+   --accent-bg の 3 変数のみ**（EightHundred のみ --font-jp も追加）で完結する。
+   他の構造色（--bg / --panel-soft / --rule / --ink 等）は 6 テーマ共通で不動。
    Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、
-   Charcoal = チャコール帯（実質モノに近い）、Mono = 黒帯 の palette 違い。
+   Charcoal = チャコール帯（実質モノに近い）、Mono = 黒帯、
+   EightHundred = ダークグリーン帯（クライアントブランド固有）の palette 違い。
 
    ※ Vertical Document は別。design-system.md の各テーマブロック参照。
    ============================================================ */
 :root{
-  /* --- 構造色（5 テーマ共通・不動） --- */
+  /* --- 構造色（6 テーマ共通・不動） --- */
   --bg:#ffffff;
   --bg-alt:#f5f5f5;
   --panel:#ffffff;
@@ -69,19 +72,21 @@
   --warn:#7a4a1a;
   --warn-bg:#f0e3cd;
 
-  /* --- カード装飾（5 テーマ共通） --- */
+  /* --- カード装飾（6 テーマ共通） --- */
   --card-radius:12px;
   --card-shadow:0 1px 4px rgba(0,0,0,0.05);
   --card-shadow-lg:0 2px 12px rgba(0,0,0,0.08);
 
   /* --- アクセント（テーマ切替の唯一のポイント） ---
      既定は Mono（黒）。他テーマは以下の 3 行だけ差し替える：
-     Terracotta: --accent:#9d3617; --accent-soft:#c45a2c; --accent-bg:#f5e8de;
-     Navy:       --accent:#1e3a5f; --accent-soft:#3a5e8a; --accent-bg:#e3eaf3;
-     Forest:     --accent:#2a4f3a; --accent-soft:#4a7558; --accent-bg:#e2ebe1;
-     Charcoal:   --accent:#2d2d33; --accent-soft:#5a5a64; --accent-bg:#ebe9e4;
+     Terracotta:   --accent:#9d3617; --accent-soft:#c45a2c; --accent-bg:#f5e8de;
+     Navy:         --accent:#1e3a5f; --accent-soft:#3a5e8a; --accent-bg:#e3eaf3;
+     Forest:       --accent:#2a4f3a; --accent-soft:#4a7558; --accent-bg:#e2ebe1;
+     Charcoal:     --accent:#2d2d33; --accent-soft:#5a5a64; --accent-bg:#ebe9e4;
+     EightHundred: --accent:#1B3928; --accent-soft:#127D70; --accent-bg:#E4E7E5;
+                   （このテーマのみ --font-jp も差し替える。下記参照）
 
-     【トークン契約】--accent-bg は「文字を載せるアクセント面」であり、5 テーマすべてで
+     【トークン契約】--accent-bg は「文字を載せるアクセント面」であり、6 テーマすべてで
      accent の淡ティント（明るい色）にする。--ink / --accent を載せて 4.5:1 以上を保つため、
      --accent-bg に --accent と同値や暗い色を入れてはいけない（Insight・固定 8 図解の
      .accent バリアントが一斉に潰れる）。反転（白文字 on 濃地）が要る場合は
@@ -90,6 +95,33 @@
   --accent:#1a1a1a;
   --accent-soft:#444444;
   --accent-bg:#ededed;   /* accent の淡ティント。文字を載せる面なので必ず明るく保つ（下記の契約） */
+
+  /* --- フォント（本文・見出し用。数値・章番号・コードは JetBrains Mono で不動） ---
+     既定は Noto Sans JP。EightHundred テーマのみ以下に差し替える：
+     --font-jp:"Meiryo UI","Meiryo","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif; */
+  --font-jp:"Noto Sans JP",sans-serif;
+
+  /* --- フレームトークン（Cover / Title-bar / Footer の見た目。既定は 5 テーマ共通で無色差分） ---
+     EightHundred テーマのみ実 PPTX マスターに準拠した値に差し替える（design-system.md「Theme 6」参照）。
+     他 5 テーマではすべて既存トークンのエイリアスなので見た目は一切変わらない。 */
+  --cover-bg:var(--bg);                                  /* Cover スライドの背景 */
+  --cover-ink:var(--ink);                                /* Cover スライドの主テキスト色 */
+  --cover-ink-soft:var(--ink-soft);                      /* Cover スライドの副テキスト色 */
+  --cover-rule:var(--rule);                              /* Cover meta の罫線色 */
+  --titlebar-border-color:var(--ink);                    /* title-bar 下罫線の色 */
+  --titlebar-border-width:2px;                           /* title-bar 下罫線の太さ */
+  --titlebar-eyebrow-font:"JetBrains Mono",monospace;    /* title-bar .sec-num のフォント（番号=Mono／日本語ラベル=--font-jp） */
+  --titlebar-eyebrow-color:var(--accent);                /* title-bar .sec-num の文字色 */
+  --titlebar-direction:row;                              /* sec-num と h2 の並び：row=横並び／column=縦積み */
+  --titlebar-gap:18px;                                   /* row 時の間隔／column 時は詰めた値にする */
+  --titlebar-align:baseline;                             /* row 時 baseline／column 時 flex-start */
+  --titlebar-padding-bottom:14px;
+  --titlebar-margin-bottom:22px;
+  --message-margin-top:12px;                             /* .message の title-bar からの上マージン */
+  --message-weight:500;                                  /* .message の文字太さ */
+  --footer-id-color:var(--accent);                       /* slide-foot .doc-id の文字色 */
+  --footer-border-width:1px;                             /* slide-foot 上罫線の太さ */
+  --footer-font:"JetBrains Mono",monospace;              /* slide-foot 全体のフォント */
 
   /* --- 段階濃度ランプ（Gantt/Timeline/Progression 用・accent 派生） ---
      accent が黒なら黒 → 淡グレー、terracotta なら濃 → 淡テラコッタ、と自動追従。 */
@@ -123,7 +155,7 @@
    HERO NUMBER (Component #23) — Pitch mode KPI showcase
    ============================================================ */
 .hero-number{display:flex;flex-direction:column;align-items:flex-start;margin:8px 0 16px;padding:18px 22px;background:var(--panel);border:1px solid var(--rule)}
-.hero-number .hn-value{font-family:"Noto Sans JP",sans-serif;font-size:96px;font-weight:700;line-height:1;color:var(--ink);letter-spacing:-0.02em}
+.hero-number .hn-value{font-family:var(--font-jp);font-size:96px;font-weight:700;line-height:1;color:var(--ink);letter-spacing:-0.02em}
 .hero-number .hn-value .hn-unit{font-size:32px;font-weight:500;color:var(--ink-soft);margin-left:6px;letter-spacing:0}
 .hero-number .hn-label{font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute);margin-top:10px}
 .hero-number .hn-note{font-size:12px;color:var(--ink-soft);margin-top:4px;line-height:1.55}
@@ -154,7 +186,7 @@
 .annotation-pointer .ap-text small{display:block;font-size:9.5px;font-weight:500;color:var(--ink-mute);text-transform:none;letter-spacing:0.04em;margin-top:1px}
 
 /* ============================================================
-   FILLED-HEADER CARD (Component #26) — Slide Deck 統一シャシ（5 テーマ共通）
+   FILLED-HEADER CARD (Component #26) — Slide Deck 統一シャシ（6 テーマ共通）
    黒帯ヘッダー＋淡グレーボディの主役カード。Growth Model / Phase 概観 / 3 本柱に。
    フルスライドレイアウトとして使う（.title-bar + .message は使わない）。
    ============================================================ */
@@ -181,7 +213,7 @@
 .slide .phase-arrow svg{width:36px;height:60px}
 
 /* ============================================================
-   VALUE BAR (Component #27) — Slide Deck 統一シャシ（5 テーマ共通）
+   VALUE BAR (Component #27) — Slide Deck 統一シャシ（6 テーマ共通）
    スライド最下部の黒帯サマリ。3〜4 アイテム＋縦罫。
    ============================================================ */
 .slide .value-bar{margin-top:14px;background:var(--accent);border-radius:var(--card-radius,10px);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -191,14 +223,14 @@
 .slide .value-bar .vb-divider{width:1px;height:32px;background:rgba(255,255,255,0.2);flex-shrink:0}
 
 /* ============================================================
-   ICON CHIP (Component #28) — Slide Deck 統一シャシ（5 テーマ共通）
+   ICON CHIP (Component #28) — Slide Deck 統一シャシ（6 テーマ共通）
    Filled-Header Card 内の section-title 先頭 1 字ラベル。
    ============================================================ */
 .slide .icon-chip{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:4px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;flex-shrink:0;font-family:"JetBrains Mono",monospace}
 .slide .icon-chip.muted{background:var(--ink-mute)}
 
 /* ============================================================
-   PILL TAG (Component #29) — Slide Deck 統一シャシ（5 テーマ共通）
+   PILL TAG (Component #29) — Slide Deck 統一シャシ（6 テーマ共通）
    Filled-Header Card 内のカテゴリ列挙。.tag.primary は黒塗り優先。
    ============================================================ */
 .slide .tag-list{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
@@ -206,7 +238,7 @@
 .slide .tag.primary{background:var(--accent);color:#fff}
 
 /* ============================================================
-   EXPANSION PILLS (Component #30) — Slide Deck 統一シャシ（5 テーマ共通）
+   EXPANSION PILLS (Component #30) — Slide Deck 統一シャシ（6 テーマ共通）
    「→ 経営企画」型の横展開ピル群。
    ============================================================ */
 .slide .expansion-area{background:#fff;border-radius:8px;padding:10px 12px;box-shadow:var(--card-shadow,0 1px 4px rgba(0,0,0,0.05))}
@@ -221,9 +253,9 @@ html,body{
   height:100vh;
   width:100vw;
   overflow:hidden;
-  background:#e5e5e5;  /* スライド外背景。5 テーマ共通の薄グレー（slide-deck.md「配色」） */
+  background:#e5e5e5;  /* スライド外背景。6 テーマ共通の薄グレー（slide-deck.md「配色」） */
   color:var(--ink);
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
   font-feature-settings:"palt";
   letter-spacing:0.01em;
 }
@@ -277,7 +309,7 @@ html,body{
   opacity:1;
 }
 
-.slide.cover{padding:96px 80px 80px}
+.slide.cover{padding:96px 80px 80px;background:var(--cover-bg)}
 
 /* ── 図版を主役にする Content スライド（作り込み図版/レイアウトパターンを載せるスライドに付与）──
    スライドを縦 flex 化し、title-bar・message・slide-foot を除いた残りの縦領域を .fig-wrap に
@@ -342,36 +374,48 @@ html,body{
 .fig-bar{background:var(--fig-accent);color:#fff}
 
 /* ============================================================
+   EIGHTHUNDRED LOGO MARK（EightHundred テーマ専用アセット）
+   実 PPTX の砦（とりで）アイコンを再現したインライン SVG。
+   使用箇所・マークアップは design-system.md「Theme 6: EightHundred」の
+   フレーム仕様を参照（Slide Deck format 専用。他 5 テーマでは使わない）。
+   ============================================================ */
+.eh-logo{position:absolute;top:28px;right:32px;width:34px;height:29px;color:var(--accent);z-index:2}
+.eh-logo svg{width:100%;height:100%;display:block}
+.eh-logo-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;padding:8px 14px}
+.eh-logo-badge .eh-logo{position:static;width:22px;height:19px}
+.eh-logo-badge .eh-logo-text{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:20px;letter-spacing:0.02em;color:var(--ink)}
+
+/* ============================================================
    COVER COMPONENT
    ============================================================ */
 .cover-tag{
   font-family:"JetBrains Mono",monospace;
   font-size:11px;
   letter-spacing:0.2em;
-  color:var(--accent);
+  color:var(--cover-ink-soft);
   margin-bottom:28px;
   text-transform:uppercase;
   display:flex;
   align-items:center;
   gap:14px;
 }
-.cover-tag::before{content:"";width:32px;height:1px;background:var(--accent)}
+.cover-tag::before{content:"";width:32px;height:1px;background:var(--cover-ink-soft)}
 
 h1.cover-title{
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
   font-weight:700;
   font-size:44px;
   line-height:1.4;
   letter-spacing:0.01em;
-  color:var(--ink);
+  color:var(--cover-ink);
   margin-bottom:18px;
 }
 
 .cover-sub{
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
   font-weight:400;
   font-size:18px;
-  color:var(--ink-soft);
+  color:var(--cover-ink-soft);
   line-height:1.7;
   margin-bottom:48px;
 }
@@ -380,23 +424,23 @@ h1.cover-title{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:0;
-  border-top:2px solid var(--ink);
-  border-bottom:1px solid var(--rule);
+  border-top:2px solid var(--cover-ink);
+  border-bottom:1px solid var(--cover-rule);
 }
-.cover-meta > div{padding:18px 22px 18px 0;border-right:1px solid var(--rule)}
+.cover-meta > div{padding:18px 22px 18px 0;border-right:1px solid var(--cover-rule)}
 .cover-meta > div:last-child{border-right:none}
 .cover-meta dt{
   font-size:10px;
   font-family:"JetBrains Mono",monospace;
   letter-spacing:0.15em;
-  color:var(--ink-mute);
+  color:var(--cover-ink-soft);
   text-transform:uppercase;
   margin-bottom:6px;
 }
 .cover-meta dd{
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
   font-size:14px;
-  color:var(--ink);
+  color:var(--cover-ink);
   font-weight:500;
 }
 
@@ -405,21 +449,22 @@ h1.cover-title{
    ============================================================ */
 .title-bar{
   display:flex;
-  align-items:baseline;
-  gap:18px;
-  padding-bottom:14px;
-  margin-bottom:22px;
-  border-bottom:2px solid var(--ink);
+  flex-direction:var(--titlebar-direction);
+  align-items:var(--titlebar-align);
+  gap:var(--titlebar-gap);
+  padding-bottom:var(--titlebar-padding-bottom);
+  margin-bottom:var(--titlebar-margin-bottom);
+  border-bottom:var(--titlebar-border-width) solid var(--titlebar-border-color);
 }
 .title-bar .sec-num{
-  font-family:"JetBrains Mono",monospace;
+  font-family:var(--titlebar-eyebrow-font);
   font-size:13px;
   letter-spacing:0.08em;
-  color:var(--accent);
+  color:var(--titlebar-eyebrow-color);
   font-weight:500;
 }
 .title-bar h2{
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
   font-weight:600;
   font-size:24px;
   line-height:1.4;
@@ -431,12 +476,12 @@ h1.cover-title{
    MESSAGE (1 スライド 1 メッセージの主文)
    ============================================================ */
 .message{
-  font-family:"Noto Sans JP",sans-serif;
-  font-weight:500;
+  font-family:var(--font-jp);
+  font-weight:var(--message-weight);
   font-size:17px;
   line-height:1.7;
   color:var(--ink);
-  margin:12px 0 18px;
+  margin:var(--message-margin-top) 0 18px;
   max-width:none;
 }
 
@@ -473,7 +518,7 @@ h1.cover-title{
   border-left:4px solid var(--accent);
 }
 .insight .txt{
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
   font-size:15.5px;
   line-height:1.7;
   color:var(--ink);
@@ -490,7 +535,7 @@ h1.cover-title{
   margin:20px 0;
 }
 .scope .scope-sub{
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
   font-weight:600;
   font-size:15px;
   color:var(--ink);
@@ -569,7 +614,7 @@ h1.cover-title{
   margin-bottom:14px;
 }
 .divider .div-title{
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
   font-weight:700;
   font-size:38px;
   line-height:1.4;
@@ -578,7 +623,7 @@ h1.cover-title{
   letter-spacing:0.01em;
 }
 .divider .lede{
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
   font-weight:400;
   font-size:17px;
   line-height:1.85;
@@ -616,7 +661,7 @@ h1.cover-title{
   letter-spacing:0.05em;
 }
 .toc-grid .toc-name{
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
   font-weight:500;
   color:var(--ink);
 }
@@ -632,7 +677,7 @@ h1.cover-title{
 .slide .kpi-cell{padding:24px 28px;border-right:1px solid var(--rule)}
 .slide .kpi-cell:last-child{border-right:none}
 .slide .kpi-cell .kpi-label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:8px}
-.slide .kpi-cell .kpi-value{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:32px;color:var(--ink);line-height:1.1;letter-spacing:-0.01em}
+.slide .kpi-cell .kpi-value{font-family:var(--font-jp);font-weight:600;font-size:32px;color:var(--ink);line-height:1.1;letter-spacing:-0.01em}
 .slide .kpi-cell .kpi-value .unit{font-size:15px;color:var(--ink-mute);font-weight:400;margin-left:4px}
 .slide .kpi-cell .kpi-note{font-size:12px;color:var(--ink-mute);margin-top:6px}
 
@@ -642,7 +687,7 @@ h1.cover-title{
 .slide .state-box.target{background:var(--accent);color:#fff;border-color:var(--accent)}
 .slide .state-box .state-label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.18em;color:var(--ink-mute);text-transform:uppercase;margin-bottom:10px}
 .slide .state-box.target .state-label{color:rgba(255,255,255,0.78)}
-.slide .state-box .state-title{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:16px;margin-bottom:14px}
+.slide .state-box .state-title{font-family:var(--font-jp);font-weight:600;font-size:16px;margin-bottom:14px}
 .slide .state-box ul{list-style:none;font-size:13px;line-height:1.85}
 .slide .state-box ul li{padding-left:14px;position:relative;margin-bottom:4px;color:var(--ink-soft)}
 .slide .state-box.target ul li{color:rgba(255,255,255,0.85)}
@@ -652,7 +697,7 @@ h1.cover-title{
 /* --- #12 Scope Panel（components.md 準拠形。スライド簡易形 .scope も上に定義済み） --- */
 .slide .scope-panel{background:var(--bg-alt);border:1px solid var(--rule);padding:22px 26px;margin:16px 0}
 .slide .scope-panel .scope-head{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.18em;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
-.slide .scope-panel .scope-sub{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:12px}
+.slide .scope-panel .scope-sub{font-family:var(--font-jp);font-weight:600;font-size:16px;color:var(--ink);margin-bottom:12px}
 .slide .scope-panel ul{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:6px 32px;font-size:14px;line-height:1.75}
 .slide .scope-panel ul li{padding-left:18px;position:relative;color:var(--ink-soft)}
 .slide .scope-panel ul li::before{content:"●";position:absolute;left:0;top:0;color:var(--accent);font-size:8px;line-height:2.0}
@@ -660,7 +705,7 @@ h1.cover-title{
 /* --- #13 Report Table --- */
 .slide table.report-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:var(--panel);border:1px solid var(--rule)}
 .slide table.report-table thead{background:var(--accent);color:#fff}
-.slide table.report-table th{text-align:left;font-family:"Noto Sans JP",sans-serif;font-weight:500;font-size:11.5px;letter-spacing:0.08em;padding:12px 16px;border-right:1px solid rgba(255,255,255,0.15)}
+.slide table.report-table th{text-align:left;font-family:var(--font-jp);font-weight:500;font-size:11.5px;letter-spacing:0.08em;padding:12px 16px;border-right:1px solid rgba(255,255,255,0.15)}
 .slide table.report-table th:last-child{border-right:none}
 .slide table.report-table th.num-col{text-align:center;width:50px}
 .slide table.report-table td{padding:12px 16px;border-bottom:1px solid var(--rule-soft);border-right:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-soft);line-height:1.7}
@@ -677,15 +722,15 @@ h1.cover-title{
 
 /* --- #15 Insight Callout（components.md 準拠形の子要素。スライド簡易形 .insight > .txt も上に定義済み） --- */
 .slide .insight .insight-label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;font-weight:600}
-.slide .insight .insight-body{font-family:"Noto Sans JP",sans-serif;font-size:15.5px;line-height:1.7;color:var(--ink);font-weight:500}
+.slide .insight .insight-body{font-family:var(--font-jp);font-size:15.5px;line-height:1.7;color:var(--ink);font-weight:500}
 
 /* --- #16 Priority List --- */
 .slide .prio-list{margin:16px 0}
 .slide .prio-item{display:grid;grid-template-columns:60px 1fr;gap:24px;padding:18px 0;border-bottom:1px solid var(--rule);align-items:start}
 .slide .prio-item:first-child{border-top:2px solid var(--ink)}
-.slide .prio-rank{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:36px;line-height:1;color:var(--accent);letter-spacing:-0.02em}
+.slide .prio-rank{font-family:var(--font-jp);font-weight:600;font-size:36px;line-height:1;color:var(--accent);letter-spacing:-0.02em}
 .slide .prio-body .prio-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase;margin-bottom:4px}
-.slide .prio-body h5{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:18px;color:var(--ink);margin-bottom:8px}
+.slide .prio-body h5{font-family:var(--font-jp);font-weight:600;font-size:18px;color:var(--ink);margin-bottom:8px}
 .slide .prio-body p{font-size:14px;line-height:1.8;color:var(--ink-soft);max-width:940px}
 .slide .prio-body p strong{color:var(--accent);font-weight:600}
 
@@ -697,12 +742,12 @@ h1.cover-title{
 .slide .budget-card.premium .bc-head{border-color:rgba(255,255,255,0.15)}
 .slide .budget-card .bc-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:8px}
 .slide .budget-card.premium .bc-tag{color:rgba(255,255,255,0.78)}
-.slide .budget-card .bc-amount{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:24px;color:var(--ink);letter-spacing:-0.01em}
+.slide .budget-card .bc-amount{font-family:var(--font-jp);font-weight:600;font-size:24px;color:var(--ink);letter-spacing:-0.01em}
 .slide .budget-card.premium .bc-amount{color:#fff}
 .slide .budget-card .bc-amount .u{font-size:13px;color:var(--ink-mute);font-weight:400;margin-left:4px}
 .slide .budget-card.premium .bc-amount .u{color:rgba(255,255,255,0.6)}
 .slide .budget-card .bc-body{padding:16px 24px 20px}
-.slide .budget-card .bc-body h6{font-family:"Noto Sans JP",sans-serif;font-size:12px;font-weight:700;margin:14px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--rule);color:var(--ink)}
+.slide .budget-card .bc-body h6{font-family:var(--font-jp);font-size:12px;font-weight:700;margin:14px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--rule);color:var(--ink)}
 .slide .budget-card.premium .bc-body h6{color:#fff;border-color:rgba(255,255,255,0.15)}
 .slide .budget-card .bc-body h6.bad{color:var(--accent)}
 .slide .budget-card .bc-body h6:first-child{margin-top:0}
@@ -717,7 +762,7 @@ h1.cover-title{
 .slide .qa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:16px 0}
 .slide .qa-card{background:var(--panel);border:1px solid var(--rule);border-top:3px solid var(--accent);padding:20px 22px}
 .slide .qa-card .qa-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.15em;color:var(--accent);margin-bottom:4px}
-.slide .qa-card h5{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:16px;color:var(--ink);margin-bottom:14px}
+.slide .qa-card h5{font-family:var(--font-jp);font-weight:600;font-size:16px;color:var(--ink);margin-bottom:14px}
 .slide .qa-card ol{list-style:none;counter-reset:qa;font-size:13px;line-height:1.7}
 .slide .qa-card ol li{counter-increment:qa;padding:8px 0 8px 26px;position:relative;color:var(--ink-soft);border-bottom:1px dotted var(--rule)}
 .slide .qa-card ol li:last-child{border-bottom:none}
@@ -730,14 +775,14 @@ h1.cover-title{
 .slide .roadmap-bar .phase-mini.active{background:var(--accent);color:#fff}
 .slide .roadmap-bar .ph-num{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.15em;color:var(--ink-mute);margin-bottom:4px}
 .slide .roadmap-bar .phase-mini.active .ph-num{color:rgba(255,255,255,0.7)}
-.slide .roadmap-bar .ph-name{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;line-height:1.4;color:var(--ink);margin-bottom:4px}
+.slide .roadmap-bar .ph-name{font-family:var(--font-jp);font-weight:600;font-size:14px;line-height:1.4;color:var(--ink);margin-bottom:4px}
 .slide .roadmap-bar .phase-mini.active .ph-name{color:#fff}
 .slide .roadmap-bar .ph-period{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-mute)}
 .slide .roadmap-bar .phase-mini.active .ph-period{color:rgba(255,255,255,0.85)}
 .slide .roadmap-detail{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .slide .roadmap-detail .pd-card{padding:16px 18px;border:1px solid var(--rule);background:var(--bg)}
 .slide .roadmap-detail .pd-card.active{border-color:var(--accent);border-width:2px;padding:15px 17px}
-.slide .roadmap-detail .pd-card h5{font-family:"Noto Sans JP",sans-serif;font-size:11px;color:var(--ink);margin-bottom:8px;letter-spacing:0.05em;font-weight:700}
+.slide .roadmap-detail .pd-card h5{font-family:var(--font-jp);font-size:11px;color:var(--ink);margin-bottom:8px;letter-spacing:0.05em;font-weight:700}
 .slide .roadmap-detail .pd-card p{font-size:12px;line-height:1.7;color:var(--ink-soft);margin-bottom:8px}
 .slide .roadmap-detail .pd-card ul{list-style:none;font-size:11.5px;line-height:1.7}
 .slide .roadmap-detail .pd-card ul li{padding:3px 0 3px 12px;position:relative;color:var(--ink-soft);border-bottom:1px dotted var(--rule-soft)}
@@ -747,12 +792,12 @@ h1.cover-title{
 .slide .proposal-card{background:var(--panel);border:1px solid var(--rule);margin:16px 0;overflow:hidden}
 .slide .proposal-head{background:var(--accent);color:#fff;padding:20px 30px;display:flex;justify-content:space-between;align-items:center}
 .slide .proposal-head .ph-l .ph-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.78);margin-bottom:4px}
-.slide .proposal-head .ph-l h4{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:20px}
+.slide .proposal-head .ph-l h4{font-family:var(--font-jp);font-weight:600;font-size:20px}
 .slide .proposal-head .ph-r{text-align:right}
-.slide .proposal-head .ph-r .price{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:22px}
+.slide .proposal-head .ph-r .price{font-family:var(--font-jp);font-weight:600;font-size:22px}
 .slide .proposal-head .ph-r .period{font-family:"JetBrains Mono",monospace;font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px}
 .slide .proposal-body{padding:20px 30px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
-.slide .proposal-body h6{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:12px;color:var(--ink);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.slide .proposal-body h6{font-family:var(--font-jp);font-weight:700;font-size:12px;color:var(--ink);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
 .slide .proposal-body ul{list-style:none;font-size:13.5px;line-height:1.85}
 .slide .proposal-body ul li{padding-left:16px;position:relative;color:var(--ink-soft)}
 .slide .proposal-body ul li::before{content:"◆";position:absolute;left:0;top:0;color:var(--accent);font-size:9px;line-height:2.0}
@@ -763,7 +808,7 @@ h1.cover-title{
 .slide .flow-step{display:flex;gap:16px;padding:16px 20px;background:var(--bg-alt);border:1px solid var(--rule)}
 .slide .flow-step .fs-num{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-weight:500;font-size:13px}
 .slide .flow-step .fs-body{flex:1;min-width:0}
-.slide .flow-step .fs-title{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:15px;color:var(--ink);margin-bottom:6px}
+.slide .flow-step .fs-title{font-family:var(--font-jp);font-weight:600;font-size:15px;color:var(--ink);margin-bottom:6px}
 .slide .flow-step .fs-meta{display:flex;gap:14px;flex-wrap:wrap;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-mute);letter-spacing:0.05em;margin-bottom:8px}
 .slide .flow-step .fs-meta .fs-actor{color:var(--accent);font-weight:500}
 .slide .flow-step .fs-body p{font-size:13px;line-height:1.8;color:var(--ink-soft);margin:0}
@@ -787,7 +832,7 @@ h1.cover-title{
 .diagram-flow-v{display:flex;flex-direction:column;max-width:520px;margin:0 auto}
 .dflow-node{padding:14px 16px;background:var(--panel);border:1px solid var(--rule);min-height:78px;display:flex;flex-direction:column;justify-content:center}
 .dflow-node.accent{border-color:var(--accent);border-width:2px;padding:13px 15px;background:var(--accent-bg)}
-.dfn-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;color:var(--ink);margin-bottom:4px;letter-spacing:0.01em}
+.dfn-label{font-family:var(--font-jp);font-weight:600;font-size:14px;color:var(--ink);margin-bottom:4px;letter-spacing:0.01em}
 .dflow-node.accent .dfn-label{color:var(--accent)}
 .dfn-desc{font-size:11.5px;color:var(--ink-soft);line-height:1.65}
 .dflow-arrow{width:28px;flex-shrink:0;position:relative;align-self:stretch}
@@ -804,7 +849,7 @@ h1.cover-title{
 .dq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}
 .dq-cell{padding:18px 18px;background:var(--panel);min-height:108px}
 .dq-cell.accent{background:var(--accent-bg);border-left:3px solid var(--accent);padding-left:15px}
-.dq-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:15px;color:var(--ink);margin-bottom:6px}
+.dq-label{font-family:var(--font-jp);font-weight:600;font-size:15px;color:var(--ink);margin-bottom:6px}
 .dq-cell.accent .dq-label{color:var(--accent)}
 .dq-cell p{font-size:12.5px;color:var(--ink-soft);line-height:1.7;margin:0}
 
@@ -816,7 +861,7 @@ h1.cover-title{
 .dp-l4{width:86%}
 .dp-l5{width:100%}
 .dp-layer.accent{border-color:var(--accent);border-width:2px;background:var(--accent-bg);padding:11px 17px}
-.dp-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;color:var(--ink);letter-spacing:0.01em}
+.dp-label{font-family:var(--font-jp);font-weight:600;font-size:14px;color:var(--ink);letter-spacing:0.01em}
 .dp-layer.accent .dp-label{color:var(--accent)}
 .dp-desc{font-size:11.5px;color:var(--ink-soft);margin-top:3px;line-height:1.55}
 
@@ -828,7 +873,7 @@ h1.cover-title{
 .df-s4{width:52%}
 .df-s5{width:38%}
 .df-stage.accent{border-color:var(--accent);border-width:2px;background:var(--accent-bg);padding:11px 19px}
-.df-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:13.5px;color:var(--ink);letter-spacing:0.01em}
+.df-label{font-family:var(--font-jp);font-weight:600;font-size:13.5px;color:var(--ink);letter-spacing:0.01em}
 .df-stage.accent .df-label{color:var(--accent)}
 .df-num{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:20px;color:var(--ink);line-height:1.2;margin:2px 0}
 .df-stage.accent .df-num{color:var(--accent)}
@@ -840,7 +885,7 @@ h1.cover-title{
 .dc-node.accent{border-color:var(--accent);border-width:2px;background:var(--accent-bg);padding:13px}
 .dc-marker{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",monospace;font-weight:500;font-size:12.5px}
 .dc-node.accent .dc-marker{background:var(--accent)}
-.dc-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;color:var(--ink);margin-top:4px}
+.dc-label{font-family:var(--font-jp);font-weight:600;font-size:14px;color:var(--ink);margin-top:4px}
 .dc-node.accent .dc-label{color:var(--accent)}
 .dc-desc{font-size:11.5px;color:var(--ink-soft);line-height:1.55}
 .dc-arrow{width:18px;flex-shrink:0;align-self:center;position:relative;height:24px}
@@ -851,7 +896,7 @@ h1.cover-title{
 .diagram-venn{display:flex;flex-direction:column;align-items:center;gap:14px}
 .dv-svg{max-width:360px;width:100%;height:auto}
 .dv-circle{fill:var(--ink);fill-opacity:0.06;stroke:var(--ink);stroke-width:1.5}
-.dv-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;fill:var(--ink);text-anchor:middle}
+.dv-label{font-family:var(--font-jp);font-weight:600;font-size:14px;fill:var(--ink);text-anchor:middle}
 .dv-label-center{font-size:11px;fill:var(--accent);font-weight:600;letter-spacing:0.05em}
 .dv-legend{display:flex;flex-direction:column;gap:6px;max-width:480px;width:100%}
 .dv-leg-item{display:flex;align-items:baseline;gap:12px;font-size:12.5px;color:var(--ink-soft);line-height:1.55}
@@ -863,7 +908,7 @@ h1.cover-title{
 .dorg-level{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;width:100%}
 .dorg-node{padding:12px 20px;background:var(--panel);border:1px solid var(--rule);min-width:130px;text-align:center}
 .dorg-node.accent{border-color:var(--accent);border-width:2px;background:var(--accent-bg);padding:11px 19px}
-.dorg-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;color:var(--ink)}
+.dorg-label{font-family:var(--font-jp);font-weight:600;font-size:14px;color:var(--ink)}
 .dorg-node.accent .dorg-label{color:var(--accent)}
 .dorg-desc{font-size:11.5px;color:var(--ink-soft);margin-top:3px;line-height:1.55}
 .dorg-connector{width:1px;height:20px;background:var(--rule);margin:0 auto}
@@ -874,7 +919,7 @@ h1.cover-title{
 .dl-tag{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:11px;color:var(--ink-mute);letter-spacing:0.12em;min-width:32px;flex-shrink:0}
 .dl-layer.accent .dl-tag{color:var(--accent)}
 .dl-body{flex:1;min-width:0}
-.dl-label{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;color:var(--ink);letter-spacing:0.01em}
+.dl-label{font-family:var(--font-jp);font-weight:600;font-size:14px;color:var(--ink);letter-spacing:0.01em}
 .dl-layer.accent .dl-label{color:var(--accent)}
 .dl-desc{font-size:11.5px;color:var(--ink-soft);margin-top:3px;line-height:1.55}
 
@@ -892,7 +937,7 @@ h1.cover-title{
 .summary ul li{
   padding:10px 0 10px 22px;
   position:relative;
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
   font-size:17px;
   line-height:1.7;
   color:var(--ink);
@@ -920,8 +965,8 @@ h1.cover-title{
   justify-content:space-between;
   align-items:baseline;
   padding-top:10px;
-  border-top:1px solid var(--rule-soft);
-  font-family:"JetBrains Mono",monospace;
+  border-top:var(--footer-border-width) solid var(--rule-soft);
+  font-family:var(--footer-font);
   font-size:10px;
   color:var(--ink-mute);
   letter-spacing:0.1em;
@@ -929,7 +974,7 @@ h1.cover-title{
   pointer-events:none;
 }
 .slide-head{ pointer-events:none; }
-.slide-foot .doc-id{color:var(--accent)}
+.slide-foot .doc-id{color:var(--footer-id-color)}
 .slide-foot .pg b{color:var(--ink);font-weight:600}
 
 /* ============================================================
@@ -984,7 +1029,7 @@ body.panel-open .deck-hint{left:228px}
   justify-content:center;
   transition:background 0.15s ease, left 0.25s ease, color 0.15s ease;
   user-select:none;
-  font-family:"Noto Sans JP",sans-serif;
+  font-family:var(--font-jp);
 }
 .thumb-toggle:hover{background:rgba(40,42,46,0.95);color:#fff}
 .thumb-toggle::before{content:"\2630"}

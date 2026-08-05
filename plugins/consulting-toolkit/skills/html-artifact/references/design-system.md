@@ -32,7 +32,7 @@
   --accent: #9d3617;      /* 主アクセント（深いテラコッタ） */
   --accent-soft: #c45a2c; /* 明るいアクセント（ダーク背景上で使う） */
   --accent-bg: #f5e8de;   /* アクセント背景（insight・固定8図解の .accent 等）。
-                             ★契約：文字を載せる面なので 5 テーマすべてで accent の淡ティント
+                             ★契約：文字を載せる面なので 6 テーマすべてで accent の淡ティント
                              （明るい色）にする。詳細は下記「--accent-bg の契約」 */
 
   /* 作り込み図版（crafted figures, Slide Deck 限定）の配色基点。
@@ -61,7 +61,7 @@
 
 ## 代替カラーテーマ
 
-デフォルトは Mono。Vertical Document / Slide Deck format いずれも既定はこの 1 つ。他 4 テーマ（Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合の任意の代替パレット。**変更時は `:root` 内の `--accent` / `--accent-soft` / `--accent-bg` の3変数のみを置き換える**（Mono との入れ替えは `--bg` / `--ink` / `--rule` 等の構造色も異なるため対象外。詳細は Theme 5 参照）。それ以外の色は触らない。
+デフォルトは Mono。Vertical Document / Slide Deck format いずれも既定はこの 1 つ。他 5 テーマ（Terracotta / Navy / Forest / Charcoal / EightHundred）は色味を変えたい場合の任意の代替パレット。**変更時は `:root` 内の `--accent` / `--accent-soft` / `--accent-bg` の3変数のみを置き換える**（Mono との入れ替えは `--bg` / `--ink` / `--rule` 等の構造色も異なるため対象外。詳細は Theme 5 参照）。それ以外の色は触らない。**唯一の例外は Theme 6: EightHundred**（クライアントブランド固有テーマ）で、3変数に加えて `--font-jp` も置き換える（詳細は Theme 6 参照）。
 
 ### Theme 1: Terracotta（warm consulting）
 
@@ -125,11 +125,127 @@
 - 紙質クリームではなく純白背景を使う（コンサル提案書らしい清潔感）
 - フォントは他テーマと同じ Noto Sans JP（Meiryo・Noto Serif JP は使わない）。「コンサル提案書らしさ」は構成・余白・拡張コンポーネント（22〜25）で出す
 
-**Slide Deck では扱いが違う**：Slide Deck では 5 テーマ共通の統一シャシを使い、Mono を含む 5 テーマは `--accent` 系 3 変数のみで palette 切替される。上記の Mono ブロックは **Vertical Document で使う場合の定義**。Slide Deck の統一シャシは `slide-deck.md`「テーマ切替」を参照。
+**Slide Deck では扱いが違う**：Slide Deck では 6 テーマ共通の統一シャシを使い、Mono を含む 6 テーマは `--accent` 系 3 変数（EightHundred のみ `--font-jp` も追加）で palette 切替される。上記の Mono ブロックは **Vertical Document で使う場合の定義**。Slide Deck の統一シャシは `slide-deck.md`「テーマ切替」を参照。
+
+### Theme 6: EightHundred（クライアントブランド固有）
+
+```css
+--accent: #1B3928;
+--accent-soft: #127D70;
+--accent-bg: #E4E7E5;
+```
+
+クライアント企業（株式会社エイトハンドレッド）のPPTXブランドテーマ（`accent1`/`accent2`）に準拠した固有パレット。深いダークグリーンに、ティール系グリーンを添える2色構成。
+
+**EightHundred テーマの追加ルール**：
+- **フォント例外**：本文・見出しに他 5 テーマと異なり **Meiryo UI** を使う。`--font-jp: "Meiryo UI","Meiryo","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;` を `:root` で上書きする（タイポグラフィ節「フォント読み込み」参照）。数値・章番号・コードは他テーマと同じ `JetBrains Mono` のまま変更しない
+- Meiryo UI は Windows 標準搭載フォントで Google Fonts 提供が無いため、Web フォント読み込みの追加は不要（フォールバックチェーンで自然に代替表示される。Windows 以外の環境では Noto Sans JP 等にフォールバックする）
+- **`--accent-soft` の例外**：他 5 テーマは `--accent` の淡ティント（同一色相の明るい色）を使うが、EightHundred はブランド定義の第2アクセント `#127D70`（ティール系グリーン）をそのまま採用する。色相は近縁（共にグリーン系）のため「アクセントは1色」の趣旨（複数系統の色を混在させない）を大きく損なわない
+- 1 ドキュメント内でこのテーマを使う場合も、他テーマ同様「1 ドキュメント 1 テーマ」を守る
+
+#### EightHundred のフレーム仕様（Slide Deck format 専用）
+
+**他 5 テーマは配色（`--accent` 系 3 変数）と `--font-jp` だけが差分**で、Cover・title-bar・footer の構造とルック（背景・罫線・ロゴの有無）は 6 テーマ共通の統一シャシのまま変わらない。**EightHundred のみ、実際のクライアント PPTX（フタバロジコム向けディスカッション資料 等）のマスターに合わせてフレームのルックも上書きする**唯一の例外テーマ。上書きは以下の追加トークン＋アセットで完結し、`assets/template-slides.html` の構造（HTML）自体は変更しない。
+
+**フレーム用トークン**（`template-slides.html` の `:root` に定義済み。他 5 テーマは既存トークンのエイリアスのため無変化）：
+
+```css
+--cover-bg: var(--bg);                                  /* Cover の背景 */
+--cover-ink: var(--ink);                                /* Cover の主テキスト色 */
+--cover-ink-soft: var(--ink-soft);                      /* Cover の副テキスト色 */
+--cover-rule: var(--rule);                              /* Cover meta の罫線色 */
+--titlebar-border-color: var(--ink);                    /* title-bar 下罫線の色 */
+--titlebar-border-width: 2px;                           /* title-bar 下罫線の太さ */
+--titlebar-eyebrow-font: "JetBrains Mono", monospace;   /* title-bar .sec-num のフォント */
+--titlebar-eyebrow-color: var(--accent);                /* title-bar .sec-num の文字色 */
+--titlebar-direction: row;                              /* sec-num と h2 の並び：row=横並び／column=縦積み */
+--titlebar-gap: 18px;                                   /* row 時の間隔（column 時は詰めた値にする） */
+--titlebar-align: baseline;                             /* row 時 baseline／column 時 flex-start */
+--titlebar-padding-bottom: 14px;
+--titlebar-margin-bottom: 22px;
+--message-margin-top: 12px;                             /* .message の title-bar からの上マージン */
+--message-weight: 500;                                  /* .message の文字太さ */
+--footer-id-color: var(--accent);                       /* slide-foot .doc-id の文字色 */
+--footer-border-width: 1px;                             /* slide-foot 上罫線の太さ */
+--footer-font: "JetBrains Mono", monospace;              /* slide-foot 全体のフォント */
+```
+
+**EightHundred 選択時はこれらを以下に上書きする**（`--accent` 系 3 変数・`--font-jp` と同じ `:root` 上書きブロックにまとめてよい）：
+
+```css
+:root{
+  --accent:#1B3928;
+  --accent-soft:#127D70;
+  --accent-bg:#E4E7E5;
+  --font-jp:"Meiryo UI","Meiryo","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+
+  --cover-bg:#1B3928;                     /* Cover はダークグリーン全面背景（実 PPTX 準拠） */
+  --cover-ink:#ffffff;
+  --cover-ink-soft:rgba(255,255,255,0.78);
+  --cover-rule:rgba(255,255,255,0.3);
+
+  /* 実 PPTX はアイブロウラベル（例："弊社認識"）を見出しの真上に縦積みし、
+     見出し直下に罫線を引かない。リード文（.message）も間隔を詰めて続ける。 */
+  --titlebar-border-width:0;
+  --titlebar-eyebrow-font:var(--font-jp);  /* .sec-num に日本語ラベルを使うため */
+  --titlebar-eyebrow-color:var(--ink);     /* ラベルは accent 色にせず本文と同じ濃色にする */
+  --titlebar-direction:column;
+  --titlebar-gap:2px;
+  --titlebar-align:flex-start;
+  --titlebar-padding-bottom:0;
+  --titlebar-margin-bottom:10px;
+  --message-margin-top:0;
+  --message-weight:700;                   /* 実 PPTX はリード文が太字 */
+
+  --footer-id-color:var(--ink-mute);      /* コピーライト表記は accent 色にせず控えめなグレーに */
+  --footer-border-width:0;                /* footer 上にも罫線を引かない */
+  --footer-font:var(--font-jp);           /* 実 PPTX は Century Gothic だが Web で描画できないため本文フォントに寄せる */
+}
+```
+
+**title-bar（コンテンツスライドの見出し）の使い方**：実 PPTX は章番号ではなく短い日本語ラベル（例："弊社認識"）を、見出しの真上に**縦に積んで**（横並びにしない）アイブロウとして使う。ラベル・見出し・リード文の3行は罫線を挟まず、詰めた間隔で1つの塊として続ける。`.sec-num` に数値ではなく短いラベル文字列を入れる。**リード文（`.message`）は太字**（`--message-weight:700`）にする。
+
+```html
+<div class="title-bar">
+  <span class="sec-num">弊社認識</span>
+  <h2>背景と目的</h2>
+</div>
+<p class="message">ベテラン人材のノウハウを資産化し、持続可能な倉庫オペレーションを実現する。</p>
+```
+
+**footer（コピーライト・ページ番号）の使い方**：`.doc-id` の中身をドキュメント管理番号ではなく `© Eight Hundred, Inc.` にし、ページ番号は総数を付けず単独表記にする。footer 上部にも罫線を引かない（実 PPTX 準拠）。実 PPTX のフッターフォントは Century Gothic だが、Web フォントとして配布されておらず HTML では描画できないため、`--footer-font` は `var(--font-jp)`（本文と同じ Meiryo UI 系）に寄せる（他 5 テーマの `JetBrains Mono` から変更する）。
+
+```html
+<div class="slide-foot">
+  <span class="doc-id">© Eight Hundred, Inc.</span>
+  <span class="pg"><b>12</b></span>
+</div>
+```
+
+**ロゴマーク（`.eh-logo` / `.eh-logo-badge`）**：実 PPTX の砦（とりで）アイコンを再現したインライン SVG。CSS は `template-slides.html`「EIGHTHUNDRED LOGO MARK」に定義済み。
+
+```html
+<!-- 共通の SVG 本体（両パターンで使い回す） -->
+<svg viewBox="0 0 116 100" fill="currentColor">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M8,32 L8,8 L32,8 L32,32 L46,32 L46,8 L70,8 L70,32 L84,32 L84,8 L108,8 L108,32 L108,100 L8,100 Z M41,100 L41,54 A17,17 0 0 1 75,54 L75,100 Z"/>
+</svg>
+```
+
+- **単体マーク**（`.eh-logo`）：見出し＋太い短尺アクセントバー＋ロゴ配置の「参照系」スライド（会社概要・経営メンバー・お取引実績・メンバー紹介 等、`SLIDE-PATTERN-attribute-rows-profile` / `profile-*` / `logo-grid` 系パターンを使うスライド）の右上に絶対配置する。`<section class="slide">` 直下に `<div class="eh-logo" aria-hidden="true">{svg}</div>` を置く（`.eh-logo` が `position:absolute` を持つため、`.slide` 自身が `position:relative` 相当であることを前提とする。`.slide` は既に `position:absolute` なので子要素の絶対配置は正しく機能する）
+- **バッジ付きマーク**（`.eh-logo-badge`）：Cover・Summary（クロージング）で「800」のブランド表記として使う。白背景の小さなバッジにロゴ＋"800"の文字を組み合わせる：
+  ```html
+  <div class="eh-logo-badge">
+    <span class="eh-logo">{svg}</span>
+    <span class="eh-logo-text">800</span>
+  </div>
+  ```
+- 通常の Content スライド（`.title-bar` + `.message` + 本文コンポーネントの一般形）にはロゴを付けない（実 PPTX でも「弊社認識」のような分析系スライドにはロゴが出ない。会社紹介・実績紹介の一部の「参照系」スライドのみに付く）
+
+**Vertical Document には適用しない**：上記フレーム上書き（Cover 全面ダークグリーン化・ロゴマーク）は Slide Deck format 専用。Vertical Document で EightHundred テーマを使う場合は `--accent` / `--accent-soft` / `--accent-bg` / `--font-jp` の 4 トークンのみが反映され、Cover 等の構造は他テーマと同じ白／クリーム背景のままでよい（縦長文書は PPTX のスライド 1 枚と 1 対 1 対応しないため、フレーム忠実再現の対象外とする）。
 
 ## `--accent-bg` の契約（背景と文字色を衝突させない）
 
-`--accent-bg` は **「文字を載せるアクセント面」** である。5 テーマすべてで **accent の淡ティント（明るい色）** にし、`--ink`（`#1a1a1a`）と `--accent` を載せて 4.5:1 以上を保つ。
+`--accent-bg` は **「文字を載せるアクセント面」** である。6 テーマすべてで **accent の淡ティント（明るい色）** にし、`--ink`（`#1a1a1a`）と `--accent` を載せて 4.5:1 以上を保つ。
 
 | テーマ | `--accent` | `--accent-bg` |
 |---|---|---|
@@ -138,6 +254,7 @@
 | Navy | `#1e3a5f` | `#e3eaf3` |
 | Forest | `#2a4f3a` | `#e2ebe1` |
 | Charcoal | `#2d2d33` | `#ebe9e4` |
+| EightHundred | `#1B3928` | `#E4E7E5` |
 
 **`--accent-bg` に `--accent` と同値や暗い色を入れてはいけない。** 入れると `--accent-bg` を背景に使う全コンポーネントが一斉に「同色の地と文字」になり、テキストが消える。対象は次の 9 ルール（両テンプレート共通）で、いずれも文字色が `--ink` または `--accent` である。
 
@@ -150,7 +267,7 @@
 
 ### テーマ選定のガイドライン
 
-**既定は Mono**。Vertical Document / Slide Deck format のいずれも既定はこの 1 つ（参照デザイン踏襲・純白＋モノクロで安定するため）。他 4 テーマ（Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合に選ぶ任意の代替パレット。テーマは内容・出力形式と直交した独立軸であり、用途に応じた使い分けは規定しない。
+**既定は Mono**。Vertical Document / Slide Deck format のいずれも既定はこの 1 つ（参照デザイン踏襲・純白＋モノクロで安定するため）。他 5 テーマ（Terracotta / Navy / Forest / Charcoal / EightHundred）は色味を変えたい場合に選ぶ任意の代替パレット。テーマは内容・出力形式と直交した独立軸であり、用途に応じた使い分けは規定しない。**EightHundred はクライアントのブランドカラーに合わせたい場合に選ぶ**（フォントも Meiryo UI に切り替わる唯一のテーマ）。
 
 **共通ルール**：**複数テーマを混ぜない**。1 ドキュメントで 1 テーマ
 
@@ -170,10 +287,24 @@
 
 | 役割 | フォント | 使用場面 |
 |------|---------|---------|
-| **本文・見出し（すべて）** | `"Noto Sans JP", sans-serif` | h1（cover-title）、h2（section-title）、h3（sub-head）、p、ul、ol、td、ボタンラベル等すべて |
+| **本文・見出し（すべて）** | `var(--font-jp)`（既定 `"Noto Sans JP", sans-serif`） | h1（cover-title）、h2（section-title）、h3（sub-head）、p、ul、ol、td、ボタンラベル等すべて |
 | **数値・英記号・コード** | `"JetBrains Mono", monospace` | doc-id、章番号（4.1等）、eyebrow、価格、ページ番号 |
 
-`body` のデフォルトを `"Noto Sans JP"` にし、見出し系も同じ Noto Sans JP のまま（weight だけ 600〜700 に上げる）。**Noto Serif JP / Meiryo / Inter 等の追加フォントは使わない**（旧仕様で残していた場合は外す）。
+`body` のデフォルトを `var(--font-jp)` にし、見出し系も同じ変数のまま（weight だけ 600〜700 に上げる）。**Noto Serif JP / Meiryo / Inter 等の追加フォントは使わない**（旧仕様で残していた場合は外す）。
+
+**`--font-jp` トークン（本文・見出し用フォント変数）**：`:root` で以下のように定義し、テンプレート内の本文・見出し系フォント指定は `var(--font-jp)` を参照する（ハードコードしない）。
+
+```css
+--font-jp: "Noto Sans JP", sans-serif;   /* 既定値。5テーマ共通 */
+```
+
+**唯一の例外は Theme 6: EightHundred**（上記「代替カラーテーマ」参照）で、このテーマを選んだ場合のみ以下に置き換える。
+
+```css
+--font-jp: "Meiryo UI","Meiryo","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+```
+
+`JetBrains Mono`（数値・章番号・コード用）はテーマによらず変更しない。
 
 ### サイズの目安
 
@@ -219,7 +350,7 @@
 
 **Vertical Document では原則使わない**（報告書スタイルではフラットに保つ）。
 
-**Slide Deck の統一シャシでの例外**：Slide Deck では 5 テーマ共通で、`--card-shadow`（`0 1px 4px rgba(0,0,0,.05)`）と `--card-shadow-lg`（`0 2px 12px rgba(0,0,0,.08)`）の 2 段階に限り、カード類（`.phase-card`, `.section`, `.expansion-area`, `.track` 等）で使用してよい。参照デザイン（AI Biz Ops Partner / VisasQ 提案書 figures）の紙面感を再現するための Slide Deck 全テーマ共通の設定で、それ以外の使い方（背景全体・大きな要素・複数レイヤーの重ね掛け）はしない。
+**Slide Deck の統一シャシでの例外**：Slide Deck では 6 テーマ共通で、`--card-shadow`（`0 1px 4px rgba(0,0,0,.05)`）と `--card-shadow-lg`（`0 2px 12px rgba(0,0,0,.08)`）の 2 段階に限り、カード類（`.phase-card`, `.section`, `.expansion-area`, `.track` 等）で使用してよい。参照デザイン（AI Biz Ops Partner / VisasQ 提案書 figures）の紙面感を再現するための Slide Deck 全テーマ共通の設定で、それ以外の使い方（背景全体・大きな要素・複数レイヤーの重ね掛け）はしない。
 
 グラデーションは Vertical / Slide 問わず一切使わない（単色のみ）。
 
@@ -309,7 +440,7 @@ HTML 上の文言は Markdown と同様に AI らしさを排除する。生成�
 
 - [ ] `<link rel="stylesheet">` は Google Fonts のみ（他の外部 CSS はゼロ）
 - [ ] `<script src="https://…">` が font 系以外にない
-- [ ] `font-family` は Noto Sans JP（本文・見出しすべて）/ JetBrains Mono（数値・章番号・コード）。Noto Serif JP / Meiryo / Inter は使っていない
+- [ ] `font-family` は `var(--font-jp)`（既定 Noto Sans JP。EightHundred テーマのみ Meiryo UI）/ JetBrains Mono（数値・章番号・コード）。Noto Serif JP / Inter 等の追加フォントは使っていない
 - [ ] 背景は `#fafaf6`（純白を使っていない）
 - [ ] 本文色は `#1a1c20`（純黒を使っていない）
 - [ ] アクセントは 1 色のみ（複数色を使っていない）
