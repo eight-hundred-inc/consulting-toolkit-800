@@ -253,7 +253,7 @@ sudo apt install libreoffice
 | エージェント | 説明 | 呼び出しタイミング |
 |-------------|------|-------------------|
 | [quality-reviewer](plugins/consulting-toolkit/agents/quality-reviewer.md) | 成果物の品質レビュー専門。品質チェック項目と 5 軸（論理構造・具体性・読み手視点・整合性・網羅性）で評価し、合格 / 条件付き合格 / 要修正を判定する。提出前の最終検査では、出典の照合・NG 表現の点検に加え、HTML や PPTX を PDF 化してレイアウト崩れまで確認する（HTML は screenshot.py、PPTX は soffice を使用） | AIタスク完了後のレビューゲート（review_level=full のみ）、提出前最終検査モード（親エージェントがモードを指定して起動） |
-| [desk-researcher](plugins/consulting-toolkit/agents/desk-researcher.md) | デスクトップリサーチ実行専門。Exa（セマンティック検索）/ WebSearch / WebFetch / Browser Use で情報を収集し、調査レポートと仮説検証シートを出力する | Step 1（論点・仮説の設計）、Step 9（デスクリサーチ） |
+| [desk-researcher](plugins/consulting-toolkit/agents/desk-researcher.md) | デスクトップリサーチ実行専門。Exa（セマンティック検索）/ WebSearch / WebFetch / Browser Use で情報を収集し、調査レポートと仮説検証シートを出力する | Step 1 の探索的調査・仮説検証調査、Step 9（デスクリサーチ） |
 | [image-creator](plugins/consulting-toolkit/agents/image-creator.md) | 画像・図解・データチャートの生成。HTML+CSSで構造化図解をPNG化、matplotlibでデータチャートを生成。イラスト・アート系は画像生成プロンプトを返却 | 「画像にして」「図にして」「図解して」「グラフを作って」「データを可視化して」 |
 | [circleback-minutes-worker](plugins/consulting-toolkit/agents/circleback-minutes-worker.md) | 親が `/tmp` に保存した単一会議のトランスクリプトから、meeting-minutes-creator / interview-minutes-creator に従って議事録 MD を生成する専門ワーカー | circleback-meeting-minutes スキルから並列起動 |
 | [slide-figure-creator](plugins/consulting-toolkit/agents/slide-figure-creator.md) | html-artifact のスライドデッキで、図版を 1 図につき 1 エージェントで作る専門ワーカー。設計・描画・確認・修正を繰り返し、デッキに埋め込む HTML 断片を返す | html-artifact スキルから並列起動（Step 9.5・1 図ごと） |
@@ -294,7 +294,7 @@ project-manager は汎用オーケストレーターとして動作し、プロ�
 flowchart TB
     subgraph P0["Phase 0: 提案"]
         direction TB
-        S1["Step 1 論点・仮説の設計<br/>desk-researcher"]
+        S1["Step 1 論点・仮説の設計<br/>PM（調査は desk-researcher）"]
         S2["Step 2 提案書作成<br/>project-proposal（調査型）"]
         S3["Step 3 提案用スライド構成設計<br/>slide-structure-designer"]
         S4["Step 4 インタビューガイド作成<br/>interview-guide-creator"]
