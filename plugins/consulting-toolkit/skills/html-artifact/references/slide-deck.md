@@ -13,34 +13,43 @@
 
 ## テーマ切替
 
-Slide Deck format は **5 テーマ共通の統一シャシ**を使う。角丸・影・Filled-Header Card 群・Value Bar 等の視覚言語は 5 テーマで完全に共通で、**テーマ切替は `:root` の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数のみ**で完結する（`<body>` クラスによるモード切替はしない。旧表現の対応は `document-recipes.md`「エイリアス（後方互換）」を参照）。
+Slide Deck format は **5 テーマ共通の統一シャシ**を使う。角丸・影・Filled-Header Card 群・Value Bar 等の視覚言語は 5 テーマで完全に共通で、**テーマ切替は `:root` の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）**で完結する（`<body>` クラスによるモード切替はしない。旧表現の対応は `document-recipes.md`「エイリアス（後方互換）」を参照）。
 
-**5 テーマは palette 違いのみ**：Mono = 黒帯、Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、Charcoal = チャコール帯（実質モノに近い）。既定は Mono。
+**5 テーマは palette 違いのみ**：Mono = 灰帯＋黄マーカー（黒塗りは強強調のみ）、Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、Charcoal = チャコール帯（実質モノに近い）。既定は Mono。
 
 ```css
-/* Terracotta に切り替える場合の唯一の差分 */
+/* Terracotta に切り替える場合の唯一の差分（帯・マーカー 3 行は非 Mono 4 テーマ共通） */
 :root{
   --accent:#9d3617;
   --accent-soft:#c45a2c;
   --accent-bg:#f5e8de;
+  --band-bg:var(--accent);
+  --band-ink:#fff;
+  --marker-bg:var(--accent-bg);
 }
 ```
 
 構造色（`--bg` / `--panel-soft` / `--rule` / `--ink` 等）と、カード装飾（`--card-radius` / `--card-shadow`）、段階濃度ランプ（`--stage-1〜4`、`--accent` から `color-mix` で自動派生）は 5 テーマ共通で不動。Filled-Header Card / Value Bar / Icon Chip / Pill Tag / Expansion Pills（#26〜30）は **5 テーマすべてで使える**（Mono 専用ではない）。
 
-| テーマ | accent 値 |
-|---|---|
-| **Mono（既定）** | `#1a1a1a` |
-| Terracotta | `#9d3617` |
-| Navy | `#1e3a5f` |
-| Forest | `#2a4f3a` |
-| Charcoal | `#2d2d33` |
+| テーマ | accent 値 | 帯（--band-bg）/ マーカー（--marker-bg） |
+|---|---|---|
+| **Mono（既定）** | `#1a1a1a` | 薄グレー `#e4e4e4`＋黒文字 / 蛍光黄 `#ffff00` |
+| Terracotta | `#9d3617` | accent 帯＋白文字 / accent 淡ティント |
+| Navy | `#1e3a5f` | accent 帯＋白文字 / accent 淡ティント |
+| Forest | `#2a4f3a` | accent 帯＋白文字 / accent 淡ティント |
+| Charcoal | `#2d2d33` | accent 帯＋白文字 / accent 淡ティント |
+
+**帯の 2 階層**：構造帯（Filled-Header Card ヘッダ・Value Bar・report-table thead・proposal-head・roadmap active・expansion-item）は `--band-bg` に追従する。強強調の反転帯（takeaway-strip・hero-number.dark・state-box.target・budget-card.premium・tag.primary）は従来どおり `background:var(--accent)`＋白文字で、Mono では黒塗り＝最強の強調としてごく一部にだけ使う。
+
+**テキストマーカー `<mark>`**：語句の強調は `<mark>強調したい語句</mark>`。Mono では蛍光黄の
+マーカー（参照デザインの行ハイライト・語句ハイライト）、他テーマでは accent 淡ティントになる。
+**1 スライド 1〜2 箇所まで**。文単位で塗らない（塗るのは語句）。
 
 迷ったら：**Slide Deck は Mono 既定**。色味を変えたい場合のみ他テーマを選ぶ。用途に応じた使い分けは規定しない。
 
 ### Mono テーマと拡張コンポーネントの組み合わせ
 
-黒帯反転・巨大数字・結論バー・図解アノテーションのスタイルは、**Mono テーマ + 拡張コンポーネント 22〜25（Eyebrow Bar / Hero Number / Takeaway Strip / Annotation Pointer）** で構成する。
+巨大数字・結論バー・図解アノテーションのスタイルは、**Mono テーマ + 拡張コンポーネント 22〜25（Eyebrow Bar / Hero Number / Takeaway Strip / Annotation Pointer）** で構成する。Mono では黒帯反転は Takeaway Strip 等の強強調に限られ、構造帯は薄グレー、語句強調は `<mark>`（蛍光黄）が加わる。
 
 これら拡張コンポーネントは他テーマや Vertical Document でも使えるが、Mono テーマと組み合わせた時に最も映える。詳細は `components.md` を参照。
 
@@ -50,7 +59,7 @@ Slide Deck では 5 テーマ共通で、参照デザイン（`AI Biz Ops Partne
 
 | コンポーネント | 使いどころ |
 |---|---|
-| **Filled-Header Card**（`.phase-card`） | Phase / Track / セグメント別のカード。黒帯ヘッダー＋淡グレーボディ＋内部に `.section` を積む。3〜4 枚横並びで Growth Model / Phase 概観 / 3 本柱を表現 |
+| **Filled-Header Card**（`.phase-card`） | Phase / Track / セグメント別のカード。帯ヘッダー（`--band-bg`。Mono は薄グレー、他テーマは accent 帯）＋淡グレーボディ＋内部に `.section` を積む。3〜4 枚横並びで Growth Model / Phase 概観 / 3 本柱を表現 |
 | **Value Bar**（`.value-bar`） | スライド最下部の締めバー。3〜4 アイテム＋縦罫でメッセージを凝縮。「1. 案件で入り課題を理解 → 2. 月額関係を構築 → …」の型 |
 | **Icon Chip**（`.icon-chip`） | Filled-Header Card 内の `.section-title` 先頭に置く 1 文字ラベル（G/K/S/X/T 等のセマンティックコード） |
 | **Pill Tag**（`.tag` / `.tag.primary`） | 入口テーマ・カテゴリ・分類の列挙。`.tag.primary` が黒塗り優先タグ、通常が淡グレー |
@@ -785,7 +794,7 @@ Slide Deck では **5 テーマが統一シャシを共有**する（Vertical Do
 
 - スライド内背景：**5 テーマ共通で `#ffffff` 純白**
 - スライド外背景：**5 テーマ共通で `#e5e5e5` 薄グレー**。この上に置くプレゼンチャーム（カウンタ・操作ヒント）の文字は `--ink-mute` / `--ink` を使う（**白文字にすると薄グレー地と同化して読めない**）。暗地に白文字を置くのはサムネイルパネル内とトグルボタンだけで、そちらは自前で暗背景を持つ
-- アクセント：`var(--accent)` 1 色のみ。テーマ切替は `--accent` / `--accent-soft` / `--accent-bg` の 3 変数
+- アクセント：`var(--accent)` 1 色のみ。テーマ切替は `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`。本ファイル「テーマ切替」参照）
 - カード装飾（`--card-radius` / `--card-shadow`）、段階濃度ランプ（`--stage-1〜4` = `--accent` 派生）、構造色（`--panel-soft` / `--rule` / `--ink` 等）は 5 テーマ共通で不動
 
 **Vertical Document との差**：Vertical Document は各テーマが独自の背景・ink 等を持ち（Terracotta は紙質クリーム、Navy は同、Mono は純白）、視覚言語も異なる。Slide Deck の統一シャシは Slide Deck 専用の運用。

@@ -35,6 +35,11 @@
                              ★契約：文字を載せる面なので 5 テーマすべてで accent の淡ティント
                              （明るい色）にする。詳細は下記「--accent-bg の契約」 */
 
+  /* 構造帯・テキストマーカー（テーマ切替の対象。詳細は「使い方の原則」と各テーマブロック） */
+  --band-bg: var(--accent);      /* 構造帯（thead・proposal-head 等）。Mono のみ薄グレー #e4e4e4 */
+  --band-ink: #fff;              /* 帯上の文字色。Mono のみ var(--ink) */
+  --marker-bg: var(--accent-bg); /* <mark> の地色。Mono のみ蛍光黄 #ffff00 */
+
   /* 作り込み図版（crafted figures, Slide Deck 限定）の配色基点。
      既定で --accent を継承し、テーマ切替に追従する。
      ブランド色を図版にだけ効かせたいデッキでは、このデッキ単位で
@@ -53,15 +58,24 @@
 ### 使い方の原則
 
 - **アクセントカラーは1色（`--accent`）のみ**。「区別したいから青も追加」はしない。区別は罫線・配置・ラベルで行う
-- **帯系コンポーネントはテーマ追従**：`report-table thead`・`state-box.target`・`budget-card.premium`・`proposal-head`・`dc-marker`・`hero-number.dark`・`takeaway-strip` の帯背景は `var(--accent)` を使う（`var(--ink)` 固定にしない）。Navy なら紺帯、Forest なら深緑帯になり、テーマを選んだのに帯だけ黒く浮く「モノトーン見え」を防ぐ。Mono テーマは accent≈ink のため従来どおり黒帯になる
-- **accent 帯上の小ラベル・箇条書きマーカーは `rgba(255,255,255,0.78)`**（`--accent-soft` は同系色のため帯上ではコントラスト不足）。本文は `#fff`
+- **帯は 2 階層に分かれる**。①**構造帯**（強調の意味を持たない塗り面）＝ `report-table thead`・`proposal-head`・`roadmap phase-mini.active`・Filled-Header Card の `.phase-header`・Value Bar・`expansion-item` は `var(--band-bg)`＋`var(--band-ink)` を使う。非 Mono 4 テーマでは `--band-bg:var(--accent)`（アクセント帯＋白文字）、Mono では薄グレー帯＋黒文字になる。②**強強調の反転帯** ＝ `takeaway-strip`・`hero-number.dark`・`state-box.target`・`budget-card.premium`・`tag.primary`・`dc-marker` は従来どおり `background:var(--accent)`＋`color:#fff`（Mono では黒帯＝黒塗りは強強調のみ、という参照デザインの規範）
+- **帯上の小ラベル・補助文字は `color-mix(in srgb, var(--band-ink) NN%, transparent)` で派生させる**（構造帯）。強強調帯上は従来どおり `rgba(255,255,255,0.78)` 系。`--accent-soft` は同系色のため帯上ではコントラスト不足で使わない
 - **`--accent-soft` はダーク背景上でのみ使う**（サムネイルパネル等）。クリーム背景上では `--accent-soft` ではなく通常の `--accent` を使う
 - **`--good` / `--warn` は意味のある対比のみで使う**（例：「適した進め方 vs 避けるべき進め方」）。装飾目的では使わない
 - **CSS変数は必ず `:root` で定義し、ハードコードしない**
 
 ## 代替カラーテーマ
 
-デフォルトは Mono。Vertical Document / Slide Deck format いずれも既定はこの 1 つ。他 4 テーマ（Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合の任意の代替パレット。**変更時は `:root` 内の `--accent` / `--accent-soft` / `--accent-bg` の3変数のみを置き換える**（Mono との入れ替えは `--bg` / `--ink` / `--rule` 等の構造色も異なるため対象外。詳細は Theme 5 参照）。それ以外の色は触らない。
+デフォルトは Mono。Vertical Document / Slide Deck format いずれも既定はこの 1 つ。他 4 テーマ（Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合の任意の代替パレット。**変更時は `:root` 内の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）を置き換える**（Mono との入れ替えは `--bg` / `--ink` / `--rule` 等の構造色も異なるため対象外。詳細は Theme 5 参照）。帯・マーカー 3 トークンは非 Mono 4 テーマ共通で次の値：
+
+```css
+/* 非 Mono 4 テーマ共通（Theme 1〜4 のアクセント 3 変数に添える） */
+--band-bg: var(--accent);
+--band-ink: #fff;
+--marker-bg: var(--accent-bg);
+```
+
+それ以外の色は触らない。
 
 ### Theme 1: Terracotta（warm consulting）
 
@@ -69,6 +83,9 @@
 --accent: #9d3617;
 --accent-soft: #c45a2c;
 --accent-bg: #f5e8de;
+--band-bg: var(--accent);
+--band-ink: #fff;
+--marker-bg: var(--accent-bg);
 ```
 
 コンサル系の温かみのある印象。
@@ -79,6 +96,9 @@
 --accent: #1e3a5f;
 --accent-soft: #3a5e8a;
 --accent-bg: #e3eaf3;
+--band-bg: var(--accent);
+--band-ink: #fff;
+--marker-bg: var(--accent-bg);
 ```
 
 冷静で信頼感のある印象。
@@ -89,6 +109,9 @@
 --accent: #2a4f3a;
 --accent-soft: #4a7558;
 --accent-bg: #e2ebe1;
+--band-bg: var(--accent);
+--band-ink: #fff;
+--marker-bg: var(--accent-bg);
 ```
 
 落ち着いた知的な印象。
@@ -99,6 +122,9 @@
 --accent: #2d2d33;
 --accent-soft: #5a5a64;
 --accent-bg: #ebe9e4;
+--band-bg: var(--accent);
+--band-ink: #fff;
+--marker-bg: var(--accent-bg);
 ```
 
 ニュートラルでアクセントを目立たせない印象。
@@ -117,15 +143,20 @@
 --accent: #1a1a1a;        /* アクセントを ink と同色に → 実質モノクロ */
 --accent-soft: #444444;
 --accent-bg: #ededed;     /* accent の淡ティント（文字を載せる面。下記の契約） */
+--band-bg: #e4e4e4;       /* 構造帯は薄グレー（黒べったり面を作らない） */
+--band-ink: var(--ink);
+--marker-bg: #ffff00;     /* テキストマーカーは蛍光黄（参照デザイン準拠） */
 ```
 
-黒帯反転・巨大数字・大きい余白で構造を見せるスタイル。
+白基調・大きい余白・薄グレーの構造帯で構造を見せ、黒塗りは強強調（takeaway-strip 等）のみ、語句の強調は蛍光黄マーカー（`<mark>`）で行うスタイル（参照デザイン準拠）。
 
 **Mono テーマの追加ルール**：
 - 紙質クリームではなく純白背景を使う（コンサル提案書らしい清潔感）
 - フォントは他テーマと同じ Noto Sans JP（Meiryo・Noto Serif JP は使わない）。「コンサル提案書らしさ」は構成・余白・拡張コンポーネント（22〜25）で出す
+- 黒の塗り面は強強調の反転帯（`takeaway-strip`・`hero-number.dark`・`state-box.target`・`budget-card.premium`・`tag.primary`）に限る。構造帯（thead・proposal-head 等）は `--band-bg` の薄グレーが自動で当たる
+- 語句の強調は `<mark>`（蛍光黄 `#ffff00`）。1 スライド／1 セクションあたり 1〜2 箇所まで
 
-**Slide Deck では扱いが違う**：Slide Deck では 5 テーマ共通の統一シャシを使い、Mono を含む 5 テーマは `--accent` 系 3 変数のみで palette 切替される。上記の Mono ブロックは **Vertical Document で使う場合の定義**。Slide Deck の統一シャシは `slide-deck.md`「テーマ切替」を参照。
+**Slide Deck では扱いが違う**：Slide Deck では 5 テーマ共通の統一シャシを使い、Mono を含む 5 テーマは `--accent` 系 3 変数＋帯・マーカー 3 トークンで palette 切替される。上記の Mono ブロックは **Vertical Document で使う場合の定義**（帯・マーカー 3 トークンの値は Slide Deck の Mono と同一）。Slide Deck の統一シャシは `slide-deck.md`「テーマ切替」を参照。
 
 ## `--accent-bg` の契約（背景と文字色を衝突させない）
 
@@ -144,7 +175,9 @@
 - `.insight`（`.txt` は `--ink`、`.insight-label` は `--accent`）
 - 固定 8 図解の `.accent` バリアント 8 種：`.dflow-node.accent` / `.dq-cell.accent` / `.dp-layer.accent` / `.df-stage.accent` / `.dc-node.accent` / `.dorg-node.accent` / `.dl-layer.accent`（ラベル・タグ・番号がいずれも `--accent`）
 
-**反転（白文字 on 濃地）が要る場合は `--accent-bg` を使わない。** `background: var(--accent)` ＋ `color: #fff` の組み合わせで行う。既にこの方式を採っているのは Takeaway Strip・Hero Number（`.dark`）・State Box（`.target`）・Report Table の `thead`・Value Bar・Filled-Header Card の `.phase-header` で、いずれも `--accent-bg` に依存していない。
+**反転（白文字 on 濃地）が要る場合は `--accent-bg` を使わない。** `background: var(--accent)` ＋ `color: #fff` の組み合わせで行う。この方式を採るのは強強調の Takeaway Strip・Hero Number（`.dark`）・State Box（`.target`）・Budget Card（`.premium`）・Pill Tag（`.primary`）で、いずれも `--accent-bg` に依存していない。構造帯（Report Table の `thead`・Value Bar・Filled-Header Card の `.phase-header`・`proposal-head` 等）は `--band-bg`＋`--band-ink` を使う（非 Mono では accent 帯＋白文字、Mono では薄グレー帯＋黒文字に解決される）。
+
+**`--band-ink` は `--band-bg` 上の文字色、`--marker-bg` は本文文字（`--ink`）を載せるマーカー面。** どちらも文字を載せる前提の組なので、`--band-bg` に `--band-ink` と衝突する色を、`--marker-bg` に暗い色を入れてはいけない（Mono の `#ffff00` 上の `--ink` は約 17:1）。
 
 > **背景**：かつて Mono だけ `--accent-bg: #1a1a1a` を「黒帯反転用」として持っていたが、黒帯反転を行うコンポーネントはいずれも `--accent` を使っており、`--accent-bg` の黒を必要とするものは 1 つも無かった。結果として Insight と固定 8 図解の `.accent` が Mono（＝既定テーマ）で判読不能になっていた。2026-07 に契約を明文化し、Mono の値を淡ティントへ修正した。
 

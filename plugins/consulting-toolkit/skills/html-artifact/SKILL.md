@@ -145,7 +145,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
    - Markdown パターンから自動で割り当てる場合は `references/components.md` 末尾の付録「Markdown → HTML マッピング」を参照（章内容が図解向きと判定されたら原則として図解に置換する）
 
 6. **テーマ選択**
-   - **既定はすべて Mono**（Vertical Document / Slide Deck format 共通）。Slide Deck format は 5 テーマ共通の統一シャシ（構造色・カード装飾・段階濃度は不動）で、`--accent` / `--accent-soft` / `--accent-bg` の 3 変数だけが palette 差分になる（Terracotta を選べば同じ Filled-Header Card がテラコッタ帯で描画される）。他 4 テーマ（Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合の任意の代替パレット。用途に応じた使い分けは規定しない
+   - **既定はすべて Mono**（Vertical Document / Slide Deck format 共通）。Slide Deck format は 5 テーマ共通の統一シャシ（構造色・カード装飾・段階濃度は不動）で、`--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）が palette 差分になる（Terracotta を選べば同じ Filled-Header Card がテラコッタ帯で描画され、Mono では薄グレー帯＋黒文字＋蛍光黄マーカーになる）。他 4 テーマ（Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合の任意の代替パレット。用途に応じた使い分けは規定しない
    - 1 ドキュメント 1 テーマ
 
 7. **テンプレート複製**
@@ -170,7 +170,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
     Slide Deck format の**すべての構造化図版**（固定 8 図解～作り込み図版まで、リッチ判定に関わらず）は、**必ず 1 図 1 体の専用ワーカー `slide-figure-creator`（agent）に委譲する**（例外は下記 1 つのみ）。デッキ全体を組みながら親が片手間に直組みすると、1 図あたりの注意が希釈され、図が縦領域を使い切れず（上 1/3 に縮こまり下半分が空白）品質が明確に落ちる（実測。図単位の設計・クロップ検証・反復を委譲で担保する）。図のレイヤー（固定 8 図解／レイアウトパターン／作り込み図版）はワーカーが 3 層ルールで判断する。
 
     - (a) **委譲対象の確定**：step 5 で選定した全構造化図版（固定 8 図解を含む）を列挙し、`fig-NN` を**親が事前採番**する（SVG marker id `figNN-ah` の一意性も担保。単純な固定 8 図解にも採番する）
-    - (b) **ハーネス生成（1 回）**：`assets/template-slides.html` の `<style>` **全体をそのまま用いる**（`:root` 全トークン＋`.fig-wrap`/`.fig-canvas`（`--fa-*` ランプ含む）＋**固定 8 図解・レイアウトパターン・コンポーネントの CSS** を含む。確定テーマで `--accent` / `--accent-soft` / `--accent-bg` の 3 変数のみ上書き。Slide Deck は 5 テーマ共通の統一シャシなので、非 Mono テーマでも他変数の差し替えは不要）＋Google Fonts link＋Content スライド枠（title-bar＋message＋図版スロット）を含む単一スライド HTML を `/tmp/slide-figs-<id>/harness.html` に書く。**8 図解 CSS を含めることで、単純な固定 8 図解を割り当てられたワーカーもハーネス内で検証できる**（全図版委譲の前提）。Content スライド枠の `<section>` には **`fig-slide` クラスを付ける**（図が縦領域を使い切れているかをワーカーが正しく検証できる）。**ハーネスの body は `padding:0`** にする（padding があると 1280px の `.slide` が viewport からはみ出し、`overflow:hidden` が図版の両端を切る「偽クリップ」が出る。検証済みの落とし穴）。**テンプレ等から既存の `<style>…</style>` を流用する場合、それをさらに `<style>` で再ラップしない**（二重 `<style>` は `:root` トークンブロックを丸ごと無効化し、図が無配色で崩れる。検証済みの落とし穴）
+    - (b) **ハーネス生成（1 回）**：`assets/template-slides.html` の `<style>` **全体をそのまま用いる**（`:root` 全トークン＋`.fig-wrap`/`.fig-canvas`（`--fa-*` ランプ含む）＋**固定 8 図解・レイアウトパターン・コンポーネントの CSS** を含む。確定テーマで `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋非 Mono なら帯・マーカー 3 トークン（`--band-bg:var(--accent); --band-ink:#fff; --marker-bg:var(--accent-bg);`）を上書き。Slide Deck は 5 テーマ共通の統一シャシなので、それ以外の変数の差し替えは不要）＋Google Fonts link＋Content スライド枠（title-bar＋message＋図版スロット）を含む単一スライド HTML を `/tmp/slide-figs-<id>/harness.html` に書く。**8 図解 CSS を含めることで、単純な固定 8 図解を割り当てられたワーカーもハーネス内で検証できる**（全図版委譲の前提）。Content スライド枠の `<section>` には **`fig-slide` クラスを付ける**（図が縦領域を使い切れているかをワーカーが正しく検証できる）。**ハーネスの body は `padding:0`** にする（padding があると 1280px の `.slide` が viewport からはみ出し、`overflow:hidden` が図版の両端を切る「偽クリップ」が出る。検証済みの落とし穴）。**テンプレ等から既存の `<style>…</style>` を流用する場合、それをさらに `<style>` で再ラップしない**（二重 `<style>` は `:root` トークンブロックを丸ごと無効化し、図が無配色で崩れる。検証済みの落とし穴）
     - (c) **ブリーフ書き出し**：図ごとに `/tmp/slide-figs-<id>/fig-NN/brief.json` を保存（フィールドは `agents/slide-figure-creator.md` の入力仕様：figId / slideTitle / slideMessage / figureContent（MD から忠実転記）/ structureType / richTrigger（該当条件。単純な図で該当なしなら `none` を渡す＝ワーカーは固定 8 図解レイヤーを想定）/ layoutHint / themeName / accentValue / harnessPath / **diagramComponentsPath（絶対パス必須）** / screenshotScriptPath / fragmentOutPath / cropPngPath / workDir（図ごと分離）/ exemplarPaths（あれば））
     - (d) **並列起動**：1 メッセージで N 体の `slide-figure-creator` を同時に起動する
     - (e) **回収と統合**：各ワーカーの fragmentPath の内容を**丸ごと**対応スライドの図版スロットに貼る（フラグメントは `.fig-NN` スコープの `<style>`＋`.fig-wrap` の自己完結形式）。貼り先スライドの `<section class="slide">` には **`fig-slide` クラスを付ける**（縦中央・高さ充填。slide-deck.md「図版スライドは fig-slide で縦領域を使い切る」）。直組みで使っていた**旧 per-figure `.fig-NN` CSS は head から削除**しフラグメントに一本化する（プロパティ混線・class/SVG marker id 衝突の防止）。`effectiveHeight` が図版領域（≈440px）を大きく超える図は step 11 で重点確認する
@@ -288,7 +288,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 
 ### Slide Deck format のテーマ選定ガイド
 
-テーマの既定・切替方式は step 6 のとおり（Mono 既定・3 変数のみの palette 差分）。accent 値：Mono `#1a1a1a`／Terracotta `#9d3617`／Navy `#1e3a5f`／Forest `#2a4f3a`／Charcoal `#2d2d33`。
+テーマの既定・切替方式は step 6 のとおり（Mono 既定・accent 3 変数＋帯・マーカー 3 トークンの palette 差分）。accent 値：Mono `#1a1a1a`／Terracotta `#9d3617`／Navy `#1e3a5f`／Forest `#2a4f3a`／Charcoal `#2d2d33`。Mono は帯・マーカーの既定が他と異なる：構造帯（thead・phase-header・value-bar 等）は薄グレー `#e4e4e4`＋黒文字、語句強調は `<mark>`（蛍光黄 `#ffff00`、1 スライド 1〜2 箇所まで）、黒塗りは強強調（takeaway-strip 等）のみ。非 Mono 4 テーマは `--band-bg:var(--accent); --band-ink:#fff; --marker-bg:var(--accent-bg);`（slide-deck.md「テーマ切替」）。
 
 **Mono テーマと拡張コンポーネント（22〜25）の組み合わせ**：
 
@@ -296,7 +296,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 
 - **Eyebrow Bar**（タイトル直上のメタラベル「SLIDE 05 / Competitive Positioning」）
 - **Hero Number**（巨大数字の KPI showcase。「2,760 万円」「40%」を構図の主役に）
-- **Takeaway Strip**（スライド最下部の結論バー。テーマ accent 色の帯。Mono テーマでは黒帯反転）
+- **Takeaway Strip**（スライド最下部の結論バー。テーマ accent 色の帯。Mono テーマでは黒帯反転＝黒塗りを許すのはこうした強強調のみ）
 - **Annotation Pointer**（図解への矢印付き注釈「★ WHITE SPACE」等）
 
 これらは他テーマでも使えるが、Mono テーマと組み合わせた時に最も映える。Vertical Document でも使用可。

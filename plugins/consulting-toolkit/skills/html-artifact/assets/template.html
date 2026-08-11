@@ -14,10 +14,11 @@
 
   重要:
   - 外部 stylesheet は Google Fonts のみ許可（publish.sh の検証と同期）
-  - 既定テーマは Mono（下記 :root は Mono の値）
+  - 既定テーマは Mono（下記 :root は Mono の値。帯は薄グレー＋黒文字、
+    テキストマーカー <mark> は蛍光黄 #ffff00 — 黒べったり面を作らない参照デザイン）
   - Terracotta / Navy / Forest / Charcoal に切り替える場合は :root 全体を
     references/design-system.md の該当テーマブロックに差し替える
-    （Mono だけ --bg / --ink / --rule 等の構造色も異なるため、
+    （Mono だけ --bg / --ink / --rule 等の構造色と帯・マーカー既定も異なるため、
     アクセント3変数だけの置換では戻らない）
   ============================================================
 -->
@@ -32,7 +33,8 @@
 <style>
 /* ============================================================
    DESIGN TOKENS — 変更する場合はここだけ編集
-   テーマ切替は --accent / --accent-soft / --accent-bg の 3 変数のみ
+   テーマ切替は --accent / --accent-soft / --accent-bg の 3 変数
+   ＋帯・マーカー 3 トークン（--band-bg / --band-ink / --marker-bg）
    ============================================================ */
 :root{
   --bg:#ffffff;
@@ -46,6 +48,12 @@
   --accent:#1a1a1a;
   --accent-soft:#444444;
   --accent-bg:#ededed;   /* accent の淡ティント。文字を載せる面なので必ず明るく保つ（design-system.md の契約） */
+  /* 構造帯（強調の意味を持たない塗り面: report-table thead / proposal-head / roadmap
+     phase-mini.active）とテキストマーカー。既定は Mono＝薄グレー帯＋黒文字＋蛍光黄マーカー。
+     他テーマは共通で --band-bg:var(--accent); --band-ink:#fff; --marker-bg:var(--accent-bg); に差し替える */
+  --band-bg:#e4e4e4;
+  --band-ink:var(--ink);
+  --marker-bg:#ffff00;
   --good:#2e5a3f;
   --good-bg:#e4ebd9;
   --warn:#7a4a1a;
@@ -66,6 +74,10 @@ body{
 
 .serif{font-family:"Noto Sans JP",sans-serif} /* legacy hook: kept as alias of body font */
 .mono{font-family:"JetBrains Mono",monospace}
+
+/* テキストマーカー（--marker-bg）— 語句ハイライト。Mono は蛍光黄、他テーマは accent 淡ティント。
+   本文文字色のまま地だけ塗る。乱用禁止（1 セクション 1〜2 箇所まで） */
+mark{background:var(--marker-bg);color:inherit;padding:0 3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 
 /* ============ PAGE WRAPPER ============ */
 .page{max-width:1180px;margin:0 auto;padding:0 56px}
@@ -136,8 +148,8 @@ h4.minor-head{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:14
 
 /* ============ REPORT TABLE ============ */
 table.report-table{width:100%;border-collapse:collapse;margin:16px 0 28px;font-size:13px;background:var(--panel);border:1px solid var(--rule)}
-table.report-table thead{background:var(--accent);color:#fff}
-table.report-table th{text-align:left;font-family:"Noto Sans JP",sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;padding:12px 16px;border-right:1px solid rgba(255,255,255,0.15)}
+table.report-table thead{background:var(--band-bg);color:var(--band-ink)}
+table.report-table th{text-align:left;font-family:"Noto Sans JP",sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;padding:12px 16px;border-right:1px solid color-mix(in srgb, var(--band-ink) 15%, transparent)}
 table.report-table th:last-child{border-right:none}
 table.report-table th.num-col{text-align:center;width:50px}
 table.report-table td{padding:12px 16px;border-bottom:1px solid var(--rule-soft);border-right:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-soft);line-height:1.7}
@@ -181,13 +193,13 @@ table.report-table td.center{text-align:center}
 .roadmap-wrap{margin:32px 0}
 .roadmap-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:24px}
 .roadmap-bar .phase-mini{background:var(--panel);padding:16px 18px}
-.roadmap-bar .phase-mini.active{background:var(--accent);color:var(--bg)}
+.roadmap-bar .phase-mini.active{background:var(--band-bg);color:var(--band-ink)}
 .roadmap-bar .ph-num{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.15em;color:var(--ink-mute);margin-bottom:4px}
-.roadmap-bar .phase-mini.active .ph-num{color:rgba(255,255,255,0.7)}
+.roadmap-bar .phase-mini.active .ph-num{color:color-mix(in srgb, var(--band-ink) 70%, transparent)}
 .roadmap-bar .ph-name{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;line-height:1.4;color:var(--ink);margin-bottom:4px}
-.roadmap-bar .phase-mini.active .ph-name{color:var(--bg)}
+.roadmap-bar .phase-mini.active .ph-name{color:var(--band-ink)}
 .roadmap-bar .ph-period{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-mute)}
-.roadmap-bar .phase-mini.active .ph-period{color:rgba(255,255,255,0.85)}
+.roadmap-bar .phase-mini.active .ph-period{color:color-mix(in srgb, var(--band-ink) 85%, transparent)}
 .roadmap-detail{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .roadmap-detail .pd-card{padding:16px 18px;border:1px solid var(--rule);background:var(--bg)}
 .roadmap-detail .pd-card.active{border-color:var(--accent);border-width:2px;padding:15px 17px}
@@ -243,12 +255,12 @@ table.report-table td.center{text-align:center}
 
 /* ============ PROPOSAL CARD ============ */
 .proposal-card{background:var(--panel);border:1px solid var(--rule);margin:24px 0;overflow:hidden}
-.proposal-head{background:var(--accent);color:#fff;padding:24px 32px;display:flex;justify-content:space-between;align-items:center}
-.proposal-head .ph-l .ph-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.78);margin-bottom:4px}
+.proposal-head{background:var(--band-bg);color:var(--band-ink);padding:24px 32px;display:flex;justify-content:space-between;align-items:center}
+.proposal-head .ph-l .ph-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.2em;color:color-mix(in srgb, var(--band-ink) 78%, transparent);margin-bottom:4px}
 .proposal-head .ph-l h4{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:20px}
 .proposal-head .ph-r{text-align:right}
 .proposal-head .ph-r .price{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:22px}
-.proposal-head .ph-r .period{font-family:"JetBrains Mono",monospace;font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px}
+.proposal-head .ph-r .period{font-family:"JetBrains Mono",monospace;font-size:11px;color:color-mix(in srgb, var(--band-ink) 60%, transparent);margin-top:2px}
 .proposal-body{padding:24px 32px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
 .proposal-body h6{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:12px;color:var(--ink);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
 .proposal-body ul{list-style:none;font-size:13px;line-height:1.85}

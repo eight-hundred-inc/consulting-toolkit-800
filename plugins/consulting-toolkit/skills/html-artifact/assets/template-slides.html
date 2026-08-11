@@ -46,10 +46,12 @@
 
    Slide Deck では 5 テーマが同じ視覚言語（角丸・影・Filled-Header Card 群・
    Value Bar 等）を共有し、**テーマ切替は --accent / --accent-soft /
-   --accent-bg の 3 変数のみ**で完結する。他の構造色（--bg / --panel-soft /
+   --accent-bg の 3 変数＋帯・マーカー 3 トークン（--band-bg / --band-ink /
+   --marker-bg）**で完結する。他の構造色（--bg / --panel-soft /
    --rule / --ink 等）は 5 テーマ共通で不動。
    Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、
-   Charcoal = チャコール帯（実質モノに近い）、Mono = 黒帯 の palette 違い。
+   Charcoal = チャコール帯（実質モノに近い）、
+   Mono = 灰帯＋黒は強強調のみ＋蛍光黄マーカー（黒べったり面を作らない）。
 
    ※ Vertical Document は別。design-system.md の各テーマブロック参照。
    ============================================================ */
@@ -74,8 +76,8 @@
   --card-shadow:0 1px 4px rgba(0,0,0,0.05);
   --card-shadow-lg:0 2px 12px rgba(0,0,0,0.08);
 
-  /* --- アクセント（テーマ切替の唯一のポイント） ---
-     既定は Mono（黒）。他テーマは以下の 3 行だけ差し替える：
+  /* --- アクセント（テーマ切替ポイント その1） ---
+     既定は Mono（黒）。他テーマは以下の 3 行＋帯・マーカー 3 行（下記）を差し替える：
      Terracotta: --accent:#9d3617; --accent-soft:#c45a2c; --accent-bg:#f5e8de;
      Navy:       --accent:#1e3a5f; --accent-soft:#3a5e8a; --accent-bg:#e3eaf3;
      Forest:     --accent:#2a4f3a; --accent-soft:#4a7558; --accent-bg:#e2ebe1;
@@ -84,12 +86,27 @@
      【トークン契約】--accent-bg は「文字を載せるアクセント面」であり、5 テーマすべてで
      accent の淡ティント（明るい色）にする。--ink / --accent を載せて 4.5:1 以上を保つため、
      --accent-bg に --accent と同値や暗い色を入れてはいけない（Insight・固定 8 図解の
-     .accent バリアントが一斉に潰れる）。反転（白文字 on 濃地）が要る場合は
+     .accent バリアントが一斉に潰れる）。強強調の反転（白文字 on 濃地）が要る場合は
      --accent-bg ではなく background:var(--accent) + color:#fff を使う
-     （Takeaway Strip / Hero Number.dark / state-box.target / report-table thead が該当）。 */
+     （Takeaway Strip / Hero Number.dark / state-box.target / budget-card.premium /
+     tag.primary が該当）。 */
   --accent:#1a1a1a;
   --accent-soft:#444444;
   --accent-bg:#ededed;   /* accent の淡ティント。文字を載せる面なので必ず明るく保つ（下記の契約） */
+
+  /* --- 構造帯・テキストマーカー（テーマ切替ポイント その2） ---
+     構造帯 = 強調の意味を持たない塗り面（Filled-Header Card ヘッダ / Value Bar /
+     report-table thead / proposal-head / roadmap phase-mini.active / expansion-item）。
+     既定は Mono：帯は薄グレー＋黒文字、テキストマーカーは蛍光黄
+     （参照デザイン＝白基調・黒は文字と強強調のみ・強調は黄マーカー）。
+     他 4 テーマは共通で以下の 3 行に差し替える（帯＝アクセント塗り＋白文字）：
+     非 Mono 共通: --band-bg:var(--accent); --band-ink:#fff; --marker-bg:var(--accent-bg);
+     【契約】--band-ink は --band-bg 上の文字色。帯内の補助文字は
+     color-mix(in srgb, var(--band-ink) NN%, transparent) で派生させる（白 rgba 直書き禁止）。
+     --marker-bg は本文文字（--ink）を載せるマーカー面なので必ず明るい色にする。 */
+  --band-bg:#e4e4e4;
+  --band-ink:var(--ink);
+  --marker-bg:#ffff00;
 
   /* --- 段階濃度ランプ（Gantt/Timeline/Progression 用・accent 派生） ---
      accent が黒なら黒 → 淡グレー、terracotta なら濃 → 淡テラコッタ、と自動追従。 */
@@ -155,7 +172,7 @@
 
 /* ============================================================
    FILLED-HEADER CARD (Component #26) — Slide Deck 統一シャシ（5 テーマ共通）
-   黒帯ヘッダー＋淡グレーボディの主役カード。Growth Model / Phase 概観 / 3 本柱に。
+   帯ヘッダー（--band-bg）＋淡グレーボディの主役カード。Growth Model / Phase 概観 / 3 本柱に。
    フルスライドレイアウトとして使う（.title-bar + .message は使わない）。
    ============================================================ */
 .slide .phase-title{text-align:center;margin:0 0 16px}
@@ -163,10 +180,10 @@
 .slide .phase-title .phase-subtitle-top{font-size:13px;color:var(--ink-mute);margin-top:4px;line-height:1.5}
 .slide .phase-flow{display:flex;align-items:stretch;gap:0;margin:8px 0}
 .slide .phase-card{flex:1;border-radius:var(--card-radius,12px);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--card-shadow-lg,0 2px 12px rgba(0,0,0,0.08))}
-.slide .phase-header{background:var(--accent);padding:14px 18px 10px;display:flex;align-items:baseline;gap:10px}
-.slide .phase-header .phase-number{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:0.08em}
-.slide .phase-header .phase-name{font-size:19px;font-weight:700;color:#fff;letter-spacing:0.04em}
-.slide .phase-subtitle{background:var(--accent);font-size:11.5px;color:rgba(255,255,255,0.75);padding:0 18px 12px;line-height:1.5}
+.slide .phase-header{background:var(--band-bg);padding:14px 18px 10px;display:flex;align-items:baseline;gap:10px}
+.slide .phase-header .phase-number{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:color-mix(in srgb, var(--band-ink) 55%, transparent);letter-spacing:0.08em}
+.slide .phase-header .phase-name{font-size:19px;font-weight:700;color:var(--band-ink);letter-spacing:0.04em}
+.slide .phase-subtitle{background:var(--band-bg);font-size:11.5px;color:color-mix(in srgb, var(--band-ink) 75%, transparent);padding:0 18px 12px;line-height:1.5}
 .slide .phase-body{padding:14px 16px;flex:1;display:flex;flex-direction:column;gap:12px;background:var(--panel-soft,#f5f5f5)}
 .slide .phase-body .section{background:#fff;border-radius:8px;padding:10px 12px;box-shadow:var(--card-shadow,0 1px 4px rgba(0,0,0,0.05))}
 .slide .phase-body .section-title{font-size:11px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;display:flex;align-items:center;gap:6px}
@@ -182,13 +199,13 @@
 
 /* ============================================================
    VALUE BAR (Component #27) — Slide Deck 統一シャシ（5 テーマ共通）
-   スライド最下部の黒帯サマリ。3〜4 アイテム＋縦罫。
+   スライド最下部の帯サマリ（--band-bg）。3〜4 アイテム＋縦罫。
    ============================================================ */
-.slide .value-bar{margin-top:14px;background:var(--accent);border-radius:var(--card-radius,10px);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.slide .value-bar-item{display:flex;align-items:center;gap:10px;color:#fff;flex:1}
-.slide .value-bar-item .vb-icon{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex-shrink:0;color:#fff}
-.slide .value-bar-item .vb-text{font-size:11.5px;font-weight:600;line-height:1.4;color:#fff}
-.slide .value-bar .vb-divider{width:1px;height:32px;background:rgba(255,255,255,0.2);flex-shrink:0}
+.slide .value-bar{margin-top:14px;background:var(--band-bg);border-radius:var(--card-radius,10px);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.slide .value-bar-item{display:flex;align-items:center;gap:10px;color:var(--band-ink);flex:1}
+.slide .value-bar-item .vb-icon{width:32px;height:32px;border-radius:50%;background:color-mix(in srgb, var(--band-ink) 12%, transparent);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex-shrink:0;color:var(--band-ink)}
+.slide .value-bar-item .vb-text{font-size:11.5px;font-weight:600;line-height:1.4;color:var(--band-ink)}
+.slide .value-bar .vb-divider{width:1px;height:32px;background:color-mix(in srgb, var(--band-ink) 20%, transparent);flex-shrink:0}
 
 /* ============================================================
    ICON CHIP (Component #28) — Slide Deck 統一シャシ（5 テーマ共通）
@@ -212,7 +229,7 @@
 .slide .expansion-area{background:#fff;border-radius:8px;padding:10px 12px;box-shadow:var(--card-shadow,0 1px 4px rgba(0,0,0,0.05))}
 .slide .expansion-area .expansion-title{font-size:11px;font-weight:700;color:var(--ink);letter-spacing:0.08em;margin-bottom:8px;text-transform:uppercase}
 .slide .expansion-arrows{display:flex;gap:6px;flex-wrap:wrap}
-.slide .expansion-item{display:inline-flex;align-items:center;gap:4px;background:var(--accent);color:#fff;font-size:10.5px;font-weight:600;padding:5px 10px;border-radius:16px;white-space:nowrap}
+.slide .expansion-item{display:inline-flex;align-items:center;gap:4px;background:var(--band-bg);color:var(--band-ink);font-size:10.5px;font-weight:600;padding:5px 10px;border-radius:16px;white-space:nowrap}
 .slide .expansion-item .arr{font-size:11px;opacity:0.6}
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -227,6 +244,10 @@ html,body{
   font-feature-settings:"palt";
   letter-spacing:0.01em;
 }
+
+/* テキストマーカー（--marker-bg）— 語句ハイライト。Mono は蛍光黄、他テーマは accent 淡ティント。
+   本文文字色のまま地だけ塗る。乱用禁止（1 スライド 1〜2 箇所まで） */
+mark{background:var(--marker-bg);color:inherit;padding:0 3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 
 /* ============================================================
    SLIDE DECK SHELL — single-slide presentation mode
@@ -659,8 +680,8 @@ h1.cover-title{
 
 /* --- #13 Report Table --- */
 .slide table.report-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;background:var(--panel);border:1px solid var(--rule)}
-.slide table.report-table thead{background:var(--accent);color:#fff}
-.slide table.report-table th{text-align:left;font-family:"Noto Sans JP",sans-serif;font-weight:500;font-size:11.5px;letter-spacing:0.08em;padding:12px 16px;border-right:1px solid rgba(255,255,255,0.15)}
+.slide table.report-table thead{background:var(--band-bg);color:var(--band-ink)}
+.slide table.report-table th{text-align:left;font-family:"Noto Sans JP",sans-serif;font-weight:500;font-size:11.5px;letter-spacing:0.08em;padding:12px 16px;border-right:1px solid color-mix(in srgb, var(--band-ink) 15%, transparent)}
 .slide table.report-table th:last-child{border-right:none}
 .slide table.report-table th.num-col{text-align:center;width:50px}
 .slide table.report-table td{padding:12px 16px;border-bottom:1px solid var(--rule-soft);border-right:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-soft);line-height:1.7}
@@ -727,13 +748,13 @@ h1.cover-title{
 .slide .roadmap-wrap{margin:16px 0}
 .slide .roadmap-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:20px}
 .slide .roadmap-bar .phase-mini{background:var(--panel);padding:16px 18px}
-.slide .roadmap-bar .phase-mini.active{background:var(--accent);color:#fff}
+.slide .roadmap-bar .phase-mini.active{background:var(--band-bg);color:var(--band-ink)}
 .slide .roadmap-bar .ph-num{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.15em;color:var(--ink-mute);margin-bottom:4px}
-.slide .roadmap-bar .phase-mini.active .ph-num{color:rgba(255,255,255,0.7)}
+.slide .roadmap-bar .phase-mini.active .ph-num{color:color-mix(in srgb, var(--band-ink) 70%, transparent)}
 .slide .roadmap-bar .ph-name{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:14px;line-height:1.4;color:var(--ink);margin-bottom:4px}
-.slide .roadmap-bar .phase-mini.active .ph-name{color:#fff}
+.slide .roadmap-bar .phase-mini.active .ph-name{color:var(--band-ink)}
 .slide .roadmap-bar .ph-period{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-mute)}
-.slide .roadmap-bar .phase-mini.active .ph-period{color:rgba(255,255,255,0.85)}
+.slide .roadmap-bar .phase-mini.active .ph-period{color:color-mix(in srgb, var(--band-ink) 85%, transparent)}
 .slide .roadmap-detail{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .slide .roadmap-detail .pd-card{padding:16px 18px;border:1px solid var(--rule);background:var(--bg)}
 .slide .roadmap-detail .pd-card.active{border-color:var(--accent);border-width:2px;padding:15px 17px}
@@ -745,12 +766,12 @@ h1.cover-title{
 
 /* --- #20 Proposal Card --- */
 .slide .proposal-card{background:var(--panel);border:1px solid var(--rule);margin:16px 0;overflow:hidden}
-.slide .proposal-head{background:var(--accent);color:#fff;padding:20px 30px;display:flex;justify-content:space-between;align-items:center}
-.slide .proposal-head .ph-l .ph-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.78);margin-bottom:4px}
+.slide .proposal-head{background:var(--band-bg);color:var(--band-ink);padding:20px 30px;display:flex;justify-content:space-between;align-items:center}
+.slide .proposal-head .ph-l .ph-tag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.2em;color:color-mix(in srgb, var(--band-ink) 78%, transparent);margin-bottom:4px}
 .slide .proposal-head .ph-l h4{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:20px}
 .slide .proposal-head .ph-r{text-align:right}
 .slide .proposal-head .ph-r .price{font-family:"Noto Sans JP",sans-serif;font-weight:600;font-size:22px}
-.slide .proposal-head .ph-r .period{font-family:"JetBrains Mono",monospace;font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px}
+.slide .proposal-head .ph-r .period{font-family:"JetBrains Mono",monospace;font-size:11px;color:color-mix(in srgb, var(--band-ink) 60%, transparent);margin-top:2px}
 .slide .proposal-body{padding:20px 30px;display:grid;grid-template-columns:1fr 1fr;gap:32px}
 .slide .proposal-body h6{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:12px;color:var(--ink);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
 .slide .proposal-body ul{list-style:none;font-size:13.5px;line-height:1.85}
