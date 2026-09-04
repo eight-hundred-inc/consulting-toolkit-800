@@ -142,10 +142,14 @@
 
 末尾の「まとめ」セクション。クリーム背景のまま、太い上罫線で最終章であることを示す。3項目のサマリーカードを含む。**Web ページのダークフッターのようには見せない**（業務文書として最終ページが急にダーク背景になる違和感を避ける）。
 
+**まとめ節は任意で、既定では置かない**。読者が最後に持ち帰る要点を1画面で見せたい文書（提案書・報告書など）に限って追加する。進行管理・記録系の文書（workflow・議事メモ・通達）には置かない。
+
+置く場合も**章番号は付けない**。`sum-tag` は `Summary` のみとし、`11 / Summary` のようには書かない（節を増減するたびに付け替えが必要になり、実際に付け替え漏れが起きるため）。TOC のまとめ行も `toc-num` を空にする。
+
 ```html
 <section class="summary" id="summary">
   <div class="page" style="padding:0 56px">
-    <div class="sum-tag">11 / Summary</div>
+    <div class="sum-tag">Summary</div>
     <h2>まとめのキーメッセージ。<br>2行程度。</h2>
     <p style="color:var(--ink-soft);font-size:14px;line-height:1.95;max-width:880px">
       まとめの本文（200字程度）。
@@ -225,6 +229,20 @@
   <li>項目2</li>
 </ol>
 ```
+
+### テキストマーカー（`<mark>`）
+
+語句単位の強調ハイライト。地色は `--marker-bg`（Mono＝蛍光黄 `#ffff00`、他テーマ＝accent 淡ティント）、文字色は変えない。CSS は両テンプレートに組み込み済み。
+
+```html
+<p>妥当な KPI 設定は<mark>成果が高まる構造の理解</mark>と同義である。</p>
+```
+
+**ルール**：
+- 塗るのは**語句**（文全体・段落を塗らない）
+- **1 スライド／1 セクションあたり 1〜2 箇所まで**。乱用すると強調が消える
+- `<strong>`（太字・accent 色）との併用は同一文内では避ける（強調手段は 1 つ）
+- `--accent-bg` 地の面（Insight 等）の上では使わない（非 Mono テーマではマーカー地と同化して見えない）。白地・`--panel-soft` 地の本文で使う
 
 ---
 
@@ -693,7 +711,7 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
 
 ### 26. Filled-Header Card
 
-黒帯ヘッダー＋淡グレーボディの主役カード。Phase / Track / セグメント / セクションごとの独立ブロックとして 3〜4 枚を横並びに配置し、Growth Model・3 本柱・Phase 概観などを構造化して見せる。内部に `.section`（`.icon-chip` 付きミニカード）や `.tag-list`（Pill Tag）を積む。
+帯ヘッダー（`--band-bg`。Mono は薄グレー＋黒文字、他テーマは accent 帯＋白文字）＋淡グレーボディの主役カード。Phase / Track / セグメント / セクションごとの独立ブロックとして 3〜4 枚を横並びに配置し、Growth Model・3 本柱・Phase 概観などを構造化して見せる。内部に `.section`（`.icon-chip` 付きミニカード）や `.tag-list`（Pill Tag）を積む。
 
 **重要：フルスライドレイアウトとして使う**。標準の `.title-bar` + `.message` の下にコンポーネントとして落とし込むのではなく、**この 3〜4 枚のカード群自体がスライド本体**として構成する。参照デザイン（`fig03-acquire-expand-scale.png`）が範例。
 
@@ -751,7 +769,7 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
 - **ベースライン規範との関係（重要）**：`.phase-card`（filled-header）＞ `.section`（白の内カード）というカード内カード構造は、ベースライン規範（`_shared/slide-body-principles.md`）原則 2 のネスト禁止に該当する。したがって #26 をスライドの主役に使うのは**図版の見せ場（例外①）としてのみ**——作り込み図版と同格の扱いで、Growth Model / Phase 概観のような「この 1 枚が構造化図版」のスライドに限る。通常の Content スライド（`.title-bar`＋`.message`＋本文）の本文部品として `.phase-card` を流用しない
 - **`.title-bar` + `.message` は使わない**。図自身が `.phase-title` を持つ（参照デザイン fig03 が範例。20px 太字＋12px サブタイトル、中央寄せ）
 - 1 スライドに 2〜4 枚並べる（`.phase-flow` が横並び flex を担う）
-- `.phase-header` は黒 `var(--accent)` 塗り＋白文字。`.phase-number` は 11px 白 55%、`.phase-name` は 19px 白 100%
+- `.phase-header` は `var(--band-bg)` 塗り＋`var(--band-ink)` 文字（Mono＝薄グレー地に黒、他テーマ＝accent 地に白）。`.phase-number` は 11px band-ink 55%、`.phase-name` は 19px band-ink 100%
 - `.phase-body` は `var(--panel-soft)` 淡グレー背景。内部の `.section` は白背景＋`--card-shadow` の軽い影で「浮くカード」感を出す
 - 隣接カード間の矢印は `.phase-arrow` の SVG（`stroke: var(--accent)`）
 - 4 枚を超えるなら 2 段組より **別スライドに分割**する（1 スライド 1 メッセージの原則）
@@ -760,7 +778,7 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
 
 ### 27. Value Bar
 
-スライド最下部の全幅黒帯。3〜4 アイテム＋縦罫でスライドの持ち帰りを凝縮する。Takeaway Strip（#24）が「1 行結論」なのに対し、Value Bar は「複数ステップの要約行列」。参照デザインの `.value-bar`（AI Biz Ops fig03）が規範。
+スライド最下部の全幅帯（`--band-bg`。Mono は薄グレー、他テーマは accent 帯）。3〜4 アイテム＋縦罫でスライドの持ち帰りを凝縮する。Takeaway Strip（#24）が「1 行結論・強強調の黒帯」なのに対し、Value Bar は「複数ステップの要約行列・構造帯」。参照デザインの `.value-bar`（AI Biz Ops fig03）が規範。
 
 ```html
 <div class="value-bar">
@@ -790,7 +808,7 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
 - 1 スライドに 1 つ。`.phase-flow`（Filled-Header Card 群）または独立コンテンツの**直下**・`.slide-foot` の上に配置
 - 使い方は 2 通り：**(A) Filled-Header Card #26 と組み合わせて 1 枚のフルスライドを構成する**（参照デザイン fig03 の型。推奨）。**(B) 標準 Content スライド（`.title-bar` + `.message` + 本文）の締めとして最下部に追加する**（Takeaway Strip #24 の代替。3〜4 アイテムに情報を凝縮したいとき）
 - アイテムは 3〜4 個まで。それ以上は情報過多
-- `.vb-icon` は 32×32 の円形（`rgba(255,255,255,0.12)` 塗り）に数字 or 記号 1 文字
+- `.vb-icon` は 32×32 の円形（`--band-ink` の 12% 塗り）に数字 or 記号 1 文字
 - `.vb-text` は 2 行に折り返す（`<br>` で明示改行）
 - Takeaway Strip（#24）とは併用しない（下部の重み付けが重複するため）
 
@@ -832,7 +850,7 @@ Filled-Header Card 内で入口テーマ・カテゴリ・分類を列挙する�
 
 ### 30. Expansion Pills
 
-「→ 経営企画」「→ 営業」「→ R&D」のような、横展開・派生方向を示すピル群。Pill Tag（#29）が「並列列挙」なのに対し、Expansion Pills は「起点 → 展開先」の一方向を示す黒塗りピル。参照デザイン `.expansion-item`（AI Biz Ops fig03 の Scale フェーズ）が規範。
+「→ 経営企画」「→ 営業」「→ R&D」のような、横展開・派生方向を示すピル群。Pill Tag（#29）が「並列列挙」なのに対し、Expansion Pills は「起点 → 展開先」の一方向を示す帯塗りピル（`--band-bg`。Mono は薄グレー＋黒文字、他テーマは accent 塗り＋白文字）。参照デザイン `.expansion-item`（AI Biz Ops fig03 の Scale フェーズ）が規範。
 
 ```html
 <div class="expansion-area">
@@ -848,7 +866,7 @@ Filled-Header Card 内で入口テーマ・カテゴリ・分類を列挙する�
 
 **ルール**：
 - 3〜5 個を目安
-- ピルは全て黒塗り＋白文字（Pill Tag と違い primary/通常の区別は付けない）
+- ピルは全て同一の帯塗り（Pill Tag と違い primary/通常の区別は付けない）
 - `.arr` は `&rarr;`（→）を透過白（`opacity:.6`）で表示
 - Filled-Header Card #26 内の `.section` に相当する位置（`.phase-body` 内）に置くのが典型。単独スライドの主役にはしない（情報密度が薄いため）
 
@@ -1084,7 +1102,7 @@ tags: ["progress", "q1"]
 | 「Phase 1 / Phase 2 / Phase 3 / Phase 4」見出し列、4 段階で固定 | Roadmap |
 | 縦長プロセス + 各ステップへの右側補足注釈 | Flow with Margin |
 | 提案サービス／パッケージ説明（実施内容 + 成果物 + 期間 + 金額） | Proposal Card |
-| まとめ章（3 ポイント要約 + 全体総括） | Summary（必須構造） |
+| まとめ章（3 ポイント要約 + 全体総括） | Summary（任意。置く場合の構造） |
 
 ## 自動生成要素
 

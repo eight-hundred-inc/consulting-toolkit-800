@@ -68,14 +68,14 @@ ToolSearch(query="+GetTranscriptsForMeetings", max_results=1)
 
 **親側で解決したツール名は親自身が使用する。ワーカーには渡さない**（ワーカーは MCP を呼ばない設計のため）。
 
-> **往復削減**: Step 2 の ToolSearch 群（3 本）、Step 3 のソース Read（`プロジェクトサマリ.md`）、Step 7 のファイル存在確認（`workflow.md`・`Output/インタビューガイド.md`）は相互に独立で MCP 結果に依存しない。**冒頭で 1 メッセージにまとめて並列発行**し、最大 4 往復を 1 往復に短縮する（`CLAUDE.md` はシステムプロンプトに既出のため再読込不要。`SearchMeetings` は解決済みツール名に依存するため次メッセージに残す）。
+> **往復削減**: Step 2 の ToolSearch 群（3 本）、Step 3 のソース Read（`プロジェクトサマリ.md`）、Step 7 のファイル存在確認（`workflow.html`・`Output/インタビューガイド.md`）は相互に独立で MCP 結果に依存しない。**冒頭で 1 メッセージにまとめて並列発行**し、最大 4 往復を 1 往復に短縮する（`CLAUDE.md` はシステムプロンプトに既出のため再読込不要。`SearchMeetings` は解決済みツール名に依存するため次メッセージに残す）。
 
 ### Step 3: プロジェクトキーワード抽出
 
 以下を優先順に Read し、最初に存在するソースから `clientName`・`projectName`・スコープ固有名詞 3〜5 語を抽出する:
 
 1. `プロジェクトサマリ.md`
-2. `workflow.md`
+2. `workflow.html`
 3. `CLAUDE.md`
 
 全て不在の場合 → AskUserQuestion でクライアント名を 1 度だけ尋ねる（空回答なら全件マニュアル選択モードへ）。
@@ -144,7 +144,7 @@ C を選んだ場合のみ、不確実リストを別の AskUserQuestion で個�
 
 各会議を以下の優先順で判定する:
 
-1. `workflow.md` が存在し、Step 8（議事メモ作成）が `not_started` / `in_progress` → **強い interview 推定**
+1. `workflow.html` が存在し、Step 8（議事メモ作成）が `not_started` / `in_progress` → **強い interview 推定**
 2. `Output/インタビューガイド.md` が存在し、`name` に「インタビュー」「ヒアリング」「Interview」「I/V」含む → **interview**
 3. ボット除外後の参加者が「社外メールあり 1 名 + 残り email null または社内」構成 → **弱い interview 推定**
 4. 上記外 → **meeting**
@@ -248,7 +248,7 @@ transcript_<linkId>.json     # トランスクリプト（raw JSON）
 - 未処理の不確実件数
 - **クリーンアップ**: 複数会議で `/tmp` に保存した場合のみ、全ワーカー完了後に `/tmp/circleback-minutes-*` を削除（ユーザー指示がある場合は保持）。単一会議ファストパスで `/tmp` を作成していない場合はクリーンアップ不要
 
-`workflow.md` の Step 8 が対象だった場合はステータス更新を「提案」のみ（自動更新しない）。
+`workflow.html` の Step 8 が対象だった場合はステータス更新を「提案」のみ（自動更新しない）。
 
 ### Step 10: Notion ミーティング DB への反映（オプション）
 

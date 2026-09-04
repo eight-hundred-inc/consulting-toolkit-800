@@ -88,7 +88,7 @@ Slide Deck format でも内容構成は Step 1 で決めた Content Recipe を�
 | 9 | 推奨提案パッケージ | `.proposal-card` |
 | 10 | 商談確認事項 | `.qa-grid` |
 | 11 | ロードマップ | `.roadmap-bar` + `.roadmap-detail` |
-| 12 | まとめ | `.summary` |
+| 12 | まとめ（任意） | `.summary` |
 
 **Cover メタ例**：
 ```
@@ -110,7 +110,7 @@ Document Type / Themes / Budget / Issued
 | 7 | 比較分析 | `.report-table` + `.rating`, `.budget-grid`（2案比較として） |
 | 8 | 示唆・考察 | `.insight`, `.prio-list`（重要示唆の順位） |
 | 9 | 提言・次のアクション | `.proposal-card`, `.qa-grid`（検討論点として） |
-| 10 | まとめ | `.summary` |
+| 10 | まとめ（任意） | `.summary` |
 
 **Cover メタ例**：
 ```
@@ -131,7 +131,7 @@ Report Type / Survey Period / Sample Size / Issued
 | 4 | 検討した選択肢 | `.report-table`, `.budget-grid` |
 | 5 | 推奨方針 | `.scope-panel`, `.insight` |
 | 6 | 次のステップ | `.roadmap-bar`（簡略版・3〜4フェーズ） |
-| 7 | まとめ | `.summary`（短め） |
+| 7 | まとめ（任意） | `.summary`（短め） |
 
 **Cover メタ例**：
 ```
@@ -153,7 +153,7 @@ Memo Type / Owner / Status / Issued
 | 3 | 各選択肢の詳細 | `.state-grid`（メリット/デメリット）, `.budget-grid`（2案比較）, `.proposal-card`（3 案並列） |
 | 4 | 推奨案と根拠 | `.scope-panel`, `.insight`, `.prio-list`（判断基準の順位） |
 | 5 | リスクと対応 | `.report-table`（リスク表・3列）, `.qa-grid`（承認時の確認事項） |
-| 6 | まとめ・決裁依頼事項 | `.summary` |
+| 6 | まとめ・決裁依頼事項（任意） | `.summary` |
 
 **Cover メタ例**：
 ```
@@ -197,7 +197,7 @@ Meeting Type / Date / Attendees / Issued
 | 3 | 影響範囲・対象者 | `.report-table`, `.kpi-row`（対象人数等） |
 | 4 | スケジュール | `.roadmap-bar`（施行までのステップ）, `.flow-margin`（手順詳細時のみ） |
 | 5 | FAQ・問い合わせ先 | `.qa-grid`（FAQ用途） |
-| 6 | まとめ・行動要請 | `.summary` |
+| 6 | まとめ・行動要請（任意） | `.summary` |
 
 **Cover メタ例**：
 ```
@@ -266,9 +266,9 @@ Document Type / Client / Date / Doc ID
 
 ## 共通：最初と最後の作り方
 
-どのレシピでも、**最初の章（背景・前提）と最後の章（まとめ）**は省略せず必ず置く。
+どのレシピでも、**最初の章（背景・前提）は省略せず必ず置く**。
 
 - **最初の章**：読者が「なぜこの文書を読むべきか」を理解できるようにする
-- **最後の章**：読者が「結局何を覚えればよいか」を持ち帰れるようにする
+- **最後の章**：本文の最終章で結論まで書き切る。別立ての「まとめ」節（`.summary`）は**任意**で、既定では置かない（提案書・報告書のように要点を1画面で持ち帰らせたい文書に限って追加する。進行管理・記録系の文書には置かない）
 
 これだけ守れば、どの種別でも業務文書として機能する。
