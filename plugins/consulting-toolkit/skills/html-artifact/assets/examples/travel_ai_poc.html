@@ -508,9 +508,6 @@ table.report-table td.center{text-align:center}
 }
 .scope-panel ul{
   list-style:none;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:6px 32px;
   font-size:13px;
 }
 .scope-panel ul li{
@@ -518,6 +515,10 @@ table.report-table td.center{text-align:center}
   position:relative;
   color:var(--ink-soft);
   line-height:1.7;
+  margin-bottom:6px;
+}
+.scope-panel ul li:last-child{
+  margin-bottom:0;
 }
 .scope-panel ul li::before{
   content:"●";
@@ -973,7 +974,6 @@ table.report-table td.center{text-align:center}
   .kpi-row{grid-template-columns:1fr}
   .kpi-cell{border-right:none;border-bottom:1px solid var(--rule)}
   .state-grid{grid-template-columns:1fr}
-  .scope-panel ul{grid-template-columns:1fr}
   .roadmap-bar,.roadmap-detail{grid-template-columns:1fr}
   .budget-grid{grid-template-columns:1fr}
   .qa-grid{grid-template-columns:1fr}

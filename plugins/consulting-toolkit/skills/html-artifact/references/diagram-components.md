@@ -590,6 +590,7 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 
 ## ガードレール
 
+- **面（カード・パネル・帯・バー）は角丸を使わず直角**（`border-radius:0`）。とくに **2 色構成（塗りヘッダー帯＋本文）のカードで角丸は使わない**：pptx では上 2 角／下 2 角だけ丸める専用シェイプに分割されて継ぎ目に線が入り、デッキ内でも角丸と直角が混在して見える。円形（`border-radius:50%`）とピル形のチップ／バッジのみ例外（`.dgram-badge` 等）。
 - 複数アクセント色禁止 → `--fig-accent` 由来 ＋ `--good`/`--warn` のみ。
 - グラデーション・テクスチャ・回転/斜め・浮遊・巨大装飾数字（200px超）・派手アニメ禁止。
 - 対称的な並列対比でダーク背景にしない（VS は両側ライト）。
@@ -633,7 +634,7 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 .dgram-badge{ font-family:"JetBrains Mono",monospace; font-size:10px; font-weight:700;
   color:#fff; background:var(--fig-accent); border-radius:4px; padding:2px 9px; letter-spacing:.02em; }
 /* 角丸カード */
-.dgram-card{ background:var(--panel); border:1px solid var(--rule); border-radius:8px;
+.dgram-card{ background:var(--panel); border:1px solid var(--rule); border-radius:0;
   padding:12px 14px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
 /* 廃止/非活性ノード */
 .dgram-ghost{ background:var(--bg-alt); border:1.5px dashed var(--rule); opacity:.78; box-shadow:none; }
@@ -672,8 +673,8 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 .fig-swim .colh{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:7px;text-align:center}
 .fig-swim .colh .cn{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;color:var(--fig-accent)}
 .fig-swim .colh .cl{font-size:10.5px;color:var(--ink-soft);line-height:1.25}
-.fig-swim .lane-lbl{display:flex;flex-direction:column;justify-content:center;padding:8px 12px;background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--fig-accent);border-radius:4px;font-weight:700;white-space:nowrap}
-.fig-swim .sc{min-height:46px;border-radius:5px;background:var(--bg-alt);border:1px dashed var(--rule-soft)}             /* 空セル */
+.fig-swim .lane-lbl{display:flex;flex-direction:column;justify-content:center;padding:8px 12px;background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--fig-accent);border-radius:0;font-weight:700;white-space:nowrap}
+.fig-swim .sc{min-height:46px;border-radius:0;background:var(--bg-alt);border:1px dashed var(--rule-soft)}             /* 空セル */
 .fig-swim .sc.on{background:color-mix(in srgb,var(--fig-accent) 26%,#fff);border:1.5px solid var(--fig-accent)}        /* 所有セル */
 .fig-swim .sc.on.sec{background:color-mix(in srgb,var(--fig-accent) 11%,#fff);border:1px solid color-mix(in srgb,var(--fig-accent) 35%,var(--rule))}
 ```
@@ -691,8 +692,8 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 /* CSS スケルトン（原典 design-patterns.md パターン2 をトークン化） */
 .fig-mtx{display:grid;grid-template-columns:300px repeat(5,1fr);gap:6px}        /* 行ラベル列 + N 軸列 */
 .fig-mtx .hc{display:flex;align-items:flex-end;justify-content:center;padding:6px 4px 9px;font-weight:700;color:var(--ink);border-bottom:2px solid var(--fig-accent);text-align:center}
-.fig-mtx .rh{display:flex;align-items:center;padding:8px 12px;font-weight:600;color:var(--ink);background:var(--bg-alt);border-radius:4px}
-.fig-mtx .cell{min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg-alt);border:1px dashed var(--rule);border-radius:6px}
+.fig-mtx .rh{display:flex;align-items:center;padding:8px 12px;font-weight:600;color:var(--ink);background:var(--bg-alt);border-radius:0}
+.fig-mtx .cell{min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg-alt);border:1px dashed var(--rule);border-radius:0}
 .fig-mtx .cell.own{background:color-mix(in srgb,var(--fig-accent) 15%,#fff);border:1.5px solid var(--fig-accent);border-left:3px solid var(--fig-accent)}
 /* 優先度3段（意味区分が要る場合のみ。新規アクセント色は足さない） */
 .fig-mtx .cell.invest{background:var(--good-bg);border-left:3px solid var(--good)}
@@ -728,7 +729,7 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 /* CSS スケルトン（原典 design-patterns.md パターン5 をトークン化。濃→淡で進行を表現） */
 .fig-tl{display:flex;flex-direction:column;gap:0}
 .fig-tl .ph-row{display:flex;gap:2px;margin-left:140px}                          /* フェーズヘッダー行 */
-.fig-tl .ph{flex:1;padding:10px 16px;text-align:center;font-weight:700;color:#fff;border-radius:4px 4px 0 0}
+.fig-tl .ph{flex:1;padding:10px 16px;text-align:center;font-weight:700;color:#fff;border-radius:0}
 .fig-tl .ph:nth-child(1){background:var(--fig-accent)}
 .fig-tl .ph:nth-child(2){background:color-mix(in srgb,var(--fig-accent) 75%,#fff)}
 .fig-tl .ph:nth-child(3){background:color-mix(in srgb,var(--fig-accent) 55%,#fff)}
@@ -736,7 +737,7 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 .fig-tl .lane{display:flex;align-items:center;min-height:48px;border-bottom:1px dashed var(--rule)}
 .fig-tl .lane-lbl{width:140px;flex-shrink:0;text-align:right;padding-right:12px;font-weight:700;white-space:nowrap}
 .fig-tl .lane-content{flex:1;display:flex;gap:4px;position:relative}
-.fig-tl .bar{height:28px;border-radius:6px;display:flex;align-items:center;padding:0 10px;color:#fff;font-size:10px;font-weight:600;white-space:nowrap;background:var(--fig-accent)}
+.fig-tl .bar{height:28px;border-radius:0;display:flex;align-items:center;padding:0 10px;color:#fff;font-size:10px;font-weight:600;white-space:nowrap;background:var(--fig-accent)}
 .fig-tl .bar.sec{background:color-mix(in srgb,var(--fig-accent) 60%,#fff)}
 .fig-tl .ms::before{content:"◆";margin-right:4px;color:var(--fig-accent)}      /* マイルストーン */
 ```

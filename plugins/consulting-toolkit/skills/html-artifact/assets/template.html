@@ -171,8 +171,9 @@ table.report-table td.center{text-align:center}
 .scope-panel{background:var(--bg-alt);border:1px solid var(--rule);padding:24px 28px;margin:24px 0}
 .scope-panel .scope-head{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.18em;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
 .scope-panel .scope-sub{font-family:var(--font-jp);font-weight:600;font-size:16px;color:var(--ink);margin-bottom:14px}
-.scope-panel ul{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:6px 32px;font-size:13px}
-.scope-panel ul li{padding-left:18px;position:relative;color:var(--ink-soft);line-height:1.7}
+.scope-panel ul{list-style:none;font-size:13px}
+.scope-panel ul li{padding-left:18px;position:relative;color:var(--ink-soft);line-height:1.7;margin-bottom:6px}
+.scope-panel ul li:last-child{margin-bottom:0}
 .scope-panel ul li::before{content:"●";position:absolute;left:0;top:0;color:var(--accent);font-size:8px;line-height:2.0}
 
 /* ============ INSIGHT CALLOUT ============ */
@@ -407,7 +408,6 @@ table.report-table td.center{text-align:center}
   .kpi-row{grid-template-columns:1fr}
   .kpi-cell{border-right:none;border-bottom:1px solid var(--rule)}
   .state-grid{grid-template-columns:1fr}
-  .scope-panel ul{grid-template-columns:1fr}
   .roadmap-bar,.roadmap-detail{grid-template-columns:1fr}
   .budget-grid{grid-template-columns:1fr}
   .qa-grid{grid-template-columns:1fr}

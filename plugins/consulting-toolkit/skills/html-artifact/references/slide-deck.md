@@ -13,7 +13,7 @@
 
 ## テーマ切替
 
-Slide Deck format は **6 テーマ共通の統一シャシ**を使う。角丸・影・Filled-Header Card 群・Value Bar 等の視覚言語は 6 テーマで完全に共通で、**テーマ切替は `:root` の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数のみ**で完結する（`<body>` クラスによるモード切替はしない。旧表現の対応は `document-recipes.md`「エイリアス（後方互換）」を参照）。**唯一の例外は EightHundred テーマ**で、上記 3 変数に加えて `--font-jp` も切り替える（本文・見出しフォントが Meiryo UI になる）。
+Slide Deck format は **6 テーマ共通の統一シャシ**を使う。面の直角（`--card-radius:0`）・影・Filled-Header Card 群・Value Bar 等の視覚言語は 6 テーマで完全に共通で、**テーマ切替は `:root` の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数のみ**で完結する（`<body>` クラスによるモード切替はしない。旧表現の対応は `document-recipes.md`「エイリアス（後方互換）」を参照）。**唯一の例外は EightHundred テーマ**で、上記 3 変数に加えて `--font-jp` も切り替える（本文・見出しフォントが Meiryo UI になる）。
 
 **6 テーマは palette 違いのみ**：Mono = 黒帯、Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、Charcoal = チャコール帯（実質モノに近い）、EightHundred = ダークグリーン帯（クライアントブランド固有・フォントも Meiryo UI に切替）。既定は Mono。
 

@@ -14,7 +14,8 @@ description: >-
   「ちゃんとした体裁のドキュメントにして」「3 案比較を作って」「実装計画を作って」「16:9 のスライドにして」
   「ブラウザでめくれるプレゼン」「HTML スライドデッキ」「投影資料を作って」「文書に図解を入れて」
   「概念フロー図」「4 象限マトリクスで整理して」「ピラミッド図」「ファネルで可視化」「ベン図で表現して」
-  などのリクエスト時に使用する。既存 Markdown がある場合も対話的にゼロから作る場合も対応し、
+  などのリクエスト時に使用する。生成した 16:9 デッキを見本に pptx へ変換する前提がある場合は
+  PPTX 変換セーフモード（references/pptx-safe.md）を適用して崩れない HTML を生成する。既存 Markdown がある場合も対話的にゼロから作る場合も対応し、
   Markdown を Single Source of Truth として HTML を派生物として再生成できる。
   共有 URL 公開は `html-publish` スキルへ（本スキルは生成のみ）。
   マガジン風・編集デザイン風・派手な装飾のリクエストには使用しない。
@@ -38,7 +39,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 
 - **上流**：`slide-structure-designer`（スライド構成を MD で設計）→ その構成 MD を本スキルに渡して Slide Deck format で HTML スライド化できる。
 - **下流（公開）**：生成 HTML を共有 URL にしたい場合は `html-publish` スキルに出力パスを渡す（Cloudflare Pages デプロイ・manifest 管理・機密確認は html-publish が担う）。
-- **下流（PPTX）**：生成した Slide Deck HTML を「デザイン見本」として、ブランド pptx スキル（`pptx` をラップしたブランド版ラッパー。「html-artifact 参照モード」を持つもの）でデザイン・レイアウトを再現した PPTX を作成できる。
+- **下流（PPTX）**：生成した Slide Deck HTML を「デザイン見本」として、ブランド pptx スキル（`pptx` をラップしたブランド版ラッパー。「html-artifact 参照モード」を持つもの）、または slide_generator の `make run_image_slide` でデザイン・レイアウトを再現した PPTX を作成できる。**この下流を通す前提がある場合は生成時に `references/pptx-safe.md`（PPTX 変換セーフ規約）を適用する**（変換器は HTML を読むのではなくブラウザ描画後の実 DOM 実測値だけを使うため、疑似要素の装飾・1 行を分けた横並び・`transform: scale` は必ず崩れる）。
 
 ## 読み込み順序（必須）
 
@@ -54,6 +55,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 | 8 | [assets/template.html](assets/template.html) | Vertical Document 用スケルトンテンプレート（プレースホルダー付き。必ず複製してから編集） |
 | 9 | [assets/template-slides.html](assets/template-slides.html) | Slide Deck format 用テンプレート（5 枚スケルトン＋プレゼンモード CSS/JS＋図解スキャフォルド（fig-canvas / dgram-* / 高さ補正）） |
 | 10 | [assets/examples/travel_ai_poc.html](assets/examples/travel_ai_poc.html) | 全コンポーネントを使った完成形のサンプル（参考用） |
+| 11 | [references/pptx-safe.md](references/pptx-safe.md) | **PPTX 変換前提のときのみ必読**（Slide Deck format 限定）。ネイティブ pptx へ変換する見本として使う HTML の追加規約（疑似要素の装飾禁止・1 行を分けない・`transform: scale` 禁止・面は直角（2 色構成カードの角丸禁止）・表罫線の統一・折り返し余白・機械検査コマンド） |
 
 ## Triggers
 
@@ -69,6 +71,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 - Markdown または既存資料を 16:9 HTML スライドにしたい（Slide Deck format）
 - ブラウザでめくれるプレゼン資料・社内投影資料が欲しい（Slide Deck format）
 - 投資家ピッチ・コンサル提案書スタイルの 16:9 スライドが欲しい（Slide Deck format × Mono テーマ）
+- **あとで pptx に変換する見本として** 16:9 スライド HTML を作りたい（Slide Deck format × PPTX 変換セーフモード。`references/pptx-safe.md`）
 - 文書内に **構造化図解**（概念フロー・2x2 マトリクス・ピラミッド・ファネル・サイクル・ベン図・組織図・レイヤー図）を埋め込みたい
 - **明示的な図解指示がなくても**、章内容が構造的（フロー／対比／階層／サイクル／関係性）なら積極的に図解を入れる方針で動く（密度ガイドは Phase 1-5 参照）
 
@@ -86,9 +89,9 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 ## Inputs
 
 - **必須**: Markdown ファイルパス、または対話的ブリーフ（トピックのみ）
-- **任意**: クライアント名、Content Recipe（A〜F）、Output Format（Vertical Document / Slide Deck）、テーマ（Terracotta / Navy / Forest / Charcoal / Mono / EightHundred）
+- **任意**: クライアント名、Content Recipe（A〜F）、Output Format（Vertical Document / Slide Deck）、テーマ（Terracotta / Navy / Forest / Charcoal / Mono / EightHundred）、**PPTX 変換セーフモード**（この HTML を見本に pptx へ変換する予定があるか。既定はオフ）
 
-入力が不足している場合は最大 2 問だけ質問する（テーマ、用途）。
+入力が不足している場合は最大 2 問だけ質問する（テーマ、用途）。用途の質問で「pptx にも展開する」旨が示された場合は PPTX 変換セーフモードをオンにする。
 
 生成後に共有 URL 公開まで行いたい指示（「公開して」「URL を発行して」「Cloudflare に上げて」等）があった場合は、本スキルで HTML を生成・目視確認したうえで、出力パスを `html-publish` スキルに渡す。
 
@@ -110,6 +113,11 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
    - ユーザーが「スライド」「プレゼン」「16:9」「ブラウザでめくれる」「投影資料」「HTML デッキ」等を指示している場合は **Slide Deck format**
    - それ以外は **Vertical Document**（縦長文書、デフォルト）
    - Slide Deck format でも内容構成は 2a で決めた Content Recipe をそのまま使う（例：Content Recipe A × Slide Deck format）
+
+   2b-2. **PPTX 変換セーフモードの判定**（Slide Deck format のときのみ）
+   - この HTML を**見本としてネイティブ pptx へ変換する予定**（`make run_image_slide` に渡す／ブランド pptx スキルの html-artifact 参照モードに渡す／「pptx にも展開したい」「PowerPoint 版も要る」等）があるなら **PPTX 変換セーフモードをオン**にし、`references/pptx-safe.md` を読み込んで以降の全工程に適用する
+   - ブラウザ投影で完結する通常のデッキでは**オフのまま**にする（表現の幅が狭くなるため、必要でないときは適用しない）
+   - 判定が曖昧なときはオフを既定とし、その旨を 1 行で伝える（あとからオンにして作り直すより、用途を確認するほうが早い）
 
    2c. **エイリアス検出（後方互換）**
    - 「Recipe G」「Pitch Mode」「Mode A / Mode B」等の旧表現は、`references/document-recipes.md`「エイリアス（後方互換）」の対応表で現在の 3 軸表現に正規化する（例：Pitch Mode → Slide Deck format × Mono テーマ）
@@ -154,6 +162,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
    - **Slide Deck format**：`assets/template-slides.html` を同じくコピーし、`references/slide-deck.md` のスライド型ガイドに従ってスライドを増減する
    - `{{プレースホルダー}}` を実際のコンテンツに置換
    - 不要なセクションは削除、必要に応じて components.md からコンポーネントを追加
+   - **PPTX 変換セーフモードがオンの場合**：コンポーネントをそのまま貼らず、`references/pptx-safe.md` の変換セーフ形に直してから貼る（`li::before` のマーカーは行のテキストへ、行頭の ✓・章番号は本文と同じテキストノードへ、カードは `background-color` ＋ `border` の両方を持たせる、角丸カードは部分丸め＋重ね合わせをやめて 1 要素・4 隅同一半径にする、report-table 等の表はセルごとの罫線差を無くして統一する）
 
 8. **デザインシステム適用**
    - `references/design-system.md` の配色・タイポ・スペーシング仕様に従う
@@ -176,6 +185,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
     - (d) **並列起動**：1 メッセージで N 体の `slide-figure-creator` を同時に起動する
     - (e) **回収と統合**：各ワーカーの fragmentPath の内容を**丸ごと**対応スライドの図版スロットに貼る（フラグメントは `.fig-NN` スコープの `<style>`＋`.fig-wrap` の自己完結形式）。貼り先スライドの `<section class="slide">` には **`fig-slide` クラスを付ける**（縦中央・高さ充填。slide-deck.md「図版スライドは fig-slide で縦領域を使い切る」）。直組みで使っていた**旧 per-figure `.fig-NN` CSS は head から削除**しフラグメントに一本化する（プロパティ混線・class/SVG marker id 衝突の防止）。`effectiveHeight` が図版領域（≈440px）を大きく超える図は step 11 で重点確認する
     - (f) **フォールバック**：status が incomplete / failed のワーカー、またはサブエージェント起動不可の環境では、親が `references/diagram-components.md` に従って当該図を直組みする（従来パス）
+    - (g) **PPTX 変換セーフモードがオンの場合**：ブリーフに `pptxSafe: true` と `references/pptx-safe.md` の絶対パスを含め、ワーカーに同規約の適用を指示する（agent にはスキル参照ファイルが自動プリロードされないため diagramComponentsPath と同様に絶対パスで渡す）。図版で特に効くのは、**作り込み図版を `transform: scale` ではなく 1152px ネイティブで組むこと**（scale は矩形だけ縮み文字は縮まないため pptx で文字が溢れる）と、**辺・矢印を 1 枚のオーバーレイ SVG にまとめず 1 本ずつ独立要素にすること**（1 本ずつなら pptx のコネクタへ変換される）
     - 完了後、`/tmp/slide-figs-<id>/` は親が一括クリーンアップする
 
     **委譲をスキップしてよい例外は、サブエージェントを起動できない環境の 1 つのみ**。「シンプルでよい／軽くで」「図が少ない・単純だから」を理由に親が直組みすることはしない（全構造化図版をワーカーに委譲する）。「シンプルでよい」の要望は、委譲をスキップする理由ではなく、ワーカーが 3 層ルールで軽いレイヤー（固定 8 図解）を選ぶ設計上の指示として扱う。スキップ時（＝技術的フォールバック）も 1 図 1 サイクル（図単位で組んで都度検証）と `fig-slide` による縦充填は守る。
@@ -202,6 +212,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
     - **縦充填・単調性の確認**（Slide Deck format）: 非図版スライドでコンテンツ下端とフッターの間に約 120px 超の空白が残っていないか、同一構図が 3 枚以上連続していないかを確認する（step 5「割付の 3 規範」）。違反は調整して再撮影
     - **図解の接続・整列**（Slide Deck の作り込み図版）: はみ出しゼロだけで合格にしない。辺の両端がノード縁に接続しているか・注釈/バッジがアンカーに隣接しているか・図が図版領域を使い切っているかまで見る（チェックリストは diagram-components.md「検証」）
     - **委譲時の役割分担**（step 9.5 を使った場合）: 図版単体の検証はワーカーが完了済みなので親は再検証しない。親は**統合検証**を担う — スライド全景のサンプリング、プレゼンチャーム/カウンタ/サムネイル、`scrollWidth`/`clientWidth` による横はみ出し機械測定、図版とテキスト（message / body-list）の重なり、`fig-NN`・SVG marker id の重複が組み上がったデッキ内でゼロであること
+    - **PPTX 変換セーフ検査**（PPTX 変換セーフモードがオンの場合・必須）: slide_generator が入っている環境では `cd <slide_generator>/app/core && make run_html_pptx_lint SAMPLE_DIR=<出力HTMLのあるディレクトリ>` を実行し、**error 0 件**にしてから完了宣言する（同じ検査は `make run_image_slide` の実行時にも自動で走る）。slide_generator が無い環境では `references/pptx-safe.md` の「チェックリスト」を手で確認する。目視では気づけない崩れ（疑似要素のマーカー・1 行を分けた横並び・`transform: scale`）が対象で、**ブラウザ上は正しく見えていても pptx 化で必ず崩れる**ため、レンダリング確認では代替できない
     - **元との比較**（PPTX 再現・既存 HTML 改修など、元レイアウトがある場合）: 元画像・元期待値と並べて差分を確認
     - **インタラクション確認**（Slide Deck format の場合）: ページ送り、文字選択、ハイライト、サムネイル一覧、URL ハッシュ深リンクが意図通りに動くか
     - **修正サイクルでも同様**: 「ズレを修正しました」と宣言する前に再レンダリングして確認。修正→検証はペアで実行
@@ -262,9 +273,11 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 | 回転・斜め配置・浮遊要素 | すべて水平・垂直配置 |
 | 派手なホバーアニメーション | リンク色変更程度に留める |
 | 複数のアクセント色 | 1 色のみ |
+| 面（カード・パネル・帯・バー）の角丸。とくに 2 色構成（塗りヘッダー帯＋本文）のカードの角丸 | 角丸と直角が混在して見え、pptx 変換では専用シェイプに分割される。面は直角（`border-radius:0`）。円・ピル形のチップのみ例外 |
 | 表のゼブラストライプ（行交互の塗り分け） | Web UI 的に見える。罫線のみで区切る |
 | 最終セクションのダーク背景（Web のフッター風） | 業務文書では紙面のトーンを最後まで保つ。Summary もクリーム背景 |
 | **対称的な並列対比でのダーク背景**（買い手 vs 買われ側、メリット vs デメリット、A案 vs B案 等） | 両側を読み比べる文脈ではダーク側の可読性が落ちる。両側ともライト背景（`--bg-alt` / `--panel`）に統一し、強調はアクセントボーダーで行う。<br>**例外**：State Grid #11 の As-Is → To-Be のように「現状 vs 目指す姿」で **To-Be 側にだけ重みを置きたい非対称な比較**は `.state-box.target` のダーク使用可 |
+| **1 つの `<ul>`/`<ol>` を `display:grid`（`grid-template-columns` 2 列以上）や `column-count` で多段組にする**（Scope Panel #12 等） | 同一オブジェクトの箇条書きが横並びに分断され、文単位の項目は読み順が縦→横で乱れ、丈が不揃いだと段ズレする。**箇条書きは常に単一列で縦積み**（`display:block` の既定フロー。項目間は `li{margin-bottom}` で確保）。項目を意味のある単位で 2 列に「並べたい」場合は 1 つの `<ul>` を割らず、**独立した `<ul>` を 2 つ並べる**（Two Column Compare 等、別オブジェクトとして扱う） |
 
 ### ボディのベースライン規範（Slide Deck format のみ）
 
@@ -286,6 +299,26 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 - プレゼンチャーム（カウンタ・操作ヒント・トグル・サムネイル）は印刷時に必ず `display: none`
 - サムネイルパネルはスライドを `cloneNode(true)` で生成するため、`id` 属性の重複が発生しないよう **クローン時に `id` を全削除**する
 - 詳細仕様と完成 JS は `references/slide-deck.md` を参照
+
+### PPTX 変換セーフモード（Slide Deck format のみ・任意）
+
+生成 HTML を**見本としてネイティブ pptx へ変換する**予定があるときだけ適用する追加規約。正本は `references/pptx-safe.md`（読み込み順序表の 11 番）。ブラウザ投影で完結するデッキには適用しない。
+
+規約が要る理由は 1 つで、**変換器は HTML を読まずブラウザ描画後の実 DOM 要素だけを実測する**ため、実測に載らない表現は pptx で必ず崩れる。守るべき骨子は 6 つ：
+
+| 禁止 | 代わりに | 崩れ方 |
+|---|---|---|
+| `::before` / `::after` で描く箇条書きマーカー・罫線・矢印 | マーカーは行のテキストに直接書く（`● …`）／罫線はその要素の `border-top` / `border-bottom` | マーカーが消える・位置が本文からずれる |
+| 1 行を「マーカー要素＋本文要素」に分ける（`<span>✓</span><span>本文</span>`） | 行を包む要素が本文のテキストノードを**直接**持つ（`<span>✓</span>本文`） | pptx では上下 2 段に分解され、枠を超えた側が消える |
+| `transform: scale` を掛けた図版領域 | 1152px ネイティブで組む（`font-size` を直接小さく書く） | 矩形は縮み文字は縮まないため、文字だけ拡大されて溢れる |
+| グラデーション背景・`box-shadow` だけの境界・`clip-path` / `filter` | `background-color` 単色＋`border` | 無地になる・境界が消える |
+| 行ごとのアンダーライン（`border-bottom`）／字下げを `margin-left` で作る | 区切りは**行間**で表現する（行の罫線は付けない）／字下げは `padding-left`＋負の `text-indent` | 行ごとに線シェイプが増え、長さ・位置がばらつく／`margin-left` は箱ごとずれて罫線・背景が本文左端からずれる |
+| 面（カード・パネル・帯・バー）の角丸。とくに **2 色構成（塗りヘッダー帯＋本文）のカードの角丸** | 面は**直角**（`border-radius:0`）にする。円形（`border-radius:50%`）とピル形のチップ／バッジのみ例外 | 上 2 角／下 2 角だけ丸める専用シェイプに強制分割され、継ぎ目に線が入る・重ねた 2 枚がずれる |
+| セルごとに罫線の色・太さ・実線/点線を変える | 表全体で罫線を統一し、強調は `background-color` の差で出す | セルは個別図形に分解され、上辺以外の差分辺ごとに線シェイプが追加される＝罫線を変えるほどオブジェクト数が増える |
+
+加えて **1 行のテキストは枠内幅の 9 割まで**（PowerPoint のテーマフォントは Web フォントより 1〜2 割字幅が広い）、**フォントは 11px 以上**、**図版の矢印は 1 本ずつ独立要素**（1 枚のオーバーレイ SVG にまとめない）。
+
+**検査は機械で行う**：`cd <slide_generator>/app/core && make run_html_pptx_lint SAMPLE_DIR=<出力先ディレクトリ>` で error 0 件にする（step 11 参照）。目視・スクリーンショットでは検出できない。
 
 ### Slide Deck format のテーマ選定ガイド
 
@@ -324,6 +357,9 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 - **3 案比較を作りたい**：Recipe D + Proposal Card × 3、または Report Table + Rating Dots
 - **実装計画を作りたい**：Recipe A + Roadmap + Proposal Card
 - **公開したい / 共有 URL がほしい**：本スキルは生成のみ。出力 HTML パスを `html-publish` スキルに渡す
+- **pptx に変換したら見た目が崩れた（章番号や箇条書きの点が消える／行が上下に分解される／文字が枠から溢れる）**：HTML 側が PPTX 変換セーフでないことが原因。`references/pptx-safe.md` の 1〜3 節（疑似要素・1 行の分割・`transform: scale`）を直し、`make run_html_pptx_lint` で error 0 件にしてから再変換する。変換器の設定ではなく見本 HTML の書き方の問題なので、pptx 側をいじっても直らない
+- **pptx に変換したらカードの継ぎ目に線が入る／2 枚に分かれてずれる**：カード（とくに塗りヘッダー帯＋本文の 2 色構成）に角丸が付いている（`references/pptx-safe.md` 8 節）。面は直角（`border-radius:0`）にする
+- **pptx に変換したら表のオブジェクト数が異常に多い／表が重い**：セルごとに罫線の色・太さ・実線/点線が違う（`references/pptx-safe.md` 9 節）。表全体で罫線を統一し、強調は `background-color` で出す
 
 ## References
 
@@ -333,6 +369,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 - `references/components.md` — 30 種のコンポーネント仕様（基本 21 種＋拡張 4 種＋Slide Deck 統一シャシ 5 種）＋付録「Markdown → HTML マッピング」
 - `references/diagram-components.md` — 図解の統合リファレンス（固定 8 図解＋リッチ判定＋レイアウトパターン 5 種＋作り込み図版 `.fig-NN`。exemplar 方式・濃淡ランプ・トークン化注意を含む）。**図版委譲時はワーカーにこのファイルの絶対パスを渡す**（agent にはスキル参照ファイルが自動プリロードされないため）
 - `references/slide-deck.md` — Slide Deck format 専用。スライドシェル仕様・5 種スライド型・プレゼンチャーム CSS/JS 完成形
+- `references/pptx-safe.md` — PPTX 変換セーフ規約（Slide Deck format × pptx 変換前提のときのみ）。変換器が実測する項目・しない項目の対応表、NG→OK の書き換え例、`make run_html_pptx_lint` による機械検査。**図版委譲時は diagramComponentsPath と同様に絶対パスでワーカーに渡す**
 - `${CLAUDE_PLUGIN_ROOT}/skills/slide-pattern-creator/library/SLIDE-PATTERN-INDEX-COMPACT.md` — レイアウト割付用の軽量パターンインデックス（1 行/パターン。Slide Deck format の step 5 で必読。正本は同ディレクトリの SLIDE-PATTERN-INDEX.md）
 - `${CLAUDE_PLUGIN_ROOT}/skills/slide-pattern-creator/library/SLIDE-PATTERN-INDEX-BY-LOGIC.md` — 論理型からの逆引き索引（メッセージの述語 → 論理型 → パターン候補）。step 5 の構造翻訳で使う
 - `${CLAUDE_PLUGIN_ROOT}/skills/_shared/deck-rhetoric.md` — デッキ全体を貫く約束事（識別子の貫通・現在地・再掲・確度表示・引用の器）
@@ -351,6 +388,6 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 | `frontend-design` | アプリ UI（プロダクション級、本格的なフレームワーク利用） |
 | `note-article-writer` | note.com 向け記事執筆（外部スキル） |
 | `meeting-minutes-creator` | 会議メモから議事録の文章生成（HTML 化は本スキル） |
-| ブランド pptx（`pptx` ラッパーのブランド版） | ネイティブ PowerPoint（.pptx）納品。本スキルが生成した Slide Deck HTML をデザイン見本に再現（外部スキル・インストールされていれば） |
+| ブランド pptx（`pptx` ラッパーのブランド版） / slide_generator `make run_image_slide` | ネイティブ PowerPoint（.pptx）納品。本スキルが生成した Slide Deck HTML をデザイン見本に再現（外部スキル・外部リポジトリ）。**渡す HTML は `references/pptx-safe.md` 準拠で生成する** |
 | **本スキル（Vertical Document）** | 業務文書ドメイン（企画書・報告書・議事メモ・通達等）の縦長 HTML 化 |
 | **本スキル（Slide Deck format）** | 同じデザインシステムで作る 16:9 HTML スライドデッキ（ブラウザ投影前提） |
