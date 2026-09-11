@@ -4,7 +4,7 @@ description: >-
   Markdown を業務文書スタイルの自己完結 HTML アーティファクトに変換するスキル。コンサルティングファームの
   社内文書のような上品で構造的なデザイン（紙質クリーム背景・Noto Sans JP 統一フォント）で、
   企画書・提案書・報告書・調査レポート・戦略メモ・意思決定文書・議事メモ・社内通達・3 案比較・実装計画・
-  業務プロセス文書を生成する。30 種の構造化コンポーネント（基本 21＋拡張 4＋Slide Deck 統一シャシ 5）と
+  業務プロセス文書を生成する。29 種の構造化コンポーネント（基本 21＋拡張 4＋Slide Deck 統一シャシ 4）と
   8 種の構造化図解（概念フロー、2x2 マトリクス、ピラミッド、ファネル、サイクル、ベン図、組織図、
   レイヤー積層図）をインライン HTML+CSS で埋め込め、同じデザインシステムで 16:9 HTML スライドデッキ
   （Slide Deck format, 1280×720。単スライド表示・キーボード送り・サムネイル一覧・URL ハッシュ深リンク・
@@ -49,7 +49,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 | 2 | [references/document-recipes.md](references/document-recipes.md) | Content Recipe A〜F（章構成）と Output Format（Vertical Document / Slide Deck）の判定フロー。**種別判定はここから始める** |
 | 3 | [references/design-system.md](references/design-system.md) | カラー・タイポグラフィ・6 テーマ（Terracotta / Navy / Forest / Charcoal / Mono / EightHundred）・印刷対応の CSS 仕様 |
 | 4 | `${CLAUDE_PLUGIN_ROOT}/skills/_shared/slide-body-principles.md` | **ボディ（コンテンツエリア）のベースライン規範**（5 原則＋例外 2 つ＋数値換算表）。**Slide Deck format のみ必読**（Vertical Document は対象外） |
-| 5 | [references/components.md](references/components.md) | 30 種のコンポーネント仕様（基本 21 種＋拡張 4 種＋Slide Deck × Mono 参照デザイン 5 種。HTMLスニペット付き）。**末尾に付録「Markdown → HTML マッピング」**（旧 markdown-html-mapping.md を統合） |
+| 5 | [references/components.md](references/components.md) | 29 種のコンポーネント仕様（基本 21 種＋拡張 4 種＋Slide Deck 統一シャシ 4 種。HTMLスニペット付き）。**末尾に付録「Markdown → HTML マッピング」**（旧 markdown-html-mapping.md を統合） |
 | 6 | [references/diagram-components.md](references/diagram-components.md) | **図解の統合リファレンス**：固定 8 図解（概念フロー・2x2・ピラミッド・ファネル・サイクル・ベン図・組織図・レイヤー）＋**リッチ判定**（作り込み図版を既定とする条件）＋**レイアウトパターン**（スイムレーン/マトリクス/カード/ステップ/タイムライン。image-generator-guide 取り込み）＋**作り込み図版**（`.fig-NN` per-figure。exemplar 方式・トークン化注意を含む）。図解が必要なときに参照 |
 | 7 | [references/slide-deck.md](references/slide-deck.md) | Slide Deck format 専用。16:9 スライドシェル仕様（1280×720・5 種スライド型・プレゼンチャーム CSS/JS 完成形・印刷対応） |
 | 8 | [assets/template.html](assets/template.html) | Vertical Document 用スケルトンテンプレート（プレースホルダー付き。必ず複製してから編集） |
@@ -139,9 +139,9 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
    - > 根拠：盲検レビュー実験（2026-07-17）で、素朴なパターン当てはめは自由記述に敗れたが、3 規範を加えた本ルールは自由記述を上回った。3 規範は割付の付属品ではなく勝敗を分けた本体
    - **パターン指定の解釈（スケルトンHTMLは任意採寸）**：入力の構成MDに `パターン指定: SLIDE-PATTERN-{name}` がある場合、まず **パターン名と構成MDの図版指示から** コンテンツエリア構造（エリア分割・要素配置）を組む。**構造の決定権は「構成MDのパターン指定＋図版指示」が正本**であり、`${CLAUDE_PLUGIN_ROOT}/skills/slide-pattern-creator/library/` のスケルトンHTMLは **既定では開かない**。列比・固定幅・多段の高さ配分など **比率の採寸に迷うときだけ**、該当スケルトンHTMLを採寸源として任意参照する（高密度パターン＝references-table / stacked-bar 60/40 / two-lane-pipeline 等）。優先順位は **構成MD構図 ＞ 図版指示 ＞ HTML寸法採寸**（slide-pattern-creator の正本ルールと同じ）。部品の実装は components.md / diagram-components.md から充当する。パターン指定がないスライドは、上記レイアウト割付で決めた割付（実在パターン名／fig-slide／理由付き自由記述）に従って組む
    - > 根拠：実験4で、スケルトンHTMLを読まずに構成MDのパターン指定＋図版指示だけで組んでも品質差は僅差で入力トークンは約半減だったため、必須参照から任意採寸に格下げした
-   - 各章の内容に最適なコンポーネントを `references/components.md` の 30 種（基本 21 種＋拡張 4 種＋Slide Deck 統一シャシ 5 種）から選ぶ
+   - 各章の内容に最適なコンポーネントを `references/components.md` の 29 種（基本 21 種＋拡張 4 種＋Slide Deck 統一シャシ 4 種）から選ぶ
    - **拡張コンポーネント（22〜25：Eyebrow Bar / Hero Number / Takeaway Strip / Annotation Pointer）**：Slide Deck format × Mono テーマで最も映えるが、他のテーマや Vertical Document でも使ってよい
-   - **統一シャシ 5 種（26〜30：Filled-Header Card / Value Bar / Icon Chip / Pill Tag / Expansion Pills）**：**Slide Deck 全 6 テーマ共通**（`--accent` に自動追従）。参照デザイン（AI Biz Ops Partner / VisasQ figures）踏襲時の主役コンポーネント。Vertical Document には適用しない。**#26 Filled-Header Card はカード内カード構造のため、図版の見せ場（ベースライン規範 例外①）としてのみ主役に使う**（components.md #26 のルール参照）
+   - **統一シャシ 4 種（#26 Filled-Header Card / #27 Value Bar / #29 Pill Tag / #30 Expansion Pills。#28 Icon Chip は廃止）**：**Slide Deck 全 6 テーマ共通**（`--accent` に自動追従）。参照デザイン（AI Biz Ops Partner / VisasQ figures）踏襲時の主役コンポーネント。Vertical Document には適用しない。**#26 Filled-Header Card はカード内カード構造のため、図版の見せ場（ベースライン規範 例外①）としてのみ主役に使う**（components.md #26 のルール参照）
    - **構造化図解の積極利用**：章内容が図解向きならまず `references/diagram-components.md` の 8 種（概念フロー・2x2 マトリクス・ピラミッド・ファネル・サイクル・ベン図・組織図・レイヤー積層図）を検討する。テキスト＋表だけで埋めない
    - **作り込み図版（Slide Deck format・リッチ判定で既定）**：Slide Deck では、①ノードが属性を 2 つ以上持つ（名称＋役割＋正本/状態 等）②辺・受け渡しに意味のあるラベルが付く ③レーン・時間軸・2 軸など次元が 2 つ以上 ④ 1 要素だけを強調するヒーロー対比 — のいずれかに当てはまるメッセージは、**固定 8 図解で形式上表現できても作り込み図版を既定**とする（判定の詳細は `references/diagram-components.md`「図解の 3 層」）。組み方は diagram-components.md 後半のレイアウト原則（**構造型で選ぶ**：並置・ステップ・マトリクス等は flow、関係図・アーキ・ハブ&スポーク・レーン跨ぎ曲線は absolute＋SVG 第一候補。image-generator-guide 踏襲）／作図文法に従い、**出来の良い既存図版があれば exemplar として参照する**（同「exemplar 方式」。型に当てはめて情報を落とさない）。配色は `--fig-accent` 由来 + `--good`/`--warn` に限定（テーマ追従・**多色禁止は維持**）。固定 8 図解は単一関係・単一次元の概念図に限って使う。**Slide Deck format では、固定 8 図解か作り込み図版かに関わらず、すべての構造化図版を step 9.5 で専用ワーカー `slide-figure-creator` に委譲する**（リッチ判定はここでは図のレイヤーを決める設計ガイドであって、委譲するか否かのゲートではない。レイヤーの最終判断はワーカーが 3 層ルールで行う）
    - **図解密度ガイド**（議事メモ・通達・短文の速報系を除く全ドキュメントに適用）：
@@ -153,7 +153,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
    - Markdown パターンから自動で割り当てる場合は `references/components.md` 末尾の付録「Markdown → HTML マッピング」を参照（章内容が図解向きと判定されたら原則として図解に置換する）
 
 6. **テーマ選択**
-   - **既定はすべて Mono**（Vertical Document / Slide Deck format 共通）。Slide Deck format は 6 テーマ共通の統一シャシ（構造色・カード装飾・段階濃度は不動）で、`--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）が palette 差分になる（Terracotta を選べば同じ Filled-Header Card がテラコッタ帯で描画され、Mono では薄グレー帯＋黒文字＋蛍光黄マーカーになる）。他 5 テーマ（Terracotta / Navy / Forest / Charcoal / EightHundred）は色味を変えたい場合の任意の代替パレット。用途に応じた使い分けは規定しない。**EightHundred のみ `--font-jp` も切り替わり、本文・見出しフォントが Meiryo UI になる**（クライアントブランド固有テーマ。詳細は design-system.md「Theme 6」）
+   - **既定はすべて Mono**（Vertical Document / Slide Deck format 共通）。Slide Deck format は 6 テーマ共通の統一シャシ（構造色・カード装飾は不動）で、`--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）が palette 差分になる（Terracotta を選べば同じ Filled-Header Card がテラコッタ帯で描画され、Mono では薄グレー帯＋黒文字＋蛍光黄マーカーになる）。他 5 テーマ（Terracotta / Navy / Forest / Charcoal / EightHundred）は色味を変えたい場合の任意の代替パレット。用途に応じた使い分けは規定しない。**EightHundred のみ `--font-jp` も切り替わり、本文・見出しフォントが Meiryo UI になる**（クライアントブランド固有テーマ。詳細は design-system.md「Theme 6」）
    - **EightHundred は Slide Deck format のフレーム（Cover・title-bar・footer・ロゴ）も実クライアント PPTX に準拠する唯一のテーマ**：他 5 テーマは配色のみの差分だが、EightHundred は Cover の全面ダークグリーン化・title-bar の日本語アイブロウラベル・footer のコピーライト表記・砦ロゴマーク（`.eh-logo` / `.eh-logo-badge`）まで上書きする。トークン・マークアップ例は design-system.md「EightHundred のフレーム仕様」、スライド型ごとの差分は slide-deck.md の該当節（1. Cover / 4. Content）を参照。Vertical Document では対象外（配色とフォントのみ反映）
    - 1 ドキュメント 1 テーマ
 
@@ -273,11 +273,13 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 | 回転・斜め配置・浮遊要素 | すべて水平・垂直配置 |
 | 派手なホバーアニメーション | リンク色変更程度に留める |
 | 複数のアクセント色 | 1 色のみ |
+| **塗り面だけで意味を伝える装飾アイコン**（1 文字コードの塗りチップ、テキストで足りる円形の番号・記号バッジ。旧 Icon Chip #28・旧 `.vb-icon` が該当） | 読み手に情報を足さず、pptx 変換では本文と別図形に分解されて縦位置が合わない（薄い塗りは色味も再現されない）。番号・記号・コードは**同じ行のテキスト**として直接書く。図解のノード番号・タイムラインのマーカー・凡例ドット・レーティングドットのように、位置や大小そのものが意味を持つ図形要素は対象外 |
 | 面（カード・パネル・帯・バー）の角丸。とくに 2 色構成（塗りヘッダー帯＋本文）のカードの角丸 | 角丸と直角が混在して見え、pptx 変換では専用シェイプに分割される。面は直角（`border-radius:0`）。円・ピル形のチップのみ例外 |
 | 表のゼブラストライプ（行交互の塗り分け） | Web UI 的に見える。罫線のみで区切る |
 | 最終セクションのダーク背景（Web のフッター風） | 業務文書では紙面のトーンを最後まで保つ。Summary もクリーム背景 |
 | **対称的な並列対比でのダーク背景**（買い手 vs 買われ側、メリット vs デメリット、A案 vs B案 等） | 両側を読み比べる文脈ではダーク側の可読性が落ちる。両側ともライト背景（`--bg-alt` / `--panel`）に統一し、強調はアクセントボーダーで行う。<br>**例外**：State Grid #11 の As-Is → To-Be のように「現状 vs 目指す姿」で **To-Be 側にだけ重みを置きたい非対称な比較**は `.state-box.target` のダーク使用可 |
 | **1 つの `<ul>`/`<ol>` を `display:grid`（`grid-template-columns` 2 列以上）や `column-count` で多段組にする**（Scope Panel #12 等） | 同一オブジェクトの箇条書きが横並びに分断され、文単位の項目は読み順が縦→横で乱れ、丈が不揃いだと段ズレする。**箇条書きは常に単一列で縦積み**（`display:block` の既定フロー。項目間は `li{margin-bottom}` で確保）。項目を意味のある単位で 2 列に「並べたい」場合は 1 つの `<ul>` を割らず、**独立した `<ul>` を 2 つ並べる**（Two Column Compare 等、別オブジェクトとして扱う） |
+| **面（カード・パネル・見出し）の辺の一部だけをアクセント色にする**（`border-left` / `border-top` 等、1 辺だけ `var(--accent)` にする「アクセント縦線・横線」。minor-head・insight・lede・qa-card・flow-note・dq-cell.accent・summary で過去に使用） | 装飾的な色付き罫線があちこちに増殖し「アクセントは 1 色・意味の区別にのみ」の原則が崩れる。**強調は罫線ではなく面全体のティント**（`background:var(--accent-bg)`）か**全周同色の中立罫線**（`border:1px solid var(--rule)`）で行う。カードの縁取りとして全周を `var(--accent)` にする（対称的な強調）のは可。意味のある警告表示（`--warn`）を辺の一部に使うのは例外として許可する |
 
 ### ボディのベースライン規範（Slide Deck format のみ）
 
@@ -348,7 +350,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 ## トラブルシューティング
 
 - **章が多すぎて TOC が 3 列になりそう**：12 章を超えるなら、関連章を統合するか、第 2 目次（章内目次）を検討
-- **コンポーネントが足りない**：components.md にない要素は既存 30 種の組み合わせで実現。新規 CSS は追加しない
+- **コンポーネントが足りない**：components.md にない要素は既存 29 種の組み合わせで実現。新規 CSS は追加しない
 - **色をもっと使いたい**：禁止。代わりに 6 テーマ（Terracotta / Navy / Forest / Charcoal / Mono / EightHundred）の切り替えを検討
 - **派手にしてほしいと言われた**：本スキルは業務文書スタイル。マガジン風・装飾デザインは別アプローチで対応する
 - **議事メモのような短い文書**：TOC も省略し、Cover→2〜4 章→Footer のシンプル構成にする（まとめ節は Vertical Document では既定で置かない）
@@ -366,7 +368,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 詳細は以下を参照:
 - `references/document-recipes.md` — Content Recipe A〜F（6 種の章構成）と Output Format（Vertical / Slide Deck）の判定フロー
 - `references/design-system.md` — 配色・タイポ・6 テーマ（Terracotta / Navy / Forest / Charcoal / Mono / EightHundred）・印刷対応。EightHundred のみ Cover/title-bar/footer/ロゴのフレーム仕様も含む
-- `references/components.md` — 30 種のコンポーネント仕様（基本 21 種＋拡張 4 種＋Slide Deck 統一シャシ 5 種）＋付録「Markdown → HTML マッピング」
+- `references/components.md` — 29 種のコンポーネント仕様（基本 21 種＋拡張 4 種＋Slide Deck 統一シャシ 4 種）＋付録「Markdown → HTML マッピング」
 - `references/diagram-components.md` — 図解の統合リファレンス（固定 8 図解＋リッチ判定＋レイアウトパターン 5 種＋作り込み図版 `.fig-NN`。exemplar 方式・濃淡ランプ・トークン化注意を含む）。**図版委譲時はワーカーにこのファイルの絶対パスを渡す**（agent にはスキル参照ファイルが自動プリロードされないため）
 - `references/slide-deck.md` — Slide Deck format 専用。スライドシェル仕様・5 種スライド型・プレゼンチャーム CSS/JS 完成形
 - `references/pptx-safe.md` — PPTX 変換セーフ規約（Slide Deck format × pptx 変換前提のときのみ）。変換器が実測する項目・しない項目の対応表、NG→OK の書き換え例、`make run_html_pptx_lint` による機械検査。**図版委譲時は diagramComponentsPath と同様に絶対パスでワーカーに渡す**

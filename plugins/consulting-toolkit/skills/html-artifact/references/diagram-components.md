@@ -541,18 +541,16 @@ scale = 1152 / （fig-canvas のネイティブ幅）
   --fa-18: color-mix(in srgb, var(--fig-accent) 18%, #fff);   /* 中間面（強調セル） */
   --fa-30: color-mix(in srgb, var(--fig-accent) 30%, #fff);   /* 濃面（最強調セル） */
   --fa-line: color-mix(in srgb, var(--fig-accent) 35%, var(--rule));   /* アクセント罫線 */
-  --fa-deep:   color-mix(in srgb, var(--fig-accent) 72%, #fff);   /* 進行 2 段目の塗り地（白文字可） */
-  --fa-deeper: color-mix(in srgb, var(--fig-accent) 50%, #fff);   /* 進行 3 段目の塗り地（白文字可） */
 }
 ```
-- フォントは Noto Sans JP（本文・見出し）／ JetBrains Mono（番号・ラベル・数値）。
+- フォントは Noto Sans JP（本文・見出し）／ JetBrains Mono（番号・ラベル・数値）。**ただし、見出し帯・キャプションの冒頭に置く連番（`01`／`02`／`Step1` 等）をキャプション本文と同じ行にインラインで前置する場合は対象外**：番号とテキストは同一のフォント・色・サイズにする（`<span class="sn">01</span>ステップ名` のように、数字部分だけを JetBrains Mono・`rgba` の弱色・別サイズにしない）。JetBrains Mono／弱色は、キャプション本文と**別行・別要素**の数字（章番号 `sec-num`、ページ番号、`doc-id`、KPI 強調数値の `.num`/`.big` 等）にのみ使う。
 
 ### トークン化の注意（レンダリング検証済み）
 
 元図版・ブランド色付き図版を exemplar として取り込むときの変換規則。いずれも実際の崩れから得た規則：
 
-- **塗り地の上の文字**は `#fff` と `rgba(255,255,255,0.72)`（弱）。アクセントの淡色 tint（元図版の `#cdd9ff` 等）は使わない — 彩度の高い青では成立するが、Charcoal / Mono（アクセント≒黒）では濁って読めない
-- **進行・段階の濃淡は「濃→淡」**（`--fig-accent` → `--fa-deep` → `--fa-deeper`。塗り地はいずれも白文字可）。`--ink` 方向へ深めるランプは、Mono / Charcoal（アクセント≒ink）で全段が同一の黒に収束するため使わない
+- **塗り地の上の文字**は `#fff` と `rgba(255,255,255,0.72)`（弱）。アクセントの淡色 tint（元図版の `#cdd9ff` 等）は使わない — 彩度の高い青では成立するが、Charcoal / Mono（アクセント≒黒）では濁って読めない。**弱色 `rgba(255,255,255,0.72)` はキャプション本文と別行の要素（フェーズ名の下のサブ行等）にのみ使う**。見出し帯先頭のインライン番号には使わない（上記「フォント」の規定）
+- **進行・段階は濃淡ランプで表現しない**（隣接する要素の塗りを徐々に淡くする配色は見た目がグラデーションになるため禁止。§ガードレール）。フェーズ／ステップの区別は `--fig-accent` の**同一濃度の単色塗り**＋番号バッジ・矢印・ラベルで行う（詳細は「フェーズ・ステップの進行表現」節）
 - **アクセントと `--ink` を同一図内で別の意味に使わない**（Mono / Charcoal では同化して区別が消える）。種別の区別は濃淡ではなく**枠線・塗り反転・ラベル**で行う（例：ガントの納品バー＝白地＋`--ink` 枠）。塗り帯の上の強調セルは、アクセント塗りに `box-shadow:inset 0 -4px 0 rgba(255,255,255,0.65)` の白下線を重ねる（Mono でも帯と同化しない）
 - **影**は `0 2px 8px rgba(0,0,0,0.06)` を標準、ヒーロー要素のみ `0 4px 14px rgba(0,0,0,0.10)` まで。ブランド色付きの影（`rgba(0,82,255,.2)` 等）は使わない
 - **注意・確認系**（元図版の amber 等）は `--warn` / `--warn-bg` に割り当てる。第 2 のアクセント色を持ち込まない
@@ -592,7 +590,12 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 
 - **面（カード・パネル・帯・バー）は角丸を使わず直角**（`border-radius:0`）。とくに **2 色構成（塗りヘッダー帯＋本文）のカードで角丸は使わない**：pptx では上 2 角／下 2 角だけ丸める専用シェイプに分割されて継ぎ目に線が入り、デッキ内でも角丸と直角が混在して見える。円形（`border-radius:50%`）とピル形のチップ／バッジのみ例外（`.dgram-badge` 等）。
 - 複数アクセント色禁止 → `--fig-accent` 由来 ＋ `--good`/`--warn` のみ。
-- グラデーション・テクスチャ・回転/斜め・浮遊・巨大装飾数字（200px超）・派手アニメ禁止。
+- **塗り面だけで意味を伝える装飾アイコンを図版に持ち込まない**（1 文字コードの塗りチップ、テキストで足りる円形の番号・記号バッジ）。番号・記号は同じ行のテキストとして書く。ノード内の連番・タイムラインのマーカー・凡例ドットのように、**位置や大小そのものが意味を持つ図形要素は対象外**（design-system.md 禁止パターン／pptx-safe.md §2）。
+- **辺の一部だけを `--fig-accent` で着色しない**（ラベル帯・セルの `border-left` / `border-top` だけをアクセント色にする「左端バー」等）。強調したい要素は `border` で全周を同色に縁取るか、背景の濃淡（`color-mix(in srgb, var(--fig-accent) N%, #fff)`）で示す。
+- グラデーション（`linear-gradient` 等の CSS グラデーション関数）・テクスチャ・回転/斜め・浮遊・巨大装飾数字（200px超）・派手アニメ禁止。
+- **見出し帯・キャプション冒頭のインライン番号（`01`／`02` 等）だけをフォント・色で書式変えしない**（JetBrains Mono・弱色 `rgba` を数字部分だけに当てると、同一キャプション内で書式が割れて見える）。番号とテキストは同一フォント・同一色にし、章番号・ページ番号のような**別行・別要素の数字**とは区別する。
+- **同一のボックス・同一の行内ではフォントサイズを変えない**（KPI 強調数値・「50%」のような文中強調も対象）。数字を目立たせたい場合はフォント（`JetBrains Mono`）・色（`--fig-accent`）・`font-weight` で強弱を付け、サイズは行内で統一する。数字を独立した行・別要素にする場合（`.num` を単独の `<div>` 行にする等）はこの制約の対象外（design-system.md「同一ボックス・同一行内でのフォントサイズ変更を禁止」参照）。
+- **進行・フェーズ・ステップの区別に濃淡ランプ（隣接する要素を徐々に濃淡違いの単色で並べる配色）を使わない**。1 段ずつ淡くする／濃くする塗りは見た目がグラデーションになるため、CSS の `gradient` 関数を使っていなくても禁止する。進行は**同一濃度の単色塗り**＋番号バッジ・矢印・連結線・ラベルで示す（「フェーズ・ステップの進行表現」節）。ヒートマップ・マトリクスのセル密度のように、**各セルが独立した値の大小を表す**濃淡表現（`--fa-04〜30`）はこの禁止の対象外
 - 対称的な並列対比でダーク背景にしない（VS は両側ライト）。
 - 1 スライド 1 図版。8 図解・コンポーネントで表現できる構造はそちらを優先。
 
@@ -624,7 +627,7 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 | `#e0e0e0` | ボーダー淡 | `var(--rule-soft)` |
 | `#f5f5f5`/`#f8f8f8` | カード背景 | `var(--bg-alt)` |
 | `#ffffff` | パネル | `var(--panel)` |
-| フェーズ進行（濃→淡 `#1a1a1a→#888`） | 段階の進行 | `--fig-accent` の濃淡ランプ（`color-mix` 100%→淡） |
+| フェーズ進行（濃→淡 `#1a1a1a→#888`） | 段階の進行 | `--fig-accent` **単色**＋番号バッジ・矢印（濃淡ランプは使わない） |
 | 意味色（積極投資=緑／維持=黄／縮小=灰） | 優先度・評価 | `--good`/`--good-bg` ／ `--warn`/`--warn-bg` ／ `--bg-alt` |
 
 ## 共通部品（template-slides.html に同梱・`.fig-NN` 内で使う）
@@ -673,7 +676,7 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 .fig-swim .colh{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:7px;text-align:center}
 .fig-swim .colh .cn{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;color:var(--fig-accent)}
 .fig-swim .colh .cl{font-size:10.5px;color:var(--ink-soft);line-height:1.25}
-.fig-swim .lane-lbl{display:flex;flex-direction:column;justify-content:center;padding:8px 12px;background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--fig-accent);border-radius:0;font-weight:700;white-space:nowrap}
+.fig-swim .lane-lbl{display:flex;flex-direction:column;justify-content:center;padding:8px 12px;background:var(--panel);border:1px solid var(--rule);border-radius:0;font-weight:700;white-space:nowrap}
 .fig-swim .sc{min-height:46px;border-radius:0;background:var(--bg-alt);border:1px dashed var(--rule-soft)}             /* 空セル */
 .fig-swim .sc.on{background:color-mix(in srgb,var(--fig-accent) 26%,#fff);border:1.5px solid var(--fig-accent)}        /* 所有セル */
 .fig-swim .sc.on.sec{background:color-mix(in srgb,var(--fig-accent) 11%,#fff);border:1px solid color-mix(in srgb,var(--fig-accent) 35%,var(--rule))}
@@ -684,21 +687,21 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 行＝カテゴリ、列＝軸のクロス。市場マップ・正本（SSoT）所有・優先度評価に。
 - `display:grid; grid-template-columns:<行ラベル> repeat(N,1fr);`
 - ヘッダー＝`--fig-accent`、行ラベル＝`--bg-alt`。
-- セルは**密度＝`--fig-accent` 濃淡**で塗り、左端アクセントバー（`border-left:3px`）で強弱。
+- セルは**密度＝`--fig-accent` 濃淡**の塗りだけで強弱を示す（辺の一部だけをアクセント色にする左端バー等は使わない。強調したいセルは `border:1.5px solid var(--fig-accent)` で全周を縁取る）。
 - 優先度 3 段が要る場合のみ：積極＝`--good`/`--good-bg`、維持＝`--warn`/`--warn-bg`、縮小＝`--bg-alt`（＝原典の緑/黄/灰の意味色対応。新規アクセント色は足さない）。
 - 凡例を下部に置く。
 
 ```css
 /* CSS スケルトン（原典 design-patterns.md パターン2 をトークン化） */
 .fig-mtx{display:grid;grid-template-columns:300px repeat(5,1fr);gap:6px}        /* 行ラベル列 + N 軸列 */
-.fig-mtx .hc{display:flex;align-items:flex-end;justify-content:center;padding:6px 4px 9px;font-weight:700;color:var(--ink);border-bottom:2px solid var(--fig-accent);text-align:center}
+.fig-mtx .hc{display:flex;align-items:flex-end;justify-content:center;padding:6px 4px 9px;font-weight:700;color:var(--ink);border-bottom:2px solid var(--ink);text-align:center}
 .fig-mtx .rh{display:flex;align-items:center;padding:8px 12px;font-weight:600;color:var(--ink);background:var(--bg-alt);border-radius:0}
 .fig-mtx .cell{min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg-alt);border:1px dashed var(--rule);border-radius:0}
-.fig-mtx .cell.own{background:color-mix(in srgb,var(--fig-accent) 15%,#fff);border:1.5px solid var(--fig-accent);border-left:3px solid var(--fig-accent)}
+.fig-mtx .cell.own{background:color-mix(in srgb,var(--fig-accent) 15%,#fff);border:1.5px solid var(--fig-accent)}
 /* 優先度3段（意味区分が要る場合のみ。新規アクセント色は足さない） */
-.fig-mtx .cell.invest{background:var(--good-bg);border-left:3px solid var(--good)}
-.fig-mtx .cell.maintain{background:var(--warn-bg);border-left:3px solid var(--warn)}
-.fig-mtx .cell.shrink{background:var(--bg-alt);border-left:3px solid var(--rule)}
+.fig-mtx .cell.invest{background:var(--good-bg);border:1px solid var(--good)}
+.fig-mtx .cell.maintain{background:var(--warn-bg);border:1px solid var(--warn)}
+.fig-mtx .cell.shrink{background:var(--bg-alt);border:1px dashed var(--rule)}
 ```
 
 ## パターン3：カード型
@@ -713,32 +716,28 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 横並びのステップカードを矢印で接続。手順・プロセスに。
 - 各ステップ `flex:1`、間に矢印（固定幅・SVG `▶`）。
 - 矢印カラムには受け渡しの**小ラベル／ピル**（10〜11px）を載せてよい（辺ラベルの情報を落とさない）。
-- バッジ・仕切り線は**ステップ別色にせず**、番号＋`--fig-accent` 濃淡で段階を示す（単色）。
+- バッジ・仕切り線は**ステップ別色にせず**、番号＋`--fig-accent` **同一濃度の単色**で段階を示す（濃淡ランプは使わない。§ガードレール）。
 - フッターに出典（`.fact-list .src` 相当）を `margin-top:auto` で下端固定。
 - ※ 既存の **Concept Flow（diagram 22）／Roadmap（#19）／Flow with Margin（#21）** と重なる。**まず既存を使い**、足りないときだけ本パターン。
 
 ## パターン5：タイムライン/ロードマップ型
 
 横軸＝時間（クォーター等）、縦軸＝レーン、施策バー＋◆マイルストーン。ガント・ロードマップに。
-- フェーズヘッダー＝`--fig-accent` の**濃淡ランプ**で進行を表現（原典の濃→淡グレースケールに対応）。
-- レーン間＝破線（`border-bottom:1px dashed var(--rule)`）、施策バー＝`--fig-accent` 濃淡。
+- フェーズヘッダー＝`--fig-accent` **単色**（全フェーズ同一濃度）＋番号・ラベルで進行を表現（濃淡ランプは使わない。§ガードレール）。
+- レーン間＝破線（`border-bottom:1px dashed var(--rule)`）、施策バー＝`--fig-accent` 単色。種別・担当の違いは濃淡ではなく**塗り反転**（アクセント塗り vs 白地＋アクセント枠）で示す。
 - マイルストーンは `◆`（疑似要素）または SVG `<polygon>`。
 - ※ 既存 Roadmap（#19）は 4 相固定。**レーン付きガント**が要るときに本パターンで組む。
 
 ```css
-/* CSS スケルトン（原典 design-patterns.md パターン5 をトークン化。濃→淡で進行を表現） */
+/* CSS スケルトン（原典 design-patterns.md パターン5 をトークン化。進行は番号・ラベルで表現し、塗りは全フェーズ単色） */
 .fig-tl{display:flex;flex-direction:column;gap:0}
 .fig-tl .ph-row{display:flex;gap:2px;margin-left:140px}                          /* フェーズヘッダー行 */
-.fig-tl .ph{flex:1;padding:10px 16px;text-align:center;font-weight:700;color:#fff;border-radius:0}
-.fig-tl .ph:nth-child(1){background:var(--fig-accent)}
-.fig-tl .ph:nth-child(2){background:color-mix(in srgb,var(--fig-accent) 75%,#fff)}
-.fig-tl .ph:nth-child(3){background:color-mix(in srgb,var(--fig-accent) 55%,#fff)}
-.fig-tl .ph:nth-child(4){background:color-mix(in srgb,var(--fig-accent) 38%,#fff)}
+.fig-tl .ph{flex:1;padding:10px 16px;text-align:center;font-weight:700;color:#fff;background:var(--fig-accent);border-radius:0}
 .fig-tl .lane{display:flex;align-items:center;min-height:48px;border-bottom:1px dashed var(--rule)}
 .fig-tl .lane-lbl{width:140px;flex-shrink:0;text-align:right;padding-right:12px;font-weight:700;white-space:nowrap}
 .fig-tl .lane-content{flex:1;display:flex;gap:4px;position:relative}
 .fig-tl .bar{height:28px;border-radius:0;display:flex;align-items:center;padding:0 10px;color:#fff;font-size:10px;font-weight:600;white-space:nowrap;background:var(--fig-accent)}
-.fig-tl .bar.sec{background:color-mix(in srgb,var(--fig-accent) 60%,#fff)}
+.fig-tl .bar.sec{background:var(--panel);color:var(--fig-accent);border:1.5px solid var(--fig-accent)}   /* 種別違いは塗り反転で区別（濃淡ではない） */
 .fig-tl .ms::before{content:"◆";margin-right:4px;color:var(--fig-accent)}      /* マイルストーン */
 ```
 
@@ -750,42 +749,34 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 
 `--fig-accent` は既定で `var(--accent)` を継承する。テーマ別の実効値は：
 
-| テーマ | `--fig-accent` 実効値 | Timeline/Gantt での見え方 |
-|---|---|---|
-| **Mono（Slide Deck 既定）** | `#1a1a1a` 黒 | 濃淡ランプが「黒 → 淡グレー」のモノクロ段階になる（下記「モノクロ段階濃度パターン」参照） |
-| Terracotta | `#9d3617` テラコッタ | 濃 → 淡テラコッタで進行を表現 |
-| Navy | `#1e3a5f` 紺 | 濃 → 淡ネイビーで進行を表現 |
-| Forest | `#2a4f3a` 深緑 | 濃 → 淡フォレストで進行を表現 |
-| Charcoal | `#2d2d33` チャコール | 濃 → 淡チャコールで進行を表現（実質モノクロに近い） |
+| テーマ | `--fig-accent` 実効値 |
+|---|---|
+| **Mono（Slide Deck 既定）** | `#1a1a1a` 黒 |
+| Terracotta | `#9d3617` テラコッタ |
+| Navy | `#1e3a5f` 紺 |
+| Forest | `#2a4f3a` 深緑 |
+| Charcoal | `#2d2d33` チャコール |
 
 ブランド色を敢えて図版だけに効かせたい場合は、デッキの `:root` で `--fig-accent: #0052FF;` のように上書きする（既定では使わない）。
 
-### 段階濃度パターン（Slide Deck 統一シャシ・6 テーマ共通）
+### フェーズ・ステップの進行表現（Slide Deck 統一シャシ・6 テーマ共通）
 
-Slide Deck で Gantt / Timeline / Progression（Phase の段階進行）を組むときの規範。参照デザイン `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures/fig07_schedule.png`（VisasQ Phase 1〜4 ガントバー）と `AI Biz Ops Partner/assets/fig01-opportunity-timeline.png`（3 者の時系列曲線）が範例。
+Slide Deck で Gantt / Timeline / Progression（Phase の段階進行）を組むときの規範。参照デザイン `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures/fig07_schedule.png`（VisasQ Phase 1〜4 ガントバー）と `AI Biz Ops Partner/assets/fig01-opportunity-timeline.png`（3 者の時系列曲線）が構造の範例だが、**配色（濃→淡のグレースケール段階）はそのまま持ち込まない**。
 
-**規範**：時系列の進行度は、以下 4 段階の濃度ランプで表現する（`template-slides.html` で `--stage-1〜4` として定義済み。`--accent` から `color-mix` で自動派生）。
+**規範**：`--stage-1〜4` のような段階濃度ランプ（隣接する要素を徐々に淡くする配色）は**使わない**（見た目がグラデーションになるため §ガードレールで禁止）。フェーズ／ステップはすべて `--fig-accent` の**同一濃度**で塗り、進行の意味は次の要素で伝える：
 
-| Stage | 変数 | 派生式 | Mono での値 |
-|---|---|---|---|
-| 1 | `--stage-1` | `var(--accent)` | `#1a1a1a` |
-| 2 | `--stage-2` | `color-mix(in srgb, var(--accent) 82%, #fff)` | ≈ `#434343` |
-| 3 | `--stage-3` | `color-mix(in srgb, var(--accent) 67%, #fff)` | ≈ `#656565` |
-| 4 | `--stage-4` | `color-mix(in srgb, var(--accent) 52%, #fff)` | ≈ `#888888` |
-
-Mono では VisasQ figures の Gantt バーとほぼ一致する濃 → 淡グレー。Terracotta を選べば濃 → 淡テラコッタ、Navy なら濃 → 淡ネイビーに自動追従する。**テーマ切替に `--stage-*` の再定義は不要**。
+- **番号・連番ラベル**（フェーズ1／フェーズ2…、Q1／Q2…）
+- **矢印・コネクタ**（ステップ間を繋ぐ SVG 矢印。§SVG 有向辺）
+- **完了/未完了の対比**：完了済みは `--fig-accent` 塗り地＋白文字、未着手は白地＋`var(--rule)` 枠線（塗り反転で区別する）
 
 **使い方**：
-- 4 段階のフェーズバー（Phase 1〜4）に `--stage-1〜4` を順に割り当てる（原典 VisasQ figures の Gantt バーの色分けと一致）
-- 3 段階なら `--stage-1 / --stage-2 / --stage-4` を使う（Stage 3 を飛ばして視認差を出す）
-- 5 段階以上必要なら `color-mix(in srgb, var(--accent) X%, #fff)` で任意ステップを補完（20% 刻みで生成）
-- 「Track A（推奨）vs Track B（共同）」のような **2 案対比**では、Track A に `--stage-1`＋2px accent 枠、Track B に白背景＋`var(--rule)` 1px 枠を使う（参照デザイン `fig03-acquire-expand-scale.png` の Track split パターン）
+- フェーズバー・フェーズヘッダーはすべて同一の `var(--fig-accent)` 塗りにする（段階ごとに薄くしない）
+- 種別・担当の違いを塗りで示したい場合は、濃淡ではなく**塗り反転**（アクセント塗り vs 白地＋アクセント枠）で区別する
+- 5 段階以上のステップでも同様。塗りは変えず、番号とラベルで段数を伝える
+- 「Track A（推奨）vs Track B（共同）」のような **2 案対比**では、Track A に `--fig-accent` 塗り＋2px accent 枠、Track B に白背景＋`var(--rule)` 1px 枠を使う（参照デザイン `fig03-acquire-expand-scale.png` の Track split パターン）
 
-**実装例**（VisasQ 型ガント）：
+**実装例**（VisasQ 型ガント。塗りは全フェーズ同一）：
 
 ```css
-.fig-gantt .bar-phase1 { background: var(--stage-1); }
-.fig-gantt .bar-phase2 { background: var(--stage-2); }
-.fig-gantt .bar-phase3 { background: var(--stage-3); }
-.fig-gantt .bar-phase4 { background: var(--stage-4); }
+.fig-gantt .bar-phase { background: var(--fig-accent); }
 ```

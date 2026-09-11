@@ -85,6 +85,19 @@ pptx では 1 図形内のテキストは段落として縦に積まれる。**�
 
 - **左右に並ぶカード同士は分けてよい**（それぞれが塗り・枠を持つ独立した図形になるため正しく並ぶ）。禁じているのは「1 行の中身」を分けることだけ
 - 塗り付きの丸番号チップ・バッジをどうしても行頭に置く場合は `chip_prefixed_row`（warning）になる。pptx では図形＋テキストの 2 図形になり縦位置が合わせにくいので、**塗りが必須でなければ色付き `<span>` に落とす**
+- **塗り面だけで意味を伝える装飾アイコンは、変換セーフモードに関わらず使わない**（html-artifact 全体のデザイン規約。design-system.md 禁止パターン）。対象は「1 文字コードの塗りチップ」（旧 Icon Chip #28 の `G` / `K` 等）と「テキストで足りる円形の番号・記号バッジ」（旧 `.vb-icon` の `1` `2` `3` `↑` 等）。番号・記号・コードは**同じ行のテキスト**として直接書く：
+
+```html
+<!-- NG: 塗りチップ＋別要素の本文 -->
+<div class="section-title"><span class="icon-chip">G</span> 目的</div>
+<div class="value-bar-item"><div class="vb-icon">1</div><div class="vb-text">案件で入り課題を理解</div></div>
+
+<!-- OK: 行のテキストとして書く（チップは無くす） -->
+<div class="section-title">目的</div>
+<div class="value-bar-item"><span class="vb-num">1</span>案件で入り<br>課題を理解</div>
+```
+
+  図解のノード番号・タイムラインのマーカー・凡例ドット・レーティングドットのように、**位置や大小そのものが意味を持つ図形要素は対象外**（これらは図として実測されるべきもの）
 
 ## 3. `transform: scale` を掛けた領域にテキストを置かない（`scaled_container`）
 
@@ -169,6 +182,7 @@ lint の判定はこうなっている。実測は `border-top-left-radius` の 
 - [ ] `make run_html_pptx_lint SAMPLE_DIR=...` で **error 0 件**
 - [ ] warning のうち `text_no_headroom` は、見出し・ラベル・チップなど折り返し不可の行がゼロ
 - [ ] 箇条書きマーカー・✓・章番号が、それぞれ行のテキストの一部になっている
+- [ ] 塗り面だけの装飾アイコン（1 文字コードチップ・テキストで足りる円形の番号/記号バッジ）が無い
 - [ ] 字下げが `margin-left` ではなく `padding-left`＋負の `text-indent` で作られている
 - [ ] 行ごとのアンダーライン（`border-bottom`）が無い（区切りは行間で表現している）
 - [ ] カードは `background-color` ＋ `border` の両方を持つ
