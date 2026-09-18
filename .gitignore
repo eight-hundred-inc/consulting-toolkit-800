@@ -6,3 +6,4 @@ output/
 .codex/
 plans/
 sample
+__pycache__/
