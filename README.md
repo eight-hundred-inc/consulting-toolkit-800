@@ -148,16 +148,30 @@ claude mcp add --transport http circleback https://circleback.ai/api/mcp
 
 **(a) サーバーが AWS に立っている場合 — 社内メンバーはこちら**
 
-手元には**何も要らない**（リポジトリも `uv` も Chromium も LibreOffice も
-AWS の認証情報も不要）。払い出された URL とトークンで1行登録するだけ。
+手元には**このリポジトリだけあればよい**（slide_generator のリポジトリも
+Python も `uv` も Chromium も LibreOffice も AWS の認証情報も不要。
+OS 標準のコマンドだけで動く）。本リポジトリのスクリプトで接続用トークンを
+自分で払い出す。**このリポジトリのルート**で、OS ごとに次を実行する。
 
-```bash
-claude mcp add --scope user --transport http slide-generator \
-  <払い出された URL> --header "Authorization: Bearer <トークン>"
+Windows（PowerShell に貼り付けて実行）:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\issue_slide_generator_token.ps1
 ```
 
-トークンは Google Workspace のログイン（SAML）で払い出され、**30 日で切れる**。
-切れたら管理者に再発行を依頼する（`403` や `401` が返るようになったら期限切れ）。
+macOS（ターミナルに貼り付けて実行）:
+
+```bash
+bash scripts/issue_slide_generator_token.sh
+```
+
+ブラウザが開くので Google Workspace でログインする。ログインが終わると
+スクリプトが Claude Code への登録（`claude mcp add`）まで行うので、これで完了
+（開きっぱなしの Claude Code には、開き直すと反映される）。
+`claude mcp list` で `slide-generator` が `✔ Connected` になれば接続できている。
+
+トークンは **30 日で切れる**。`403` や `401` が返るようになったら期限切れ
+なので、上のスクリプトをもう一度実行する（古い登録は自動で置き換わる）。
 トークンはパスワードと同じ扱いで、他人へ渡さないこと。
 
 **(b) 手元で動かす場合 — 開発者向け**
