@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-phase-box-estimate-table</title>
+<style>
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .title-area {
+    padding: 14px 40px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .content-area {
+    flex: 1;
+    padding: 16px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+  }
+  .precondition {
+    border: 1px dashed #CCCCCC;
+    padding: 8px 12px;
+    font-size: 10px;
+    color: #555555;
+    line-height: 1.5;
+  }
+  .header-row {
+    display: flex;
+    font-size: 10px;
+    color: #999999;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 4px;
+  }
+  .col-phase { width: 22%; }
+  .col-duration { width: 12%; text-align: center; }
+  .col-content { width: 44%; }
+  .col-price { width: 22%; text-align: center; }
+  .estimate-row {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    border-bottom: 1px solid #EEEEEE;
+    padding: 6px 0;
+  }
+  .phase-box {
+    width: 22%;
+    background: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    border-radius:0;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+    color: #333333;
+    padding: 8px 4px;
+  }
+  .duration-cell {
+    width: 12%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: #333333;
+  }
+  .content-cell {
+    width: 44%;
+    font-size: 10px;
+    color: #444444;
+    line-height: 1.5;
+    padding: 0 10px;
+  }
+  .price-cell {
+    width: 22%;
+    text-align: center;
+  }
+  .price-main {
+    font-size: 17px;
+    font-weight: bold;
+    color: #333333;
+  }
+  .price-sub {
+    font-size: 9px;
+    color: #888888;
+  }
+</style>
+</head>
+<body>
+  <p style="font-size:12px;color:#666;margin-bottom:4px;">[SLIDE-PATTERN-phase-box-estimate-table]</p>
+  <div class="slide">
+    <div class="title-area">
+      <div class="area-label">Title Area — スライドマスター参照</div>
+      <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">スライドタイトルが入ります</div>
+    </div>
+    <div class="content-area">
+
+      <div class="precondition">
+        【前提条件】<br>
+        ・前提条件の箇条書きが入ります<br>
+        ・前提条件の箇条書きが入ります
+      </div>
+
+      <div class="header-row">
+        <div class="col-phase">フェーズ</div>
+        <div class="col-duration">期間</div>
+        <div class="col-content">主な支援内容</div>
+        <div class="col-price">概算見積り</div>
+      </div>
+
+      <div class="estimate-row">
+        <div class="phase-box">フェーズ1<br>分析・策定</div>
+        <div class="duration-cell">3ヶ月</div>
+        <div class="content-cell">・主な支援内容の箇条書きが入ります</div>
+        <div class="price-cell"><div class="price-main">000万円</div><div class="price-sub">(月額00万円)</div></div>
+      </div>
+
+      <div class="estimate-row">
+        <div class="phase-box">フェーズ2<br>実行支援</div>
+        <div class="duration-cell">3ヶ月</div>
+        <div class="content-cell">・主な支援内容の箇条書きが入ります</div>
+        <div class="price-cell"><div class="price-main">000万円</div><div class="price-sub">(月額00万円)</div></div>
+      </div>
+
+      <div class="estimate-row" style="border-bottom:none;">
+        <div class="phase-box">フェーズ3<br>展開・自走化</div>
+        <div class="duration-cell">6ヶ月〜</div>
+        <div class="content-cell">・主な支援内容の箇条書きが入ります</div>
+        <div class="price-cell"><div class="price-main">000万円〜</div><div class="price-sub">(月額00万円〜)</div></div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

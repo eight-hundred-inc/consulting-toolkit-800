@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-issue-hypothesis-mapping-table</title>
+<style>
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .title-area {
+    padding: 14px 40px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .content-area {
+    flex: 1;
+    padding: 16px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow: hidden;
+  }
+  .group {
+    flex: 1;
+    display: flex;
+    border-bottom: 1px solid #DDDDDD;
+    padding-bottom: 6px;
+  }
+  .major-block {
+    width: 14%;
+    background: #333333;
+    color: #FFFFFF;
+    border-radius:0;
+    padding: 8px;
+    margin-right: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+  .major-block .area-label { color: #CCCCCC; }
+  .major-hypothesis {
+    width: 16%;
+    background: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    padding: 8px;
+    margin-right: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 11px;
+    color: #333333;
+  }
+  .sub-rows {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sub-row {
+    flex: 1;
+    display: flex;
+    border: 1px solid #DDDDDD;
+    border-radius:0;
+  }
+  .sub-label {
+    width: 15%;
+    background: #F5F5F5;
+    padding: 6px;
+    font-size: 10px;
+    color: #666666;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #DDDDDD;
+  }
+  .sub-detail {
+    width: 85%;
+    padding: 6px 10px;
+    font-size: 11px;
+    color: #333333;
+    display: flex;
+    align-items: center;
+  }
+</style>
+</head>
+<body>
+  <p style="font-size:12px;color:#666;margin-bottom:4px;">[SLIDE-PATTERN-issue-hypothesis-mapping-table]</p>
+  <div class="slide">
+    <div class="title-area">
+      <div class="area-label">Title Area — スライドマスター参照</div>
+      <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">スライドタイトルが入ります</div>
+    </div>
+    <div class="content-area">
+
+      <div class="group">
+        <div class="major-block"><div class="area-label">大論点①</div>現状のオペレーションの集中領域は？</div>
+        <div class="major-hypothesis"><div class="area-label">仮説</div>ノウハウは特定の判断業務に集中している。</div>
+        <div class="sub-rows">
+          <div class="sub-row"><div class="sub-label">小論点①-1</div><div class="sub-detail">仮説の詳細説明テキストが入ります。</div></div>
+          <div class="sub-row"><div class="sub-label">小論点①-2</div><div class="sub-detail">仮説の詳細説明テキストが入ります。</div></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="major-block"><div class="area-label">大論点②</div>目指すべき最適解は何か？</div>
+        <div class="major-hypothesis"><div class="area-label">仮説</div>技術の組み合わせが最適解となり得る。</div>
+        <div class="sub-rows">
+          <div class="sub-row"><div class="sub-label">小論点②-1</div><div class="sub-detail">仮説の詳細説明テキストが入ります。</div></div>
+          <div class="sub-row"><div class="sub-label">小論点②-2</div><div class="sub-detail">仮説の詳細説明テキストが入ります。</div></div>
+          <div class="sub-row"><div class="sub-label">小論点②-3</div><div class="sub-detail">仮説の詳細説明テキストが入ります。</div></div>
+        </div>
+      </div>
+
+      <div class="group" style="border-bottom:none;">
+        <div class="major-block"><div class="area-label">大論点③</div>推進体制はどうあるべきか？</div>
+        <div class="major-hypothesis"><div class="area-label">仮説</div>役割分担を明確にした体制を構築する。</div>
+        <div class="sub-rows">
+          <div class="sub-row"><div class="sub-label">小論点③-1</div><div class="sub-detail">仮説の詳細説明テキストが入ります。</div></div>
+          <div class="sub-row"><div class="sub-label">小論点③-2</div><div class="sub-detail">仮説の詳細説明テキストが入ります。</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

@@ -2,6 +2,8 @@
 
 SLIDE-PATTERN-{name}.html 生成時の CSS 基本構造と HTML 構成例。実装方針（グレースケール・960×540・ラベル表示等のルール）は SKILL.md STEP 5 が正。
 
+**書き方は PPTX 変換セーフに揃える**（プレビューは下流が採寸・参照する見本のため）。マーカー・番号は行のテキストノードに直接書き（`::before` で描かない）、1 行を複数要素に分けず、境界は `border` で引く。角丸を使うカードは 1 要素・4 隅同一半径にとどめ（部分丸め＋重ね合わせは不可）、表を含む場合は罫線をセル間で統一する。詳細は html-artifact スキルの `references/pptx-safe.md`。
+
 ## CSSの基本構造
 
     body {
@@ -68,3 +70,40 @@ SLIDE-PATTERN-{name}.html 生成時の CSS 基本構造と HTML 構成例。実�
         </div>
       </div>
     </div>
+
+## 行頭マーカー・番号付き行の書き方（PPTX 変換セーフ）
+
+マーカーや番号は `::before` ではなく行のテキストとして書き、行を包む要素が本文のテキストノードを直接持つようにする。字下げは `text-indent` の負値＋同量の `padding-left` で吸収する（`margin-left` は箱ごとずれ、罫線・背景が本文左端からずれる）。行ごとのアンダーラインは付けない（pptx で行ごとに線シェイプ化して揃わない）。
+
+    <!-- 箇条書き（マーカーは行のテキストの一部） -->
+    <ul style="list-style:none;">
+      <li style="font-size:13px; color:#555; line-height:1.7; padding-left:1em; text-indent:-1em;">● 箇条書きの項目が入ります</li>
+      <li style="font-size:13px; color:#555; line-height:1.7; padding-left:1em; text-indent:-1em;">● 箇条書きの項目が入ります</li>
+    </ul>
+
+    <!-- 番号付き見出し行（番号だけ書式を変えたい場合も同じテキストノード内に置く） -->
+    <div style="font-size:15px; font-weight:bold; color:#333;"><span style="color:#888; margin-right:10px;">01</span>見出しが入ります</div>
+
+    <!-- ゾーン間の矢印は、結ぶ2ゾーンの間に1本ずつ独立して置く（オーバーレイで1枚にまとめない） -->
+    <div style="width:8%; display:flex; align-items:center; justify-content:center; color:#AAAAAA; font-size:18px;">→</div>
+
+## カード・表の書き方（面は直角／PPTX 変換セーフ）
+
+**面（カード・パネル・帯・バー）は角丸を使わず直角にする**（`border-radius:0`）。とくに **2 色構成（塗りヘッダー帯＋本文）のカードで角丸は使わない**：pptx では上 2 角／下 2 角だけ丸める専用シェイプへ分割され、継ぎ目に線が入る・重ねた 2 枚がずれる。円形（`border-radius:50%`）とピル形のチップ／バッジだけが例外。
+
+    <!-- OK：面は直角。2色構成（帯＋本文）も直角なら継ぎ目が割れない -->
+    <div style="background:#FFFFFF; border:1px solid #CCCCCC; border-radius:0; padding:0;">
+      <div style="background:#333333; color:#FFFFFF; padding:8px 12px;">ヘッダー帯</div>
+      <div style="padding:16px;">カードの内容</div>
+    </div>
+
+    <!-- NG：カードを角丸にする（border-radius:8px）／ヘッダー部だけ丸める（border-radius:8px 8px 0 0） -->
+
+表は罫線をセル間で統一する。強調はセルの `background-color` で表現し、罫線の色・太さ・実線/点線をセルごとに変えない（変えるほど pptx で図形が増える）。
+
+    <table style="border-collapse:collapse; width:100%;">
+      <tr>
+        <td style="border:1px solid #CCCCCC; padding:8px;">通常セル</td>
+        <td style="border:1px solid #CCCCCC; padding:8px; background:#F0F0F0;">強調セル（背景色で表現）</td>
+      </tr>
+    </table>

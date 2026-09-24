@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-phase-grouped-task-table</title>
+<style>
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .title-area {
+    padding: 14px 40px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .content-area {
+    flex: 1;
+    padding: 18px 32px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .header-row {
+    display: flex;
+    font-size: 10px;
+    color: #999999;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+  }
+  .col-phase { width: 20%; }
+  .col-task { width: 12%; }
+  .col-detail { width: 68%; }
+  .phase-group {
+    display: flex;
+    flex: 1;
+    border-bottom: 1px solid #DDDDDD;
+  }
+  .phase-group:last-child { border-bottom: none; }
+  .phase-cell {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+    color: #333333;
+    border-right: 1px solid #999999;
+    padding: 6px;
+  }
+  .task-rows {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+  }
+  .task-row {
+    display: flex;
+    flex: 1;
+    border-bottom: 1px dashed #EEEEEE;
+    align-items: center;
+    padding: 4px 0;
+  }
+  .task-row:last-child { border-bottom: none; }
+  .task-name {
+    width: 15%;
+    font-size: 10px;
+    color: #555555;
+    padding-right: 6px;
+  }
+  .task-detail {
+    width: 85%;
+    font-size: 10px;
+    color: #333333;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+  <p style="font-size:12px;color:#666;margin-bottom:4px;">[SLIDE-PATTERN-phase-grouped-task-table]</p>
+  <div class="slide">
+    <div class="title-area">
+      <div class="area-label">Title Area — スライドマスター参照</div>
+      <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">スライドタイトルが入ります</div>
+    </div>
+    <div class="content-area">
+      <div class="header-row">
+        <div class="col-phase">フェーズ</div>
+        <div class="col-task">タスク</div>
+        <div class="col-detail">主な内容</div>
+      </div>
+
+      <div class="phase-group">
+        <div class="phase-cell">フェーズ1<br><span style="font-weight:normal;font-size:9px;color:#999;">補足テキスト</span></div>
+        <div class="task-rows">
+          <div class="task-row"><div class="task-name">1-1 タスク名</div><div class="task-detail">・主な内容の箇条書きが入ります</div></div>
+          <div class="task-row"><div class="task-name">1-2 タスク名</div><div class="task-detail">・主な内容の箇条書きが入ります</div></div>
+        </div>
+      </div>
+
+      <div class="phase-group">
+        <div class="phase-cell">フェーズ2<br><span style="font-weight:normal;font-size:9px;color:#999;">補足テキスト</span></div>
+        <div class="task-rows">
+          <div class="task-row"><div class="task-name">2-1 タスク名</div><div class="task-detail">・主な内容の箇条書きが入ります</div></div>
+          <div class="task-row"><div class="task-name">2-2 タスク名</div><div class="task-detail">・主な内容の箇条書きが入ります</div></div>
+          <div class="task-row"><div class="task-name">2-3 タスク名</div><div class="task-detail">・主な内容の箇条書きが入ります</div></div>
+        </div>
+      </div>
+
+      <div class="phase-group">
+        <div class="phase-cell">フェーズ3<br><span style="font-weight:normal;font-size:9px;color:#999;">補足テキスト</span></div>
+        <div class="task-rows">
+          <div class="task-row"><div class="task-name">3-1 タスク名</div><div class="task-detail">・主な内容の箇条書きが入ります</div></div>
+          <div class="task-row"><div class="task-name">3-2 タスク名</div><div class="task-detail">・主な内容の箇条書きが入ります</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

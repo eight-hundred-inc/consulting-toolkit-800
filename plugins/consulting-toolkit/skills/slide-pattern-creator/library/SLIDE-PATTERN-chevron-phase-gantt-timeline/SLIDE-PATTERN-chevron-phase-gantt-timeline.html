@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-chevron-phase-gantt-timeline</title>
+<style>
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .title-area {
+    padding: 14px 40px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .content-area {
+    flex: 1;
+    padding: 16px 32px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .phase-band {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  .phase-chip {
+    flex: 1;
+    background: #444444;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 8px;
+    clip-path: polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%, 8% 50%);
+  }
+  .week-scale {
+    display: flex;
+    border-bottom: 1px solid #999999;
+    margin-bottom: 12px;
+  }
+  .week-cell {
+    flex: 1;
+    text-align: center;
+    font-size: 9px;
+    color: #888888;
+    border-right: 1px dashed #DDDDDD;
+    padding: 4px 0;
+  }
+  .timeline-body {
+    flex: 1;
+    position: relative;
+    display: flex;
+  }
+  .milestone {
+    flex: 1;
+    position: relative;
+    border-right: 1px dashed #EEEEEE;
+    padding: 0 6px;
+  }
+  .milestone-marker {
+    font-size: 10px;
+    color: #333333;
+    margin-bottom: 6px;
+  }
+  .callout {
+    background: #F0F0F0;
+    border: 1px solid #CCCCCC;
+    border-radius:0;
+    padding: 6px 8px;
+    font-size: 9px;
+    color: #444444;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+  <p style="font-size:12px;color:#666;margin-bottom:4px;">[SLIDE-PATTERN-chevron-phase-gantt-timeline]</p>
+  <div class="slide">
+    <div class="title-area">
+      <div class="area-label">Title Area — スライドマスター参照</div>
+      <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">スライドタイトルが入ります</div>
+    </div>
+    <div class="content-area">
+
+      <div class="phase-band">
+        <div class="phase-chip">フェーズ1．現状分析</div>
+        <div class="phase-chip">フェーズ2．実行支援</div>
+        <div class="phase-chip">フェーズ3．本格展開</div>
+      </div>
+
+      <div class="week-scale">
+        <div class="week-cell">1〜2週</div>
+        <div class="week-cell">3〜4週</div>
+        <div class="week-cell">5〜6週</div>
+        <div class="week-cell">7〜8週</div>
+        <div class="week-cell">9週〜</div>
+      </div>
+
+      <div class="timeline-body">
+        <div class="milestone">
+          <div class="milestone-marker">▼ キックオフ</div>
+          <div class="callout">・実施タスクの箇条書き<br>・実施タスクの箇条書き</div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-marker">&nbsp;</div>
+          <div class="callout">・実施タスクの箇条書き</div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-marker">▼ 中間報告会</div>
+          <div class="callout">・実施タスクの箇条書き<br>・実施タスクの箇条書き</div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-marker">&nbsp;</div>
+          <div class="callout">・実施タスクの箇条書き</div>
+        </div>
+        <div class="milestone" style="border-right:none;">
+          <div class="milestone-marker">▼ 完了報告</div>
+          <div class="callout">・実施タスクの箇条書き</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

@@ -193,7 +193,6 @@ h1.cover-title{
 .toc-list li a:hover{color:var(--accent)}
 .toc-list .toc-num{
   font-family:"JetBrains Mono",monospace;
-  font-size:11px;
   color:var(--accent);
   min-width:32px;
   font-weight:500;
@@ -201,7 +200,6 @@ h1.cover-title{
 .toc-list .toc-text{flex:1}
 .toc-list .toc-page{
   font-family:"JetBrains Mono",monospace;
-  font-size:11px;
   color:var(--ink-mute);
 }
 
@@ -257,7 +255,6 @@ h3.sub-head{
 }
 h3.sub-head .num{
   font-family:"JetBrains Mono",monospace;
-  font-size:12px;
   color:var(--accent);
   font-weight:500;
   letter-spacing:0.05em;
@@ -270,8 +267,6 @@ h4.minor-head{
   font-size:14px;
   color:var(--ink);
   margin:24px 0 10px;
-  padding-left:12px;
-  border-left:3px solid var(--accent);
 }
 
 /* Body text */
@@ -291,7 +286,6 @@ h4.minor-head{
   margin-bottom:24px;
   padding:20px 24px;
   background:var(--bg-alt);
-  border-left:3px solid var(--accent);
   max-width:none;
 }
 .report-section ul.body{
@@ -366,7 +360,6 @@ h4.minor-head{
   letter-spacing:-0.01em;
 }
 .kpi-cell .kpi-value .unit{
-  font-size:14px;
   color:var(--ink-mute);
   font-weight:400;
   margin-left:4px;
@@ -508,9 +501,6 @@ table.report-table td.center{text-align:center}
 }
 .scope-panel ul{
   list-style:none;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:6px 32px;
   font-size:13px;
 }
 .scope-panel ul li{
@@ -518,6 +508,10 @@ table.report-table td.center{text-align:center}
   position:relative;
   color:var(--ink-soft);
   line-height:1.7;
+  margin-bottom:6px;
+}
+.scope-panel ul li:last-child{
+  margin-bottom:0;
 }
 .scope-panel ul li::before{
   content:"●";
@@ -533,7 +527,6 @@ table.report-table td.center{text-align:center}
   margin:28px 0;
   padding:20px 24px 20px 24px;
   background:var(--accent-bg);
-  border-left:4px solid var(--accent);
   position:relative;
 }
 .insight .insight-label{
@@ -678,7 +671,6 @@ table.report-table td.center{text-align:center}
 }
 .budget-card.premium .bc-amount{color:var(--bg)}
 .budget-card .bc-amount .u{
-  font-size:13px;
   color:var(--ink-mute);
   font-weight:400;
   margin-left:4px;
@@ -738,7 +730,6 @@ table.report-table td.center{text-align:center}
 .qa-card{
   background:var(--panel);
   border:1px solid var(--rule);
-  border-top:3px solid var(--accent);
   padding:20px 22px;
 }
 .qa-card .qa-tag{
@@ -973,7 +964,6 @@ table.report-table td.center{text-align:center}
   .kpi-row{grid-template-columns:1fr}
   .kpi-cell{border-right:none;border-bottom:1px solid var(--rule)}
   .state-grid{grid-template-columns:1fr}
-  .scope-panel ul{grid-template-columns:1fr}
   .roadmap-bar,.roadmap-detail{grid-template-columns:1fr}
   .budget-grid{grid-template-columns:1fr}
   .qa-grid{grid-template-columns:1fr}

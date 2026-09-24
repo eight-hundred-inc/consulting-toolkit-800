@@ -5,3 +5,5 @@ output/
 .claude/
 .codex/
 plans/
+sample
+__pycache__/

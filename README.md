@@ -104,6 +104,7 @@ Claude Code のプラグインとしてインストールする。OS・環境を
 | [matplotlib](#matplotlib-と日本語フォントデータチャート生成) | ローカル環境 | 実数値データのチャート（棒・レーダー・積み上げ等）を生成するとき | image-creator（chart-generator-guide 経由） | データチャート生成ができない |
 | [LibreOffice](#libreofficepptx-のレンダリング検証) | ローカル環境 | quality-reviewer で PPTX のレイアウト崩れを検証するとき | quality-reviewer | PPTX のレンダリング検証がスキップされる |
 | [Notion / Slack MCP](#notion--slack-mcp--任意) | MCP コネクタ | プロジェクト初期化時の連携リンク確認、Circleback 議事録の Notion 突合 | project-manager, circleback-meeting-minutes | 連携リンク欄が「なし」になるだけ。ワークフローは通常どおり進む |
+| [slide-generator MCP](#slide-generator見本-html--pptx-html-to-deck-利用時に必須) | MCP コネクタ（別リポジトリ） | HTML デッキを編集可能な PPTX へ変換するとき | html-to-deck, deck | スキル自体が使えない（PPTX は pptx-from-reference / ブランド pptx スキルで作れる） |
 | [Google Fonts への接続](#ネットワーク要件google-fonts) | ネットワーク | html-artifact の生成 HTML を意図どおりのフォントで表示するとき | html-artifact | システムフォントで代替表示される |
 | [外部スキル（ブランド pptx 等）](#外部スキル--任意) | 別リポジトリのスキル | ネイティブ PPTX 納品、HTML の共有 URL 公開 | スライド化フローの下流 | 該当経路が使えないだけ。主経路（HTML デッキ）は動く |
 
@@ -136,6 +137,71 @@ claude mcp add --transport http circleback https://circleback.ai/api/mcp
 ```
 
 **接続確認**: チャットで「Circleback から先週の会議を検索して」と入力し、会議一覧が返れば接続できている。スキルは `SearchMeetings` / `ReadMeetings` / `GetTranscriptsForMeetings` の 3 ツールを使用する（ツール名のプレフィックスは環境ごとに異なるが、スキル側が自動解決する）。
+
+#### slide-generator（見本 HTML → PPTX）— html-to-deck 利用時に必須
+
+`html-to-deck` スキルは、別リポジトリ [slide_generator](https://github.com/eight-hundred-inc/slide_generator) の
+`run_image_slide` パイプラインを MCP 経由で呼び出し、html-artifact が生成した
+16:9 デッキ HTML を見本として編集可能な PPTX を組み上げる。
+
+**セットアップ（2 通り）**
+
+**(a) サーバーが AWS に立っている場合 — 社内メンバーはこちら**
+
+手元には**このリポジトリだけあればよい**（slide_generator のリポジトリも
+Python も `uv` も Chromium も LibreOffice も AWS の認証情報も不要。
+OS 標準のコマンドだけで動く）。本リポジトリのスクリプトで接続用トークンを
+自分で払い出す。**このリポジトリのルート**で、OS ごとに次を実行する。
+
+Windows（PowerShell に貼り付けて実行）:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\issue_slide_generator_token.ps1
+```
+
+macOS（ターミナルに貼り付けて実行）:
+
+```bash
+bash scripts/issue_slide_generator_token.sh
+```
+
+ブラウザが開くので Google Workspace でログインする。ログインが終わると
+スクリプトが Claude Code への登録（`claude mcp add`）まで行うので、これで完了
+（開きっぱなしの Claude Code には、開き直すと反映される）。
+`claude mcp list` で `slide-generator` が `✔ Connected` になれば接続できている。
+
+トークンは **30 日で切れる**。`403` や `401` が返るようになったら期限切れ
+なので、上のスクリプトをもう一度実行する（古い登録は自動で置き換わる）。
+トークンはパスワードと同じ扱いで、他人へ渡さないこと。
+
+**(b) 手元で動かす場合 — 開発者向け**
+
+```bash
+# 1. slide_generator 側の準備（1回だけ）
+cd <slide_generator>/app/core
+make setup
+
+# 2. MCP サーバーを登録（パスは自分の環境に合わせる）
+claude mcp add --scope user slide-generator \
+  -- uv --directory <slide_generator>/app/core \
+     run python scripts/run_mcp_server.py
+```
+
+こちらは変換を手元で行うため、**Chromium（見本HTMLの描画）** と
+**LibreOffice + poppler（生成 pptx の見た目検証）** が要る。前者は
+slide_generator 側の `playwright install chromium`、後者は本 README の
+[LibreOffice](#libreofficepptx-のレンダリング検証) と同じ導入で足りる。
+LLM の API キーは slide_generator 側の `app/core/.env` から読まれるため、
+MCP の設定に書く必要はない。
+
+**どちらも `--scope user` を付けること。** 付けないと登録したディレクトリでしか
+使えず、別の作業フォルダで Claude Code を開くと `html-to-deck` が「MCP サーバーが
+登録されていません」で止まる。
+
+`claude mcp list` で `✔ Connected` になれば接続できている。(b) で `uv` が
+見つからない場合は絶対パス（例 `~/.local/bin/uv`）で登録する。
+
+ツールの名前も使い方も (a) と (b) で同じなので、スキル側の手順は変わらない。
 
 #### Notion / Slack MCP — 任意
 
@@ -238,9 +304,12 @@ sudo apt install libreoffice
 | [desk-research](plugins/consulting-toolkit/skills/desk-research/SKILL.md) | Exa（セマンティック検索）/ WebSearch / WebFetch / Browser Use / Deep Research プロンプトの3層で情報収集し、調査レポートを出力 | 「デスクリサーチを実行して」「初期調査をして」「市場規模を調べて」「競合調査して」 |
 | [meeting-minutes-creator](plugins/consulting-toolkit/skills/meeting-minutes-creator/SKILL.md) | 会議メモから議事録を作成 | 「会議メモから議事録を作って」「打ち合わせの議事録を作成して」 |
 | [800-branded-pptx](plugins/consulting-toolkit/skills/800-branded-pptx/SKILL.md) | 800社のブランドデザイン（ダークグリーン・Meiryo UI）に沿ったPowerPointを作成。pptxスキルをラップし、デザイントークンとボイラープレートを提供する（800 固有・同梱） | 「800風のスライドを作成」「800のpptxを作成」 |
+| [pptx-from-reference](plugins/consulting-toolkit/skills/pptx-from-reference/SKILL.md) | `reference-decks/` に配備した参照 pptx を**全件**解析し、テーマ・マスター・レイアウトを継承したまま、引数で渡した Markdown の内容を流し込んで PPTX を直接生成する（中間形式なし・python-pptx） | 「参照 pptx と同じデザインで作って」「このテンプレートに合わせて pptx 化して」「md を pptx に直接変換して」 |
 | [chart-generator-guide](plugins/consulting-toolkit/skills/chart-generator-guide/SKILL.md) | matplotlibによるデータチャート生成ガイド。ブランドパレット対応、PNG+SVG二重出力。棒・レーダー・積み上げ等7パターンのテンプレート付き | image-creatorサブエージェント経由 |
 | [image-generator-guide](plugins/consulting-toolkit/skills/image-generator-guide/SKILL.md) | HTML+CSSによる構造化図解の設計ガイド。イラスト・アート系は画像生成プロンプトを返却。image-creatorサブエージェントから読み込まれる | image-creatorサブエージェント経由 |
 | [html-artifact](plugins/consulting-toolkit/skills/html-artifact/SKILL.md) | Markdown を、単体で開ける HTML（縦長の文書 / 16:9 スライドデッキ）に変換する。30 種のコンポーネントと 8 種の図解を内蔵し、スライドは第 2 層のレイアウトパターンに従って組む。生成のみ（HTML の公開は html-publish、PPTX 化はブランド pptx スキルへ） | 「HTML にして」「16:9 スライドにして」「ブラウザでめくれるプレゼンを作って」 |
+| [deck](plugins/consulting-toolkit/skills/deck/SKILL.md) | 構成 MD から **HTML デッキと編集可能な PPTX を一気通貫**で作る。html-artifact（PPTX 変換セーフモード）→ html-to-deck を決められた順でつなぎ、崩れたときの戻り先を HTML に固定する | 「デッキを作って pptx にして」「構成 MD から PowerPoint まで一気に」 |
+| [html-to-deck](plugins/consulting-toolkit/skills/html-to-deck/SKILL.md) | html-artifact が生成した 16:9 デッキ HTML を見本に、テンプレート pptx の部品で組み直した**編集可能な PPTX** を生成する（slide_generator の MCP 経由。要 [セットアップ](#slide-generator見本-html--pptx-html-to-deck-利用時に必須)） | 「HTML デッキを pptx にして」「このデッキを PowerPoint に変換して」 |
 | [slide-pattern-creator](plugins/consulting-toolkit/skills/slide-pattern-creator/SKILL.md) | スライド1枚のコンテンツエリア構造（レイアウトパターン）の正本。画像・PPTX からパターンを言語化した定義 MD ＋グレースケール・スケルトン HTML を生成し、`library/` に蓄積（同梱 136 パターン） | 「スライドパターンを抽出して」「SLIDE-PATTERN を生成して」 |
 | [circleback-meeting-minutes](plugins/consulting-toolkit/skills/circleback-meeting-minutes/SKILL.md) | Circleback MCP から過去1週間の会議を取得し、プロジェクト関連を自動分類して議事録 MD を一括生成。複数件は並列処理（要 [Circleback セットアップ](#circlebackai-議事録-circleback-meeting-minutes-利用時に必須)） | 「Circlebackから議事録を作って」「先週の会議の議事録を作成して」 |
 
@@ -337,8 +406,11 @@ flowchart TB
 | ブラウザでめくれる HTML スライド | 構成 MD をそのまま渡す | `html-artifact` |
 | 編集できる PPTX（納品用） | 構成 MD をそのまま渡す | ブランド pptx スキル（外部・`branded-pptx` 等） |
 | 画像を貼っただけの PPTX | HTML を PNG 化して PPTX に貼る | `image-creator` → PPTX |
+| HTML デッキと同じ見た目の編集できる PPTX | 先に HTML デッキを作り、それを見本に変換する | `html-artifact` → `html-to-deck`（一気通貫なら `deck`） |
 
-**PPTX を作るなら、構成 MD からブランド pptx スキルで直接生成するのが主経路**。このスキルは pptxgenjs で編集可能な PPTX をそのまま生成する。「MD → HTML → PPTX」という経路はない。HTML（html-artifact）は PPTX の途中段階ではなく、ブラウザで見るための別形式である。画像を貼った PPTX（image-creator 経由）は、デザインを画像のまま持ち込みたいときだけの限定用途で、文字は編集できない。
+**PPTX を作るなら、構成 MD からブランド pptx スキルで直接生成するのが主経路**。このスキルは pptxgenjs で編集可能な PPTX をそのまま生成する。HTML（html-artifact）は基本的に PPTX の途中段階ではなく、ブラウザで見るための別形式である。画像を貼った PPTX（image-creator 経由）は、デザインを画像のまま持ち込みたいときだけの限定用途で、文字は編集できない。
+
+ただし **HTML デッキの見た目をそのまま PPTX にしたい場合に限り「HTML → PPTX」の経路がある**（`html-to-deck`）。デッキ HTML をブラウザで描画して実測し、テンプレート pptx の部品で組み直すもので、文字は編集できる。HTML デッキを先に作って合意を取ってから納品物の PPTX に落とす、という進め方のときに使う。見本側は html-artifact の [PPTX 変換セーフ規約](plugins/consulting-toolkit/skills/html-artifact/references/pptx-safe.md) に従って作る必要がある。
 
 ```mermaid
 flowchart LR
@@ -474,7 +546,8 @@ consulting-toolkit-800/
         │   ├── html-artifact/
         │   ├── circleback-meeting-minutes/
         │   ├── _shared/                      # スキル共通のライティング原則
-        │   └── 800-branded-pptx/             # 800社ブランドPPTX（800 固有・同梱）
+        │   ├── 800-branded-pptx/             # 800社ブランドPPTX（800 固有・同梱）
+        │   └── pptx-from-reference/        # 参照pptx（reference-decks/配下 全件）＋md → PPTX 直接生成
         └── agents/
             ├── quality-reviewer.md
             ├── desk-researcher.md

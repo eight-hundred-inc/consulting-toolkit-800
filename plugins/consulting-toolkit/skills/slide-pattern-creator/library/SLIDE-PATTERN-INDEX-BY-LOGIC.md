@@ -36,20 +36,20 @@
 
 | 型 | 上位型 | 第一候補 | 他の候補 |
 |---|---|---|---|
-| **L1 論点提示** | — | `numbered-question-list` | `qa-cards`（優先順位を付けるとき）／`recognition-cards-issues`（前提確認から絞り込むとき） |
-| **L2 問い→答え** | — | `diagram-with-callout` | `two-column-compare`（左に状況・右に結論＋根拠の非対称対比） |
-| **L3 二項対比** | 軸比較型 | `two-column-compare` | `two-panel-background-purpose`（対等な 2 観点）／`before-after-two-col`・`problem-solution`（変化・対応関係）／`two-col-icon-list-comparison`／`two-column-split-boxes` |
+| **L1 論点提示** | — | `numbered-question-list` | `qa-cards`（優先順位を付けるとき）／`recognition-cards-issues`（前提確認から絞り込むとき）／`issue-tree-dark-box-subcards`（大論点→小論点の階層で見せるとき） |
+| **L2 問い→答え** | — | `diagram-with-callout` | `two-column-compare`（左に状況・右に結論＋根拠の非対称対比）／`issue-hypothesis-mapping-table`（複数の論点×仮説を階層的に対応づけるとき） |
+| **L3 二項対比** | 軸比較型 | `two-column-compare` | `two-panel-background-purpose`（対等な 2 観点）／`before-after-two-col`・`problem-solution`（変化・対応関係）／`two-col-icon-list-comparison`／`two-column-split-boxes`／`label-rail-flow-outcome`（課題→解決策（複数ステップ）→効果まで 1 枚で見せるとき） |
 | **L4 多対象比較** | 軸比較型 | `comparison-matrix` | `comparison-matrix-table`（列を 1 つ強調）／`case-study-table`（事例を密度高く）／`aligned-content-table`（5〜6 列の複合情報）／`metric-definition-table` |
-| **L5 選択肢評価→推奨** | 消去法型 | `comparison-table-with-highlight` | `proposal-cards-duo`（2 案対比）／`plan-comparison-pricing`・`pricing-comparison-table`（金額を伴う）／`stage-table-with-points`（段階モデル上の到達点） |
+| **L5 選択肢評価→推奨** | 消去法型 | `comparison-table-with-highlight` | `proposal-cards-duo`（2 案対比）／`plan-comparison-pricing`・`pricing-comparison-table`（金額を伴う）／`stage-table-with-points`（段階モデル上の到達点）／`phase-box-estimate-table`（フェーズを主語に期間・内容・金額を並べるとき） |
 | **L6 構造分解** | MECE型 | `layer-detail-split` | `goal-kgi-kpi-dashboard`（目標→KGI→KPI の階層）／`framework-inputs-outputs`（入力→処理→出力）／`org-chart-tree`・`org-chart`（組織）／`three-tier-segment-list` |
 | **L7 並列列挙** | MECE型 | `numbered-two-col-row` | 3 件 `three-column-icon-card`・`three-col-large-icon-card`／4 件 `four-card-2x2`／6 件 `six-card-two-column`／8 件 `eight-card-2x4-grid`／`numbered-row-full-width`（4〜6 件を等価に） |
-| **L8 プロセス** | 時系列型 | `phase-flow` | `four-step-flow`・`horizontal-timeline-cards`（4 段）／`circle-node-step-flow`（5 段）／`vertical-step-flow`・`vertical-step-three-col`（縦・段数が多い）／`three-column-vertical-flow`（並走する 3 系統）／`two-lane-pipeline`（上流／下流の 2 レーン） |
-| **L9 日程・計画** | 時系列型 | `timeline-gantt` | `swimlane-schedule`（複数ワークストリームの並走）／`milestone-timeline`／`phase-roadmap`（フェーズ×レイヤーの複層）／`staircase-roadmap`系（成長段階）／`roadmap-3step` |
+| **L8 プロセス** | 時系列型 | `phase-flow` | `four-step-flow`・`horizontal-timeline-cards`（4 段）／`circle-node-step-flow`（5 段）／`vertical-step-flow`・`vertical-step-three-col`（縦・段数が多い）／`three-column-vertical-flow`（並走する 3 系統）／`two-lane-pipeline`（上流／下流の 2 レーン）／`label-rail-flow-outcome`（課題・効果のラベルと一体で複数ステップの解決策を見せるとき） |
+| **L9 日程・計画** | 時系列型 | `timeline-gantt` | `swimlane-schedule`（複数ワークストリームの並走）／`milestone-timeline`／`phase-roadmap`（フェーズ×レイヤーの複層）／`staircase-roadmap`系（成長段階）／`roadmap-3step`／`chevron-phase-gantt-timeline`（フェーズ帯＋週次マイルストーンを自由配置の吹き出しで見せるとき）／`phase-grouped-task-table`（フェーズ別のタスク・納品物を表で網羅するとき） |
 | **L10 因果・循環** | — | `cycle-diagram-annotated` | `pdca-cycle-diagram`・`cycle-diagram-with-labels`（4 局面の定型サイクル）／`two-feature-with-result`（要因→結果）／`two-circle-bilateral-flow`（相互作用）／`hub-spoke-diagram` |
 | **L11 位置づけ** | — | `risk-matrix-2x2` | `four-quadrant-center-circle`（中心概念＋4 象限）／`four-card-2x2`（象限の中身を語る）／`stage-table-with-points`（1 次元の段階上の現在地） |
 | **L12 定量根拠** | — | `chart-with-commentary` | `chart-left-text-right`（系列ごとの解説）／`stacked-bar-hero-numbers`（内訳＋際立った値）／`bar-chart-full`・`kpi-bar-chart`（推移を主役に）／`three-col-kpi-with-chart`（異種指標の並列）／`two-col-list-and-chart` |
 | **L13 主張＋根拠列挙** | — | `numbered-two-col-row` | `points-with-quotes`（根拠が一次情報）／`three-col-large-icon-card`（3 件で根拠が箇条書き） |
-| **L14 一次情報** | — | `points-with-quotes` | `quote-large-center`（1 件を印象づける）／`case-study-visual`（1 件を要点＋画で）／`attribute-rows-profile`（1 対象を固定観点で） |
+| **L14 一次情報** | — | `points-with-quotes` | `quote-large-center`（1 件を印象づける）／`case-study-visual`（1 件を要点＋画で）／`attribute-rows-profile`（1 対象を固定観点で）／`label-rail-two-case-comparison`（2 件の事例を同じ観点で並べるとき） |
 | **L15 全体像・現在地** | — | `phase-roadmap` | `stage-table-with-points`（成熟度上の現在地）／`framework-inputs-outputs`（機能の全体像）／`center-illustration-spoke`（統合の全体像）／`agenda-current-highlight`（章の現在地） |
 | **L16 結論** | — | `key-message-single` | `summary-three-points`（3 点でまとめる）／`action-items-list`（次アクションに落とす）／`three-kpi-big-number`（成果を数値で） |
 

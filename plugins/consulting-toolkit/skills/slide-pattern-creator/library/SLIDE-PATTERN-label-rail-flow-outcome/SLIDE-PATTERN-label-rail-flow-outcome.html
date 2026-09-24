@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SLIDE-PATTERN-label-rail-flow-outcome</title>
+<style>
+  body {
+    background: #E8E8E8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+  }
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .area-label {
+    font-size: 11px;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .title-area {
+    padding: 14px 40px 12px;
+    border-bottom: 1px dashed #CCCCCC;
+    flex-shrink: 0;
+    background: #FAFAFA;
+  }
+  .content-area {
+    flex: 1;
+    padding: 18px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+  }
+  .row {
+    display: flex;
+    border-bottom: 1px dashed #CCCCCC;
+    padding-bottom: 10px;
+  }
+  .row:last-child { border-bottom: none; }
+  .label-tab {
+    width: 14%;
+    background: #333333;
+    color: #FFFFFF;
+    border-radius:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 14px;
+    padding: 6px;
+  }
+  .row-body { width: 86%; }
+  .problem-text {
+    font-size: 12px;
+    color: #333333;
+    line-height: 1.6;
+  }
+  .steps {
+    display: flex;
+    gap: 8px;
+    height: 100%;
+  }
+  .step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .step-header {
+    background: #666666;
+    color: #FFFFFF;
+    font-size: 11px;
+    text-align: center;
+    padding: 6px;
+    border-radius:0;
+    margin-bottom: 6px;
+  }
+  .step-body {
+    font-size: 10px;
+    color: #444444;
+    line-height: 1.5;
+    padding-left: 6px;
+  }
+  .outcome-list {
+    font-size: 12px;
+    color: #333333;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+  <p style="font-size:12px;color:#666;margin-bottom:4px;">[SLIDE-PATTERN-label-rail-flow-outcome]</p>
+  <div class="slide">
+    <div class="title-area">
+      <div class="area-label">Title Area — スライドマスター参照</div>
+      <div style="font-size:16px; color:#CCCCCC; margin-top:4px;">スライドタイトルが入ります</div>
+    </div>
+    <div class="content-area">
+
+      <div class="row" style="flex:0 0 20%;">
+        <div class="label-tab">課題</div>
+        <div class="row-body">
+          <div class="problem-text">現状の課題を1〜3行程度で記述するテキストが入ります。ペインポイントを具体的に示します。</div>
+        </div>
+      </div>
+
+      <div class="row" style="flex:1;">
+        <div class="label-tab">ソリューション</div>
+        <div class="row-body">
+          <div class="steps">
+            <div class="step">
+              <div class="step-header">ステップ1の見出し</div>
+              <div class="step-body">・具体的な取り組み内容<br>・具体的な取り組み内容</div>
+            </div>
+            <div class="step">
+              <div class="step-header">ステップ2の見出し</div>
+              <div class="step-body">・具体的な取り組み内容<br>・具体的な取り組み内容</div>
+            </div>
+            <div class="step">
+              <div class="step-header">ステップ3の見出し</div>
+              <div class="step-body">・具体的な取り組み内容<br>・具体的な取り組み内容</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="flex:0 0 20%; border-bottom:none;">
+        <div class="label-tab">期待効果</div>
+        <div class="row-body">
+          <div class="outcome-list">
+            ✓ 効果・数値目標が入ります<br>
+            ✓ 効果・数値目標が入ります
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

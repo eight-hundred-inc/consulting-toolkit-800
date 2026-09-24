@@ -1,12 +1,12 @@
 # Components Catalog
 
-このスキルで使う **30 種**のコンポーネント（基本 21 + 拡張 4 + Slide Deck 参照デザイン 5）の仕様と HTML スニペット。**新規コンポーネントは追加せず、既存の組み合わせで対応する**。
+このスキルで使う **29 種**のコンポーネント（基本 21 + 拡張 4 + Slide Deck 参照デザイン 4）の仕様と HTML スニペット。番号は 1〜30 を維持し、廃止した #28 Icon Chip は欠番として残す。**新規コンポーネントは追加せず、既存の組み合わせで対応する**。
 
-> **例外（Slide Deck format の作り込み図版のみ）**：スライドのメッセージが構造的で、本カタログ 30 種・8 図解のいずれでも表現しきれない場合に限り、`.fig-NN` 名前空間での per-figure scoped CSS による「作り込み図版／レイアウトパターン」を許可する。条件と作図文法は `references/diagram-components.md`（図解の統合リファレンス後半）を参照（配色は `--fig-accent` 由来 + `--good`/`--warn` に限定、design-system の禁止パターン遵守、1 スライド 1 図版）。Vertical Document には適用しない。
+> **例外（Slide Deck format の作り込み図版のみ）**：スライドのメッセージが構造的で、本カタログ 29 種・8 図解のいずれでも表現しきれない場合に限り、`.fig-NN` 名前空間での per-figure scoped CSS による「作り込み図版／レイアウトパターン」を許可する。条件と作図文法は `references/diagram-components.md`（図解の統合リファレンス後半）を参照（配色は `--fig-accent` 由来 + `--good`/`--warn` に限定、design-system の禁止パターン遵守、1 スライド 1 図版）。Vertical Document には適用しない。
 
 **コンポーネントの範囲**：
 - 基本 21 種（#1〜#21）＋拡張 4 種（#22〜#25）は **Vertical Document / Slide Deck 両方**で使う
-- 参照デザイン 5 種（#26〜#30）は **Slide Deck 専用の統一シャシ・全 5 テーマ共通**（`.slide` スコープ内で使用。Vertical Document には適用しない。テーマ切替で accent 色に自動追従する）
+- 参照デザイン 5 種（#26〜#30）は **Slide Deck 専用の統一シャシ・全 6 テーマ共通**（`.slide` スコープ内で使用。Vertical Document には適用しない。テーマ切替で accent 色に自動追従する）
 
 ## 目次
 
@@ -39,10 +39,10 @@
    - [Hero Number](#23-hero-number)
    - [Takeaway Strip](#24-takeaway-strip)
    - [Annotation Pointer](#25-annotation-pointer)
-5. [Slide Deck × Mono 参照デザイン（26〜30）](#slide-deck--mono-参照デザイン2630)
+5. [Slide Deck 統一シャシ 参照デザイン（26〜30。#28 は廃止）](#slide-deck-統一シャシ-参照デザイン263028-は廃止)
    - [Filled-Header Card](#26-filled-header-card)
    - [Value Bar](#27-value-bar)
-   - [Icon Chip](#28-icon-chip)
+   - [Icon Chip（廃止）](#28-icon-chip廃止)
    - [Pill Tag](#29-pill-tag)
    - [Expansion Pills](#30-expansion-pills)
 
@@ -194,7 +194,7 @@
 <!-- h3：小見出し（章番号 + タイトル） -->
 <h3 class="sub-head"><span class="num">4.1</span>現状の課題</h3>
 
-<!-- h4：小々見出し（左罫線アクセント） -->
+<!-- h4：小々見出し（太字のみ・罫線なし） -->
 <h4 class="minor-head">最小成果物</h4>
 ```
 
@@ -333,7 +333,7 @@
 </div>
 ```
 
-**ルール**：箇条書きは2列グリッドで自動配置されるため、4〜10項目が見栄え良い。
+**ルール**：箇条書きは常に単一列で縦積み（`display:grid` の多段組・`column-count` は禁止。文単位の項目が横並びになり読み順が乱れるため）。項目数の目安は 4〜10 項目。
 
 ### 13. Report Table
 
@@ -660,7 +660,7 @@ CSS：`.hero-number` は数字を 80-120px で表示。`.hn-label` は eyebrow �
 **ルール**：
 - 1スライドに最大2つ（左右並び）まで
 - 値は短く（10文字以内）
-- 単位は `.hn-unit` で小さく
+- 単位は `.hn-unit` で区別する（フォントサイズは本体の数値と同一にする。同一ボックス・同一行内でフォントサイズを変えない。色・余白だけで控えめさを出す）
 - KPI Row と併用しない（情報密度がかぶる）
 
 ### 24. Takeaway Strip
@@ -703,15 +703,15 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
 
 ---
 
-## Slide Deck 統一シャシ 参照デザイン（26〜30）
+## Slide Deck 統一シャシ 参照デザイン（26〜30。#28 は廃止）
 
-参照デザイン（`AI Biz Ops Partner/assets` および `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures`）を踏襲する 5 種の追加コンポーネント。**Slide Deck 全 5 テーマで使える統一シャシ**（`.slide` スコープで定義。CSS は `assets/template-slides.html` に組み込み済み）。すべて `var(--accent)` 系トークンで色を取るため、テーマを Terracotta / Navy / Forest / Charcoal / Mono のどれに切り替えても、帯色・ピル色・アイコン色が自動追従する。
+参照デザイン（`AI Biz Ops Partner/assets` および `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures`）を踏襲する 4 種の追加コンポーネント（#28 Icon Chip は廃止）。**Slide Deck 全 6 テーマで使える統一シャシ**（`.slide` スコープで定義。CSS は `assets/template-slides.html` に組み込み済み）。すべて `var(--accent)` 系トークンで色を取るため、テーマを Terracotta / Navy / Forest / Charcoal / Mono / EightHundred のどれに切り替えても、帯色・ピル色・アイコン色が自動追従する。
 
 **Vertical Document には適用しない**（Vertical Document は別の視覚言語系を持つ）。
 
 ### 26. Filled-Header Card
 
-帯ヘッダー（`--band-bg`。Mono は薄グレー＋黒文字、他テーマは accent 帯＋白文字）＋淡グレーボディの主役カード。Phase / Track / セグメント / セクションごとの独立ブロックとして 3〜4 枚を横並びに配置し、Growth Model・3 本柱・Phase 概観などを構造化して見せる。内部に `.section`（`.icon-chip` 付きミニカード）や `.tag-list`（Pill Tag）を積む。
+帯ヘッダー（`--band-bg`。Mono は薄グレー＋黒文字、他テーマは accent 帯＋白文字）＋淡グレーボディの主役カード。Phase / Track / セグメント / セクションごとの独立ブロックとして 3〜4 枚を横並びに配置し、Growth Model・3 本柱・Phase 概観などを構造化して見せる。内部に `.section`（テキスト見出しのミニカード）や `.tag-list`（Pill Tag）を積む。
 
 **重要：フルスライドレイアウトとして使う**。標準の `.title-bar` + `.message` の下にコンポーネントとして落とし込むのではなく、**この 3〜4 枚のカード群自体がスライド本体**として構成する。参照デザイン（`fig03-acquire-expand-scale.png`）が範例。
 
@@ -735,7 +735,7 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
       <div class="phase-body">
 
         <div class="section">
-          <div class="section-title"><span class="icon-chip">G</span> 目的</div>
+          <div class="section-title">目的</div>
           <ul>
             <li>クライアントのデータ状態を理解</li>
             <li>業務プロセス・課題構造を把握</li>
@@ -743,7 +743,7 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
         </div>
 
         <div class="section">
-          <div class="section-title"><span class="icon-chip">T</span> 入口テーマ例</div>
+          <div class="section-title">入口テーマ例</div>
           <div class="tag-list">
             <span class="tag primary">リサーチ</span>
             <span class="tag">データ分析</span>
@@ -778,29 +778,16 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
 
 ### 27. Value Bar
 
-スライド最下部の全幅帯（`--band-bg`。Mono は薄グレー、他テーマは accent 帯）。3〜4 アイテム＋縦罫でスライドの持ち帰りを凝縮する。Takeaway Strip（#24）が「1 行結論・強強調の黒帯」なのに対し、Value Bar は「複数ステップの要約行列・構造帯」。参照デザインの `.value-bar`（AI Biz Ops fig03）が規範。
+スライド最下部の全幅帯（`--band-bg`。Mono は薄グレー、他テーマは accent 帯）。3〜4 セルでスライドの持ち帰りを凝縮する。Takeaway Strip（#24）が「1 行結論・強強調の黒帯」なのに対し、Value Bar は「複数ステップの要約行列・構造帯」。参照デザインの `.value-bar`（AI Biz Ops fig03）が規範。
+
+**番号は `.vb-num` の「テキスト」で前置する。塗りの円形バッジ（旧 `.vb-icon`）は使わない**（design-system.md 禁止パターン「装飾アイコン」。pptx では本文と別図形に分解されて縦位置が合わず、薄い塗りは色味も再現されない）。
 
 ```html
 <div class="value-bar">
-  <div class="value-bar-item">
-    <div class="vb-icon">1</div>
-    <div class="vb-text">案件で入り<br>課題を理解</div>
-  </div>
-  <div class="vb-divider"></div>
-  <div class="value-bar-item">
-    <div class="vb-icon">2</div>
-    <div class="vb-text">月額関係を構築<br>AI運用を拡大</div>
-  </div>
-  <div class="vb-divider"></div>
-  <div class="value-bar-item">
-    <div class="vb-icon">3</div>
-    <div class="vb-text">インフラ化し<br>他部門へ横展開</div>
-  </div>
-  <div class="vb-divider"></div>
-  <div class="value-bar-item">
-    <div class="vb-icon">↑</div>
-    <div class="vb-text">LTV最大化<br>構造的ロックイン</div>
-  </div>
+  <div class="value-bar-item"><span class="vb-num">1</span>案件で入り<br>課題を理解</div>
+  <div class="value-bar-item"><span class="vb-num">2</span>月額関係を構築<br>AI運用を拡大</div>
+  <div class="value-bar-item"><span class="vb-num">3</span>インフラ化し<br>他部門へ横展開</div>
+  <div class="value-bar-item"><span class="vb-num">帰結</span>LTV最大化<br>構造的ロックイン</div>
 </div>
 ```
 
@@ -808,25 +795,26 @@ CSS：絶対位置で配置、`.ap-line` は短い罫線、`.ap-text` は eyebro
 - 1 スライドに 1 つ。`.phase-flow`（Filled-Header Card 群）または独立コンテンツの**直下**・`.slide-foot` の上に配置
 - 使い方は 2 通り：**(A) Filled-Header Card #26 と組み合わせて 1 枚のフルスライドを構成する**（参照デザイン fig03 の型。推奨）。**(B) 標準 Content スライド（`.title-bar` + `.message` + 本文）の締めとして最下部に追加する**（Takeaway Strip #24 の代替。3〜4 アイテムに情報を凝縮したいとき）
 - アイテムは 3〜4 個まで。それ以上は情報過多
-- `.vb-icon` は 32×32 の円形（`--band-ink` の 12% 塗り）に数字 or 記号 1 文字
-- `.vb-text` は 2 行に折り返す（`<br>` で明示改行）
+- 帯は**独立した塗りセルを 2px の目地で並べて**作る（`.vb-divider` は廃止）。1 枚の帯の中に塗りの無い子要素を並べると pptx で `split_inline_row`（error）になる
+- 最後のアイテムが「ステップ」ではなく「帰結」の場合、`↑` `→` のような記号ではなく語（「帰結」等）を `.vb-num` に入れる
+- 番号は `.vb-num`（テキスト・本文と同一サイズ）。`↑` `→` のような記号 1 字で意味を持たせない（意味は語で書く）
+- 本文は `.value-bar-item` が**直接**持つ（`<br>` で 2 行に明示改行）。子要素に分けると pptx で段落に分解される（pptx-safe.md §2）
 - Takeaway Strip（#24）とは併用しない（下部の重み付けが重複するため）
 
-### 28. Icon Chip
+### 28. Icon Chip（廃止）
 
-Filled-Header Card 内 `.section-title` の先頭に置く 18×18 の黒塗り四角＋白文字 1 字ラベル。「G=Goal」「K=Key」「S=Scale 定着」「X=Reject」「T=Theme」等のセマンティックコードで、章内の役割を最小面積で示す。
+**このコンポーネントは廃止した。CSS も `assets/template-slides.html` から削除済み。** 番号は欠番として残す（既存デッキの参照先を保つため）。
+
+旧仕様は `.section-title` 先頭に置く 18×18 の塗り四角＋白文字 1 字ラベル（`G`=目的、`K`=概要 等のセマンティックコード）だった。廃止の理由は 2 つ：
+
+- **読み手に情報を足していない**。`G` / `K` のような 1 文字コードは凡例が無ければ解読できず、直後に日本語の見出し（「目的」「主な成果」）が並ぶため意味が重複する
+- **pptx 変換の妨げになる**。塗り面だけの小チップは変換器に別図形として拾われ、見出しテキストと別段落に分解されて縦位置が合わない（`chip_prefixed_row`。pptx-safe.md §2）
+
+**代替**：`.section-title` は**テキストだけ**で書く。役割の区別が要る場合は語で書く（「目的」「主な成果」「却下基準」）。
 
 ```html
-<div class="section-title">
-  <span class="icon-chip">G</span> 目的
-</div>
+<div class="section-title">目的</div>
 ```
-
-**ルール**：
-- 1 字のみ（英字 1 文字か記号 1 字）。2 字以上は不可
-- 意味を持たせる（`G` = 目的、`K` = 概要、`S` = 定着、`X` = 却下基準、`T` = テーマ、`R` = 結果、`I` = インサイト 等）。**装飾目的では使わない**
-- 色の派生（`.icon-chip.muted` で `#888` 塗り）は Reject / Warn 用のみ許可
-- Filled-Header Card #26 の中でのみ使う想定（単独で `.section-title` の外に置かない）
 
 ### 29. Pill Tag
 
@@ -925,11 +913,11 @@ Filled-Header Card 内で入口テーマ・カテゴリ・分類を列挙する�
 
 ## スライド文脈での利用（Slide Deck format）
 
-Slide Deck format（16:9 HTML スライドデッキ）でもここまでの 21 コンポーネントを **そのまま再利用**する。加えて、拡張 4 種（#22〜25、形式横断で利用可）と、**Slide Deck 統一シャシの参照デザイン 5 種（#26〜30、Filled-Header Card / Value Bar / Icon Chip / Pill Tag / Expansion Pills、5 テーマ共通で accent 色に自動追従）** をスライドの主役として使う。
+Slide Deck format（16:9 HTML スライドデッキ）でもここまでの 21 コンポーネントを **そのまま再利用**する。加えて、拡張 4 種（#22〜25、形式横断で利用可）と、**Slide Deck 統一シャシの参照デザイン 4 種（#26 Filled-Header Card / #27 Value Bar / #29 Pill Tag / #30 Expansion Pills、6 テーマ共通で accent 色に自動追従。#28 Icon Chip は廃止）** をスライドの主役として使う。
 
 **CSS の所在**：#1〜21 の CSS は Vertical Document では `assets/template.html`、Slide Deck では `assets/template-slides.html`（`.slide` スコープ・外側マージンをスライド向けに縮小済み）にそれぞれ搭載済み。デッキ側で CSS をコピー・再定義する必要はない。ただしスライドでは 2 コンポーネントに**スライド簡易形**があり、そちらが基本：Insight Callout は `.insight > .txt`（`slide-deck.md`「Content」の型。#15 の `.insight-label`/`.insight-body` 形も使える）、Scope Panel は `.scope`＋`.scope-sub`＋`ul`（#12 の `.scope-panel` 形も使える）。
 
-**ただし「作り込み図版／レイアウトパターン」は例外**：30 種・8 図解で表現しきれない構造的メッセージのスライドに限り、`.fig-NN` 名前空間で per-figure scoped CSS を組んでよい（統制条件・作図文法・5 レイアウトパターンは `references/diagram-components.md` 後半）。既存コンポーネント／8 図解で表現できる構造はそちらを優先し、作り込み図版は最上位の選択肢として使う。
+**ただし「作り込み図版／レイアウトパターン」は例外**：29 種・8 図解で表現しきれない構造的メッセージのスライドに限り、`.fig-NN` 名前空間で per-figure scoped CSS を組んでよい（統制条件・作図文法・5 レイアウトパターンは `references/diagram-components.md` 後半）。既存コンポーネント／8 図解で表現できる構造はそちらを優先し、作り込み図版は最上位の選択肢として使う。
 
 ### 利用ルール
 
@@ -1005,7 +993,7 @@ tags: ["progress", "q1"]
 | `# H1` | Cover の `h1.cover-title` | 1 つだけ。複数あれば最初のみ採用 |
 | `## H2` または `## 01 ○○` | `<section class="report-section" id="sec-N">` + Section Head | 章番号 + `.sec-eyebrow` + `<h2>` の3要素構造。H2 が 3 個以上で TOC 生成 |
 | `### H3` | `<h3 class="sub-head"><span class="num">章番号.連番</span>...</h3>` | 章番号は自動で付与（4.1, 4.2...） |
-| `#### H4` | `<h4 class="minor-head">` | 左罫線アクセント付きの小々見出し |
+| `#### H4` | `<h4 class="minor-head">` | 太字のみの小々見出し |
 
 ### 段落
 
