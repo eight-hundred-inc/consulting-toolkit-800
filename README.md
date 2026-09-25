@@ -148,31 +148,44 @@ claude mcp add --transport http circleback https://circleback.ai/api/mcp
 
 **(a) サーバーが AWS に立っている場合 — 社内メンバーはこちら**
 
+**Claude Code に頼むだけでよい。** Claude Code を開いて `/connect-slide-generator`
+と打つか、「slide-generator につないで」と伝える。ブラウザでログイン画面が
+開くので Google Workspace でログインすると、あとは Claude が接続用トークンの
+払い出しから `claude mcp add` までやる。**ターミナルでコマンドを打つ必要はない**。
+
+終わったら **Claude Code を一度閉じて開き直す**（開きっぱなしのセッションには
+反映されない）。これで `html-to-deck` / `deck` が使えるようになる。
+
 手元には**このリポジトリだけあればよい**（slide_generator のリポジトリも
 Python も `uv` も Chromium も LibreOffice も AWS の認証情報も不要。
-OS 標準のコマンドだけで動く）。本リポジトリのスクリプトで接続用トークンを
-自分で払い出す。**このリポジトリのルート**で、OS ごとに次を実行する。
+OS 標準のコマンドだけで動く）。
+
+トークンは **30 日で切れる**。`403` や `401` が返るようになったら期限切れ
+なので、もう一度 `/connect-slide-generator` と打つ（古い登録は自動で置き換わる）。
+トークンはパスワードと同じ扱いで、他人へ渡さないこと。
+
+<details>
+<summary>Claude Code を使わずに手で実行する場合</summary>
+
+スキルが呼んでいるのと同じスクリプトを、リポジトリのルートから直接実行できる。
 
 Windows（PowerShell に貼り付けて実行）:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts\issue_slide_generator_token.ps1
+powershell -ExecutionPolicy Bypass -File plugins\consulting-toolkit\skills\connect-slide-generator\scripts\issue_slide_generator_token.ps1
 ```
 
 macOS（ターミナルに貼り付けて実行）:
 
 ```bash
-bash scripts/issue_slide_generator_token.sh
+bash plugins/consulting-toolkit/skills/connect-slide-generator/scripts/issue_slide_generator_token.sh
 ```
 
 ブラウザが開くので Google Workspace でログインする。ログインが終わると
-スクリプトが Claude Code への登録（`claude mcp add`）まで行うので、これで完了
-（開きっぱなしの Claude Code には、開き直すと反映される）。
+スクリプトが Claude Code への登録（`claude mcp add`）まで行うので、これで完了。
 `claude mcp list` で `slide-generator` が `✔ Connected` になれば接続できている。
 
-トークンは **30 日で切れる**。`403` や `401` が返るようになったら期限切れ
-なので、上のスクリプトをもう一度実行する（古い登録は自動で置き換わる）。
-トークンはパスワードと同じ扱いで、他人へ渡さないこと。
+</details>
 
 **(b) 手元で動かす場合 — 開発者向け**
 
@@ -310,6 +323,7 @@ sudo apt install libreoffice
 | [html-artifact](plugins/consulting-toolkit/skills/html-artifact/SKILL.md) | Markdown を、単体で開ける HTML（縦長の文書 / 16:9 スライドデッキ）に変換する。30 種のコンポーネントと 8 種の図解を内蔵し、スライドは第 2 層のレイアウトパターンに従って組む。生成のみ（HTML の公開は html-publish、PPTX 化はブランド pptx スキルへ） | 「HTML にして」「16:9 スライドにして」「ブラウザでめくれるプレゼンを作って」 |
 | [deck](plugins/consulting-toolkit/skills/deck/SKILL.md) | 構成 MD から **HTML デッキと編集可能な PPTX を一気通貫**で作る。html-artifact（PPTX 変換セーフモード）→ html-to-deck を決められた順でつなぎ、崩れたときの戻り先を HTML に固定する | 「デッキを作って pptx にして」「構成 MD から PowerPoint まで一気に」 |
 | [html-to-deck](plugins/consulting-toolkit/skills/html-to-deck/SKILL.md) | html-artifact が生成した 16:9 デッキ HTML を見本に、テンプレート pptx の部品で組み直した**編集可能な PPTX** を生成する（slide_generator の MCP 経由。要 [セットアップ](#slide-generator見本-html--pptx-html-to-deck-利用時に必須)） | 「HTML デッキを pptx にして」「このデッキを PowerPoint に変換して」 |
+| [connect-slide-generator](plugins/consulting-toolkit/skills/connect-slide-generator/SKILL.md) | `slide-generator` MCP への接続をセットアップ・更新する。接続用トークンの払い出しから `claude mcp add` までを代行し、利用者はブラウザでログインするだけ（コマンド入力は不要）。トークンは 30 日で失効するので、`401` / `403` の復旧も同じ手順 | 「slide-generator につないで」「pptx 変換の設定をして」「403 が返る」「/connect-slide-generator」 |
 | [slide-pattern-creator](plugins/consulting-toolkit/skills/slide-pattern-creator/SKILL.md) | スライド1枚のコンテンツエリア構造（レイアウトパターン）の正本。画像・PPTX からパターンを言語化した定義 MD ＋グレースケール・スケルトン HTML を生成し、`library/` に蓄積（同梱 136 パターン） | 「スライドパターンを抽出して」「SLIDE-PATTERN を生成して」 |
 | [circleback-meeting-minutes](plugins/consulting-toolkit/skills/circleback-meeting-minutes/SKILL.md) | Circleback MCP から過去1週間の会議を取得し、プロジェクト関連を自動分類して議事録 MD を一括生成。複数件は並列処理（要 [Circleback セットアップ](#circlebackai-議事録-circleback-meeting-minutes-利用時に必須)） | 「Circlebackから議事録を作って」「先週の会議の議事録を作成して」 |
 
@@ -528,7 +542,8 @@ consulting-toolkit-800/
         ├── .claude-plugin/
         │   └── plugin.json           # プラグインマニフェスト
         ├── commands/
-        │   └── pm.md                 # /pm コマンド（project-manager 起動）
+        │   ├── pm.md                 # /pm コマンド（project-manager 起動）
+        │   └── connect-slide-generator.md  # /connect-slide-generator コマンド（MCP 接続設定）
         ├── skills/
         │   ├── project-manager/
         │   ├── interview-guide-creator/
@@ -544,6 +559,9 @@ consulting-toolkit-800/
         │   ├── chart-generator-guide/
         │   ├── image-generator-guide/        # scripts/screenshot.py（HTML→PNG 変換）を同梱
         │   ├── html-artifact/
+        │   ├── deck/                         # 構成 MD → HTML デッキ → PPTX の一気通貫
+        │   ├── html-to-deck/                 # 見本 HTML → 編集可能 PPTX（slide-generator MCP 経由）
+        │   ├── connect-slide-generator/      # scripts/ に接続用トークンの払い出し（.sh / .ps1）を同梱
         │   ├── circleback-meeting-minutes/
         │   ├── _shared/                      # スキル共通のライティング原則
         │   ├── 800-branded-pptx/             # 800社ブランドPPTX（800 固有・同梱）

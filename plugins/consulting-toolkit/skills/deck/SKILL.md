@@ -18,7 +18,7 @@ description: スライド構成 MD（または素材）から、16:9 の HTML �
 | 前提 | 無いとき |
 |---|---|
 | テンプレート pptx（変換先のテーマ・マスター） | パスを尋ねる。推測で探さない |
-| `slide-generator` MCP サーバーの登録 | [セットアップ手順](../../../../README.md#slide-generator見本-html--pptx-html-to-deck-利用時に必須)を案内する。登録前に工程 1 だけ進めてはいけない（後で全部やり直しになる） |
+| `slide-generator` MCP サーバーの登録 | [connect-slide-generator](../connect-slide-generator/SKILL.md) スキルを呼んで接続する（利用者はブラウザでログインするだけ）。登録前に工程 1 だけ進めてはいけない（後で全部やり直しになる） |
 | スライド構成 MD | 無ければ [slide-structure-designer](../slide-structure-designer/SKILL.md) で先に作る |
 
 ## 入力

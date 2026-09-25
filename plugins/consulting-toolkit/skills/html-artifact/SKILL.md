@@ -49,6 +49,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 | 2 | [references/document-recipes.md](references/document-recipes.md) | Content Recipe A〜F（章構成）と Output Format（Vertical Document / Slide Deck）の判定フロー。**種別判定はここから始める** |
 | 3 | [references/design-system.md](references/design-system.md) | カラー・タイポグラフィ・6 テーマ（Terracotta / Navy / Forest / Charcoal / Mono / EightHundred）・印刷対応の CSS 仕様 |
 | 4 | `${CLAUDE_PLUGIN_ROOT}/skills/_shared/slide-body-principles.md` | **ボディ（コンテンツエリア）のベースライン規範**（5 原則＋例外 2 つ＋数値換算表）。**Slide Deck format のみ必読**（Vertical Document は対象外） |
+| 4.5 | `${CLAUDE_PLUGIN_ROOT}/skills/_shared/kinjite-15.md` | **PowerPoint「15 の禁じ手」**（紙書き研修 基礎編）を HTML → pptx パイプラインに翻訳した正本。**Slide Deck / Vertical Document とも必読**。責務の棲み分け（A: HTML 作成時に完結 ／ B: 変換時に決まる ／ C: 組み合わせ）と 15 項目の適用・チェックリスト。Guardrails「禁じ手 15」の正本 |
 | 5 | [references/components.md](references/components.md) | 29 種のコンポーネント仕様（基本 21 種＋拡張 4 種＋Slide Deck 統一シャシ 4 種。HTMLスニペット付き）。**末尾に付録「Markdown → HTML マッピング」**（旧 markdown-html-mapping.md を統合） |
 | 6 | [references/diagram-components.md](references/diagram-components.md) | **図解の統合リファレンス**：固定 8 図解（概念フロー・2x2・ピラミッド・ファネル・サイクル・ベン図・組織図・レイヤー）＋**リッチ判定**（作り込み図版を既定とする条件）＋**レイアウトパターン**（スイムレーン/マトリクス/カード/ステップ/タイムライン。image-generator-guide 取り込み）＋**作り込み図版**（`.fig-NN` per-figure。exemplar 方式・トークン化注意を含む）。図解が必要なときに参照 |
 | 7 | [references/slide-deck.md](references/slide-deck.md) | Slide Deck format 専用。16:9 スライドシェル仕様（1280×720・5 種スライド型・プレゼンチャーム CSS/JS 完成形・印刷対応） |
@@ -213,6 +214,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
     - **図解の接続・整列**（Slide Deck の作り込み図版）: はみ出しゼロだけで合格にしない。辺の両端がノード縁に接続しているか・注釈/バッジがアンカーに隣接しているか・図が図版領域を使い切っているかまで見る（チェックリストは diagram-components.md「検証」）
     - **委譲時の役割分担**（step 9.5 を使った場合）: 図版単体の検証はワーカーが完了済みなので親は再検証しない。親は**統合検証**を担う — スライド全景のサンプリング、プレゼンチャーム/カウンタ/サムネイル、`scrollWidth`/`clientWidth` による横はみ出し機械測定、図版とテキスト（message / body-list）の重なり、`fig-NN`・SVG marker id の重複が組み上がったデッキ内でゼロであること
     - **PPTX 変換セーフ検査**（PPTX 変換セーフモードがオンの場合・必須）: slide_generator が入っている環境では `cd <slide_generator>/app/core && make run_html_pptx_lint SAMPLE_DIR=<出力HTMLのあるディレクトリ>` を実行し、**error 0 件**にしてから完了宣言する（同じ検査は `make run_image_slide` の実行時にも自動で走る）。slide_generator が無い環境では `references/pptx-safe.md` の「チェックリスト」を手で確認する。目視では気づけない崩れ（疑似要素のマーカー・1 行を分けた横並び・`transform: scale`）が対象で、**ブラウザ上は正しく見えていても pptx 化で必ず崩れる**ため、レンダリング確認では代替できない
+    - **禁じ手 15 の確認（必須・全出力形式）**: `${CLAUDE_PLUGIN_ROOT}/skills/_shared/kinjite-15.md` の**チェックリスト A（15 項目）**を通す。**⑤⑥⑧⑪⑫⑭⑮ は `run_html_pptx_lint` に出ない**ため、lint が error 0 でも別途確認が要る。とくに次の 3 つはレンダリング後の DOM で機械的に測れるので、目視で済ませない — (a) 並列カード（同一 grid 内の兄弟）の `getBoundingClientRect()` の幅・高さ・上端が揃っているか（⑪⑫。**塗り・枠の無い「見えない器」も対象**）、(b) 同じ役割の要素で `font-size` が混在していないか（⑥）、(c) 本文・リストの `line-height` が下限を割っていないか（⑧）
     - **元との比較**（PPTX 再現・既存 HTML 改修など、元レイアウトがある場合）: 元画像・元期待値と並べて差分を確認
     - **インタラクション確認**（Slide Deck format の場合）: ページ送り、文字選択、ハイライト、サムネイル一覧、URL ハッシュ深リンクが意図通りに動くか
     - **修正サイクルでも同様**: 「ズレを修正しました」と宣言する前に再レンダリングして確認。修正→検証はペアで実行
@@ -239,6 +241,47 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 
 ## Guardrails
 
+### 禁じ手 15（最優先・全 Output Format 共通）
+
+正本は `${CLAUDE_PLUGIN_ROOT}/skills/_shared/kinjite-15.md`（読み込み順序表の 4.5 番）。紙書き研修「禁じ手集」の 15 項目を HTML → pptx パイプラインに翻訳したもので、**以降の Guardrails・デザイン規約はすべてこれと整合している**。競合したときは禁じ手が優先する。
+
+**責務の棲み分け**——禁じ手は 3 つに分かれる。本スキルが責任を持つのは **A と、C の HTML 側**である。
+
+| 分類 | 禁じ手 | 本スキルの責任 |
+|---|---|---|
+| **A. HTML 作成時に完結** | ② 改行＆スペース多用 ／ ③ 箇条書きの点直打ち ／ ④ スペース・インデント ／ ⑤ モノ文字ボックス ／ ⑥ バラバラフォント ／ ⑦ 下線直書き ／ ⑧ 行間ピッタリ ／ ⑪ サイズバラバラ ／ ⑫ 縦横配置バラバラ ／ ⑬ 線でマトリックス ／ ⑭ アニメーション ／ ⑮ 3 軸グラフ | **本スキルで完全に潰す。**変換器は実測した矩形・文字をそのまま pptx にするため、**HTML で崩れているものは pptx でも必ず崩れる**。`html-to-deck` 側では直せない |
+| **B. 変換時に決まる** | ① タイトル＆メッセージ直打ち（マスター継承） | HTML 側にできるのは「全スライドで同一構造・同一 CSS のタイトル行／メッセージ行にしておく」ことだけ。プレースホルダへの載せ方は `html-to-deck` の担当 |
+| **C. 組み合わせて対応** | ① マスター継承の確認 ／ ③ 箇条書きの段落化 ／ ④ ぶら下げインデント ／ ⑨ 図形に文字ボックス ／ ⑩ 図形間の線が"ただ"の線 | HTML 側が「変換器がそう解釈できる形」で書く（下表）。**そうなったかの確認は変換後**なので、崩れたら pptx をいじらず HTML を直して `--rebuild` する |
+
+**A：HTML 作成時に必ず守る 12 項目**（詳細と理由は正本へ）
+
+| # | 禁じ手 | HTML での規約 |
+|---|---|---|
+| ② | 改行＆スペース多用 | 幅調整のための `<br>` / `&nbsp;` / 全角スペースを使わない。折り返しは要素幅と `line-height` に任せる。`<br>` は**意味として 2 行に分けたい行**のみ |
+| ③ | 箇条書きの点直打ち | 箇条書きは必ず `<ul>/<ol>` ＋ `<li>`。`<p>`/`<div>` の羅列で箇条書きに見せない（マーカー字形の置き方は `pptx-safe.md` §1） |
+| ④ | スペース・インデント | 字下げは `padding-left`＋負の `text-indent`。`margin-left`・スペース連打で行頭を揃えない |
+| ⑤ | モノ文字ボックス | 1 要素に本文全部を流し込まない。**意味の塊ごとに要素を分け、分けた要素の横幅は揃える**。※「**行の中**は分けない（`pptx-safe.md` §2）／**塊と塊**は分ける（⑤）」——判定軸は「同じ 1 行か、別の意味の塊か」 |
+| ⑥ | バラバラフォント | 書体は `--font-jp` / JetBrains Mono のみ。**並列要素の `font-size` はデッキ全体で統一**。「入り切らないから縮める」は禁止（情報量を減らすかスライドを分ける）。**英数字は半角・カタカナは全角**に統一 |
+| ⑦ | 下線直書き | 線を「引く」ために要素を足さない。区切りは**その要素自身の `border-top`/`border-bottom`**（絶対配置の線 `div`・疑似要素の罫は不可）。語句の下線は `text-decoration`。区切り罫（文章幅より長い線）は対象外。**PPTX 変換セーフモードのときだけ** `li` の `border-bottom`（行ごとのアンダーライン）を外し、区切りを行間で表現する |
+| ⑧ | 行間ピッタリ | `line-height` の下限（design-system.md）を守り、項目間・段落間に余白を取る。縦が足りなくても行間を詰めて詰め込まない |
+| ⑪ | サイズバラバラ | 並列カードは等分 grid（`1fr`）＋`align-items:stretch`。**塗り・枠が無い「見えない器」もサイズを揃える**（変換器は矩形を実測するため、見えない不揃いも pptx では不揃いな図形になる） |
+| ⑫ | 縦横配置バラバラ | grid / flex で軸を揃える。`position:absolute`＋px の微調整で並べない。左端・上端・ギャップをデッキ全体で一定に |
+| ⑬ | 線でマトリックス | マトリクス・表は**セル（面）**で組む。罫線を引いた領域にテキストを載せる作り方をしない。罫線は表全体で統一し、強調は `background-color` |
+| ⑭ | アニメーション | スライド本体に `animation` / `@keyframes` を使わない。`transition` は**プレゼンチャーム（印刷時 `display:none` の UI レイヤー）のみ**。段階的な説明はスライドを分ける |
+| ⑮ | 3 軸グラフ | 3D・立体・3 軸のチャートを作らない。比較軸が 3 つあるならチャートを分ける（1 スライド 1 メッセージに戻す） |
+
+**C：HTML 側で「変換器が解釈できる形」に書く 5 項目**
+
+| # | 禁じ手 | HTML 側の書き方 | 変換後に確認されること（html-to-deck） |
+|---|---|---|---|
+| ① | タイトル＆メッセージ直打ち | タイトル行・メッセージ行は統一シャシの固定クラスで、**全スライド同一 DOM・同一 CSS**。スライド固有の `style=""` で位置を上書きしない | 全スライドのタイトル行が同座標で出ているか |
+| ③ | 箇条書きの点直打ち | `<ul>/<li>` 構造を保つ | 各項目が独立した段落になっているか |
+| ④ | スペース・インデント | `text-indent` は pptx に引き継がれないため、**折り返し行が左端に戻っても意味が壊れない字面**にする | ぶら下げが必要な箇所の申し送り |
+| ⑨ | 図形に文字ボックス | 塗り・枠を持つ要素が**テキストノードを直接持つ**。塗り div の上に絶対配置テキストを重ねない | 「塗り図形＋別テキストボックス」に分解されていないか |
+| ⑩ | 図形間の線が"ただ"の線 | 矢印は**結ぶ 2 ノードの間に 1 本ずつ独立**（`pptx-safe.md` §7）。オーバーレイ SVG にまとめない | pptx のコネクタになっているか |
+
+**原則**：pptx 側の手直しで辻褄を合わせない。手直しは次の再変換で消えるため、禁じ手の目的そのもの（修正の容易性）を壊す。
+
 ### HTML 出力規約
 
 - **`<link rel="stylesheet">` は原則禁止**。**ただし Google Fonts（`fonts.googleapis.com`）に限り例外で許可**（Noto Sans JP / JetBrains Mono の読み込みのため）
@@ -262,6 +305,8 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 - 見出し・リード文を新たに起こす場合は `${CLAUDE_PLUGIN_ROOT}/skills/_shared/writing-principles.md` の原則7（NG語彙・言い換え辞書）・原則8（メッセージ・クリスタライズ規範）に従う。Slide Deck のメッセージ行は単一主張の1文にし、辞書のNG語彙を避ける
 
 ### デザイン禁止パターン（マガジン化・装飾化の排除）
+
+装飾化の排除が目的の表。**禁じ手 15 由来の禁止事項は上節（禁じ手 15）と `design-system.md`「禁止パターン」の末尾 7 行**にあり、本表とは別軸で常に適用される。
 
 | 禁止事項 | 理由 |
 |---------|------|
@@ -362,6 +407,10 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 - **pptx に変換したら見た目が崩れた（章番号や箇条書きの点が消える／行が上下に分解される／文字が枠から溢れる）**：HTML 側が PPTX 変換セーフでないことが原因。`references/pptx-safe.md` の 1〜3 節（疑似要素・1 行の分割・`transform: scale`）を直し、`make run_html_pptx_lint` で error 0 件にしてから再変換する。変換器の設定ではなく見本 HTML の書き方の問題なので、pptx 側をいじっても直らない
 - **pptx に変換したらカードの継ぎ目に線が入る／2 枚に分かれてずれる**：カード（とくに塗りヘッダー帯＋本文の 2 色構成）に角丸が付いている（`references/pptx-safe.md` 8 節）。面は直角（`border-radius:0`）にする
 - **pptx に変換したら表のオブジェクト数が異常に多い／表が重い**：セルごとに罫線の色・太さ・実線/点線が違う（`references/pptx-safe.md` 9 節）。表全体で罫線を統一し、強調は `background-color` で出す
+- **内容が枠に入り切らない**：フォントサイズを下げる・行間を詰める・`<br>` で押し込む、はいずれも禁じ手（⑥⑧②）。**情報量を減らすかスライドを分ける**のが唯一の解（`_shared/kinjite-15.md`）
+- **並列カードの大きさ・位置が微妙に揃わない**：個別の `width`/`height`/`margin` で調整していないか（禁じ手⑪⑫）。等分 grid（`1fr`）＋`align-items:stretch` に戻す。**塗り・枠の無いゾーンも矩形として実測される**ので、見えない不揃いも pptx では不揃いな図形になる
+- **段階的に見せたい／動きを付けたいと言われた**：スライド本体にアニメーションを入れない（禁じ手⑭。印刷と pptx で意味をなさない）。段階的な説明は**スライドを分けて**表現する
+- **3 つの軸を 1 枚のグラフで見せたい**：3 軸・3D グラフは禁じ手⑮。軸を分けて複数チャートにするか、スライドを分ける（1 枚のグラフで 3 軸を語ろうとしている時点でメッセージが 2 つ以上ある）
 
 ## References
 
@@ -374,6 +423,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 - `references/pptx-safe.md` — PPTX 変換セーフ規約（Slide Deck format × pptx 変換前提のときのみ）。変換器が実測する項目・しない項目の対応表、NG→OK の書き換え例、`make run_html_pptx_lint` による機械検査。**図版委譲時は diagramComponentsPath と同様に絶対パスでワーカーに渡す**
 - `${CLAUDE_PLUGIN_ROOT}/skills/slide-pattern-creator/library/SLIDE-PATTERN-INDEX-COMPACT.md` — レイアウト割付用の軽量パターンインデックス（1 行/パターン。Slide Deck format の step 5 で必読。正本は同ディレクトリの SLIDE-PATTERN-INDEX.md）
 - `${CLAUDE_PLUGIN_ROOT}/skills/slide-pattern-creator/library/SLIDE-PATTERN-INDEX-BY-LOGIC.md` — 論理型からの逆引き索引（メッセージの述語 → 論理型 → パターン候補）。step 5 の構造翻訳で使う
+- `${CLAUDE_PLUGIN_ROOT}/skills/_shared/kinjite-15.md` — **PowerPoint「15 の禁じ手」の正本**（紙書き研修 基礎編の翻訳）。責務の棲み分け（A: HTML 作成時／B: 変換時／C: 組み合わせ）と 15 項目の適用・チェックリスト。Guardrails「禁じ手 15」はこの要約
 - `${CLAUDE_PLUGIN_ROOT}/skills/_shared/deck-rhetoric.md` — デッキ全体を貫く約束事（識別子の貫通・現在地・再掲・確度表示・引用の器）
 - `assets/template.html` — HTML スケルトン（Vertical Document 用。コピーして編集する）
 - `assets/template-slides.html` — スライドデッキスケルトン（Slide Deck format 用。コピーして編集する）
