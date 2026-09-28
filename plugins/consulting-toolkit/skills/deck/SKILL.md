@@ -17,7 +17,7 @@ description: スライド構成 MD（または素材）から、16:9 の HTML �
 
 | 前提 | 無いとき |
 |---|---|
-| テンプレート pptx（変換先のテーマ・マスター） | パスを尋ねる。推測で探さない |
+| テンプレート pptx（変換先のテーマ・マスター） | 既定テンプレート（下記「入力」）を使う。それも無ければパスを尋ね、推測で探さない |
 | `slide-generator` MCP サーバーの登録 | [connect-slide-generator](../connect-slide-generator/SKILL.md) スキルを呼んで接続する（利用者はブラウザでログインするだけ）。登録前に工程 1 だけ進めてはいけない（後で全部やり直しになる） |
 | スライド構成 MD | 無ければ [slide-structure-designer](../slide-structure-designer/SKILL.md) で先に作る |
 
@@ -25,8 +25,8 @@ description: スライド構成 MD（または素材）から、16:9 の HTML �
 
 | 入力 | 指定方法 | 必須 |
 |---|---|---|
-| 構成 MD（または素材） | 引数（例: `/consulting-toolkit:deck docs/報告会.md --template ~/templates/800.pptx`） | 必須 |
-| テンプレート pptx | 引数 `--template <path>` | 必須 |
+| 構成 MD（または素材） | 引数（例: `/consulting-toolkit:deck docs/報告会.md`、テンプレートを替えるときは `--template ~/templates/800.pptx`） | 必須 |
+| テンプレート pptx | 引数 `--template <path>`。**省略時は既定テンプレート** `${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/テンプレート.pptx` を使う（尋ねない）。引数や会話で別の pptx が指定された場合はそちらが優先し、既定は無視する | 任意 |
 | 出力先 | 引数 `--out-dir <dir>`。省略時は構成 MD と同じディレクトリの下に `deck/` を作る | 任意 |
 | HTML 段階での確認 | 引数 `--review`。指定時は工程 1 の後で止まる | 任意 |
 | 崩れる書き方の扱い | 引数 `--force`。変換セーフ検査の error を無視して変換する | 任意 |
@@ -64,7 +64,7 @@ make run_html_pptx_lint SAMPLE_DIR=<出力先ディレクトリ>
 
 ### 3. PPTX へ変換する（html-to-deck）
 
-html-to-deck を、工程 1 の出力ディレクトリとテンプレート pptx を渡して呼ぶ。
+html-to-deck を、工程 1 の出力ディレクトリとテンプレート pptx（指定が無ければ既定テンプレート）を渡して呼ぶ。
 `--force` / `--rebuild` が指定されていればそのまま引き継ぐ。変換セーフ検査で
 error があれば中断する（`--force` 指定時を除く）。
 

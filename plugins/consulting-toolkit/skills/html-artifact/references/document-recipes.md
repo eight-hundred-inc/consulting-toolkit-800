@@ -46,7 +46,7 @@ Slide Deck format でも内容構成は Step 1 で決めた Content Recipe を�
 
 ### Step 3: Theme（テーマ）を選ぶ
 
-6 テーマから 1 つ。1 ドキュメントに 1 テーマだけ。**既定は Mono**。他 5 テーマ（Terracotta / Navy / Forest / Charcoal / EightHundred）は色味を変えたい場合の任意の代替パレット。用途に応じた使い分けは規定しない。EightHundred はクライアントブランド固有テーマで、選ぶとフォントも Meiryo UI に切り替わる（詳細は design-system.md「Theme 6」）。
+6 テーマから 1 つ。1 ドキュメントに 1 テーマだけ。**既定は EightHundred**（クライアントブランド固有テーマ。フォントも Meiryo UI に切り替わる。詳細は design-system.md「Theme 6」）。他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合の任意の代替パレットで、利用者が明示したときだけ選ぶ。用途に応じた使い分けは規定しない。
 
 詳細は `references/design-system.md` を参照。
 

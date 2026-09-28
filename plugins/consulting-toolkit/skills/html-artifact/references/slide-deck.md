@@ -15,7 +15,7 @@
 
 Slide Deck format は **6 テーマ共通の統一シャシ**を使う。面の直角（`--card-radius:0`）・影・Filled-Header Card 群・Value Bar 等の視覚言語は 6 テーマで完全に共通で、**テーマ切替は `:root` の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）**で完結する（`<body>` クラスによるモード切替はしない。旧表現の対応は `document-recipes.md`「エイリアス（後方互換）」を参照）。**唯一の例外は EightHundred テーマ**で、上記に加えて `--font-jp` も切り替える（本文・見出しフォントが Meiryo UI になる）。
 
-**6 テーマは palette 違いのみ**：Mono = 灰帯＋黄マーカー（黒塗りは強強調のみ）、Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、Charcoal = チャコール帯（実質モノに近い）、EightHundred = ダークグリーン帯（クライアントブランド固有・フォントも Meiryo UI に切替）。既定は Mono。
+**6 テーマは palette 違いのみ**：Mono = 灰帯＋黄マーカー（黒塗りは強強調のみ）、Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、Charcoal = チャコール帯（実質モノに近い）、EightHundred = ダークグリーン帯（クライアントブランド固有・フォントも Meiryo UI に切替）。**既定は EightHundred**。
 
 ```css
 /* Terracotta に切り替える場合の唯一の差分（帯・マーカー 3 行は非 Mono 4 テーマ共通） */
@@ -41,7 +41,7 @@ Slide Deck format は **6 テーマ共通の統一シャシ**を使う。面の�
 
 | テーマ | accent 値 | 帯（--band-bg）/ マーカー（--marker-bg） |
 |---|---|---|
-| **Mono（既定）** | `#1a1a1a` | 薄グレー `#e4e4e4`＋黒文字 / 蛍光黄 `#ffff00` |
+| **Mono** | `#1a1a1a` | 薄グレー `#e4e4e4`＋黒文字 / 蛍光黄 `#ffff00` |
 | Terracotta | `#9d3617` | accent 帯＋白文字 / accent 淡ティント |
 | Navy | `#1e3a5f` | accent 帯＋白文字 / accent 淡ティント |
 | Forest | `#2a4f3a` | accent 帯＋白文字 / accent 淡ティント |
@@ -54,7 +54,7 @@ Slide Deck format は **6 テーマ共通の統一シャシ**を使う。面の�
 マーカー（参照デザインの行ハイライト・語句ハイライト）、他テーマでは accent 淡ティントになる。
 **1 スライド 1〜2 箇所まで**。文単位で塗らない（塗るのは語句）。
 
-迷ったら：**Slide Deck は Mono 既定**。色味を変えたい場合のみ他テーマを選ぶ。用途に応じた使い分けは規定しない。EightHundred はクライアントブランドカラーに合わせたいときに選ぶ（フォントも切り替わる）。
+迷ったら：**Slide Deck は EightHundred 既定**（テーマ指定が無ければこれ。フォントは Meiryo UI、Cover・title-bar・footer のフレームもクライアント PPTX 準拠になる）。色味を変えたい場合のみ他テーマを利用者の明示で選ぶ。用途に応じた使い分けは規定しない。
 
 **EightHundred はフレーム（Cover・title-bar・footer・ロゴ）も実 PPTX マスターに準拠する唯一のテーマ**：他 5 テーマは配色のみの差分だが、EightHundred は Cover の全面ダークグリーン化・title-bar の日本語アイブロウラベル・footer のコピーライト表記・砦ロゴマークまで上書きする。トークン一覧・マークアップ例・SVG は `design-system.md`「Theme 6: EightHundred」→「EightHundred のフレーム仕様」を参照（本ファイルの下記「1. Cover」「4. Content」「5. Summary」節の一般形からの差分として適用する）。
 
@@ -808,7 +808,7 @@ Slide Deck では **6 テーマが統一シャシを共有**する（Vertical Do
 - スライド外背景：**6 テーマ共通で `#e5e5e5` 薄グレー**。この上に置くプレゼンチャーム（カウンタ・操作ヒント）の文字は `--ink-mute` / `--ink` を使う（**白文字にすると薄グレー地と同化して読めない**）。暗地に白文字を置くのはサムネイルパネル内とトグルボタンだけで、そちらは自前で暗背景を持つ
 - アクセント：`var(--accent)` 1 色のみ。テーマ切替は `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`。本ファイル「テーマ切替」参照。EightHundred のみ `--font-jp` も追加で切り替える）
 - カード装飾（`--card-radius` / `--card-shadow`）、構造色（`--panel-soft` / `--rule` / `--ink` 等）は 6 テーマ共通で不動
-- フォント：`var(--font-jp)`（本文・見出し）は既定 Noto Sans JP で 5 テーマ共通。EightHundred テーマのみ Meiryo UI に切り替わる（`design-system.md`「Theme 6: EightHundred」参照）。`JetBrains Mono`（数値・章番号）はテーマ・font-jp に関わらず不動
+- フォント：`var(--font-jp)`（本文・見出し）は既定テーマ EightHundred で Meiryo UI。他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は Noto Sans JP 共通（`design-system.md`「Theme 6: EightHundred」参照）。`JetBrains Mono`（数値・章番号）はテーマ・font-jp に関わらず不動
 
 **Vertical Document との差**：Vertical Document は各テーマが独自の背景・ink 等を持ち（Terracotta は紙質クリーム、Navy は同、Mono は純白）、視覚言語も異なる。Slide Deck の統一シャシは Slide Deck 専用の運用。
 

@@ -563,9 +563,9 @@ consulting-toolkit-800/
         │   ├── html-to-deck/                 # 見本 HTML → 編集可能 PPTX（slide-generator MCP 経由）
         │   ├── connect-slide-generator/      # scripts/ に接続用トークンの払い出し（.sh / .ps1）を同梱
         │   ├── circleback-meeting-minutes/
-        │   ├── _shared/                      # スキル共通のライティング原則
+        │   ├── _shared/                      # スキル共通のライティング原則＋既定テンプレート pptx（pptx-templates/）
         │   ├── 800-branded-pptx/             # 800社ブランドPPTX（800 固有・同梱）
-        │   └── pptx-from-reference/        # 参照pptx（reference-decks/配下 全件）＋md → PPTX 直接生成
+        │   └── pptx-from-reference/        # 参照pptx（reference-decks/ ＋ _shared/pptx-templates/ 全件）＋md → PPTX 直接生成
         └── agents/
             ├── quality-reviewer.md
             ├── desk-researcher.md

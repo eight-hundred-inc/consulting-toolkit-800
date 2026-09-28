@@ -2,10 +2,11 @@
 """参照 pptx デッキを全件解析し、デザイン仕様（JSON）と要約（Markdown）を出力する。
 
 使い方:
-    python3 analyze_references.py [--decks DIR] [--outdir DIR] [--max-slides N] [--masters-only]
+    python3 analyze_references.py [--decks DIR ...] [--outdir DIR] [--max-slides N] [--masters-only]
 
---decks を省略した場合、本スクリプトの親ディレクトリ配下の reference-decks/ を
-再帰的に走査し、見つかった .pptx / .potx を **すべて** 解析対象にする。
+--decks を省略した場合、本スクリプトの親ディレクトリ配下の reference-decks/ と、
+スキル共通の既定テンプレート置き場 skills/_shared/pptx-templates/ を再帰的に走査し、
+見つかった .pptx / .potx を **すべて** 解析対象にする（--decks は複数指定可）。
 出力は outdir/deck-spec.json（全量）と outdir/deck-spec.md（エージェント読解用の要約）。
 
 --masters-only を付けると **スライドマスターのみ参照モード** になる:
@@ -628,8 +629,9 @@ def deck_markdown(deck: dict, stats: dict, recur: list[dict], slide_detail: int)
 def main() -> int:
     here = Path(__file__).resolve().parent
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--decks", default=str(here.parent / "reference-decks"),
-                    help="参照 pptx を置いたディレクトリ（既定: スキル配下の reference-decks/）")
+    ap.add_argument("--decks", action="append", metavar="DIR",
+                    help="参照 pptx を置いたディレクトリ（複数指定可。既定: スキル配下の reference-decks/ と "
+                         "skills/_shared/pptx-templates/）")
     ap.add_argument("--outdir", default=".", help="出力先ディレクトリ")
     ap.add_argument("--max-slides", type=int, default=0, help="1デッキあたりの解析スライド上限（0=全件）")
     ap.add_argument("--slide-detail", type=int, default=12, help="Markdown に実測ダンプするスライド枚数")
@@ -638,17 +640,33 @@ def main() -> int:
                          "マスター・レイアウト・テーマだけを抽出する")
     args = ap.parse_args()
 
-    decks_dir = Path(args.decks).expanduser().resolve()
-    if not decks_dir.is_dir():
-        print("参照ディレクトリがありません: %s" % decks_dir, file=sys.stderr)
+    if args.decks:
+        decks_dirs = [Path(d).expanduser().resolve() for d in args.decks]
+    else:
+        # 既定: 本スキルの reference-decks/ と、スキル共通の既定テンプレート置き場
+        decks_dirs = [
+            (here.parent / "reference-decks").resolve(),
+            (here.parents[1] / "_shared" / "pptx-templates").resolve(),
+        ]
+    decks_label = " / ".join(str(d) for d in decks_dirs)
+    present = [d for d in decks_dirs if d.is_dir()]
+    if not present:
+        print("参照ディレクトリがありません: %s" % decks_label, file=sys.stderr)
         return 2
 
-    files = sorted(
-        p for p in decks_dir.rglob("*")
-        if p.suffix.lower() in (".pptx", ".potx") and not p.name.startswith("~$")
-    )
+    files, seen = [], set()
+    for d in present:
+        for p in sorted(d.rglob("*")):
+            if p.suffix.lower() not in (".pptx", ".potx") or p.name.startswith("~$"):
+                continue
+            rp = p.resolve()
+            if rp in seen:
+                continue
+            seen.add(rp)
+            files.append(p)
+    files.sort(key=lambda p: (p.name, str(p)))
     if not files:
-        print("参照 pptx が 1 件もありません。%s に pptx を配備してください。" % decks_dir, file=sys.stderr)
+        print("参照 pptx が 1 件もありません。%s に pptx を配備してください。" % decks_label, file=sys.stderr)
         return 3
 
     outdir = Path(args.outdir).expanduser().resolve()
@@ -657,7 +675,7 @@ def main() -> int:
     all_decks, md_parts = [], []
     md_parts.append("# 参照デッキ デザイン仕様（自動抽出%s）" % ("・マスターのみ参照モード" if args.masters_only else ""))
     md_parts.append("")
-    md_parts.append("参照元: `%s` / 対象 %d ファイル" % (decks_dir, len(files)))
+    md_parts.append("参照元: `%s` / 対象 %d ファイル" % (decks_label, len(files)))
     if args.masters_only:
         md_parts.append("")
         md_parts.append("> masters-only: 既存スライドの中身は解析していない。"

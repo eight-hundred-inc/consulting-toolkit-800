@@ -19,7 +19,7 @@ description: スキル配下の reference-decks/ に配備した参照 pptx 全�
 | 入力 | 指定方法 | 必須 |
 |---|---|---|
 | コンテンツ Markdown | **引数でパスを指定**（例: `/consulting-toolkit:pptx-from-reference docs/提案書.md`） | 必須 |
-| 参照 pptx | `reference-decks/` に配備。**配下の pptx を全件参照する**（再帰・追加削除は自動反映） | 必須 |
+| 参照 pptx | `reference-decks/` に配備。**配下の pptx を全件参照する**（再帰・追加削除は自動反映）。あわせて共通テンプレート置き場 [`_shared/pptx-templates/`](../_shared/pptx-templates/README.md) も既定で参照する | 必須 |
 | テンプレートに使う 1 本 | 引数 `--template <名前の一部>`。省略時はスキルが解析結果から選び、ユーザーに確認する | 任意 |
 | 参照モード | 引数 `--masters-only`。省略時は全量参照モード（下表） | 任意 |
 | 出力先 | 引数 `--out <path>`。省略時は md と同じディレクトリに `<md名>.pptx` | 任意 |
@@ -43,7 +43,8 @@ description: スキル配下の reference-decks/ に配備した参照 pptx 全�
 
 | パス | 役割 |
 |---|---|
-| `reference-decks/` | **参照 pptx の配備先**。ここに置いた `.pptx` / `.potx` を全件解析する（[README](reference-decks/README.md)） |
+| `reference-decks/` | **本スキル固有の参照 pptx の配備先**。ここに置いた `.pptx` / `.potx` を全件解析する（[README](reference-decks/README.md)） |
+| `../_shared/pptx-templates/` | **スキル横断で共有する既定テンプレート**（`テンプレート.pptx`）の置き場。`html-artifact` / `html-to-deck` / `deck` の既定でもあり、本スキルも既定で解析対象に含める（[README](../_shared/pptx-templates/README.md)） |
 | `scripts/analyze_references.py` | 参照デッキ全件を解析し `deck-spec.json`（全量）と `deck-spec.md`（要約）を出力 |
 | `scripts/deck_kit.py` | python-pptx ラッパ。テンプレート継承・テキスト・箇条書き・図形・表・自動縮小 |
 | `scripts/build_example.py` | `build.py` の雛形（そのままでも動く足場。案件ごとに書き換える） |
@@ -65,7 +66,8 @@ python3 <skill>/scripts/analyze_references.py --outdir .            # 全量参�
 python3 <skill>/scripts/analyze_references.py --outdir . --masters-only  # マスターのみ参照
 ```
 
-`reference-decks/` 配下の pptx を全件読み、`deck-spec.md` / `deck-spec.json` を出力する。
+`reference-decks/` と `../_shared/pptx-templates/` 配下の pptx を全件読み、`deck-spec.md` / `deck-spec.json` を出力する
+（別の場所を見るときは `--decks <dir>`。複数指定可）。
 参照 pptx が 0 件なら終了コード 3 で止まる（その旨をユーザーに伝え、配備を依頼する）。
 
 `deck-spec.md` から次を読み取る。**これが以降の全ての座標・配色の根拠になる**。
@@ -109,7 +111,7 @@ python3 <skill>/scripts/analyze_references.py --outdir . --masters-only  # マ�
 ```bash
 cp <skill>/scripts/build_example.py build.py
 # build_slides() を案件用に書き換える
-python3 build.py --md <md> --template <skill>/reference-decks/<選んだ>.pptx \
+python3 build.py --md <md> --template <選んだ参照デッキ>.pptx \
                  --spec deck-spec.json --out <出力>.pptx
 ```
 
@@ -144,7 +146,7 @@ PNG は LibreOffice の近似描画。フォント置換で字幅がずれるた
 
 | ルール | 詳細 |
 |---|---|
-| **参照は全件** | `reference-decks/` 配下の pptx を選り好みせず全件解析する。テンプレートに使うのは 1 本だが、パレットと語彙は全件から学ぶ |
+| **参照は全件** | `reference-decks/` と `../_shared/pptx-templates/` 配下の pptx を選り好みせず全件解析する。テンプレートに使うのは 1 本だが、パレットと語彙は全件から学ぶ |
 | **テンプレート継承** | `open_template()` で参照 pptx を開く。マスター・レイアウト・テーマを作り直さない |
 | **座標は実測値** | `deck-spec.md` の x/y/w/h を根拠に置く。目分量で配置しない（masters-only ではレイアウト・マスターの実測値が根拠） |
 | **マージンの統一** | 左右マージン・本文開始 y をデッキ全体で 1 組の定数に揃える |

@@ -751,7 +751,7 @@ scale = 1152 / （fig-canvas のネイティブ幅）
 
 | テーマ | `--fig-accent` 実効値 |
 |---|---|
-| **Mono（Slide Deck 既定）** | `#1a1a1a` 黒 |
+| **Mono** | `#1a1a1a` 黒 |
 | Terracotta | `#9d3617` テラコッタ |
 | Navy | `#1e3a5f` 紺 |
 | Forest | `#2a4f3a` 深緑 |

@@ -38,7 +38,7 @@ description: html-artifact が生成した 16:9 スライドデッキ HTML（`se
 | 前提 | 確認方法 | 無いとき |
 |---|---|---|
 | `slide-generator` MCP サーバーが登録済み | `mcp__slide-generator__*` ツールが見える（`/mcp` に `slide-generator` が出る） | [connect-slide-generator](../connect-slide-generator/SKILL.md) スキルを呼んで接続する（利用者はブラウザでログインするだけ。コマンド入力は不要）。登録後は Claude Code の開き直しが要るため、そこでいったん止める |
-| テンプレート pptx | 引数または利用者への確認 | パスを尋ねる。推測で探さない |
+| テンプレート pptx | 引数または利用者への確認 | 既定テンプレート（下記「入力」）を使う。それも無ければパスを尋ね、推測で探さない |
 | 見本 HTML のディレクトリ | 引数、または直前に html-artifact が出力したファイル | パスを尋ねる |
 
 ## 入力
@@ -46,7 +46,7 @@ description: html-artifact が生成した 16:9 スライドデッキ HTML（`se
 | 入力 | 指定方法 | 必須 |
 |---|---|---|
 | 見本 HTML のあるディレクトリ | 引数（例: `/consulting-toolkit:html-to-deck ~/work/deck`）。**ファイルではなくディレクトリ**を渡す | 必須 |
-| テンプレート pptx | 引数 `--template <path>`。省略時は利用者に尋ねる | 必須 |
+| テンプレート pptx | 引数 `--template <path>`。**省略時は既定テンプレート** `${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/テンプレート.pptx` を使う（尋ねない）。引数や会話で別の pptx が指定された場合はそちらが優先し、既定は無視する | 任意 |
 | 崩れる書き方の扱い | 引数 `--force`。省略時は検査で error があれば中断する | 任意 |
 | 見本の作り直し | 引数 `--rebuild`。見本 HTML を直したのに結果が変わらないとき | 任意 |
 
@@ -57,7 +57,11 @@ PNG は用意しなくてよい。無ければ見本 HTML をブラウザで描�
 
 ### 1. 入力を確定する
 
-引数に見本ディレクトリとテンプレートが無ければ尋ねる。直前に html-artifact で
+引数に見本ディレクトリが無ければ尋ねる。**テンプレートは省略可**で、指定が無ければ既定テンプレート
+（`${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/テンプレート.pptx`）を使い、
+使ったテンプレート名を 1 行で伝える。別の pptx が指定されていればそちらを使う（既定は無視）。
+
+直前に html-artifact で
 デッキを生成した場合は、その出力ファイルを含むディレクトリを使ってよいか確認する
 （**HTML 単体ではなく、それが入ったディレクトリのパス**を使う）。
 

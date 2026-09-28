@@ -11,6 +11,17 @@ reference-decks/
 └── archive/一次提案.pptx   ← サブディレクトリも対象
 ```
 
+## 既定テンプレートは `_shared/pptx-templates/` にある
+
+`html-artifact` / `html-to-deck` / `deck` が **テンプレート指定を省略されたときの既定**として使う
+`テンプレート.pptx` は、複数スキルの共有資産なので
+[`../../_shared/pptx-templates/`](../../_shared/pptx-templates/README.md) に置いてある
+（このディレクトリにはもう無い）。
+
+解析時はそこも既定の走査対象に含まれるため、本スキルから見れば
+`reference-decks/` に置いたのと同じように参照デッキの 1 本として扱われる。
+このディレクトリには**本スキル固有の参照デッキ**（案件・クライアント別の見本）を置く。
+
 ## ルール
 
 - 対象拡張子は `.pptx` と `.potx`。Excel の一時ファイル（`~$` 始まり）は自動で除外される。
@@ -27,4 +38,6 @@ reference-decks/
 python3 ../scripts/analyze_references.py --outdir /tmp/spec
 ```
 
+既定では、このディレクトリと `_shared/pptx-templates/` の両方を走査する
+（`--decks <dir>` で上書き・複数指定可）。
 参照 pptx が 1 件も無い場合、スクリプトは終了コード 3 とエラーメッセージを返す。

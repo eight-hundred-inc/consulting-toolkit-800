@@ -66,7 +66,7 @@
 
 ## 代替カラーテーマ
 
-デフォルトは Mono。Vertical Document / Slide Deck format いずれも既定はこの 1 つ。他 5 テーマ（Terracotta / Navy / Forest / Charcoal / EightHundred）は色味を変えたい場合の任意の代替パレット。**変更時は `:root` 内の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）を置き換える**（Mono との入れ替えは `--bg` / `--ink` / `--rule` 等の構造色も異なるため対象外。詳細は Theme 5 参照）。帯・マーカー 3 トークンは Terracotta / Navy / Forest / Charcoal の 4 テーマ共通で次の値：
+デフォルトは **EightHundred（Theme 6）**。Vertical Document / Slide Deck format いずれも既定はこの 1 つで、テーマ指定が無ければこれを使う（テンプレート `assets/template.html` / `assets/template-slides.html` の `:root` は基底値のままなので、**生成する HTML 側で EightHundred の上書きブロックを足す**）。他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合の任意の代替パレット。**変更時は `:root` 内の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）を置き換える**（Mono との入れ替えは `--bg` / `--ink` / `--rule` 等の構造色も異なるため対象外。詳細は Theme 5 参照）。帯・マーカー 3 トークンは Terracotta / Navy / Forest / Charcoal の 4 テーマ共通で次の値：
 
 ```css
 /* Terracotta / Navy / Forest / Charcoal 共通（Theme 1〜4 のアクセント 3 変数に添える） */
@@ -129,7 +129,7 @@
 
 ニュートラルでアクセントを目立たせない印象。
 
-### Theme 5: Mono（デフォルト・Vertical Document 用ブロック）
+### Theme 5: Mono（Vertical Document 用ブロック）
 
 ```css
 --bg: #ffffff;            /* 純白（紙質クリームではなく純白） */
@@ -158,7 +158,7 @@
 
 **Slide Deck では扱いが違う**：Slide Deck では 6 テーマ共通の統一シャシを使い、Mono を含む 6 テーマは `--accent` 系 3 変数＋帯・マーカー 3 トークン（EightHundred のみ `--font-jp` も追加）で palette 切替される。上記の Mono ブロックは **Vertical Document で使う場合の定義**（帯・マーカー 3 トークンの値は Slide Deck の Mono と同一）。Slide Deck の統一シャシは `slide-deck.md`「テーマ切替」を参照。
 
-### Theme 6: EightHundred（クライアントブランド固有）
+### Theme 6: EightHundred（既定テーマ・クライアントブランド固有）
 
 ```css
 --accent: #1B3928;
@@ -178,7 +178,7 @@
 
 **他 5 テーマは配色（`--accent` 系 3 変数）と `--font-jp` だけが差分**で、Cover・title-bar・footer の構造とルック（背景・罫線・ロゴの有無）は 6 テーマ共通の統一シャシのまま変わらない。**EightHundred のみ、実際のクライアント PPTX（フタバロジコム向けディスカッション資料 等）のマスターに合わせてフレームのルックも上書きする**唯一の例外テーマ。上書きは以下の追加トークン＋アセットで完結し、`assets/template-slides.html` の構造（HTML）自体は変更しない。
 
-**フレーム用トークン**（`template-slides.html` の `:root` に定義済み。他 5 テーマは既存トークンのエイリアスのため無変化）：
+**フレーム用トークン**（**`template-slides.html` の `:root` には定義されていない**。テンプレートを複製したら、まず次の既定値ブロックを生成 HTML の `:root` に足す — 定義しないと `var()` が無効値になり、本文フォント・Cover 背景・title-bar 罫線・footer 書式が丸ごと効かなくなる。他 5 テーマはこの既定値のままでよい）：
 
 ```css
 --cover-bg: var(--bg);                                  /* Cover の背景 */
@@ -208,6 +208,12 @@
   --accent:#1B3928;
   --accent-soft:#127D70;
   --accent-bg:#E4E7E5;
+
+  /* 帯・マーカーは非 Mono 共通（テンプレートの基底値は Mono なので必ず上書きする） */
+  --band-bg:var(--accent);
+  --band-ink:#fff;
+  --marker-bg:var(--accent-bg);
+
   --font-jp:"Meiryo UI","Meiryo","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
 
   --cover-bg:#1B3928;                     /* Cover はダークグリーン全面背景（実 PPTX 準拠） */
@@ -296,11 +302,11 @@
 
 **`--band-ink` は `--band-bg` 上の文字色、`--marker-bg` は本文文字（`--ink`）を載せるマーカー面。** どちらも文字を載せる前提の組なので、`--band-bg` に `--band-ink` と衝突する色を、`--marker-bg` に暗い色を入れてはいけない（Mono の `#ffff00` 上の `--ink` は約 17:1）。
 
-> **背景**：かつて Mono だけ `--accent-bg: #1a1a1a` を「黒帯反転用」として持っていたが、黒帯反転を行うコンポーネントはいずれも `--accent` を使っており、`--accent-bg` の黒を必要とするものは 1 つも無かった。結果として Insight と固定 8 図解の `.accent` が Mono（＝既定テーマ）で判読不能になっていた。2026-07 に契約を明文化し、Mono の値を淡ティントへ修正した。
+> **背景**：かつて Mono だけ `--accent-bg: #1a1a1a` を「黒帯反転用」として持っていたが、黒帯反転を行うコンポーネントはいずれも `--accent` を使っており、`--accent-bg` の黒を必要とするものは 1 つも無かった。結果として Insight と固定 8 図解の `.accent` が Mono（当時の既定テーマ）で判読不能になっていた。2026-07 に契約を明文化し、Mono の値を淡ティントへ修正した。
 
 ### テーマ選定のガイドライン
 
-**既定は Mono**。Vertical Document / Slide Deck format のいずれも既定はこの 1 つ（参照デザイン踏襲・純白＋モノクロで安定するため）。他 5 テーマ（Terracotta / Navy / Forest / Charcoal / EightHundred）は色味を変えたい場合に選ぶ任意の代替パレット。テーマは内容・出力形式と直交した独立軸であり、用途に応じた使い分けは規定しない。**EightHundred はクライアントのブランドカラーに合わせたい場合に選ぶ**（フォントも Meiryo UI に切り替わる唯一のテーマ）。
+**既定は EightHundred**。Vertical Document / Slide Deck format のいずれも既定はこの 1 つ（自社ブランドの配色・フォント・フレームに合うため）。他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合に**利用者が明示したときだけ**選ぶ任意の代替パレット。テーマは内容・出力形式と直交した独立軸であり、用途に応じた使い分けは規定しない。**Mono は純白＋モノクロで安定させたい場合に選ぶ**（構造色・帯・マーカーの既定も他テーマと異なるため、accent 3 変数だけの置換では切り替わらない）。
 
 **共通ルール**：**複数テーマを混ぜない**。1 ドキュメントで 1 テーマ
 
@@ -330,7 +336,7 @@
 **`--font-jp` トークン（本文・見出し用フォント変数）**：`:root` で以下のように定義し、テンプレート内の本文・見出し系フォント指定は `var(--font-jp)` を参照する（ハードコードしない）。
 
 ```css
---font-jp: "Noto Sans JP", sans-serif;   /* 既定値。5テーマ共通 */
+--font-jp: "Noto Sans JP", sans-serif;   /* Mono / Terracotta / Navy / Forest / Charcoal の 5 テーマ共通 */
 ```
 
 **唯一の例外は Theme 6: EightHundred**（上記「代替カラーテーマ」参照）で、このテーマを選んだ場合のみ以下に置き換える。

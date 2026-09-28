@@ -17,9 +17,9 @@
     },
     {
       "id": 3,
-      "name": "generate-slide-deck-mono",
+      "name": "generate-slide-deck-default-theme",
       "prompt": "この提案内容を 16:9 のブラウザで投影できるスライドにして。コンサル提案書らしい見た目で。",
-      "expected_output": "Slide Deck format × Mono テーマで 1280×720 の自己完結 HTML スライドデッキを生成。1 スライド 1 メッセージ、構造的メッセージは図解化。プレゼンチャーム（キーボード送り・サムネイル一覧・URL ハッシュ・印刷 1 ページ 1 スライド）が動作する。",
+      "expected_output": "Slide Deck format × EightHundred テーマ（テーマ指定が無いため既定）で 1280×720 の自己完結 HTML スライドデッキを生成。1 スライド 1 メッセージ、構造的メッセージは図解化。プレゼンチャーム（キーボード送り・サムネイル一覧・URL ハッシュ・印刷 1 ページ 1 スライド）が動作する。",
       "files": []
     }
   ]
