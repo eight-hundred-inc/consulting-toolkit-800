@@ -13,9 +13,9 @@
 
 ## テーマ切替
 
-Slide Deck format は **6 テーマ共通の統一シャシ**を使う。面の直角（`--card-radius:0`）・影・Filled-Header Card 群・Value Bar 等の視覚言語は 6 テーマで完全に共通で、**テーマ切替は `:root` の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）**で完結する（`<body>` クラスによるモード切替はしない。旧表現の対応は `document-recipes.md`「エイリアス（後方互換）」を参照）。**唯一の例外は EightHundred テーマ**で、上記に加えて `--font-jp` も切り替える（本文・見出しフォントが Meiryo UI になる）。
+Slide Deck format は **7 テーマ共通の統一シャシ**を使う。面の直角（`--card-radius:0`）・影・Filled-Header Card 群・Value Bar 等の視覚言語は 7 テーマで完全に共通で、**テーマ切替は `:root` の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）**で完結する（`<body>` クラスによるモード切替はしない。旧表現の対応は `document-recipes.md`「エイリアス（後方互換）」を参照）。**例外は RONNABYTE（既定）/ EightHundred の 2 テーマ**で、上記に加えて `--font-jp` とフレームトークンも切り替える（本文・見出しフォントが Meiryo UI になり、Cover・title-bar・footer・ロゴが実 PPTX マスター準拠になる）。
 
-**6 テーマは palette 違いのみ**：Mono = 灰帯＋黄マーカー（黒塗りは強強調のみ）、Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、Charcoal = チャコール帯（実質モノに近い）、EightHundred = ダークグリーン帯（クライアントブランド固有・フォントも Meiryo UI に切替）。**既定は EightHundred**。
+**palette 違いのみ**：Mono = 灰帯＋黄マーカー（黒塗りは強強調のみ）、Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、Charcoal = チャコール帯（実質モノに近い）、EightHundred = ダークグリーン帯、RONNABYTE = コーポレートブルー帯（後 2 者はクライアントブランド固有・フォントも Meiryo UI に切替）。**既定は RONNABYTE**。
 
 ```css
 /* Terracotta に切り替える場合の唯一の差分（帯・マーカー 3 行は非 Mono 4 テーマ共通） */
@@ -28,7 +28,15 @@ Slide Deck format は **6 テーマ共通の統一シャシ**を使う。面の�
   --marker-bg:var(--accent-bg);
 }
 
-/* EightHundred に切り替える場合の差分（唯一 --font-jp も伴う） */
+/* RONNABYTE（既定）の差分（--font-jp とフレームトークンも伴う） */
+:root{
+  --accent:#005486;
+  --accent-soft:#2D508F;
+  --accent-bg:#DEE8F0;
+  --font-jp:"Meiryo UI","Meiryo","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+}
+
+/* EightHundred に切り替える場合の差分（同じく --font-jp とフレームトークンを伴う） */
 :root{
   --accent:#1B3928;
   --accent-soft:#127D70;
@@ -37,7 +45,9 @@ Slide Deck format は **6 テーマ共通の統一シャシ**を使う。面の�
 }
 ```
 
-構造色（`--bg` / `--panel-soft` / `--rule` / `--ink` 等）と、カード装飾（`--card-radius` / `--card-shadow`）は 6 テーマ共通で不動。Filled-Header Card / Value Bar / Pill Tag / Expansion Pills（#26・27・29・30。#28 Icon Chip は廃止）は **6 テーマすべてで使える**（Mono 専用ではない）。
+※ RONNABYTE / EightHundred はこの 3〜4 行だけでは完結しない。**フレームトークン 20 個の既定値ブロック（`design-system.md`「フレーム用トークンの既定値」）→ テーマの上書きブロック**の順で `:root` を 2 つ置くこと（詳細は `design-system.md`「RONNABYTE のフレーム仕様」「EightHundred のフレーム仕様」）。
+
+構造色（`--bg` / `--panel-soft` / `--rule` / `--ink` 等）と、カード装飾（`--card-radius` / `--card-shadow`）は 7 テーマ共通で不動。Filled-Header Card / Value Bar / Pill Tag / Expansion Pills（#26・27・29・30。#28 Icon Chip は廃止）は **7 テーマすべてで使える**（Mono 専用ではない）。
 
 | テーマ | accent 値 | 帯（--band-bg）/ マーカー（--marker-bg） |
 |---|---|---|
@@ -46,6 +56,7 @@ Slide Deck format は **6 テーマ共通の統一シャシ**を使う。面の�
 | Navy | `#1e3a5f` | accent 帯＋白文字 / accent 淡ティント |
 | Forest | `#2a4f3a` | accent 帯＋白文字 / accent 淡ティント |
 | Charcoal | `#2d2d33` | accent 帯＋白文字 / accent 淡ティント |
+| **RONNABYTE**（既定） | `#005486` | accent 帯＋白文字 / accent 淡ティント |
 | EightHundred | `#1B3928` | accent 帯＋白文字 / accent 淡ティント |
 
 **帯の 2 階層**：構造帯（Filled-Header Card ヘッダ・Value Bar・report-table thead・proposal-head・roadmap active・expansion-item）は `--band-bg` に追従する。強強調の反転帯（takeaway-strip・hero-number.dark・state-box.target・budget-card.premium・tag.primary）は従来どおり `background:var(--accent)`＋白文字で、Mono では黒塗り＝最強の強調としてごく一部にだけ使う。
@@ -54,9 +65,9 @@ Slide Deck format は **6 テーマ共通の統一シャシ**を使う。面の�
 マーカー（参照デザインの行ハイライト・語句ハイライト）、他テーマでは accent 淡ティントになる。
 **1 スライド 1〜2 箇所まで**。文単位で塗らない（塗るのは語句）。
 
-迷ったら：**Slide Deck は EightHundred 既定**（テーマ指定が無ければこれ。フォントは Meiryo UI、Cover・title-bar・footer のフレームもクライアント PPTX 準拠になる）。色味を変えたい場合のみ他テーマを利用者の明示で選ぶ。用途に応じた使い分けは規定しない。
+迷ったら：**Slide Deck は RONNABYTE 既定**（テーマ指定が無ければこれ。フォントは Meiryo UI、Cover・title-bar・footer のフレームもクライアント PPTX 準拠になる）。色味を変えたい場合のみ他テーマを利用者の明示で選ぶ。用途に応じた使い分けは規定しない。
 
-**EightHundred はフレーム（Cover・title-bar・footer・ロゴ）も実 PPTX マスターに準拠する唯一のテーマ**：他 5 テーマは配色のみの差分だが、EightHundred は Cover の全面ダークグリーン化・title-bar の日本語アイブロウラベル・footer のコピーライト表記・砦ロゴマークまで上書きする。トークン一覧・マークアップ例・SVG は `design-system.md`「Theme 6: EightHundred」→「EightHundred のフレーム仕様」を参照（本ファイルの下記「1. Cover」「4. Content」「5. Summary」節の一般形からの差分として適用する）。
+**RONNABYTE（既定）/ EightHundred はフレーム（Cover・title-bar・footer・ロゴ）も実 PPTX マスターに準拠するクライアントブランド固有テーマ**：他 5 テーマは配色のみの差分だが、EightHundred は Cover の全面ダークグリーン化・title-bar の日本語アイブロウラベル・footer のコピーライト表記・砦ロゴマークまで、RONNABYTE は Cover の濃紺グラデーション・罫線なしの太字見出し・footer の `© 2026 RONNABYTE Inc.`＋CONFIDENTIAL バッジ・ピンホイールロゴまで上書きする。トークン一覧・マークアップ例・SVG は `design-system.md`「Theme 7: RONNABYTE」/「Theme 6: EightHundred」の各フレーム仕様節を参照（本ファイルの下記「1. Cover」「4. Content」「5. Summary」節の一般形からの差分として適用する）。
 
 ### Mono テーマと拡張コンポーネントの組み合わせ
 
@@ -64,9 +75,9 @@ Slide Deck format は **6 テーマ共通の統一シャシ**を使う。面の�
 
 これら拡張コンポーネントは他テーマや Vertical Document でも使えるが、Mono テーマと組み合わせた時に最も映える。詳細は `components.md` を参照。
 
-### 参照デザイン踏襲時のパターン（6 テーマ共通・スライド専用）
+### 参照デザイン踏襲時のパターン（7 テーマ共通・スライド専用）
 
-Slide Deck では 6 テーマ共通で、参照デザイン（`AI Biz Ops Partner/assets` および `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures`）を踏襲する。テキストパネル・箇条書きで済ませず、以下 4 種を積極的に組み合わせる。定義は `components.md` #26・27・29・30（#28 Icon Chip は廃止）。Terracotta を選べばテラコッタ帯のカード、Navy を選べば紺帯のカード、と `--accent` に自動追従する。
+Slide Deck では 7 テーマ共通で、参照デザイン（`AI Biz Ops Partner/assets` および `V_ビザスク/24_インフォコム/02_Phase2/Output/提案書/figures`）を踏襲する。テキストパネル・箇条書きで済ませず、以下 4 種を積極的に組み合わせる。定義は `components.md` #26・27・29・30（#28 Icon Chip は廃止）。Terracotta を選べばテラコッタ帯のカード、Navy を選べば紺帯のカード、と `--accent` に自動追従する。
 
 | コンポーネント | 使いどころ |
 |---|---|
@@ -109,7 +120,7 @@ JS の `SLIDE_W` / `SLIDE_H` 定数も `getComputedStyle(document.documentElemen
 
 - `<section class="slide" id="sN">` を順に並べる。`N` は 1-origin の通し番号
 - 先頭の Cover スライドだけ `.cover` 修飾子を付ける（任意。本文 padding 調整用）
-- スライド外背景は **6 テーマ共通で `#e5e5e5` 薄グレー**（`<body>` 背景に指定）。統一シャシではスライド内が純白なので、暗地との過剰コントラストを避ける
+- スライド外背景は **7 テーマ共通で `#e5e5e5` 薄グレー**（`<body>` 背景に指定）。統一シャシではスライド内が純白なので、暗地との過剰コントラストを避ける
 
 ### スケーリングと配置
 
@@ -123,7 +134,7 @@ html, body{
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background: #e5e5e5;  /* 6 テーマ共通の薄グレー */
+  background: #e5e5e5;  /* 7 テーマ共通の薄グレー */
 }
 
 .deck{
@@ -201,6 +212,7 @@ html, body{
 
 - `cover-title` はスライド内では 44〜52px が目安（縦長文書版の 46px と同程度）
 - **EightHundred テーマ**: 上記は 5 テーマ共通の一般形。EightHundred は `--cover-bg` 等のトークンにより全面ダークグリーン化され、`.eh-logo-badge`（砦ロゴ＋「800」）を末尾に追加する。詳細・マークアップ例は `design-system.md`「EightHundred のフレーム仕様」参照
+- **RONNABYTE テーマ**: `--cover-bg` が濃紺→ブルーのグラデーションになり、本文フロー先頭に `.rb-logo.rb-logo-lg`（ピンホイール＋ワードマーク、濃地で白に自動反転）を置く。詳細・マークアップ例は `design-system.md`「RONNABYTE のフレーム仕様」参照
 
 ### 2. TOC
 
@@ -271,6 +283,7 @@ html, body{
 - `.message` は本スライドの「答え」。読み手が 3 秒で意味を取れる長さに収める
 - `.slide-foot` はオプション。ページ番号・doc-id を右下に出す
 - **EightHundred テーマ**: `sec-num` は数値ではなく短い日本語アイブロウラベル（例："弊社認識"）にする。`slide-foot .doc-id` は `© Eight Hundred, Inc.`、ページ番号は総数なしの単独表記にする。会社紹介・実績紹介等の「参照系」スライドには `.eh-logo` を右上に追加する。詳細は `design-system.md`「EightHundred のフレーム仕様」参照
+- **RONNABYTE テーマ**: `sec-num` は省略が既定（章・観点を示したいときだけ短いラベルを見出しと同じ行に添える）。`slide-foot` は `.foot-left` で `© 2026 RONNABYTE Inc.` と `.rb-confidential` バッジを並べ、ページ番号は総数なしの単独表記にする。`.rb-logo` は**全スライドの右上**に置く（実 PPTX がマスターで全面に出しているため）。詳細は `design-system.md`「RONNABYTE のフレーム仕様」参照
 
 ### 5. Summary（クロージング）
 
@@ -802,13 +815,13 @@ body.panel-open .thumb-panel{ transform: translateX(0) }
 
 ## 配色
 
-Slide Deck では **6 テーマが統一シャシを共有**する（Vertical Document のテーマ体系とは別）。
+Slide Deck では **7 テーマが統一シャシを共有**する（Vertical Document のテーマ体系とは別）。
 
-- スライド内背景：**6 テーマ共通で `#ffffff` 純白**
-- スライド外背景：**6 テーマ共通で `#e5e5e5` 薄グレー**。この上に置くプレゼンチャーム（カウンタ・操作ヒント）の文字は `--ink-mute` / `--ink` を使う（**白文字にすると薄グレー地と同化して読めない**）。暗地に白文字を置くのはサムネイルパネル内とトグルボタンだけで、そちらは自前で暗背景を持つ
+- スライド内背景：**7 テーマ共通で `#ffffff` 純白**
+- スライド外背景：**7 テーマ共通で `#e5e5e5` 薄グレー**。この上に置くプレゼンチャーム（カウンタ・操作ヒント）の文字は `--ink-mute` / `--ink` を使う（**白文字にすると薄グレー地と同化して読めない**）。暗地に白文字を置くのはサムネイルパネル内とトグルボタンだけで、そちらは自前で暗背景を持つ
 - アクセント：`var(--accent)` 1 色のみ。テーマ切替は `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`。本ファイル「テーマ切替」参照。EightHundred のみ `--font-jp` も追加で切り替える）
-- カード装飾（`--card-radius` / `--card-shadow`）、構造色（`--panel-soft` / `--rule` / `--ink` 等）は 6 テーマ共通で不動
-- フォント：`var(--font-jp)`（本文・見出し）は既定テーマ EightHundred で Meiryo UI。他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は Noto Sans JP 共通（`design-system.md`「Theme 6: EightHundred」参照）。`JetBrains Mono`（数値・章番号）はテーマ・font-jp に関わらず不動
+- カード装飾（`--card-radius` / `--card-shadow`）、構造色（`--panel-soft` / `--rule` / `--ink` 等）は 7 テーマ共通で不動
+- フォント：`var(--font-jp)`（本文・見出し）は既定テーマ RONNABYTE と EightHundred で Meiryo UI。他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は Noto Sans JP 共通（`design-system.md`「Theme 7: RONNABYTE」「Theme 6: EightHundred」参照）。`JetBrains Mono`（数値・章番号）はテーマ・font-jp に関わらず不動
 
 **Vertical Document との差**：Vertical Document は各テーマが独自の背景・ink 等を持ち（Terracotta は紙質クリーム、Navy は同、Mono は純白）、視覚言語も異なる。Slide Deck の統一シャシは Slide Deck 専用の運用。
 

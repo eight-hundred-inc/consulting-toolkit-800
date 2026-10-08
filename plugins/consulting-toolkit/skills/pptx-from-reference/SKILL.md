@@ -44,7 +44,7 @@ description: スキル配下の reference-decks/ に配備した参照 pptx 全�
 | パス | 役割 |
 |---|---|
 | `reference-decks/` | **本スキル固有の参照 pptx の配備先**。ここに置いた `.pptx` / `.potx` を全件解析する（[README](reference-decks/README.md)） |
-| `../_shared/pptx-templates/` | **スキル横断で共有する既定テンプレート**（`テンプレート.pptx`）の置き場。`html-artifact` / `html-to-deck` / `deck` の既定でもあり、本スキルも既定で解析対象に含める（[README](../_shared/pptx-templates/README.md)） |
+| `../_shared/pptx-templates/` | **スキル横断で共有する既定テンプレート**（`RONNABYTE.pptx`（既定）/ `テンプレート.pptx`（800））の置き場。`html-artifact` / `html-to-deck` / `deck` の既定でもあり、本スキルは配下を**全件**解析対象に含める（[README](../_shared/pptx-templates/README.md)） |
 | `scripts/analyze_references.py` | 参照デッキ全件を解析し `deck-spec.json`（全量）と `deck-spec.md`（要約）を出力 |
 | `scripts/deck_kit.py` | python-pptx ラッパ。テンプレート継承・テキスト・箇条書き・図形・表・自動縮小 |
 | `scripts/build_example.py` | `build.py` の雛形（そのままでも動く足場。案件ごとに書き換える） |

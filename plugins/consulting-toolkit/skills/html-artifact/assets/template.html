@@ -16,12 +16,13 @@
   - 外部 stylesheet は Google Fonts のみ許可（publish.sh の検証と同期）
   - 既定テーマは Mono（下記 :root は Mono の値。帯は薄グレー＋黒文字、
     テキストマーカー <mark> は蛍光黄 #ffff00 — 黒べったり面を作らない参照デザイン）
-  - Terracotta / Navy / Forest / Charcoal / EightHundred に切り替える場合は
+  - RONNABYTE（既定）/ EightHundred / Terracotta / Navy / Forest / Charcoal に切り替える場合は
     :root 全体を references/design-system.md の該当テーマブロックに差し替える
     （Mono だけ --bg / --ink / --rule 等の構造色と帯・マーカー既定も異なるため、
     アクセント3変数だけの置換では戻らない）
-  - 本文・見出しフォントは --font-jp 変数（既定 Noto Sans JP）。
-    EightHundred テーマのみ Meiryo UI に置き換える（design-system.md「Theme 6」参照）
+  - 本文・見出しフォントは --font-jp 変数（下記 :root は基底値の Noto Sans JP）。
+    既定テーマ RONNABYTE と EightHundred は Meiryo UI に置き換える
+    （design-system.md「Theme 7」「Theme 6」参照）
   ============================================================
 -->
 <html lang="ja">
@@ -60,7 +61,7 @@
   --good-bg:#e4ebd9;
   --warn:#7a4a1a;
   --warn-bg:#f0e3cd;
-  --font-jp:"Noto Sans JP",sans-serif;   /* 本文・見出し用フォント。EightHundred テーマのみ Meiryo UI に置換 */
+  --font-jp:"Noto Sans JP",sans-serif;   /* 本文・見出し用フォント。既定テーマ RONNABYTE と EightHundred は Meiryo UI に置換 */
 }
 
 *{margin:0;padding:0;box-sizing:border-box}

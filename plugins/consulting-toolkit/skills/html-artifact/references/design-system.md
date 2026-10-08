@@ -32,7 +32,7 @@
   --accent: #9d3617;      /* 主アクセント（深いテラコッタ） */
   --accent-soft: #c45a2c; /* 明るいアクセント（ダーク背景上で使う） */
   --accent-bg: #f5e8de;   /* アクセント背景（insight・固定8図解の .accent 等）。
-                             ★契約：文字を載せる面なので 6 テーマすべてで accent の淡ティント
+                             ★契約：文字を載せる面なので 7 テーマすべてで accent の淡ティント
                              （明るい色）にする。詳細は下記「--accent-bg の契約」 */
 
   /* 構造帯・テキストマーカー（テーマ切替の対象。詳細は「使い方の原則」と各テーマブロック） */
@@ -66,7 +66,7 @@
 
 ## 代替カラーテーマ
 
-デフォルトは **EightHundred（Theme 6）**。Vertical Document / Slide Deck format いずれも既定はこの 1 つで、テーマ指定が無ければこれを使う（テンプレート `assets/template.html` / `assets/template-slides.html` の `:root` は基底値のままなので、**生成する HTML 側で EightHundred の上書きブロックを足す**）。他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合の任意の代替パレット。**変更時は `:root` 内の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）を置き換える**（Mono との入れ替えは `--bg` / `--ink` / `--rule` 等の構造色も異なるため対象外。詳細は Theme 5 参照）。帯・マーカー 3 トークンは Terracotta / Navy / Forest / Charcoal の 4 テーマ共通で次の値：
+デフォルトは **RONNABYTE（Theme 7）**。Vertical Document / Slide Deck format いずれも既定はこの 1 つで、テーマ指定が無ければこれを使う（テンプレート `assets/template.html` / `assets/template-slides.html` の `:root` は基底値のままなので、**生成する HTML 側で RONNABYTE の上書きブロックを足す**）。他 6 テーマ（Mono / Terracotta / Navy / Forest / Charcoal / EightHundred）は色味を変えたい場合、またはクライアントブランドを合わせたい場合に**利用者が明示したときだけ**選ぶ代替パレット。**変更時は `:root` 内の `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）を置き換える**（Mono との入れ替えは `--bg` / `--ink` / `--rule` 等の構造色も異なるため対象外。詳細は Theme 5 参照）。帯・マーカー 3 トークンは Terracotta / Navy / Forest / Charcoal の 4 テーマ共通で次の値：
 
 ```css
 /* Terracotta / Navy / Forest / Charcoal 共通（Theme 1〜4 のアクセント 3 変数に添える） */
@@ -75,7 +75,7 @@
 --marker-bg: var(--accent-bg);
 ```
 
-それ以外の色は触らない。**唯一の例外は Theme 6: EightHundred**（クライアントブランド固有テーマ）で、上記アクセント 3 変数・帯・マーカー 3 トークンに加えて `--font-jp` も置き換える（詳細は Theme 6 参照）。
+それ以外の色は触らない。**例外は Theme 7: RONNABYTE（既定）と Theme 6: EightHundred**（いずれもクライアントブランド固有テーマ）で、上記アクセント 3 変数・帯・マーカー 3 トークンに加えて `--font-jp` とフレームトークン（`--cover-*` / `--titlebar-*` / `--message-*` / `--footer-*`）も置き換える（詳細は Theme 7 / Theme 6 参照）。
 
 ### Theme 1: Terracotta（warm consulting）
 
@@ -156,29 +156,13 @@
 - 黒の塗り面は強強調の反転帯（`takeaway-strip`・`hero-number.dark`・`state-box.target`・`budget-card.premium`・`tag.primary`）に限る。構造帯（thead・proposal-head 等）は `--band-bg` の薄グレーが自動で当たる
 - 語句の強調は `<mark>`（蛍光黄 `#ffff00`）。1 スライド／1 セクションあたり 1〜2 箇所まで
 
-**Slide Deck では扱いが違う**：Slide Deck では 6 テーマ共通の統一シャシを使い、Mono を含む 6 テーマは `--accent` 系 3 変数＋帯・マーカー 3 トークン（EightHundred のみ `--font-jp` も追加）で palette 切替される。上記の Mono ブロックは **Vertical Document で使う場合の定義**（帯・マーカー 3 トークンの値は Slide Deck の Mono と同一）。Slide Deck の統一シャシは `slide-deck.md`「テーマ切替」を参照。
+**Slide Deck では扱いが違う**：Slide Deck では 7 テーマ共通の統一シャシを使い、Mono を含む 7 テーマは `--accent` 系 3 変数＋帯・マーカー 3 トークン（RONNABYTE / EightHundred のみ `--font-jp` も追加）で palette 切替される。上記の Mono ブロックは **Vertical Document で使う場合の定義**（帯・マーカー 3 トークンの値は Slide Deck の Mono と同一）。Slide Deck の統一シャシは `slide-deck.md`「テーマ切替」を参照。
 
-### Theme 6: EightHundred（既定テーマ・クライアントブランド固有）
+### フレーム用トークンの既定値（Slide Deck format 共通）
 
-```css
---accent: #1B3928;
---accent-soft: #127D70;
---accent-bg: #E4E7E5;
-```
+**Mono / Terracotta / Navy / Forest / Charcoal の 5 テーマは配色（`--accent` 系 3 変数）だけが差分**で、Cover・title-bar・footer の構造とルック（背景・罫線・ロゴの有無）は 7 テーマ共通の統一シャシのまま変わらない。**RONNABYTE（Theme 7・既定）と EightHundred のみ、実際のクライアント PPTX（前者は `RONNABYTE_スライドテンプレート_暫定版.pptx`、後者はフタバロジコム向けディスカッション資料 等）のマスターに合わせてフレームのルックも上書きする**例外テーマ。上書きは以下の追加トークン＋アセットで完結し、`assets/template-slides.html` の構造（HTML）自体は変更しない。
 
-クライアント企業（株式会社エイトハンドレッド）のPPTXブランドテーマ（`accent1`/`accent2`）に準拠した固有パレット。深いダークグリーンに、ティール系グリーンを添える2色構成。
-
-**EightHundred テーマの追加ルール**：
-- **フォント例外**：本文・見出しに他 5 テーマと異なり **Meiryo UI** を使う。`--font-jp: "Meiryo UI","Meiryo","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;` を `:root` で上書きする（タイポグラフィ節「フォント読み込み」参照）。数値・章番号・コードは他テーマと同じ `JetBrains Mono` のまま変更しない
-- Meiryo UI は Windows 標準搭載フォントで Google Fonts 提供が無いため、Web フォント読み込みの追加は不要（フォールバックチェーンで自然に代替表示される。Windows 以外の環境では Noto Sans JP 等にフォールバックする）
-- **`--accent-soft` の例外**：他 5 テーマは `--accent` の淡ティント（同一色相の明るい色）を使うが、EightHundred はブランド定義の第2アクセント `#127D70`（ティール系グリーン）をそのまま採用する。色相は近縁（共にグリーン系）のため「アクセントは1色」の趣旨（複数系統の色を混在させない）を大きく損なわない
-- 1 ドキュメント内でこのテーマを使う場合も、他テーマ同様「1 ドキュメント 1 テーマ」を守る
-
-#### EightHundred のフレーム仕様（Slide Deck format 専用）
-
-**他 5 テーマは配色（`--accent` 系 3 変数）と `--font-jp` だけが差分**で、Cover・title-bar・footer の構造とルック（背景・罫線・ロゴの有無）は 6 テーマ共通の統一シャシのまま変わらない。**EightHundred のみ、実際のクライアント PPTX（フタバロジコム向けディスカッション資料 等）のマスターに合わせてフレームのルックも上書きする**唯一の例外テーマ。上書きは以下の追加トークン＋アセットで完結し、`assets/template-slides.html` の構造（HTML）自体は変更しない。
-
-**フレーム用トークン**（**`template-slides.html` の `:root` には定義されていない**。テンプレートを複製したら、まず次の既定値ブロックを生成 HTML の `:root` に足す — 定義しないと `var()` が無効値になり、本文フォント・Cover 背景・title-bar 罫線・footer 書式が丸ごと効かなくなる。他 5 テーマはこの既定値のままでよい）：
+**フレーム用トークン**（**`template-slides.html` の `:root` には定義されていない**。テンプレートを複製したら、まず次の既定値ブロックを生成 HTML の `:root` に足す — 定義しないと `var()` が無効値になり、本文フォント・Cover 背景・title-bar 罫線・footer 書式が丸ごと効かなくなる。Mono / Terracotta / Navy / Forest / Charcoal はこの既定値のままでよい）：
 
 ```css
 --cover-bg: var(--bg);                                  /* Cover の背景 */
@@ -197,9 +181,34 @@
 --message-margin-top: 12px;                             /* .message の title-bar からの上マージン */
 --message-weight: 500;                                  /* .message の文字太さ */
 --footer-id-color: var(--accent);                       /* slide-foot .doc-id の文字色 */
+--footer-pg-color: var(--ink);                          /* slide-foot .pg b（ページ番号）の文字色 */
 --footer-border-width: 1px;                             /* slide-foot 上罫線の太さ */
 --footer-font: "JetBrains Mono", monospace;              /* slide-foot 全体のフォント */
 ```
+
+※ トークンは全部で 20 個。`--footer-pg-color` だけは `template-slides.html` 側が
+`var(--footer-pg-color,var(--ink))` とフォールバック付きで参照するため未定義でも壊れないが、
+残り 19 個はフォールバックが無いので**必ず上の既定値ブロックを `:root` に置く**。
+
+既定値のままでよいのは Mono / Terracotta / Navy / Forest / Charcoal の 5 テーマ。**既定テーマ RONNABYTE と EightHundred は、このブロックを置いたうえで各テーマの上書きブロックを続ける**（`:root` を 2 つ並べる）。
+
+### Theme 6: EightHundred（クライアントブランド固有）
+
+```css
+--accent: #1B3928;
+--accent-soft: #127D70;
+--accent-bg: #E4E7E5;
+```
+
+クライアント企業（株式会社エイトハンドレッド）のPPTXブランドテーマ（`accent1`/`accent2`）に準拠した固有パレット。深いダークグリーンに、ティール系グリーンを添える2色構成。
+
+**EightHundred テーマの追加ルール**：
+- **フォント例外**：本文・見出しに Mono / Terracotta / Navy / Forest / Charcoal と異なり **Meiryo UI** を使う（既定の RONNABYTE も同じ）。`--font-jp: "Meiryo UI","Meiryo","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;` を `:root` で上書きする（タイポグラフィ節「フォント読み込み」参照）。数値・章番号・コードは他テーマと同じ `JetBrains Mono` のまま変更しない
+- Meiryo UI は Windows 標準搭載フォントで Google Fonts 提供が無いため、Web フォント読み込みの追加は不要（フォールバックチェーンで自然に代替表示される。Windows 以外の環境では Noto Sans JP 等にフォールバックする）
+- **`--accent-soft` の例外**：Mono / Terracotta / Navy / Forest / Charcoal は `--accent` の淡ティント（同一色相の明るい色）を使うが、EightHundred はブランド定義の第2アクセント `#127D70`（ティール系グリーン）をそのまま採用する。色相は近縁（共にグリーン系）のため「アクセントは1色」の趣旨（複数系統の色を混在させない）を大きく損なわない
+- 1 ドキュメント内でこのテーマを使う場合も、他テーマ同様「1 ドキュメント 1 テーマ」を守る
+
+#### EightHundred のフレーム仕様（Slide Deck format 専用）
 
 **EightHundred 選択時はこれらを以下に上書きする**（`--accent` 系 3 変数・`--font-jp` と同じ `:root` 上書きブロックにまとめてよい）：
 
@@ -250,7 +259,7 @@
 <p class="message">ベテラン人材のノウハウを資産化し、持続可能な倉庫オペレーションを実現する。</p>
 ```
 
-**footer（コピーライト・ページ番号）の使い方**：`.doc-id` の中身をドキュメント管理番号ではなく `© Eight Hundred, Inc.` にし、ページ番号は総数を付けず単独表記にする。footer 上部にも罫線を引かない（実 PPTX 準拠）。実 PPTX のフッターフォントは Century Gothic だが、Web フォントとして配布されておらず HTML では描画できないため、`--footer-font` は `var(--font-jp)`（本文と同じ Meiryo UI 系）に寄せる（他 5 テーマの `JetBrains Mono` から変更する）。
+**footer（コピーライト・ページ番号）の使い方**：`.doc-id` の中身をドキュメント管理番号ではなく `© Eight Hundred, Inc.` にし、ページ番号は総数を付けず単独表記にする。footer 上部にも罫線を引かない（実 PPTX 準拠）。実 PPTX のフッターフォントは Century Gothic だが、Web フォントとして配布されておらず HTML では描画できないため、`--footer-font` は `var(--font-jp)`（本文と同じ Meiryo UI 系）に寄せる（既定値の `JetBrains Mono` から変更する）。
 
 ```html
 <div class="slide-foot">
@@ -280,9 +289,132 @@
 
 **Vertical Document には適用しない**：上記フレーム上書き（Cover 全面ダークグリーン化・ロゴマーク）は Slide Deck format 専用。Vertical Document で EightHundred テーマを使う場合は `--accent` / `--accent-soft` / `--accent-bg` / `--font-jp` の 4 トークンのみが反映され、Cover 等の構造は他テーマと同じ白／クリーム背景のままでよい（縦長文書は PPTX のスライド 1 枚と 1 対 1 対応しないため、フレーム忠実再現の対象外とする）。
 
+### Theme 7: RONNABYTE（既定テーマ・クライアントブランド固有）
+
+```css
+--accent: #005486;
+--accent-soft: #2D508F;
+--accent-bg: #DEE8F0;
+--band-bg: var(--accent);
+--band-ink: #fff;
+--marker-bg: var(--accent-bg);
+```
+
+株式会社 RONNABYTE（ロナバイト。2026-10-01 にエイトハンドレッドと DATUM STUDIO が経営統合して発足）の PPTX テンプレート（`RONNABYTE_スライドテンプレート_暫定版.pptx`）から実測したブランドパレット。深いコーポレートブルーを主色に、やや紫寄りのセカンダリブルーを添える 2 色構成。
+
+**値の出どころ**（実 PPTX の実測値。`theme1.xml` の `clrScheme` は統合前（DATUM STUDIO）の残骸なので使わない）：
+
+| トークン | 値 | 実 PPTX での用途 |
+|---|---|---|
+| `--accent` | `#005486` | 「表紙B／タイトルとコンテンツ A」系レイアウトの全面ブルー面・ロゴマークの三角 |
+| `--accent-soft` | `#2D508F` | 白地レイアウトのページ番号文字色 |
+| `--accent-bg` | `#DEE8F0` | 白地に敷かれる三角モチーフの淡ブルー |
+| `--ink`（不動） | 実 PPTX は `#212222` | 本文。統一シャシの `#1a1a1a` と実質同値なので**上書きしない** |
+
+**RONNABYTE テーマの追加ルール**：
+- **フォント例外**：実 PPTX の本文・見出しは **Meiryo UI**（スライド内で最頻出のタイプフェース）。EightHundred と同様に `--font-jp: "Meiryo UI","Meiryo","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;` を `:root` で上書きする。Google Fonts 提供が無いため Web フォント読み込みの追加は不要。数値・章番号・コードは他テーマと同じ `JetBrains Mono` のまま変更しない
+- **`--accent-soft` の例外**：EightHundred と同様、淡ティントではなくブランド定義の第 2 ブルー `#2D508F` をそのまま採用する。色相が近縁（共にブルー系）のため「アクセントは 1 色」の趣旨を損なわない
+- **構造色は上書きしない**：実 PPTX は「全面ブルー地＋白文字」のレイアウト（タイトルとコンテンツ_A 系）も持つが、Slide Deck 統一シャシの `--bg` / `--ink` は 7 テーマ共通で不動のため、**白地レイアウト（タイトルとコンテンツ_B 系）を正とする**。ブルー面が要るときは強強調の反転帯（`takeaway-strip` 等）で出す
+- 1 ドキュメント 1 テーマ
+
+#### RONNABYTE のフレーム仕様（Slide Deck format 専用）
+
+既定テーマとして、配色だけでなく Cover・title-bar・footer・ロゴまで実 PPTX マスターに合わせる（EightHundred と同じ扱い）。上書きは**フレーム用トークン 20 個の既定値ブロック（上記「フレーム用トークンの既定値」）を置いたうえで**、以下を足して完結する。先に既定値を置かないと、上書きしていないトークンが無効値のまま残り本文フォント・罫線・footer が壊れる。
+
+```css
+:root{
+  --accent:#005486;
+  --accent-soft:#2D508F;
+  --accent-bg:#DEE8F0;
+
+  /* 帯・マーカーは非 Mono 共通（テンプレートの基底値は Mono なので必ず上書きする） */
+  --band-bg:var(--accent);
+  --band-ink:#fff;
+  --marker-bg:var(--accent-bg);
+
+  --font-jp:"Meiryo UI","Meiryo","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+
+  /* Cover は濃紺→ブルーのグラデーション（実 PPTX 表紙A の背景画像を再現）。
+     左下が最も明るく、上端の両角が最も暗い。 */
+  --cover-bg:radial-gradient(130% 115% at 20% 104%, #0A6FA8 0%, #005486 32%, #01304F 68%, #01203D 100%);
+  --cover-ink:#ffffff;
+  --cover-ink-soft:rgba(255,255,255,0.78);
+  --cover-rule:rgba(255,255,255,0.30);
+
+  /* 実 PPTX の見出しは「左寄せ・太字・罫線なし」の 1 行。アイブロウは任意で、
+     使う場合は見出しと同じ行にブルーの小ラベルとして横並びに置く。 */
+  --titlebar-border-width:0;
+  --titlebar-eyebrow-font:var(--font-jp);  /* .sec-num に日本語／欧文の短いラベルを使うため */
+  --titlebar-eyebrow-color:var(--accent);  /* ラベルはブランドブルー */
+  --titlebar-direction:row;
+  --titlebar-gap:14px;
+  --titlebar-align:baseline;
+  --titlebar-padding-bottom:0;
+  --titlebar-margin-bottom:16px;
+  --message-margin-top:0;
+  --message-weight:700;                    /* 実 PPTX はリード文が太字 */
+
+  --footer-id-color:var(--ink-mute);       /* コピーライト表記は控えめなグレー */
+  --footer-pg-color:var(--accent-soft);    /* ページ番号はセカンダリブルー #2D508F */
+  --footer-border-width:0;                 /* footer 上に罫線を引かない */
+  --footer-font:var(--font-jp);            /* 実 PPTX のフッターも Meiryo UI */
+}
+```
+
+**title-bar（コンテンツスライドの見出し）の使い方**：実 PPTX のタイトルプレースホルダは左寄せ・太字・罫線なしの 1 行。`.sec-num` は**省略を既定**とし、章や観点を示したいときだけ短いラベル（例：`Section 02`、`弊社認識`）を見出しと同じ行に横並びで添える。**リード文（`.message`）は太字**（`--message-weight:700`）。
+
+```html
+<div class="title-bar">
+  <h2>統合後の提供価値</h2>
+</div>
+<p class="message">構想から実装までをワンストップで担い、より広く・より速く価値を届ける。</p>
+```
+
+**⚠ PPTX 変換セーフモードでは `.sec-num` を置かない（必須）**：RONNABYTE は `--titlebar-direction:row`（アイブロウと見出しが同じ行）のため、`.sec-num` を置くと**見た目 1 行が 2 要素に分かれた状態**になり、`run_html_pptx_lint` が全コンテンツスライドで `split_inline_row` **error** を出す（`pptx-safe.md` §2。2026-10-06 に 23 枚デッキで 18 件を実測）。実 PPTX のタイトルにもアイブロウは無いので、**セーフモードでは `<div class="title-bar"><h2>…</h2></div>` だけにする**。章の現在地を示したい場合は、title-bar ではなくボディ側の章レール（`chapter-rail` 等）で表す。アイブロウを縦積みにして回避する EightHundred（`--titlebar-direction:column`）とは対処が異なる。
+
+```html
+<!-- PPTX 変換セーフモード：sec-num を置かない -->
+<div class="title-bar"><h2>統合後の提供価値</h2></div>
+```
+
+**footer（コピーライト・CONFIDENTIAL バッジ・ページ番号）の使い方**：実 PPTX は左に `© 2026 RONNABYTE Inc.` と細枠の `CONFIDENTIAL` バッジを並べ、右にページ番号を総数なしの単独表記で置く。footer 上部に罫線は引かない。`.foot-left` で左の 2 要素をまとめる（CSS は `template-slides.html` に定義済み）。
+
+```html
+<div class="slide-foot">
+  <span class="foot-left">
+    <span class="doc-id">© 2026 RONNABYTE Inc.</span>
+    <span class="rb-confidential">CONFIDENTIAL</span>
+  </span>
+  <span class="pg"><b>12</b></span>
+</div>
+```
+
+**ロゴマーク（`.rb-logo`）**：実 PPTX のロゴ（3 枚の三角を回転配置したピンホイール）を、実測頂点からトレースしたインライン SVG ＋ 欧文ワードマーク。CSS は `template-slides.html`「RONNABYTE LOGO MARK」に定義済み。ワードマークは専用レタリングで Web 配布が無いため、本文フォント＋トラッキングで寄せている。
+
+```html
+<!-- 共通の SVG 本体（両パターンで使い回す） -->
+<svg viewBox="0 0 235 212" aria-hidden="true">
+  <path d="M45 0 L0 78 L69 137 Z M176 122 L161 211 L70 211 Z M110 36 L194 5 L234 82 Z"/>
+</svg>
+```
+
+- **標準マーク**（`.rb-logo`）：実 PPTX はマスターでロゴを**全スライドの右上**に置いている（EightHundred のように「参照系スライドだけ」ではない）。`<section class="slide">` 直下に次を置く：
+  ```html
+  <div class="rb-logo" aria-hidden="true">
+    {svg}
+    <span class="rb-logo-text">RONNABYTE</span>
+  </div>
+  ```
+- **大サイズ**（`.rb-logo.rb-logo-lg`）：Cover・Summary（クロージング）で、本文フローの先頭にブランド表記として置く（`position:static` になり、絶対配置しない）。Cover では濃地のため三角・文字とも自動で白へ反転する
+- `.rb-confidential` は footer 専用。Cover に置く場合は `--cover-ink-soft` 相当の白半透明へ自動で反転する
+
+**Vertical Document には適用しない**：上記フレーム上書き（Cover グラデーション・ロゴマーク・CONFIDENTIAL バッジ）は Slide Deck format 専用。Vertical Document で RONNABYTE テーマを使う場合は `--accent` / `--accent-soft` / `--accent-bg` / `--font-jp` の 4 トークンのみが反映される。
+
+**PPTX 変換セーフモードがオンのときはロゴ（`.rb-logo`）を置かない**（テンプレート pptx のマスターが正規ロゴを持つため二重描画になる。`references/pptx-safe.md` §10）。
+
 ## `--accent-bg` の契約（背景と文字色を衝突させない）
 
-`--accent-bg` は **「文字を載せるアクセント面」** である。6 テーマすべてで **accent の淡ティント（明るい色）** にし、`--ink`（`#1a1a1a`）と `--accent` を載せて 4.5:1 以上を保つ。
+`--accent-bg` は **「文字を載せるアクセント面」** である。7 テーマすべてで **accent の淡ティント（明るい色）** にし、`--ink`（`#1a1a1a`）と `--accent` を載せて 4.5:1 以上を保つ。
 
 | テーマ | `--accent` | `--accent-bg` |
 |---|---|---|
@@ -292,6 +424,7 @@
 | Forest | `#2a4f3a` | `#e2ebe1` |
 | Charcoal | `#2d2d33` | `#ebe9e4` |
 | EightHundred | `#1B3928` | `#E4E7E5` |
+| RONNABYTE | `#005486` | `#DEE8F0` |
 
 **`--accent-bg` に `--accent` と同値や暗い色を入れてはいけない。** 入れると `--accent-bg` を背景に使う全コンポーネントが一斉に「同色の地と文字」になり、テキストが消える。対象は次の 9 ルール（両テンプレート共通）で、いずれも文字色が `--ink` または `--accent` である。
 
@@ -306,7 +439,7 @@
 
 ### テーマ選定のガイドライン
 
-**既定は EightHundred**。Vertical Document / Slide Deck format のいずれも既定はこの 1 つ（自社ブランドの配色・フォント・フレームに合うため）。他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合に**利用者が明示したときだけ**選ぶ任意の代替パレット。テーマは内容・出力形式と直交した独立軸であり、用途に応じた使い分けは規定しない。**Mono は純白＋モノクロで安定させたい場合に選ぶ**（構造色・帯・マーカーの既定も他テーマと異なるため、accent 3 変数だけの置換では切り替わらない）。
+**既定は RONNABYTE**。Vertical Document / Slide Deck format のいずれも既定はこの 1 つ（統合後の自社ブランドの配色・フォント・フレームに合うため）。他 6 テーマ（Mono / Terracotta / Navy / Forest / Charcoal / EightHundred）は**利用者が明示したときだけ**選ぶ。テーマは内容・出力形式と直交した独立軸であり、用途に応じた使い分けは規定しない。**Mono は純白＋モノクロで安定させたい場合に選ぶ**（構造色・帯・マーカーの既定も他テーマと異なるため、accent 3 変数だけの置換では切り替わらない）。**EightHundred は統合前の社名・ブランドで出す資料に選ぶ**（RONNABYTE と同様にフォントとフレームまで切り替わるクライアントブランド固有テーマ）。
 
 **共通ルール**：**複数テーマを混ぜない**。1 ドキュメントで 1 テーマ
 
@@ -399,7 +532,7 @@
 
 **Vertical Document では原則使わない**（報告書スタイルではフラットに保つ）。
 
-**Slide Deck の統一シャシでの例外**：Slide Deck では 6 テーマ共通で、`--card-shadow`（`0 1px 4px rgba(0,0,0,.05)`）と `--card-shadow-lg`（`0 2px 12px rgba(0,0,0,.08)`）の 2 段階に限り、カード類（`.phase-card`, `.section`, `.expansion-area`, `.track` 等）で使用してよい。参照デザイン（AI Biz Ops Partner / VisasQ 提案書 figures）の紙面感を再現するための Slide Deck 全テーマ共通の設定で、それ以外の使い方（背景全体・大きな要素・複数レイヤーの重ね掛け）はしない。
+**Slide Deck の統一シャシでの例外**：Slide Deck では 7 テーマ共通で、`--card-shadow`（`0 1px 4px rgba(0,0,0,.05)`）と `--card-shadow-lg`（`0 2px 12px rgba(0,0,0,.08)`）の 2 段階に限り、カード類（`.phase-card`, `.section`, `.expansion-area`, `.track` 等）で使用してよい。参照デザイン（AI Biz Ops Partner / VisasQ 提案書 figures）の紙面感を再現するための Slide Deck 全テーマ共通の設定で、それ以外の使い方（背景全体・大きな要素・複数レイヤーの重ね掛け）はしない。
 
 グラデーションは Vertical / Slide 問わず一切使わない（単色のみ）。これは CSS の `linear-gradient` 等の関数だけでなく、**隣接する要素（フェーズ帯・ステップバッジ・カード等）に濃淡違いの単色を段階的に並べて進行・順序を表す配色**も含む（結果として見た目がグラデーションになるため）。フェーズ・ステップの進行は同一濃度の単色塗り＋番号・矢印・ラベルで表現する（詳細は diagram-components.md「フェーズ・ステップの進行表現」）。
 
@@ -499,7 +632,7 @@ HTML 上の文言は Markdown と同様に AI らしさを排除する。生成�
 
 - [ ] `<link rel="stylesheet">` は Google Fonts のみ（他の外部 CSS はゼロ）
 - [ ] `<script src="https://…">` が font 系以外にない
-- [ ] `font-family` は `var(--font-jp)`（既定 Noto Sans JP。EightHundred テーマのみ Meiryo UI）/ JetBrains Mono（数値・章番号・コード）。Noto Serif JP / Inter 等の追加フォントは使っていない
+- [ ] `font-family` は `var(--font-jp)`（テンプレート基底値 Noto Sans JP。既定テーマ RONNABYTE と EightHundred は Meiryo UI）/ JetBrains Mono（数値・章番号・コード）。Noto Serif JP / Inter 等の追加フォントは使っていない
 - [ ] 背景は `#fafaf6`（純白を使っていない）
 - [ ] 本文色は `#1a1c20`（純黒を使っていない）
 - [ ] アクセントは 1 色のみ（複数色を使っていない）

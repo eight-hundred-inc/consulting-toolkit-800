@@ -46,7 +46,7 @@ description: html-artifact が生成した 16:9 スライドデッキ HTML（`se
 | 入力 | 指定方法 | 必須 |
 |---|---|---|
 | 見本 HTML のあるディレクトリ | 引数（例: `/consulting-toolkit:html-to-deck ~/work/deck`）。**ファイルではなくディレクトリ**を渡す | 必須 |
-| テンプレート pptx | 引数 `--template <path>`。**省略時は既定テンプレート** `${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/テンプレート.pptx` を使う（尋ねない）。引数や会話で別の pptx が指定された場合はそちらが優先し、既定は無視する | 任意 |
+| テンプレート pptx | 引数 `--template <path>`。**省略時は既定テンプレート** `${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/RONNABYTE.pptx` を使う（尋ねない）。同ディレクトリには `テンプレート.pptx`（800 の標準マスター）も同梱されており、「800 で」「エイトハンドレッドのテンプレートで」「旧テンプレートで」と言われたらそちらに切り替える。引数や会話で別の pptx が指定された場合はそちらが最優先し、既定は無視する（一覧・エイリアスは [`_shared/pptx-templates/README.md`](../_shared/pptx-templates/README.md)） | 任意 |
 | 崩れる書き方の扱い | 引数 `--force`。省略時は検査で error があれば中断する | 任意 |
 | 見本の作り直し | 引数 `--rebuild`。見本 HTML を直したのに結果が変わらないとき | 任意 |
 
@@ -58,8 +58,9 @@ PNG は用意しなくてよい。無ければ見本 HTML をブラウザで描�
 ### 1. 入力を確定する
 
 引数に見本ディレクトリが無ければ尋ねる。**テンプレートは省略可**で、指定が無ければ既定テンプレート
-（`${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/テンプレート.pptx`）を使い、
+（`${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/RONNABYTE.pptx`）を使い、
 使ったテンプレート名を 1 行で伝える。別の pptx が指定されていればそちらを使う（既定は無視）。
+ブランド名で言われた場合（「800 で」等）は `_shared/pptx-templates/README.md` のエイリアス表で解決する。
 
 直前に html-artifact で
 デッキを生成した場合は、その出力ファイルを含むディレクトリを使ってよいか確認する

@@ -97,7 +97,7 @@ HTML デッキでは、ここに **4 つ目：変換に耐えること**（実 D
 
 **原義**：フォントの種類がバラバラ／「入りきらないから」という理由で文字サイズを縮める。英数字の字体・全半角も揃える。
 
-- **書体**：`var(--font-jp)`（既定 Noto Sans JP、EightHundred テーマのみ Meiryo UI）と JetBrains Mono（数値・章番号・コード）以外を使わない
+- **書体**：`var(--font-jp)`（テンプレート基底値 Noto Sans JP、既定テーマ RONNABYTE と EightHundred は Meiryo UI）と JetBrains Mono（数値・章番号・コード）以外を使わない
 - **並列要素のサイズは揃える**：同じ役割の要素（カード本文、リスト項目、表セル、ゾーン見出し）は**デッキ全体で同一の `font-size`**。1 枚だけ・1 カードだけ小さくしない
 - **「入り切らないから縮める」は禁じ手**。縮めるのではなく**情報量を減らす**か**スライドを分ける**（`_shared/slide-body-principles.md` 原則 5、`pptx-safe.md` §6 の 11px 下限）
 - **同一ボックス・同一行内でのサイズ変更禁止**（`design-system.md`）。数値と単位も同一サイズにし、強弱は色・`font-weight`・余白で出す

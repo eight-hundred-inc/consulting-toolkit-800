@@ -17,12 +17,17 @@ st  = load_style("deck-spec.json")          # 抽出済みの配色・フォン�
 prs = open_template("<skill>/reference-decks/base.pptx")   # 既存スライドは削除済み
 W, H = st.canvas                            # 例: (13.333, 7.5)
 
-s = add_slide(prs, "1_本文")                # レイアウト名は部分一致で可
+s = add_slide(prs, "1_本文")                # レイアウト名は部分一致で可（完全一致を優先）
 set_placeholder(s, "TITLE", "見出し")        # 書式はレイアウトから継承される
 drop_empty_placeholders(s)                  # 未使用プレースホルダを消す（必須）
 
 save(prs, "output.pptx")
 ```
+
+既定テンプレート（`RONNABYTE.pptx` / `テンプレート.pptx`）の本文レイアウトは**ロゴあり／なしの 2 本立て**。
+右上に図版やステップ表示を置くスライドは `"1_本文（ロゴなし）"` を指定する
+（`"1_本文"` はロゴ付きに解決され、右上要素とロゴが重なる）。詳細は
+[`_shared/pptx-templates/README.md`](../../_shared/pptx-templates/README.md)。
 
 `load_style()` が返す `Style` の中身:
 

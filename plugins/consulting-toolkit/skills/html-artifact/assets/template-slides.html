@@ -22,9 +22,9 @@
 
   カスタマイズ:
   - 配色テーマは :root の --accent / --accent-soft / --accent-bg の 3 変数のみ
-    （EightHundred のみ --font-jp も追加）
-    6 テーマ（Mono（既定） / Terracotta / Navy / Forest / Charcoal / EightHundred）は
-    references/design-system.md を参照
+    （EightHundred / RONNABYTE のみ --font-jp も追加）
+    7 テーマ（Mono（基底値） / Terracotta / Navy / Forest / Charcoal /
+    EightHundred / RONNABYTE（既定））は references/design-system.md を参照
   - キャンバスは 1280×720 px 固定（旧 pitch-mode の 1600×900 は廃止）
   - スライド内の本文コンポーネント追加は references/components.md
   - シェル仕様の詳細は references/slide-deck.md
@@ -42,23 +42,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   DESIGN TOKENS — Slide Deck 全 6 テーマで統一シャシ
+   DESIGN TOKENS — Slide Deck 全 7 テーマで統一シャシ
    既定: Mono（参照デザイン踏襲・純白＋モノクロ）
    キャンバスは 1280×720 px 固定（テーマ・内容によらず変えない）
 
-   Slide Deck では 6 テーマが同じ視覚言語（角丸・影・Filled-Header Card 群・
+   Slide Deck では 7 テーマが同じ視覚言語（角丸・影・Filled-Header Card 群・
    Value Bar 等）を共有し、**テーマ切替は --accent / --accent-soft /
    --accent-bg の 3 変数＋帯・マーカー 3 トークン（--band-bg / --band-ink /
    --marker-bg）**で完結する。他の構造色（--bg / --panel-soft /
-   --rule / --ink 等）は 6 テーマ共通で不動。
+   --rule / --ink 等）は 7 テーマ共通で不動。
    Terracotta = テラコッタ帯、Navy = 紺帯、Forest = 深緑帯、
    Charcoal = チャコール帯（実質モノに近い）、
-   Mono = 灰帯＋黒は強強調のみ＋蛍光黄マーカー（黒べったり面を作らない）。
+   Mono = 灰帯＋黒は強強調のみ＋蛍光黄マーカー（黒べったり面を作らない）、
+   EightHundred = ダークグリーン帯、RONNABYTE = ブルー帯（既定）。
+   RONNABYTE / EightHundred はクライアントブランド固有テーマで、配色に加えて
+   --font-jp とフレームトークン（--cover-* / --titlebar-* / --message-* /
+   --footer-*）も切り替える。
 
    ※ Vertical Document は別。design-system.md の各テーマブロック参照。
    ============================================================ */
 :root{
-  /* --- 構造色（6 テーマ共通・不動） --- */
+  /* --- 構造色（7 テーマ共通・不動） --- */
   --bg:#ffffff;
   --bg-alt:#f5f5f5;
   --panel:#ffffff;
@@ -73,7 +77,7 @@
   --warn:#7a4a1a;
   --warn-bg:#f0e3cd;
 
-  /* --- カード装飾（6 テーマ共通） --- */
+  /* --- カード装飾（7 テーマ共通） --- */
   --card-radius:0;            /* 面（カード・パネル・帯）は直角。角丸は使わない */
   --card-shadow:0 1px 4px rgba(0,0,0,0.05);
   --card-shadow-lg:0 2px 12px rgba(0,0,0,0.08);
@@ -84,8 +88,11 @@
      Navy:       --accent:#1e3a5f; --accent-soft:#3a5e8a; --accent-bg:#e3eaf3;
      Forest:     --accent:#2a4f3a; --accent-soft:#4a7558; --accent-bg:#e2ebe1;
      Charcoal:   --accent:#2d2d33; --accent-soft:#5a5a64; --accent-bg:#ebe9e4;
+     RONNABYTE（既定）: --accent:#005486; --accent-soft:#2D508F; --accent-bg:#DEE8F0;
+     EightHundred: --accent:#1B3928; --accent-soft:#127D70; --accent-bg:#E4E7E5;
+     ※ RONNABYTE / EightHundred は --font-jp とフレームトークンも併せて上書きする
 
-     【トークン契約】--accent-bg は「文字を載せるアクセント面」であり、6 テーマすべてで
+     【トークン契約】--accent-bg は「文字を載せるアクセント面」であり、7 テーマすべてで
      accent の淡ティント（明るい色）にする。--ink / --accent を載せて 4.5:1 以上を保つため、
      --accent-bg に --accent と同値や暗い色を入れてはいけない（Insight・固定 8 図解の
      .accent バリアントが一斉に潰れる）。強強調の反転（白文字 on 濃地）が要る場合は
@@ -165,7 +172,7 @@
 .annotation-pointer .ap-text small{display:block;font-size:11.5px;font-weight:500;color:var(--ink-mute);text-transform:none;letter-spacing:0.04em;margin-top:1px}
 
 /* ============================================================
-   FILLED-HEADER CARD (Component #26) — Slide Deck 統一シャシ（6 テーマ共通）
+   FILLED-HEADER CARD (Component #26) — Slide Deck 統一シャシ（7 テーマ共通）
    帯ヘッダー（--band-bg）＋淡グレーボディの主役カード。Growth Model / Phase 概観 / 3 本柱に。
    フルスライドレイアウトとして使う（.title-bar + .message は使わない）。
    ============================================================ */
@@ -192,7 +199,7 @@
 .slide .phase-arrow svg{width:36px;height:60px}
 
 /* ============================================================
-   VALUE BAR (Component #27) — Slide Deck 統一シャシ（6 テーマ共通）
+   VALUE BAR (Component #27) — Slide Deck 統一シャシ（7 テーマ共通）
    スライド最下部の帯サマリ（--band-bg）。3〜4 アイテム。
    番号は .vb-num の「テキスト」で前置する（塗りの円形バッジは使わない。
    design-system.md 禁止パターン「装飾アイコン（塗りチップ・番号バッジ）」）。
@@ -210,7 +217,7 @@
    経緯と代替は references/components.md #28 を参照。 */
 
 /* ============================================================
-   PILL TAG (Component #29) — Slide Deck 統一シャシ（6 テーマ共通）
+   PILL TAG (Component #29) — Slide Deck 統一シャシ（7 テーマ共通）
    Filled-Header Card 内のカテゴリ列挙。.tag.primary は黒塗り優先。
    ============================================================ */
 .slide .tag-list{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
@@ -218,7 +225,7 @@
 .slide .tag.primary{background:var(--accent);color:#fff}
 
 /* ============================================================
-   EXPANSION PILLS (Component #30) — Slide Deck 統一シャシ（6 テーマ共通）
+   EXPANSION PILLS (Component #30) — Slide Deck 統一シャシ（7 テーマ共通）
    「→ 経営企画」型の横展開ピル群。
    ============================================================ */
 .slide .expansion-area{background:#fff;border-radius:0;padding:10px 12px;box-shadow:var(--card-shadow,0 1px 4px rgba(0,0,0,0.05))}
@@ -233,7 +240,7 @@ html,body{
   height:100vh;
   width:100vw;
   overflow:hidden;
-  background:#e5e5e5;  /* スライド外背景。6 テーマ共通の薄グレー（slide-deck.md「配色」） */
+  background:#e5e5e5;  /* スライド外背景。7 テーマ共通の薄グレー（slide-deck.md「配色」） */
   color:var(--ink);
   font-family:var(--font-jp);
   font-feature-settings:"palt";
@@ -359,13 +366,46 @@ mark{background:var(--marker-bg);color:inherit;padding:0 3px;box-decoration-brea
    EIGHTHUNDRED LOGO MARK（EightHundred テーマ専用アセット）
    実 PPTX の砦（とりで）アイコンを再現したインライン SVG。
    使用箇所・マークアップは design-system.md「Theme 6: EightHundred」の
-   フレーム仕様を参照（Slide Deck format 専用。他 5 テーマでは使わない）。
+   フレーム仕様を参照（Slide Deck format 専用。他テーマでは使わない）。
    ============================================================ */
 .eh-logo{position:absolute;top:28px;right:32px;width:34px;height:29px;color:var(--accent);z-index:2}
 .eh-logo svg{width:100%;height:100%;display:block}
 .eh-logo-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;padding:8px 14px}
 .eh-logo-badge .eh-logo{position:static;width:22px;height:19px}
 .eh-logo-badge .eh-logo-text{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:22px;letter-spacing:0.02em;color:var(--ink)}
+
+/* ============================================================
+   RONNABYTE LOGO MARK（RONNABYTE テーマ専用アセット）
+   実 PPTX のロゴ（3 枚の三角が回転配置されたピンホイール）を
+   実測頂点からトレースしたインライン SVG ＋ 欧文ワードマーク。
+   使用箇所・マークアップは design-system.md「Theme 7: RONNABYTE」の
+   フレーム仕様を参照（Slide Deck format 専用。他テーマでは使わない）。
+   ※ 実 PPTX のワードマークは専用レタリングだが Web で配布できないため、
+     本文フォント＋トラッキングで寄せている。
+   ============================================================ */
+.rb-logo{position:absolute;top:24px;right:30px;display:flex;align-items:center;gap:11px;z-index:2;line-height:1}
+.rb-logo svg{width:25px;height:22.5px;display:block;flex:0 0 auto;fill:var(--accent)}
+.rb-logo .rb-logo-text{font-family:var(--font-jp);font-weight:700;font-size:18px;letter-spacing:0.1em;color:var(--ink)}
+/* 濃地のスライド（Cover / Divider の反転運用）では白へ反転する */
+.slide.cover .rb-logo svg{fill:#fff}
+.slide.cover .rb-logo .rb-logo-text{color:#fff}
+/* Cover 用の大サイズ（絶対配置せず本文フローに置く） */
+.rb-logo.rb-logo-lg{position:static;gap:18px;margin-bottom:34px}
+.rb-logo.rb-logo-lg svg{width:42px;height:38px}
+.rb-logo.rb-logo-lg .rb-logo-text{font-size:30px}
+/* footer の CONFIDENTIAL バッジ（実 PPTX の細枠ボックス） */
+.rb-confidential{
+  display:inline-block;
+  border:1px solid currentColor;
+  padding:2px 9px;
+  font-family:var(--font-jp);
+  font-size:11px;           /* pptx-safe の下限。10px は tiny_font 警告になる */
+  font-weight:700;
+  letter-spacing:0.12em;
+  line-height:1.4;
+  color:var(--ink-mute);
+}
+.slide.cover .rb-confidential{color:rgba(255,255,255,0.78)}
 
 /* ============================================================
    COVER COMPONENT
@@ -952,7 +992,9 @@ h1.cover-title{
 }
 .slide-head{ pointer-events:none; }
 .slide-foot .doc-id{color:var(--footer-id-color)}
-.slide-foot .pg b{color:var(--ink);font-weight:600}
+.slide-foot .pg b{color:var(--footer-pg-color,var(--ink));font-weight:600}
+/* footer 左側に補助バッジ（例：RONNABYTE の CONFIDENTIAL）を並べるための器 */
+.slide-foot .foot-left{display:flex;align-items:center;gap:14px}
 
 /* ============================================================
    PRESENTATION CHROME — counter / hint / thumbnail panel / toggle

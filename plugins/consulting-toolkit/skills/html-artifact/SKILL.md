@@ -31,9 +31,9 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 |---|---|---|
 | **1. Content Recipe**（内容レシピ） | A〜F の 6 種 | どの章構成テンプレートを使うか（企画書 / 調査 / 戦略メモ / 意思決定 / 議事 / 通達） |
 | **2. Output Format**（出力形式） | Vertical Document / Slide Deck | 縦長文書として読ませるか、16:9 スライドで投影するか |
-| **3. Theme**（テーマ） | EightHundred（既定） / Mono / Terracotta / Navy / Forest / Charcoal | 配色・トーン（コンテンツとは独立）。指定が無ければ EightHundred |
+| **3. Theme**（テーマ） | RONNABYTE（既定） / EightHundred / Mono / Terracotta / Navy / Forest / Charcoal | 配色・トーン（コンテンツとは独立）。指定が無ければ RONNABYTE |
 
-例：「企画書を投影資料にしたい・コンサル提案書らしい見た目で」→ Content Recipe A × Slide Deck × EightHundred テーマ（テーマ指定が無いため既定）。
+例：「企画書を投影資料にしたい・コンサル提案書らしい見た目で」→ Content Recipe A × Slide Deck × RONNABYTE テーマ（テーマ指定が無いため既定）。
 
 ## 上流・下流スキル（ワークフロー上の位置）
 
@@ -47,7 +47,7 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 |------|---------|------|
 | 1 | 本ファイル（SKILL.md） | 全体方針・トリガー条件・ワークフロー・Guardrails |
 | 2 | [references/document-recipes.md](references/document-recipes.md) | Content Recipe A〜F（章構成）と Output Format（Vertical Document / Slide Deck）の判定フロー。**種別判定はここから始める** |
-| 3 | [references/design-system.md](references/design-system.md) | カラー・タイポグラフィ・6 テーマ（Terracotta / Navy / Forest / Charcoal / Mono / EightHundred）・印刷対応の CSS 仕様 |
+| 3 | [references/design-system.md](references/design-system.md) | カラー・タイポグラフィ・7 テーマ（RONNABYTE（既定） / EightHundred / Terracotta / Navy / Forest / Charcoal / Mono）・印刷対応の CSS 仕様 |
 | 4 | `${CLAUDE_PLUGIN_ROOT}/skills/_shared/slide-body-principles.md` | **ボディ（コンテンツエリア）のベースライン規範**（5 原則＋例外 2 つ＋数値換算表）。**Slide Deck format のみ必読**（Vertical Document は対象外） |
 | 4.5 | `${CLAUDE_PLUGIN_ROOT}/skills/_shared/kinjite-15.md` | **PowerPoint「15 の禁じ手」**（紙書き研修 基礎編）を HTML → pptx パイプラインに翻訳した正本。**Slide Deck / Vertical Document とも必読**。責務の棲み分け（A: HTML 作成時に完結 ／ B: 変換時に決まる ／ C: 組み合わせ）と 15 項目の適用・チェックリスト。Guardrails「禁じ手 15」の正本 |
 | 5 | [references/components.md](references/components.md) | 29 種のコンポーネント仕様（基本 21 種＋拡張 4 種＋Slide Deck 統一シャシ 4 種。HTMLスニペット付き）。**末尾に付録「Markdown → HTML マッピング」**（旧 markdown-html-mapping.md を統合） |
@@ -90,23 +90,35 @@ Markdown を業務文書スタイル（紙質クリーム背景＋Noto Sans JP �
 ## Inputs
 
 - **必須**: Markdown ファイルパス、または対話的ブリーフ（トピックのみ）
-- **任意**: クライアント名、Content Recipe（A〜F）、Output Format（Vertical Document / Slide Deck）、テーマ（**既定は EightHundred**。他に Mono / Terracotta / Navy / Forest / Charcoal）、**PPTX 変換セーフモード**（この HTML を見本に pptx へ変換する予定があるか。既定はオフ）、**変換先テンプレート pptx**（PPTX 変換セーフモードがオンのときのみ。省略時は下記の既定テンプレート）
+- **任意**: クライアント名、Content Recipe（A〜F）、Output Format（Vertical Document / Slide Deck）、テーマ（**既定は RONNABYTE**。他に EightHundred / Mono / Terracotta / Navy / Forest / Charcoal）、**PPTX 変換セーフモード**（この HTML を見本に pptx へ変換する予定があるか。既定はオフ）、**変換先テンプレート pptx**（PPTX 変換セーフモードがオンのときのみ。省略時は下記の既定テンプレート）
 
 ### 既定のテンプレート pptx
 
 PPTX 変換セーフモードで生成した HTML は、下流（`html-to-deck` / `deck`）でテンプレート pptx の
-部品に組み直される。**テンプレートの指定が無い場合は次を既定として使う**（パスを尋ねない）。
+部品に組み直される。テンプレートは `${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/` に
+**2 本が共存**しており、**指定が無い場合は次を既定として使う**（パスを尋ねない）。
 
 ```
-${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/テンプレート.pptx
+${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/RONNABYTE.pptx
 ```
 
-- リポジトリに同梱（git 管理下）のため、環境によらず同じパスで参照できる。
+**切り替え**（優先順位の高い順）：
+
+| 指定 | 使うテンプレート |
+|---|---|
+| `--template <path>`、パスの提示、「このテンプレートで」等 | 指定された pptx（**最優先**。以下はすべて無視） |
+| 「800 で」「エイトハンドレッドのテンプレートで」「旧テンプレートで」 | `テンプレート.pptx`（800 の標準マスター） |
+| 「RONNABYTE で」「新テンプレートで」 | `RONNABYTE.pptx` |
+| テーマに EightHundred が明示されている | `テンプレート.pptx`（テーマとマスターのねじれを防ぐ） |
+| 上記いずれも無い | `RONNABYTE.pptx`（既定） |
+
+- どちらもリポジトリに同梱（git 管理下）のため、環境によらず同じパスで参照できる。
 - **利用者が別の pptx を指定した場合（`--template <path>`、パスの提示、「このテンプレートで」等）は、
   その指定が優先し既定テンプレートは無視する**。指定されたテンプレートのテーマ・マスターで変換する。
 - 既定のファイルが存在しない環境では、その旨を伝えてパスを尋ねる（別の pptx を推測で探さない）。
+- 一覧・エイリアスの正本は [`_shared/pptx-templates/README.md`](../_shared/pptx-templates/README.md)。
 
-入力が不足している場合は最大 2 問だけ質問する（用途、出力形式）。**テーマは尋ねない**（指定が無ければ既定の EightHundred を使う）。用途の質問で「pptx にも展開する」旨が示された場合は PPTX 変換セーフモードをオンにする。
+入力が不足している場合は最大 2 問だけ質問する（用途、出力形式）。**テーマは尋ねない**（指定が無ければ既定の RONNABYTE を使う）。用途の質問で「pptx にも展開する」旨が示された場合は PPTX 変換セーフモードをオンにする。
 
 生成後に共有 URL 公開まで行いたい指示（「公開して」「URL を発行して」「Cloudflare に上げて」等）があった場合は、本スキルで HTML を生成・目視確認したうえで、出力パスを `html-publish` スキルに渡す。
 
@@ -156,7 +168,7 @@ ${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/テンプレート.pptx
    - > 根拠：実験4で、スケルトンHTMLを読まずに構成MDのパターン指定＋図版指示だけで組んでも品質差は僅差で入力トークンは約半減だったため、必須参照から任意採寸に格下げした
    - 各章の内容に最適なコンポーネントを `references/components.md` の 29 種（基本 21 種＋拡張 4 種＋Slide Deck 統一シャシ 4 種）から選ぶ
    - **拡張コンポーネント（22〜25：Eyebrow Bar / Hero Number / Takeaway Strip / Annotation Pointer）**：Slide Deck format × Mono テーマで最も映えるが、他のテーマや Vertical Document でも使ってよい
-   - **統一シャシ 4 種（#26 Filled-Header Card / #27 Value Bar / #29 Pill Tag / #30 Expansion Pills。#28 Icon Chip は廃止）**：**Slide Deck 全 6 テーマ共通**（`--accent` に自動追従）。参照デザイン（AI Biz Ops Partner / VisasQ figures）踏襲時の主役コンポーネント。Vertical Document には適用しない。**#26 Filled-Header Card はカード内カード構造のため、図版の見せ場（ベースライン規範 例外①）としてのみ主役に使う**（components.md #26 のルール参照）
+   - **統一シャシ 4 種（#26 Filled-Header Card / #27 Value Bar / #29 Pill Tag / #30 Expansion Pills。#28 Icon Chip は廃止）**：**Slide Deck 全 7 テーマ共通**（`--accent` に自動追従）。参照デザイン（AI Biz Ops Partner / VisasQ figures）踏襲時の主役コンポーネント。Vertical Document には適用しない。**#26 Filled-Header Card はカード内カード構造のため、図版の見せ場（ベースライン規範 例外①）としてのみ主役に使う**（components.md #26 のルール参照）
    - **構造化図解の積極利用**：章内容が図解向きならまず `references/diagram-components.md` の 8 種（概念フロー・2x2 マトリクス・ピラミッド・ファネル・サイクル・ベン図・組織図・レイヤー積層図）を検討する。テキスト＋表だけで埋めない
    - **作り込み図版（Slide Deck format・リッチ判定で既定）**：Slide Deck では、①ノードが属性を 2 つ以上持つ（名称＋役割＋正本/状態 等）②辺・受け渡しに意味のあるラベルが付く ③レーン・時間軸・2 軸など次元が 2 つ以上 ④ 1 要素だけを強調するヒーロー対比 — のいずれかに当てはまるメッセージは、**固定 8 図解で形式上表現できても作り込み図版を既定**とする（判定の詳細は `references/diagram-components.md`「図解の 3 層」）。組み方は diagram-components.md 後半のレイアウト原則（**構造型で選ぶ**：並置・ステップ・マトリクス等は flow、関係図・アーキ・ハブ&スポーク・レーン跨ぎ曲線は absolute＋SVG 第一候補。image-generator-guide 踏襲）／作図文法に従い、**出来の良い既存図版があれば exemplar として参照する**（同「exemplar 方式」。型に当てはめて情報を落とさない）。配色は `--fig-accent` 由来 + `--good`/`--warn` に限定（テーマ追従・**多色禁止は維持**）。固定 8 図解は単一関係・単一次元の概念図に限って使う。**Slide Deck format では、固定 8 図解か作り込み図版かに関わらず、すべての構造化図版を step 9.5 で専用ワーカー `slide-figure-creator` に委譲する**（リッチ判定はここでは図のレイヤーを決める設計ガイドであって、委譲するか否かのゲートではない。レイヤーの最終判断はワーカーが 3 層ルールで行う）
    - **図解密度ガイド**（議事メモ・通達・短文の速報系を除く全ドキュメントに適用）：
@@ -168,8 +180,8 @@ ${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/テンプレート.pptx
    - Markdown パターンから自動で割り当てる場合は `references/components.md` 末尾の付録「Markdown → HTML マッピング」を参照（章内容が図解向きと判定されたら原則として図解に置換する）
 
 6. **テーマ選択**
-   - **既定はすべて EightHundred**（Vertical Document / Slide Deck format 共通。テーマ指定が無ければこれを使い、利用者に尋ねない）。**テンプレート（`assets/template-slides.html` / `assets/template.html`）は基底値（Mono）のまま出荷されている**ので、既定で作る場合も生成する HTML の `:root` に EightHundred の上書きブロックを足す（design-system.md「Theme 6」の `:root` 上書きブロックをそのまま貼る）。Slide Deck format では **`--font-jp` とフレームトークン 19 個（`--cover-*` / `--titlebar-*` / `--message-*` / `--footer-*`）が template-slides.html の `:root` に定義されていない**ため、**5 テーマ共通の既定値ブロック → EightHundred の上書きブロック の順で `:root` を 2 つ足す**（既定値を先に置かないと、上書きしていないトークンが無効値のままになり本文フォント・罫線・footer が壊れる。既定値の一覧は design-system.md「EightHundred のフレーム仕様」）。Slide Deck format は 6 テーマ共通の統一シャシ（構造色・カード装飾は不動）で、`--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）が palette 差分になる（Terracotta を選べば同じ Filled-Header Card がテラコッタ帯で描画され、Mono では薄グレー帯＋黒文字＋蛍光黄マーカーになる）。他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は色味を変えたい場合の任意の代替パレットで、**利用者が明示したときだけ**選ぶ。用途に応じた使い分けは規定しない。**EightHundred のみ `--font-jp` も切り替わり、本文・見出しフォントが Meiryo UI になる**（クライアントブランド固有テーマ。詳細は design-system.md「Theme 6」）。Mono へ戻す場合は accent 3 変数だけでなく構造色・帯・マーカーの既定も戻す
-   - **EightHundred は Slide Deck format のフレーム（Cover・title-bar・footer・ロゴ）も実クライアント PPTX に準拠する唯一のテーマ**：他 5 テーマは配色のみの差分だが、EightHundred は Cover の全面ダークグリーン化・title-bar の日本語アイブロウラベル・footer のコピーライト表記・砦ロゴマーク（`.eh-logo` / `.eh-logo-badge`）まで上書きする。トークン・マークアップ例は design-system.md「EightHundred のフレーム仕様」、スライド型ごとの差分は slide-deck.md の該当節（1. Cover / 4. Content）を参照。Vertical Document では対象外（配色とフォントのみ反映）。**PPTX 変換セーフモードがオンのときはロゴバッジ（`.eh-logo-badge` / `.eh-logo`）を置かない**（テンプレート pptx のマスターが正規ロゴを持つため二重描画になる。`references/pptx-safe.md` §10）
+   - **既定はすべて RONNABYTE**（Vertical Document / Slide Deck format 共通。テーマ指定が無ければこれを使い、利用者に尋ねない）。**テンプレート（`assets/template-slides.html` / `assets/template.html`）は基底値（Mono）のまま出荷されている**ので、既定で作る場合も生成する HTML の `:root` に RONNABYTE の上書きブロックを足す（design-system.md「Theme 7」の `:root` 上書きブロックをそのまま貼る）。Slide Deck format では **`--font-jp` とフレームトークン 20 個（`--cover-*` / `--titlebar-*` / `--message-*` / `--footer-*`）が template-slides.html の `:root` にほぼ定義されていない**ため、**5 テーマ共通の既定値ブロック → RONNABYTE（または EightHundred）の上書きブロック の順で `:root` を 2 つ足す**（既定値を先に置かないと、上書きしていないトークンが無効値のままになり本文フォント・罫線・footer が壊れる。既定値の一覧は design-system.md「フレーム用トークンの既定値」）。Slide Deck format は 7 テーマ共通の統一シャシ（構造色・カード装飾は不動）で、`--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋帯・マーカー 3 トークン（`--band-bg` / `--band-ink` / `--marker-bg`）が palette 差分になる（Terracotta を選べば同じ Filled-Header Card がテラコッタ帯で描画され、Mono では薄グレー帯＋黒文字＋蛍光黄マーカーになる）。他 6 テーマ（Mono / Terracotta / Navy / Forest / Charcoal / EightHundred）は**利用者が明示したときだけ**選ぶ。用途に応じた使い分けは規定しない。**RONNABYTE と EightHundred は `--font-jp` も切り替わり、本文・見出しフォントが Meiryo UI になる**（いずれもクライアントブランド固有テーマ。詳細は design-system.md「Theme 7」「Theme 6」。EightHundred は統合前の社名・ブランドで出す資料に使う）。Mono へ戻す場合は accent 3 変数だけでなく構造色・帯・マーカーの既定も戻す
+   - **RONNABYTE と EightHundred は Slide Deck format のフレーム（Cover・title-bar・footer・ロゴ）も実クライアント PPTX に準拠するテーマ**：他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は配色のみの差分だが、EightHundred は Cover の全面ダークグリーン化・title-bar の日本語アイブロウラベル・footer のコピーライト表記・砦ロゴマーク（`.eh-logo` / `.eh-logo-badge`）まで、RONNABYTE は Cover の濃紺グラデーション・罫線なしの太字見出し・footer の `© 2026 RONNABYTE Inc.`＋CONFIDENTIAL バッジ・ピンホイールロゴ（`.rb-logo`）まで上書きする。トークン・マークアップ例は design-system.md「RONNABYTE のフレーム仕様」「EightHundred のフレーム仕様」、スライド型ごとの差分は slide-deck.md の該当節（1. Cover / 4. Content）を参照。Vertical Document では対象外（配色とフォントのみ反映）。**PPTX 変換セーフモードがオンのときはロゴ（`.eh-logo-badge` / `.eh-logo` / `.rb-logo`）を置かない**（テンプレート pptx のマスターが正規ロゴを持つため二重描画になる。`references/pptx-safe.md` §10）
    - 1 ドキュメント 1 テーマ
 
 7. **テンプレート複製**
@@ -195,7 +207,7 @@ ${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/テンプレート.pptx
     Slide Deck format の**すべての構造化図版**（固定 8 図解～作り込み図版まで、リッチ判定に関わらず）は、**必ず 1 図 1 体の専用ワーカー `slide-figure-creator`（agent）に委譲する**（例外は下記 1 つのみ）。デッキ全体を組みながら親が片手間に直組みすると、1 図あたりの注意が希釈され、図が縦領域を使い切れず（上 1/3 に縮こまり下半分が空白）品質が明確に落ちる（実測。図単位の設計・クロップ検証・反復を委譲で担保する）。図のレイヤー（固定 8 図解／レイアウトパターン／作り込み図版）はワーカーが 3 層ルールで判断する。
 
     - (a) **委譲対象の確定**：step 5 で選定した全構造化図版（固定 8 図解を含む）を列挙し、`fig-NN` を**親が事前採番**する（SVG marker id `figNN-ah` の一意性も担保。単純な固定 8 図解にも採番する）
-    - (b) **ハーネス生成（1 回）**：`assets/template-slides.html` の `<style>` **全体をそのまま用いる**（`:root` 全トークン＋`.fig-wrap`/`.fig-canvas`（`--fa-*` ランプ含む）＋**固定 8 図解・レイアウトパターン・コンポーネントの CSS** を含む。確定テーマで `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋非 Mono なら帯・マーカー 3 トークン（`--band-bg:var(--accent); --band-ink:#fff; --marker-bg:var(--accent-bg);`）を上書き（EightHundred のみ `--font-jp` とフレームトークンも上書き。**既定の EightHundred でもテンプレートの `:root` は基底値のままなので、デッキ本体と同じ上書きブロックをハーネスにも入れる**）。Slide Deck は 6 テーマ共通の統一シャシなので、それ以外の変数の差し替えは不要）＋Google Fonts link＋Content スライド枠（title-bar＋message＋図版スロット）を含む単一スライド HTML を `/tmp/slide-figs-<id>/harness.html` に書く。**8 図解 CSS を含めることで、単純な固定 8 図解を割り当てられたワーカーもハーネス内で検証できる**（全図版委譲の前提）。Content スライド枠の `<section>` には **`fig-slide` クラスを付ける**（図が縦領域を使い切れているかをワーカーが正しく検証できる）。**ハーネスの body は `padding:0`** にする（padding があると 1280px の `.slide` が viewport からはみ出し、`overflow:hidden` が図版の両端を切る「偽クリップ」が出る。検証済みの落とし穴）。**テンプレ等から既存の `<style>…</style>` を流用する場合、それをさらに `<style>` で再ラップしない**（二重 `<style>` は `:root` トークンブロックを丸ごと無効化し、図が無配色で崩れる。検証済みの落とし穴）
+    - (b) **ハーネス生成（1 回）**：`assets/template-slides.html` の `<style>` **全体をそのまま用いる**（`:root` 全トークン＋`.fig-wrap`/`.fig-canvas`（`--fa-*` ランプ含む）＋**固定 8 図解・レイアウトパターン・コンポーネントの CSS** を含む。確定テーマで `--accent` / `--accent-soft` / `--accent-bg` の 3 変数＋非 Mono なら帯・マーカー 3 トークン（`--band-bg:var(--accent); --band-ink:#fff; --marker-bg:var(--accent-bg);`）を上書き（RONNABYTE / EightHundred は `--font-jp` とフレームトークンも上書き。**既定の RONNABYTE でもテンプレートの `:root` は基底値のままなので、デッキ本体と同じ上書きブロックをハーネスにも入れる**）。Slide Deck は 7 テーマ共通の統一シャシなので、それ以外の変数の差し替えは不要）＋Google Fonts link＋Content スライド枠（title-bar＋message＋図版スロット）を含む単一スライド HTML を `/tmp/slide-figs-<id>/harness.html` に書く。**8 図解 CSS を含めることで、単純な固定 8 図解を割り当てられたワーカーもハーネス内で検証できる**（全図版委譲の前提）。Content スライド枠の `<section>` には **`fig-slide` クラスを付ける**（図が縦領域を使い切れているかをワーカーが正しく検証できる）。**ハーネスの body は `padding:0`** にする（padding があると 1280px の `.slide` が viewport からはみ出し、`overflow:hidden` が図版の両端を切る「偽クリップ」が出る。検証済みの落とし穴）。**テンプレ等から既存の `<style>…</style>` を流用する場合、それをさらに `<style>` で再ラップしない**（二重 `<style>` は `:root` トークンブロックを丸ごと無効化し、図が無配色で崩れる。検証済みの落とし穴）
     - (c) **ブリーフ書き出し**：図ごとに `/tmp/slide-figs-<id>/fig-NN/brief.json` を保存（フィールドは `agents/slide-figure-creator.md` の入力仕様：figId / slideTitle / slideMessage / figureContent（MD から忠実転記）/ structureType / richTrigger（該当条件。単純な図で該当なしなら `none` を渡す＝ワーカーは固定 8 図解レイヤーを想定）/ layoutHint / themeName / accentValue / harnessPath / **diagramComponentsPath（絶対パス必須）** / screenshotScriptPath / fragmentOutPath / cropPngPath / workDir（図ごと分離）/ exemplarPaths（あれば））
     - (d) **並列起動**：1 メッセージで N 体の `slide-figure-creator` を同時に起動する
     - (e) **回収と統合**：各ワーカーの fragmentPath の内容を**丸ごと**対応スライドの図版スロットに貼る（フラグメントは `.fig-NN` スコープの `<style>`＋`.fig-wrap` の自己完結形式）。貼り先スライドの `<section class="slide">` には **`fig-slide` クラスを付ける**（縦中央・高さ充填。slide-deck.md「図版スライドは fig-slide で縦領域を使い切る」）。直組みで使っていた**旧 per-figure `.fig-NN` CSS は head から削除**しフラグメントに一本化する（プロパティ混線・class/SVG marker id 衝突の防止）。`effectiveHeight` が図版領域（≈440px）を大きく超える図は step 11 で重点確認する
@@ -300,8 +312,8 @@ ${CLAUDE_PLUGIN_ROOT}/skills/_shared/pptx-templates/テンプレート.pptx
 
 - **`<link rel="stylesheet">` は原則禁止**。**ただし Google Fonts（`fonts.googleapis.com`）に限り例外で許可**（Noto Sans JP / JetBrains Mono の読み込みのため）
 - `<script src="https://...">` は font 系（fonts.googleapis.com）以外禁止
-- `font-family` は **`var(--font-jp)`（本文・見出しすべて）／ JetBrains Mono（数値・章番号・コード・ID）**。Noto Serif JP 等の追加フォントは使わない。`--font-jp` は**既定テーマ EightHundred で Meiryo UI**、他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は Noto Sans JP（design-system.md「Theme 6: EightHundred」参照。Google Fonts 追加読み込みは不要）
-- 背景は **Vertical Document 非 Mono = `#fafaf6`（紙質クリーム） / Vertical Document Mono と Slide Deck 全テーマ = `#ffffff`（純白）**。上記以外で純白を使わない（パネル要素のみ可）
+- `font-family` は **`var(--font-jp)`（本文・見出しすべて）／ JetBrains Mono（数値・章番号・コード・ID）**。Noto Serif JP 等の追加フォントは使わない。`--font-jp` は**既定テーマ RONNABYTE と EightHundred で Meiryo UI**、他 5 テーマ（Mono / Terracotta / Navy / Forest / Charcoal）は Noto Sans JP（design-system.md「Theme 7: RONNABYTE」「Theme 6: EightHundred」参照。Google Fonts 追加読み込みは不要）
+- 背景は **Vertical Document 非 Mono = `#fafaf6`（紙質クリーム） / Vertical Document Mono と Slide Deck 全 7 テーマ = `#ffffff`（純白）**。上記以外で純白を使わない（パネル要素のみ可）
 - 本文色は **Vertical Document 非 Mono = `#1a1c20`（チャコール） / Vertical Document Mono と Slide Deck 全テーマ = `#1a1a1a`（純黒に近い）**。純黒 `#000000` は使わない
 - アクセントは 1 色のみ。区別は罫線・配置・ラベルで行う
 - `@media print` を必ず定義する（sticky 解除、page-break-inside avoid）
@@ -355,7 +367,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 - **キャンバスは 1280×720 px 固定**（HD 16:9）。テーマや内容によらず変えない
 - **1 スライド 1 メッセージを厳守**する。1280×720 に対して情報量を詰めすぎない（メッセージは 17px、本文リストは 14.5px 目安）
 - 縦長スクロールを意図したコンポーネント（Roadmap 詳細を 12 行、Flow with Margin 全体など）は **複数スライドに分割**する
-- スライド外背景（ビューポート余白）は **6 テーマ共通で `#e5e5e5` 薄グレー**（統一シャシではスライド内が純白のため、暗地との過剰コントラストを避ける）
+- スライド外背景（ビューポート余白）は **7 テーマ共通で `#e5e5e5` 薄グレー**（統一シャシではスライド内が純白のため、暗地との過剰コントラストを避ける）
 - 印刷時に「1 スライド = 1 ページ」が崩れないこと（`@page size: 1280px 720px` と `page-break-after: always` を維持）
 - プレゼンチャーム（カウンタ・操作ヒント・トグル・サムネイル）は印刷時に必ず `display: none`
 - サムネイルパネルはスライドを `cloneNode(true)` で生成するため、`id` 属性の重複が発生しないよう **クローン時に `id` を全削除**する
@@ -383,7 +395,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 
 ### Slide Deck format のテーマ選定ガイド
 
-テーマの既定・切替方式は step 6 のとおり（**EightHundred 既定**・accent 3 変数＋帯・マーカー 3 トークンの palette 差分。EightHundred はさらに `--font-jp` とフレームトークンを上書きする）。accent 値：Mono `#1a1a1a`／Terracotta `#9d3617`／Navy `#1e3a5f`／Forest `#2a4f3a`／Charcoal `#2d2d33`。Mono は帯・マーカーの既定が他と異なる：構造帯（thead・phase-header・value-bar 等）は薄グレー `#e4e4e4`＋黒文字、語句強調は `<mark>`（蛍光黄 `#ffff00`、1 スライド 1〜2 箇所まで）、黒塗りは強強調（takeaway-strip 等）のみ。非 Mono 4 テーマは `--band-bg:var(--accent); --band-ink:#fff; --marker-bg:var(--accent-bg);`（slide-deck.md「テーマ切替」）。
+テーマの既定・切替方式は step 6 のとおり（**RONNABYTE 既定**・accent 3 変数＋帯・マーカー 3 トークンの palette 差分。RONNABYTE と EightHundred はさらに `--font-jp` とフレームトークンを上書きする）。accent 値：Mono `#1a1a1a`／Terracotta `#9d3617`／Navy `#1e3a5f`／Forest `#2a4f3a`／Charcoal `#2d2d33`／EightHundred `#1B3928`／RONNABYTE `#005486`。Mono は帯・マーカーの既定が他と異なる：構造帯（thead・phase-header・value-bar 等）は薄グレー `#e4e4e4`＋黒文字、語句強調は `<mark>`（蛍光黄 `#ffff00`、1 スライド 1〜2 箇所まで）、黒塗りは強強調（takeaway-strip 等）のみ。非 Mono 4 テーマは `--band-bg:var(--accent); --band-ink:#fff; --marker-bg:var(--accent-bg);`（slide-deck.md「テーマ切替」）。
 
 **Mono テーマと拡張コンポーネント（22〜25）の組み合わせ**：
 
@@ -410,7 +422,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 
 - **章が多すぎて TOC が 3 列になりそう**：12 章を超えるなら、関連章を統合するか、第 2 目次（章内目次）を検討
 - **コンポーネントが足りない**：components.md にない要素は既存 29 種の組み合わせで実現。新規 CSS は追加しない
-- **色をもっと使いたい**：禁止。代わりに 6 テーマ（Terracotta / Navy / Forest / Charcoal / Mono / EightHundred）の切り替えを検討
+- **色をもっと使いたい**：禁止。代わりに 7 テーマ（Terracotta / Navy / Forest / Charcoal / Mono / EightHundred / RONNABYTE）の切り替えを検討
 - **派手にしてほしいと言われた**：本スキルは業務文書スタイル。マガジン風・装飾デザインは別アプローチで対応する
 - **議事メモのような短い文書**：TOC も省略し、Cover→2〜4 章→Footer のシンプル構成にする（まとめ節は Vertical Document では既定で置かない）
 - **図解が単調な「箱の列」になる／元資料のようなリッチな図にしたい**：リッチ判定（diagram-components.md「図解の 3 層」）を確認し、作り込み図版（レイアウトパターン＋exemplar 方式）で組み直す
@@ -430,7 +442,7 @@ Slide Deck format のボディ（タイトル行・メッセージ行より下�
 
 詳細は以下を参照:
 - `references/document-recipes.md` — Content Recipe A〜F（6 種の章構成）と Output Format（Vertical / Slide Deck）の判定フロー
-- `references/design-system.md` — 配色・タイポ・6 テーマ（Terracotta / Navy / Forest / Charcoal / Mono / EightHundred）・印刷対応。EightHundred のみ Cover/title-bar/footer/ロゴのフレーム仕様も含む
+- `references/design-system.md` — 配色・タイポ・7 テーマ（RONNABYTE（既定） / EightHundred / Terracotta / Navy / Forest / Charcoal / Mono）・印刷対応。RONNABYTE / EightHundred は Cover/title-bar/footer/ロゴのフレーム仕様も含む
 - `references/components.md` — 29 種のコンポーネント仕様（基本 21 種＋拡張 4 種＋Slide Deck 統一シャシ 4 種）＋付録「Markdown → HTML マッピング」
 - `references/diagram-components.md` — 図解の統合リファレンス（固定 8 図解＋リッチ判定＋レイアウトパターン 5 種＋作り込み図版 `.fig-NN`。exemplar 方式・濃淡ランプ・トークン化注意を含む）。**図版委譲時はワーカーにこのファイルの絶対パスを渡す**（agent にはスキル参照ファイルが自動プリロードされないため）
 - `references/slide-deck.md` — Slide Deck format 専用。スライドシェル仕様・5 種スライド型・プレゼンチャーム CSS/JS 完成形
